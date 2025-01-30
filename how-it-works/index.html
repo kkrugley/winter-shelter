@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Starter Template · Bootstrap v5.3</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var(--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+      }
+
+    </style>
+
+    
+  </head>
+  <body>
+
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="arrow-right-circle" viewBox="0 0 16 16">
+    <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+  </symbol>
+  <symbol id="bootstrap" viewBox="0 0 118 94">
+    <title>Bootstrap</title>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z"></path>
+  </symbol>
+</svg>
+
+<div class="col-lg-8 mx-auto p-4 py-md-5">
+  <header class="pb-3 mb-4 border-bottom">
+    <a href="/" class="d-flex align-items-center text-body-emphasis text-decoration-none">
+      <svg height="40px" width="40px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-51.2 -51.2 614.40 614.40" xml:space="preserve" fill="#adadad" stroke="#adadad" stroke-width="23.04"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="82.944"> <style type="text/css"> .st0{fill:#ffffff;} </style> <g> <path class="st0" d="M205.116,153.078c31.534,11.546,69.397-12.726,84.58-54.209c15.174-41.484,1.915-84.462-29.614-96.001 c-31.541-11.53-69.4,12.735-84.582,54.218C160.325,98.57,173.584,141.548,205.116,153.078z"></path> <path class="st0" d="M85.296,219.239c32.987-2.86,56.678-40.344,52.929-83.75c-3.757-43.391-33.545-76.253-66.532-73.409 c-32.984,2.869-56.674,40.36-52.921,83.759C22.53,189.23,52.313,222.091,85.296,219.239z"></path> <path class="st0" d="M342.196,217.768c28.952,17.017,70.552-0.073,92.926-38.154c22.374-38.106,17.041-82.758-11.915-99.774 c-28.951-17.001-70.56,0.097-92.93,38.178C307.905,156.117,313.245,200.768,342.196,217.768z"></path> <path class="st0" d="M497.259,262.912c-18.771-27.271-63.07-29.379-98.954-4.694c-35.892,24.701-49.762,66.822-30.996,94.101 c18.766,27.27,63.069,29.38,98.954,4.686C502.143,332.312,516.021,290.191,497.259,262.912z"></path> <path class="st0" d="M304.511,268.059c-3.58-24.773-18.766-47.366-43.039-58.824c-24.268-11.45-51.365-8.807-72.758,4.169 c-23.646,14.35-38.772,33.096-59.138,41.29c-20.363,8.193-77.4-16.209-112.912,48.278c-25.081,45.548-2.057,103.128,44.962,125.315 c35.738,16.864,64.023,14.981,84.788,24.774c20.762,9.793,37.29,32.83,73.025,49.692c47.018,22.188,106.1,3.362,125.315-44.957 c27.206-68.407-27.897-96.922-34.522-117.85C303.613,319.021,308.47,295.426,304.511,268.059z"></path> </g> </g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:#ffffff;} </style> <g> <path class="st0" d="M205.116,153.078c31.534,11.546,69.397-12.726,84.58-54.209c15.174-41.484,1.915-84.462-29.614-96.001 c-31.541-11.53-69.4,12.735-84.582,54.218C160.325,98.57,173.584,141.548,205.116,153.078z"></path> <path class="st0" d="M85.296,219.239c32.987-2.86,56.678-40.344,52.929-83.75c-3.757-43.391-33.545-76.253-66.532-73.409 c-32.984,2.869-56.674,40.36-52.921,83.759C22.53,189.23,52.313,222.091,85.296,219.239z"></path> <path class="st0" d="M342.196,217.768c28.952,17.017,70.552-0.073,92.926-38.154c22.374-38.106,17.041-82.758-11.915-99.774 c-28.951-17.001-70.56,0.097-92.93,38.178C307.905,156.117,313.245,200.768,342.196,217.768z"></path> <path class="st0" d="M497.259,262.912c-18.771-27.271-63.07-29.379-98.954-4.694c-35.892,24.701-49.762,66.822-30.996,94.101 c18.766,27.27,63.069,29.38,98.954,4.686C502.143,332.312,516.021,290.191,497.259,262.912z"></path> <path class="st0" d="M304.511,268.059c-3.58-24.773-18.766-47.366-43.039-58.824c-24.268-11.45-51.365-8.807-72.758,4.169 c-23.646,14.35-38.772,33.096-59.138,41.29c-20.363,8.193-77.4-16.209-112.912,48.278c-25.081,45.548-2.057,103.128,44.962,125.315 c35.738,16.864,64.023,14.981,84.788,24.774c20.762,9.793,37.29,32.83,73.025,49.692c47.018,22.188,106.1,3.362,125.315-44.957 c27.206-68.407-27.897-96.922-34.522-117.85C303.613,319.021,308.47,295.426,304.511,268.059z"></path> </g> </g></svg>
+      <span class="fs-3">ТеплоДом</span>
+    </a>
+  </header>
+
+  <main>
+    <h1 class="text-body-emphasis">Get started with Bootstrap</h1>
+    <p class="fs-5 col-md-8">Quickly and easily get started with Bootstrap's compiled, production-ready files with this barebones example featuring some basic HTML and helpful links. Download all our examples to get started.</p>
+
+    <div class="mb-5">
+      <a href="../examples/" class="btn btn-primary btn-lg px-4">Download examples</a>
+    </div>
+
+    <hr class="col-3 col-md-2 mb-5">
+
+    <div class="row g-5">
+      <div class="col-md-6">
+        <h2 class="text-body-emphasis">Starter projects</h2>
+        <p>Ready to go beyond the starter template? Check out these open source projects that you can quickly duplicate to a new GitHub repository.</p>
+        <ul class="list-unstyled ps-0">
+          <li>
+            <a class="icon-link mb-1" href="https://github.com/twbs/examples/tree/main/icons-font" rel="noopener" target="_blank">
+              <svg class="bi" width="16" height="16"><use xlink:href="#arrow-right-circle"/></svg>
+              Bootstrap npm starter
+            </a>
+          </li>
+          <li>
+            <a class="icon-link mb-1" href="https://github.com/twbs/examples/tree/main/parcel" rel="noopener" target="_blank">
+              <svg class="bi" width="16" height="16"><use xlink:href="#arrow-right-circle"/></svg>
+              Bootstrap Parcel starter
+            </a>
+          </li>
+          <li>
+            <a class="icon-link mb-1" href="https://github.com/twbs/examples/tree/main/vite" rel="noopener" target="_blank">
+              <svg class="bi" width="16" height="16"><use xlink:href="#arrow-right-circle"/></svg>
+              Bootstrap Vite starter
+            </a>
+          </li>
+          <li>
+            <a class="icon-link mb-1" href="https://github.com/twbs/examples/tree/main/webpack" rel="noopener" target="_blank">
+              <svg class="bi" width="16" height="16"><use xlink:href="#arrow-right-circle"/></svg>
+              Bootstrap Webpack starter
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-6">
+        <h2 class="text-body-emphasis">Guides</h2>
+        <p>Read more detailed instructions and documentation on using or contributing to Bootstrap.</p>
+        <ul class="list-unstyled ps-0">
+          <li>
+            <a class="icon-link mb-1" href="../getting-started/introduction/">
+              <svg class="bi" width="16" height="16"><use xlink:href="#arrow-right-circle"/></svg>
+              Bootstrap quick start guide
+            </a>
+          </li>
+          <li>
+            <a class="icon-link mb-1" href="../getting-started/webpack/">
+              <svg class="bi" width="16" height="16"><use xlink:href="#arrow-right-circle"/></svg>
+              Bootstrap Webpack guide
+            </a>
+          </li>
+          <li>
+            <a class="icon-link mb-1" href="../getting-started/parcel/">
+              <svg class="bi" width="16" height="16"><use xlink:href="#arrow-right-circle"/></svg>
+              Bootstrap Parcel guide
+            </a>
+          </li>
+          <li>
+            <a class="icon-link mb-1" href="../getting-started/vite/">
+              <svg class="bi" width="16" height="16"><use xlink:href="#arrow-right-circle"/></svg>
+              Bootstrap Vite guide
+            </a>
+          </li>
+          <li>
+            <a class="icon-link mb-1" href="../getting-started/contribute/">
+              <svg class="bi" width="16" height="16"><use xlink:href="#arrow-right-circle"/></svg>
+              Contributing to Bootstrap
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer class="pt-3 mt-4 text-body-secondary border-top">
+    &copy; 2024 - <span id="current-year"></span>
+  </footer>
+  
+  <script>
+    // Получаем текущий год
+    const currentYear = new Date().getFullYear();
+    // Вставляем текущий год в элемент с id "current-year"
+    document.getElementById('current-year').textContent = currentYear;
+  </script>
+  
+</div>
+<script src="../js/bootstrap.bundle.min.js"></script>
+<script src="../js/color-modes.js"></script>
+
+    </body>
+</html>
