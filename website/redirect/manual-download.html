@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Скачивание файла</title>
+    <script>
+        // URL актуального файла (меняйте только это значение)
+        const FILE_URL = 'https://github.com/kkrugley/winter-shelter/releases/download/v0.1-mvp/Winter-Shelter.Manual.pdf';
+        let closeTimer;
+        let countdownInterval;
+        let secondsLeft = 2; // Начальное значение отсчета
+
+        function startDownload() {
+            try {
+                const link = document.createElement('a');
+                link.href = FILE_URL;
+                link.download = true;
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+
+                // Запускаем обратный отсчет
+                countdownInterval = setInterval(() => {
+                    secondsLeft--;
+                    document.getElementById('countdown').textContent = secondsLeft;
+                    
+                    if(secondsLeft <= 0) {
+                        clearInterval(countdownInterval);
+                    }
+                }, 1000);
+
+                closeTimer = setTimeout(() => {
+                    window.close();
+                }, 2000);
+
+            } catch(e) {
+                document.getElementById('message').innerHTML = 
+                    '<p>Ошибка загрузки. Закройте вкладку вручную.</p>';
+                clearTimeout(closeTimer);
+                clearInterval(countdownInterval);
+            }
+        }
+        
+        window.onbeforeunload = function() {
+            window.opener.focus();
+        };
+    </script>
+</head>
+<body onload="startDownload()" style="background: #f8f9fa; text-align: center; padding: 2rem;">
+    <div id="message">
+        <h3 style="color: #0d6efd;">Идет загрузка файла...</h3>
+        <p>Если загрузка не началась автоматически:</p>
+        <a href="#" onclick="startDownload()" style="color: #0d6efd;">Нажмите здесь</a>
+        <p style="margin-top: 2rem; font-size: 0.9em; color: #6c757d;">
+          [Вкладка закроется автоматически через <span id="countdown">2</span> секунды]
+        </p>
+    </div>
+</body>
+</html>
