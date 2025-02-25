@@ -72,7 +72,7 @@
   }
 
   .banner-section {
-    background-image: url('../images/og-preview.jpg'); /* Замените на путь к вашему изображению */
+    background-image: url('../images/wide-banner.jpg'); /* Замените на путь к вашему изображению */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
