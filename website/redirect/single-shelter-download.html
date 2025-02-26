@@ -1,59 +1,108 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <title>Скачивание файла</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title data-lang-key="download-title">Скачивание файла</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../redirect/styles.css">
+
     <script>
-        // URL актуального файла (меняйте только это значение)
-        const FILE_URL = 'https://github.com/kkrugley/winter-shelter/releases/download/v0.1-mvp/DXF.7z';
         let closeTimer;
         let countdownInterval;
-        let secondsLeft = 2; // Начальное значение отсчета
+        let secondsLeft = 3;
+
+        function updateTimerText() {
+            const timerElement = document.querySelector('[data-lang-key="download-timer-text"]');
+            if (timerElement) {
+                const text = translations[document.documentElement.lang]['download-timer-text'];
+                timerElement.textContent = text.replace('{seconds}', secondsLeft);
+            }
+        }
 
         function startDownload() {
             try {
                 const link = document.createElement('a');
-                link.href = FILE_URL;
+                link.href = 'https://github.com/kkrugley/winter-shelter/releases/download/v0.1-mvp/DXF.7z';
                 link.download = true;
-                link.style.display = 'none';
                 document.body.appendChild(link);
                 link.click();
-
-                // Запускаем обратный отсчет
+                
+                document.getElementById('progressBar').style.display = 'block';
+                
                 countdownInterval = setInterval(() => {
                     secondsLeft--;
-                    document.getElementById('countdown').textContent = secondsLeft;
+                    updateTimerText();
+                    
+                    // Обновление прогресс-бара
+                    const progressValue = ((3 - secondsLeft) / 3) * 100;
+                    document.getElementById('progressBar').style.width = progressValue + '%';
                     
                     if(secondsLeft <= 0) {
                         clearInterval(countdownInterval);
+                        document.getElementById('autoClose').style.display = 'none';
+                        document.getElementById('completed').style.display = 'block';
                     }
                 }, 1000);
-
-                closeTimer = setTimeout(() => {
-                    window.close();
-                }, 2000);
-
+                
+                closeTimer = setTimeout(() => window.close(), 5000);
             } catch(e) {
-                document.getElementById('message').innerHTML = 
-                    '<p>Ошибка загрузки. Закройте вкладку вручную.</p>';
+                const errorText = translations[document.documentElement.lang]['download-error'];
+                document.getElementById('message').innerHTML = `
+                    <div class="alert alert-danger" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>${errorText}
+                    </div>`;
                 clearTimeout(closeTimer);
                 clearInterval(countdownInterval);
             }
         }
-        
-        window.onbeforeunload = function() {
-            window.opener.focus();
-        };
+
+        window.onbeforeunload = () => window.opener?.focus();
     </script>
 </head>
-<body onload="startDownload()" style="background: #f8f9fa; text-align: center; padding: 2rem;">
-    <div id="message">
-        <h3 style="color: #0d6efd;">Идет загрузка файла...</h3>
-        <p>Если загрузка не началась автоматически:</p>
-        <a href="#" onclick="startDownload()" style="color: #0d6efd;">Нажмите здесь</a>
-        <p style="margin-top: 2rem; font-size: 0.9em; color: #6c757d;">
-          [Вкладка закроется автоматически через <span id="countdown">2</span> секунды]
-        </p>
+<body onload="startDownload()">
+    <div class="container d-flex align-items-center justify-content-center">
+        <div class="card download-card" id="message">
+            <div class="card-header text-white text-center py-3">
+                <h3 class="mb-0" data-lang-key="download-in-progress">
+                    <i class="bi bi-cloud-download me-2"></i>Скачивание файла
+                </h3>
+            </div>
+            <div class="card-body p-4 text-center">
+                <p class="lead mb-4" data-lang-key="download-prompt">Ваш файл начнет скачиваться автоматически</p>
+                
+                <div class="progress mb-4" style="height: 10px;">
+                    <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-primary" 
+                         role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                
+                <button onclick="startDownload()" class="btn btn-outline-primary mb-3">
+                    <i class="bi bi-arrow-repeat me-1"></i>
+                    <span data-lang-key="download-retry-link">Скачать снова</span>
+                </button>
+                
+                <div id="autoClose" class="timer-text mt-3">
+                    <i class="bi bi-clock me-1"></i>
+                    <span data-lang-key="download-timer-text">Окно закроется через {seconds} секунды</span>
+                </div>
+                
+                <div id="completed" class="text-success mt-3" style="display: none;">
+                    <i class="bi bi-check-circle me-1"></i>
+                    <span data-lang-key="download-success">Скачивание завершено</span>
+                </div>
+            </div>
+            <div class="card-footer text-center py-2">
+                <div class="dropdown">
+                    <i><span data-lang-key="goodluck-label"></span></i>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../redirect/translations.js"></script>
+    <script src="../js/language-switcher.js"></script>
 </body>
 </html>
