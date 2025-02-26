@@ -1,0 +1,60 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #212529;
+    color: #e9ecef;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+.download-card {
+    max-width: 500px;
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.5);
+    background-color: #343a40;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-header {
+    border-radius: 1rem 1rem 0 0 !important;
+    background-color: #0d6efd;
+    border-bottom: none;
+}
+
+.card-footer {
+    border-radius: 0 0 1rem 1rem !important;
+    background-color: #2b3035;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.timer-text {
+    font-size: 0.9rem;
+    color: #adb5bd;
+}
+
+.btn-outline-primary {
+    border-color: #0d6efd;
+    color: #0d6efd;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.progress {
+    background-color: #2b3035;
+}
+
+@media (max-width: 576px) {
+    .download-card {
+        max-width: 100%;
+    }
+}
