@@ -27,12 +27,12 @@ const translations = {
         "tooltip": "Пока недоступно!"
      },
     en: { 
-        "page-title": "Details | WarmHome",
+        "page-title": "Details | CozyShelter",
         "meta-description": "Craft an outdoor shelter for homeless cats in just 1 day! Download free laser-cut plans, detailed instructions, and tips for protection against snow, rain, and wind. Help homeless animals — create a cozy refuge!",
         "meta-keywords": "DIY cat house, laser cutting plans, protecting homeless cats, outdoor animal shelter, free DXF files, how to make a cat house, cat kennel, helping homeless cats, DIY shelter for homeless cats, cat house DXF plans, insulated outdoor cat house, assembling a plywood cat house 6mm, waterproof shelter for street cats, free download cat house CNC plans, how to assemble a house without nails in 1 day, cat house with G-shaped vestibule, safe materials for cat houses, how to insulate an outdoor cat house, sealant in DIY projects, double-walled house for insulation, silicone sealant for bowl attachment, insulated housing for homeless animals.",
-        "og-title": "WarmHome: Free Plans for Animal Shelters",
+        "og-title": "CozyShelter: Free Plans for Animal Shelters",
         "og-description": "Build an outdoor shelter for homeless cats in just 1 day! Download free laser-cut plans. An insulated house with protection from snow, rain, and cold — care that anyone can provide!",
-        "site-name": "WarmHome",
+        "site-name": "CozyShelter",
         "main-title": "Let's create warmth together!",
         "main-description": "Download the blueprints — and today several furry friends will be able to sleep warm!🌟",
         "download-button": "Download Blueprints",
