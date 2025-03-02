@@ -1,54 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
-
-<url>
-  <loc>https://winter-shelter.vercel.app/</loc>
-  <lastmod>2025-03-02T21:32:09+00:00</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://winter-shelter.vercel.app/download/</loc>
-  <lastmod>2025-03-02T21:32:10+00:00</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://winter-shelter.vercel.app/learn-more/</loc>
-  <lastmod>2025-03-02T21:32:10+00:00</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://winter-shelter.vercel.app/about/</loc>
-  <lastmod>2025-03-02T21:32:10+00:00</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://winter-shelter.vercel.app/redirect/single-shelter-download.html</loc>
-  <lastmod>2025-03-02T21:32:10+00:00</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>https://winter-shelter.vercel.app/redirect/family-shelter-download.html</loc>
-  <lastmod>2025-03-02T21:32:10+00:00</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>https://winter-shelter.vercel.app/redirect/manual-download.html</loc>
-  <lastmod>2025-03-02T21:32:10+00:00</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.5</priority>
-</url>
-
-
+	<url>
+		<loc>https://winter-shelter.vercel.app/</loc>
+		<lastmod>2025-03-02T21:32:09+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://winter-shelter.vercel.app/download/</loc>
+		<lastmod>2025-03-02T21:32:10+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://winter-shelter.vercel.app/learn-more/</loc>
+		<lastmod>2025-03-02T21:32:10+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://winter-shelter.vercel.app/about/</loc>
+		<lastmod>2025-03-02T21:32:10+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://winter-shelter.vercel.app/redirect/single-shelter-download.html</loc>
+		<lastmod>2025-03-02T21:32:10+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://winter-shelter.vercel.app/redirect/family-shelter-download.html</loc>
+		<lastmod>2025-03-02T21:32:10+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://winter-shelter.vercel.app/redirect/manual-download.html</loc>
+		<lastmod>2025-03-02T21:32:10+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.5</priority>
+	</url>
 </urlset>
