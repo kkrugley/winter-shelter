@@ -53,12 +53,12 @@ const translations = {
         "feature4-description": "Скачивайте, улучшайте, делитесь — добрые дела должны быть доступны!"
       },
       en: {
-        "page-title": "Features and Details | WarmHome",
+        "page-title": "Features and Details | CozyShelter",
         "meta-description": "Craft an outdoor shelter for homeless cats in just 1 day! Download free laser-cut plans, detailed instructions, and tips for protection against snow, rain, and wind. Help homeless animals — create a cozy refuge!",
         "meta-keywords": "DIY cat house, laser cutting plans, protecting homeless cats, outdoor animal shelter, free DXF files, how to make a cat house, cat kennel, helping homeless cats, DIY shelter for homeless cats, cat house DXF plans, insulated outdoor cat house, assembling a plywood cat house 6mm, waterproof shelter for street cats, free download cat house CNC plans, how to assemble a house without nails in 1 day, cat house with G-shaped vestibule, safe materials for cat houses, how to insulate an outdoor cat house, sealant in DIY projects, double-walled house for insulation, silicone sealant for bowl attachment, insulated housing for homeless animals.",
-        "og-title": "WarmHome: Free Plans for Animal Shelters",
+        "og-title": "CozyShelter: Free Plans for Animal Shelters",
         "og-description": "Build an outdoor shelter for homeless cats in just 1 day! Download free laser-cut plans. An insulated house with protection from snow, rain, and cold — care that anyone can provide!",
-        "site-name": "WarmHome",
+        "site-name": "CozyShelter",
         "step1-title": "1. Download the blueprints",
         "step1-description": "→ Choose a model: 'Cozy' (1–2 cats) or 'Family' (4–5 cats).",
         "step1-zip": "→ Download the ZIP archive → inside: DXF drawings (for cutting) + PDF instructions.",

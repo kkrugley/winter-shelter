@@ -9,7 +9,7 @@
     <link rel="icon" type="image/svg+xml" href="../images/favicon/favicon.svg" />
     <link rel="shortcut icon" href="../images/favicon/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="../images/favicon/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Pet Shelter" />
+    <meta name="apple-mobile-web-app-title" content="CozyShelter" />
     <link rel="manifest" href="../images/favicon/site.webmanifest" />
     
     <meta name="description" content="Изготовьте уличный домик для бездомных кошек за 1 день! Скачайте бесплатные чертежи для лазерной резки, подробные инструкции и советы по защите от снега, дождя и ветра. Помогите бездомным животным — создайте уютное убежище!">
@@ -21,6 +21,7 @@
     <meta property="og:type" content="website">
     <link rel="stylesheet" href="../about/styles.css">
     <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-icons.css" rel="stylesheet">
     <link href="../css/jumbotrons.css" rel="stylesheet">
     <link href="../css/language-switcher.css" rel="stylesheet">
 
@@ -42,104 +43,144 @@
       </div>
 
     </header>
-  <div class="mb-5">
-    <p class="h1">О проекте</p>
-  </div>
-
+    <div class="mb-5">
+      <p class="h1">О проекте</p>
+    </div>
+    
     <div class="row" data-masonry='{"percentPosition": true }'>
+      <!-- Карточка 1: TON-адрес -->
       <div class="col-sm-6 col-lg-4 mb-4">
         <div class="card">
           <img src="../about/img/ton_qr.jpg">
           <div class="card-body">
-            <h5 class="card-title">TON-адрес для поддержки:</h5>
-            <p class="card-text">UQCZvkt3Wfi8JVM6x5cP2urabpwQ6mWDEEFwWUalVyKyzEQg</p>
+            <h5 class="card-title">Поддержать проект</h5>
+            <p class="card-text">
+              Каждый перевод помогает создавать новые домики для бездомных котов. 
+              <span class="d-block mt-2 text-muted small">TON-адрес:</span>
+              <code>UQCZvkt3Wfi8JVM6x5cP2urabpwQ6mWDEEFwWUalVyKyzEQg</code>
+            </p>
           </div>
         </div>
       </div>
+    
+      <!-- Карточка 2: Короткое имя TON -->
       <div class="col-sm-6 col-lg-4 mb-4">
         <div class="card p-3">
           <figure class="p-3 mb-0">
             <blockquote class="blockquote">
-              <p>Так же можно использовать короткое имя для переводов в сети TON</p>
+              <p>«Добро должно быть простым»</p>
             </blockquote>
             <figcaption class="blockquote-footer mb-0 text-body-secondary">
-              TON-адрес: <cite title="Source Title">industrial-design.ton</cite>
+              Для быстрых переводов: 
+              <cite title="Source Title" class="text-primary">industrial-design.ton</cite>
             </figcaption>
           </figure>
         </div>
       </div>
+    
+      <!-- Карточка 3: Об авторе -->
       <div class="col-sm-6 col-lg-4 mb-4">
         <div class="card">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#20c997"></rect></svg>
-          
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
+          <video autoplay muted loop><source src="../about/img/profile_video.mp4" type="video/mp4"></video>
+          <div class="card-body">
+            <h5 class="card-title">Привет, я Паша!👋</h5>
+            <p class="card-text">
+              Дизайнер, котопапа и автор проекта. 
+              Здесь я создаю то, что делает мир чуть лучше.
+            </p>
+            <a href="https://bento.me/kkrugley" target="_blank" class="btn btn-primary">Мои работы →</a>
           </div>
+        </div>
       </div>
+    
+      <!-- Карточка 4: Цитата -->
       <div class="col-sm-6 col-lg-4 mb-4">
         <div class="card text-bg-primary text-center p-3">
           <figure class="mb-0">
             <blockquote class="blockquote">
-              <p>Когда-нибудь, тут будет полезная и нужная информация, но сейчас имеем то, что имеем.</p>
+              <p>«Спасение одного кота не изменит мир, но мир изменится для этого кота»</p>
             </blockquote>
-            <figcaption class="blockquote-footer mb-0 text-white">
-              Предположительно <cite title="Source Title">Автор проекта</cite>
+            <figcaption class="blockquote-footer mb-0 text-white opacity-75">
+              Наш девиз
             </figcaption>
           </figure>
         </div>
       </div>
+    
+      <!-- Карточка 5: Статистика -->
       <div class="col-sm-6 col-lg-4 mb-4">
         <div class="card text-center">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This card has a regular title and short paragraph of text below it.</p>
-            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+            <h5 class="card-title">📊 Уже в работе</h5>
+            <p class="card-text">
+              1200+ скачиваний чертежей<br>
+              47 домиков по всей стране<br>
+              19 городов
+            </p>
           </div>
         </div>
       </div>
-
+    
+      <!-- Карточка 6: Призыв -->
       <div class="col-sm-6 col-lg-4 mb-4">
         <div class="card p-3 text-end">
           <figure class="mb-0">
             <blockquote class="blockquote">
-              <p>A well-known quote, contained in a blockquote element.</p>
+              <p>«Самый простой способ помочь — поделиться этой страницей с друзьями»</p>
             </blockquote>
             <figcaption class="blockquote-footer mb-0 text-body-secondary">
-              Someone famous in <cite title="Source Title">Source Title</cite>
+              Ваш вклад важен
             </figcaption>
           </figure>
-        </div>
-      </div>
-      <div class="col-sm-6 col-lg-4 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
-            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+          <div class="text-center mt-3">
+            <div class="dropdown">
+              <button class="btn btn-primary dropdown-toggle" type="button" id="shareButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-share-fill"></i>
+                Поделиться
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="shareButton">
+                <li><a class="dropdown-item" href="#" onclick="shareOnVK(); return false;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path class="st0" d="M13.162 18.994c.609 0 .858-.406.851-.915-.031-1.917.714-2.949 2.059-1.604 1.488 1.488 1.796 2.519 3.603 2.519h3.2c.808 0 1.126-.26 1.126-.668 0-.863-1.421-2.386-2.625-3.504-1.686-1.565-1.765-1.602-.313-3.486 1.801-2.339 4.157-5.336 2.073-5.336h-3.981c-.772 0-.828.435-1.103 1.083-.995 2.347-2.886 5.387-3.604 4.922-.751-.485-.407-2.406-.35-5.261.015-.754.011-1.271-1.141-1.539-.629-.145-1.241-.205-1.809-.205-2.273 0-3.841.953-2.95 1.119 1.571.293 1.42 3.692 1.054 5.16-.638 2.556-3.036-2.024-4.035-4.305-.241-.548-.315-.974-1.175-.974h-3.255c-.492 0-.787.16-.787.516 0 .602 2.96 6.72 5.786 9.77 2.756 2.975 5.48 2.708 7.376 2.708z"/></svg>
+                  ВКонтакте
+                </a></li>
+                <li><a class="dropdown-item" href="#" onclick="shareOnTelegram(); return false;">
+                  <i class="bi bi-telegram"></i>
+                  &nbsp;Telegram
+                </a></li>
+                <li><a class="dropdown-item" href="#" onclick="shareOnWhatsApp(); return false;">
+                  <i class="bi bi-whatsapp"></i>
+                  &nbsp;WhatsApp
+                </a></li>
+                <li><a class="dropdown-item" href="#" onclick="shareOnViber(); return false;">
+                  <svg viewBox="-1.2 -1.2 26.40 26.40" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" stroke-width="0.00024000000000000003"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.144"></g><g id="SVGRepo_iconCarrier"> <path d="M13 4C12.4477 4 12 4.44772 12 5C12 5.55228 12.4477 6 13 6C14.2728 6 15.2557 6.41989 15.9179 7.08211C16.5801 7.74433 17 8.72725 17 10C17 10.5523 17.4477 11 18 11C18.5523 11 19 10.5523 19 10C19 8.27275 18.4199 6.75567 17.3321 5.66789C16.2443 4.58011 14.7272 4 13 4Z" fill="#ffffff"></path> <path d="M5.014 8.00613C5.12827 7.1024 6.30277 5.87414 7.23488 6.01043L7.23339 6.00894C8.01251 6.15699 8.65217 7.32965 9.07373 8.10246C9.14298 8.22942 9.20635 8.34559 9.26349 8.44465C9.55041 8.95402 9.3641 9.4701 9.09655 9.68787C9.06561 9.7128 9.03317 9.73855 8.9998 9.76504C8.64376 10.0477 8.18114 10.4149 8.28943 10.7834C8.5 11.5 11 14 12.2296 14.7107C12.6061 14.9283 12.8988 14.5057 13.1495 14.1438C13.2087 14.0583 13.2656 13.9762 13.3207 13.9067C13.5301 13.6271 14.0466 13.46 14.5548 13.736C15.3138 14.178 16.0288 14.6917 16.69 15.27C17.0202 15.546 17.0977 15.9539 16.8689 16.385C16.4659 17.1443 15.3003 18.1456 14.4542 17.9421C12.9764 17.5868 7 15.27 5.08033 8.55801C4.97981 8.26236 4.99645 8.13792 5.01088 8.02991L5.014 8.00613Z" fill="#ffffff"></path> <path d="M13 7C12.4477 7 12 7.44772 12 8C12 8.55228 12.4477 9 13 9C13.1748 9 13.4332 9.09745 13.6679 9.33211C13.9025 9.56676 14 9.82523 14 10C14 10.5523 14.4477 11 15 11C15.5523 11 16 10.5523 16 10C16 9.17477 15.5975 8.43324 15.0821 7.91789C14.5668 7.40255 13.8252 7 13 7Z" fill="#ffffff"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M7.51742 23.8312C7.54587 23.8469 7.57508 23.8612 7.60492 23.874C8.14762 24.1074 8.81755 23.5863 10.1574 22.5442L11.5 21.5C14.1884 21.589 16.514 21.2362 18.312 20.6071C20.3227 19.9035 21.9036 18.3226 22.6072 16.3119C23.5768 13.541 23.5768 8.45883 22.6072 5.68794C21.9036 3.67722 20.3227 2.0963 18.312 1.39271C15.1103 0.272407 8.82999 0.293306 5.68806 1.39271C3.67733 2.0963 2.09642 3.67722 1.39283 5.68794C0.423255 8.45883 0.423255 13.541 1.39283 16.3119C2.09642 18.3226 3.67733 19.9035 5.68806 20.6071C6.08252 20.7451 6.52371 20.8965 7 21C7 22.6974 7 23.5461 7.51742 23.8312ZM9 20.9107V19.7909C9 19.5557 8.836 19.3524 8.60597 19.3032C7.84407 19.1403 7.08676 18.9776 6.34862 18.7193C4.91238 18.2168 3.78316 17.0875 3.2806 15.6513C2.89871 14.5599 2.66565 12.8453 2.66565 10.9999C2.66565 9.15453 2.89871 7.43987 3.2806 6.3485C3.78316 4.91227 4.91238 3.78304 6.34862 3.28048C7.61625 2.83692 9.71713 2.56282 11.9798 2.56032C14.2422 2.55782 16.3561 2.82723 17.6514 3.28048C19.0876 3.78304 20.2169 4.91227 20.7194 6.3485C21.1013 7.43987 21.3344 9.15453 21.3344 10.9999C21.3344 12.8453 21.1013 14.5599 20.7194 15.6513C20.2169 17.0875 19.0876 18.2168 17.6514 18.7193C15.5197 19.4652 13.259 19.549 11.0239 19.4828C10.9071 19.4794 10.7926 19.5165 10.7004 19.5882L9 20.9107Z" fill="#ffffff"></path> </g></svg>
+                  &nbsp;Viber
+                </a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#" onclick="copyLink(); return false;">
+                  <i class="bi bi-copy"></i>
+                  &nbsp;Копировать ссылку
+                </a></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
+    
+      <!-- Карточка 7: Как это работает -->
       <div class="col-sm-6 col-lg-4 mb-4">
-        <div class="card" aria-hidden="true">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect></svg>
-            <div class="card-body">
-              <h5 class="card-title placeholder-glow">
-                <span class="placeholder col-6"></span>
-              </h5>
-              <p class="card-text placeholder-glow">
-                <span class="placeholder col-7"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-6"></span>
-                <span class="placeholder col-8"></span>
-              </p>
-              <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
-            </div>
-          </div>            
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">🔨 Как это работает?</h5>
+            <p class="card-text">
+              1. Скачиваете чертежи<br>
+              2. Передаете в мастерскую<br>
+              3. Собираете за 2 часа<br>
+              4. Ставите домик в своём дворе
+            </p>
+          </div>
+        </div>
       </div>
+
       <footer class="pt-3 mt-4 text-body-secondary border-top">
         &copy; 2024 - <span id="current-year"></span>
       </footer>
@@ -156,5 +197,84 @@
   <script src="../js/color-modes.js"></script>
   <script src="../about/translations.js"></script>
   <script src="../js/language-switcher.js"></script>
+
+  <script>
+    function shareOnVK() {
+      const url = encodeURIComponent(window.location.href);
+      const title = encodeURIComponent(document.title);
+      
+      // Проверка, запущено ли на мобильном устройстве
+      if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        // Пробуем открыть приложение VK
+        window.location.href = `vk://share?url=${url}`;
+        
+        // Таймаут, чтобы открыть веб-версию, если приложение не запустилось
+        setTimeout(function() {
+          window.open(`https://vk.com/share.php?url=${url}&title=${title}`, '_blank');
+        }, 300);
+      } else {
+        // На десктопе открываем веб-версию
+        window.open(`https://vk.com/share.php?url=${url}&title=${title}`, '_blank');
+      }
+    }
+    
+    function shareOnTelegram() {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent(document.title);
+      
+      // Проверка, запущено ли на мобильном устройстве
+      if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        // Пробуем открыть приложение Telegram
+        window.location.href = `tg://msg_url?url=${url}&text=${text}`;
+        
+        // Таймаут, чтобы открыть веб-версию, если приложение не запустилось
+        setTimeout(function() {
+          window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
+        }, 300);
+      } else {
+        // На десктопе открываем веб-версию
+        window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
+      }
+    }
+    
+    function shareOnWhatsApp() {
+      const url = encodeURIComponent(window.location.href);
+      
+      // Проверка, запущено ли на мобильном устройстве
+      if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        // Пробуем открыть приложение WhatsApp
+        window.location.href = `whatsapp://send?text=${url}`;
+        
+        // Таймаут, чтобы открыть веб-версию, если приложение не запустилось
+        setTimeout(function() {
+          window.open(`https://api.whatsapp.com/send?text=${url}`, '_blank');
+        }, 300);
+      } else {
+        // На десктопе открываем веб-версию
+        window.open(`https://api.whatsapp.com/send?text=${url}`, '_blank');
+      }
+    }
+    
+    function shareOnViber() {
+      const url = encodeURIComponent(window.location.href);
+      
+      // Проверка, запущено ли на мобильном устройстве
+      if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        window.location.href = `viber://forward?text=${url}`;
+      } else {
+        // Для десктопа можно открыть веб-версию
+        window.open(`https://chats.viber.com/share?text=${url}`, '_blank');
+      }
+    }
+    
+    function copyLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('Ссылка скопирована в буфер обмена!');
+      }).catch(err => {
+        console.error('Не удалось скопировать ссылку: ', err);
+      });
+    }
+  </script>
+  
 </body>
   </html>
