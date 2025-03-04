@@ -1,5 +1,5 @@
 Sitemap: https://winter-shelter.vercel.app/sitemap.xml
 User-agent: *
 Allow: 
-Allow: /payment/
+Disallow: /payment/
 Disallow: /redirect/
