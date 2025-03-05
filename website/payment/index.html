@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TON Donation Widget</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Кастомные стили -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Анимации -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body class="bg-light">
+    <div class="container my-5">
+        <div class="card shadow-sm mx-auto animate__animated animate__fadeIn" style="max-width: 500px;">
+            <div class="card-header bg-primary text-white text-center py-4">
+                <h1 class="card-title mb-0">Поддержите проект</h1>
+                <p class="mb-0">Ваша поддержка важна для нас!</p>
+            </div>
+            <div class="card-body p-4">
+                <!-- QR-код и плейсхолдер -->
+                <div class="text-center mb-4">
+                    <div id="qrcodePlaceholder" class="d-flex justify-content-center align-items-center bg-dark p-4 rounded" style="min-height: 200px;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Загрузка...</span>
+                        </div>
+                    </div>
+                    <div id="qrcode" class="d-none"></div>
+                    <a href="#" id="tonLink" class="btn btn-outline-primary mt-3 d-none animate__animated animate__fadeIn">Открыть кошелек</a>
+                </div>
+                <!-- Форма -->
+                <form id="donationForm">
+                    <div class="mb-3">
+                        <label for="amount" class="form-label text-muted">Сумма (TON)</label>
+                        <input type="number" step="0.1" min="0.1" class="form-control" id="amount" placeholder="Введите сумму" required>
+                        <div class="invalid-feedback">Минимум 0.1 TON</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label text-muted">Сообщение (до 200 символов)</label>
+                        <textarea class="form-control" id="message" rows="3" maxlength="200" placeholder="Ваше сообщение"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Адрес кошелька</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="walletAddress" value="industrial-design.ton" readonly>
+                            <button class="btn btn-outline-secondary" type="button" id="copyAddress">Копировать</button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 py-2">Пожертвовать</button>
+                </form>
+            </div>
+            <div class="card-footer text-center text-muted py-3">
+                <small>Спасибо за вашу поддержку!</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- QRCode.js -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+    <!-- TON SDK (tonweb) -->
+    <script src="https://unpkg.com/tonweb@0.0.29/dist/tonweb.js"></script>
+    <!-- Кастомный JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#qrcodePlaceholder, #qrcode {
+    min-height: 200px;
+}
+
+@media (max-width: 767px) {
+    #qrcodePlaceholder, #qrcode {
+        margin: 0 auto;
+        max-width: 100%;
+    }
+
+    .btn-primary {
+        padding: 12px;
+        font-size: 1.1rem;
+    }
+}
+
+/* Поддержка темной темы */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #212529;
+        color: #f8f9fa;
+    }
+
+    .card {
+        background-color: #343a40;
+        border: none;
+    }
+
+    .form-control {
+        background-color: #495057;
+        color: #f8f9fa;
+        border-color: #6c757d;
+    }
+
+    .text-muted {
+        color: #adb5bd !important;
+    }
+
+    .spinner-border {
+        border-color: #adb5bd;
+        border-right-color: transparent;
+    }
+}
