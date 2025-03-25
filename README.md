@@ -1,9 +1,16 @@
-# Description
+![Static Badge](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-brightgreen) ![Static Badge](https://img.shields.io/badge/OpenCollective-blue?logo=opencollective&logoColor=white&link=https%3A%2F%2Fopencollective.com%2Fsafepawsorganization)
 
-"Winter Shelter" is a community-driven initiative that empowers everyone to make a real difference in the lives of stray animals during the harsh winter months. By providing free downloadable designs, this project allows you to create cozy, laser-cut shelters using simple tools and sustainable materials.
 
-Each shelter you build offers a safe and warm refuge for animals in need, protecting them from freezing temperatures, snow, rain, and wind. Whether you're an individual, a family, or part of a larger community, your contribution can save lives and bring warmth to those who have no place to call home.
 
-Together, we can make winters warmer for animals in need. Join us in creating a network of compassion by building and placing these shelters in your backyard, neighborhood, or local park. Every action matters — because even one small shelter can mean the difference between life and death for a vulnerable animal this winter.
+# About
 
-Let’s work together to ensure that no animal has to face the cold alone. *Download, build, and make a difference today!*
+Every winter is a harsh challenge for stray cats: cold, wind, hunger, and danger. I realized that technology and human compassion could change this. This is how the _SafePaws Shelters_ project was born — an open initiative that turns the idea of help into simple, accessible actions.
+
+My goal is to give everyone the chance to save a life. To achieve this, I designed two types of all-season outdoor shelters: the compact "Cozy" for 1-2 cats and the spacious "Family" for 4-5 cats. Their double-walled construction with an L-shaped vestibule protects against cold and predators, while eco-friendly materials (plywood, fabric scraps) ensure the shelters are safe and durable.
+
+Most importantly, the project is **free**. I’ve openly shared all laser-cut files, bilingual instructions (English/Russian), and assembly tips. Now, anyone with access to a laser cutter can create a shelter in just hours. This isn’t just DIY — it’s a way to unite families, schools, and workshops around the shared mission of caring for animals. 
+
+## License  
+This project is licensed under the [CC BY-NC-ND 4.0](LICENSE).  
+- **You may**: Download, build, and share shelters for **non-commercial** purposes.  
+- **You may not**: Sell these designs or create modified versions without permission.  
