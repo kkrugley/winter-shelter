@@ -1,4 +1,5 @@
-![Static Badge](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-brightgreen) ![Static Badge](https://img.shields.io/badge/OpenCollective-blue?logo=opencollective&logoColor=white&link=https%3A%2F%2Fopencollective.com%2Fsafepawsorganization)
+[![Static Badge](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-blue)](https://github.com/kkrugley/winter-shelter/blob/main/LICENSE) [![Static Badge](https://img.shields.io/badge/Latest-Release-brightgreen)
+](https://github.com/kkrugley/winter-shelter/releases/tag/v1.0-release) [![Static Badge](https://img.shields.io/badge/OpenCollective-blue?logo=opencollective&logoColor=white)](https://opencollective.com/safepawsorganization)
 
 
 
