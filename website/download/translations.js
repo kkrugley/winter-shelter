@@ -27,12 +27,12 @@ const translations = {
         "tooltip": "Пока недоступно!"
      },
     en: { 
-        "page-title": "Details | CozyShelter",
+        "page-title": "Details | SafePaws",
         "meta-description": "Craft an outdoor shelter for homeless cats in just 1 day! Download free laser-cut plans, detailed instructions, and tips for protection against snow, rain, and wind. Help homeless animals — create a cozy refuge!",
         "meta-keywords": "DIY cat house, laser cutting plans, protecting homeless cats, outdoor animal shelter, free DXF files, how to make a cat house, cat kennel, helping homeless cats, DIY shelter for homeless cats, cat house DXF plans, insulated outdoor cat house, assembling a plywood cat house 6mm, waterproof shelter for street cats, free download cat house CNC plans, how to assemble a house without nails in 1 day, cat house with G-shaped vestibule, safe materials for cat houses, how to insulate an outdoor cat house, sealant in DIY projects, double-walled house for insulation, silicone sealant for bowl attachment, insulated housing for homeless animals.",
-        "og-title": "CozyShelter: Free Plans for Animal Shelters",
+        "og-title": "SafePaws: Free Plans for Animal Shelters",
         "og-description": "Build an outdoor shelter for homeless cats in just 1 day! Download free laser-cut plans. An insulated house with protection from snow, rain, and cold — care that anyone can provide!",
-        "site-name": "CozyShelter",
+        "site-name": "SafePaws",
         "main-title": "Let's create warmth together!",
         "main-description": "Download the blueprints — and today several furry friends will be able to sleep warm!🌟",
         "download-button-main": "Download Blueprints",
@@ -81,12 +81,12 @@ const translations = {
       
      },
     pl: { 
-        "page-title": "Szczegóły | CiepłyDom",
+        "page-title": "Szczegóły | SafePaws",
         "meta-description": "Zrób zewnętrzny domek dla bezdomnych kotów w ciągu 1 dnia! Pobierz darmowe projekty do cięcia laserowego, szczegółowe instrukcje i porady dotyczące ochrony przed śniegiem, deszczem i wiatrem. Pomóż bezdomnym zwierzętom — stwórz przytulne schronienie!",
         "meta-keywords": "domek dla kotów własnymi rękami, projekty do cięcia laserowego, ochrona bezdomnych kotów, zewnętrzny domek dla zwierząt, darmowe pliki DXF, jak zrobić domek dla kota, buda dla kota, pomoc dla bezdomnych kotów, domek dla bezdomnych kotów własnymi rękami, projekty domek dla kotów DXF, zewnętrzny domek dla kotów z ociepleniem, montaż kotego domku z 6mm sklejki, wodoodporny domek dla ulicznych kotów, pobierz za darmo projekty domek dla kotów CNC, jak złożyć domek bez gwoździ w ciągu 1 dnia, domek dla kotów z G-kształtnym przedsionkiem, bezpieczne materiały dla kotowych domków, czym ocieplić zewnętrzny domek dla kota, impregnacja w projektach DIY, domek z podwójnymi ścianami do ocieplenia, silikonowy uszczelniacz do mocowania misek, ocieplone mieszkanie dla bezdomnych zwierząt.",
-        "og-title": "CiepłyDom: darmowe projekty domków dla bezdomnych zwierząt",
+        "og-title": "SafePaws: darmowe projekty domków dla bezdomnych zwierząt",
         "og-description": "Zrób zewnętrzny domek dla bezdomnych kotów w ciągu 1 dnia! Pobierz darmowe projekty do cięcia laserowego. Ocieplony domek z ochroną przed śniegiem, deszczem i zimnem — troska, którą może okazać każdy!",
-        "site-name": "CiepłyDom",
+        "site-name": "SafePaws",
         "main-title": "Stwórzmy ciepło razem!",
         "main-description": "Pobierz projekty — i już dziś kilka kociaków będzie mogło spać w cieple!🌟",
         "download-button-main": "Pobierz projekty",
