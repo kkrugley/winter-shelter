@@ -1,5 +1,34 @@
-Sitemap: https://winter-shelter.vercel.app/sitemap.xml
 User-agent: *
 Allow: /
 Disallow: /payment/
 Disallow: /redirect/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /payment/ 
+Disallow: /redirect/
+
+User-agent: Yandex
+Allow: /
+Disallow: /payment/
+Disallow: /redirect/
+
+User-agent: GPTBot
+Allow: /
+Disallow: /payment/
+Disallow: /redirect/
+Crawl-delay: 2
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /payment/
+Disallow: /redirect/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /payment/
+Disallow: /redirect/
+Crawl-delay: 2
+
+Sitemap: https://winter-shelter.vercel.app/sitemap.xml
+Sitemap: https://safepaws.vercel.app/sitemap.xml
