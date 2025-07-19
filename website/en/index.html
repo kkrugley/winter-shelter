@@ -1,24 +1,27 @@
 <!doctype html>
-<html lang="ru" data-bs-theme="dark">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title data-lang-key="page-title">ТеплоДом: Собери дом для тех, у кого его нет!</title>
+    <title data-lang-key="page-title">SafePaws: Build a Shelter for Those Without One!</title>
     
-    <link rel="icon" type="image/png" href="images/favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="images/favicon/favicon.svg" />
-    <link rel="shortcut icon" href="images/favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="../images/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../images/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../images/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../images/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="SafePaws" />
-    <link rel="manifest" href="images/favicon/site.webmanifest" />
+    <link rel="manifest" href="../images/favicon/site.webmanifest" />
 
-    <meta name="description" content="Сделайте уличный домик для бездомных кошек своими руками за 1 день! Скачайте бесплатные чертежи для лазерной резки (DXF), инструкции по утеплению и защите от снега, дождя. Помогите бездомным котам — создайте теплый домик для уличных животных!">
-    <meta name="keywords" content="домик для кошек своими руками, уличный домик для бездомных кошек, чертежи для лазерной резки, помощь бездомным котам, бесплатные DXF файлы, будка для кота, утепленный домик для уличных котов, скачать чертежи домика для кошек ЧПУ, домик с двойными стенками, как сделать домик за 1 день, материалы для кошачьих домиков, SafePaws, Pavel Kruhlei, Павел Круглей">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Build an outdoor shelter for stray cats in just 1 day! Download free laser cut blueprints (DXF files), insulation instructions, and tips for protection from snow, rain, and wind. Help homeless animals — create a cozy cat house DIY!">
+    <meta name="keywords" content="DIY cat house, outdoor cat shelter, stray cat house plans, help homeless cats, free DXF files for cat shelter, cat kennel, insulated outdoor cat house, download CNC cat house blueprints, double-walled cat shelter, build cat house in one day, safe materials for cat houses, SafePaws, safepaws shelter, Pavel Kruhlei">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="ТеплоДом: бесплатные чертежи уличных домиков для бездомных кошек и животных">
-    <meta property="og:description" content="Создайте уличный домик для бездомных кошек за 1 день! Бесплатные чертежи для лазерной резки, утепление от снега, дождя и холода. Скачайте DXF-файлы и помогите бездомным животным в Беларуси!">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="SafePaws: Free Blueprints for Outdoor Shelters for Stray Cats and Animals">
+    <meta property="og:description" content="Create an outdoor cat shelter for stray cats in 1 day! Free laser cut blueprints, insulation from snow, rain, and cold. Download DXF files and help homeless animals in Belarus!">
     <meta property="og:image" content="https://winter-shelter.vercel.app/images/og-preview.jpg">
-    <meta property="og:url" content="https://safepaws.vercel.app/">
+    <meta property="og:url" content="https://safepaws.vercel.app/en/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="SafePaws">
 
@@ -30,13 +33,13 @@
     <link rel="alternate" hreflang="ru" href="https://safepaws.vercel.app/pl/">
     
     <!-- Canonical Tag -->
-    <link rel="canonical" href="https://safepaws.vercel.app/ru/">
-    
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/jumbotrons.css" rel="stylesheet">
-    <link href="css/main-page.css" rel="stylesheet">
-    <link href="css/language-switcher.css" rel="stylesheet">
-    <script src="https://cdn.lottielab.com/s/lottie-player@1.x/player-web.min.js"></script>
+    <link rel="canonical" href="https://safepaws.vercel.app/en/">
+      
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/jumbotrons.css" rel="stylesheet">
+    <link href="../css/main-page.css" rel="stylesheet">
+    <link href="../css/language-switcher.css" rel="stylesheet">
+    <!--script src="https://cdn.lottielab.com/s/lottie-player@1.x/player-web.min.js"></script --> 
     <meta name="google-site-verification" content="_quVaquevtrQLFVraMqLO583f77b_-FeZeZyaQnyDA4" />
     <meta name="yandex-verification" content="5d6e6533e8bcf9ef" />
     <meta name="zen-verification" content="hrbLsHnPoaUXS1GXH9Vg1GzoxD7moYTN2vp5k2FStQ8mfEgcijzIr6Rdgjf81Vyv" />
@@ -47,7 +50,7 @@
       <div class="container py-4">
         <header class="pb-3 mb-4 border-bottom d-flex justify-content-between align-items-center">
           <a href="/" class="d-flex align-items-center text-body-emphasis text-decoration-none">
-            <img src="images/logo.svg" height="64px" width="64px" alt="Paw logo">
+            <img src="../images/logo.svg" height="64px" width="64px" alt="Paw logo">
             <span class="fs-3" data-lang-key="site-name">ТеплоДом</span>
           </a>
           
@@ -74,14 +77,14 @@
               <div class="d-grid gap-2 d-md-block">
                 <a 
                   class="btn btn-primary btn-lg px-4 px-md-5 me-md-2" 
-                  href="download"
+                  href="../download"
                   role="button"
                   data-lang-key="download-btn">
                   Скачать чертеж 
                 </a>
                 <a 
                   class="btn btn-outline-light btn-lg px-4" 
-                  href="learn-more"
+                  href="../learn-more"
                   role="button"
                   data-lang-key="learn-more-btn">
                   Узнать подробности
@@ -100,7 +103,7 @@
                 <li><b data-lang-key="step2-title">Собери за 3 часа</b><br><span data-lang-key="step2-text">Все детали пронумерованы. Видео-инструкция объяснит сборку за 5 минут — не нужно быть мастером!</span></li>
                 <li><b data-lang-key="step3-title">Установи в нужном месте</b><br><span data-lang-key="step3-text">Под крышей, у теплотрассы или в тихом дворе. Остальное сделают коты — они точно найдут ваш подарок.</span></li>
               </ol>
-              <a class="btn btn-outline-light" href="learn-more" role="button" data-lang-key="more-details-btn">Подробнее</a>
+              <a class="btn btn-outline-light" href="../learn-more" role="button" data-lang-key="more-details-btn">Подробнее</a>
             </div>
           </div>
           <div class="col-md-6">
@@ -111,12 +114,11 @@
                 <li><b data-lang-key="feature2-title">Удобство для хвостатых</b><br><span data-lang-key="feature2-text">Две миски из нержавеющей стали располагаются под крышей и никогда не выйдут из строя!</span></li>
                 <li><b data-lang-key="feature3-title">Творчество и доброта</b><br><span data-lang-key="feature3-text">Раскрасьте домик вместе с детьми, придумайте узоры или имя будущему жильцу. Это урок заботы, который запомнится навсегда.</span></li>
               </ul>
-              <a class="btn btn-outline-secondary" href="learn-more" role="button" data-lang-key="help-btn">Хочу помочь!</a>
+              <a class="btn btn-outline-secondary" href="../learn-more" role="button" data-lang-key="help-btn">Хочу помочь!</a>
             </div>
           </div>
         </div>    
-        
-<!-- Wheater check
+        <!-- Проверка температуры в городе 
         <div class="row justify-content-center mt-4">
           <div class="col-md-10 col-lg-8">
             <div class="h-100 p-4 p-md-5 bg-body-tertiary border rounded-3">
@@ -135,8 +137,7 @@
             </div>
           </div>
         </div>
--->        
-
+-->
         <div class="container my-5">
           <div class="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-5">
             <h1 class="text-body-emphasis" data-lang-key="every-house-title">Каждый ваш домик — это...</h1>
@@ -145,7 +146,7 @@
               <span data-lang-key="benefit2">...миска с водой вместо грязной лужи.</span><br>
               <span data-lang-key="benefit3">...шанс научить ребенка, что доброта начинается с простых действий.</span>
             </p>
-            <a class="btn btn-primary px-5 mb-5" href="learn-more" role="button" data-lang-key="cta-button">Скачай чертеж и начни сегодня!</a>
+            <a class="btn btn-primary px-5 mb-5" href="../learn-more" role="button" data-lang-key="cta-button">Скачай чертеж и начни сегодня!</a>
           </div>
         </div>
         
@@ -160,14 +161,14 @@
       </div>
     </main>
 <!--<script src="js/bootstrap.bundle.min.js"></script>--> 
-<!--<script src="js/color-modes.js"></script>-->
-    <script src="js/main-page-translations.js"></script>
-    <script src="js/language-switcher.js"></script>
-<!--<script src="js/weather.js"></script>-->
+ <!--   <script src="js/color-modes.js"></script>-->
+    <script src="../js/main-page-translations.js"></script>
+    <script src="../js/language-switcher.js"></script>
+<!--<script src="../js/weather.js"></script>-->
     <script>
       window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
     </script>
-    <script defer src="/_vercel/speed-insights/script.js"></script>
-    <script defer src="/_vercel/insights/script.js"></script>
+    <script defer src="..//_vercel/speed-insights/script.js"></script>
+    <script defer src="..//_vercel/insights/script.js"></script>
   </body>
 </html>
