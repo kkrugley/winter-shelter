@@ -14,13 +14,13 @@
 		<loc>https://winter-shelter.vercel.app/en/</loc>
 		<lastmod>2025-03-02T21:32:09+00:00</lastmod>
 		<changefreq>monthly</changefreq>
-		<priority>0.99</priority>
+		<priority>0.97</priority>
 	</url>
 	<url>
 		<loc>https://winter-shelter.vercel.app/pl/</loc>
 		<lastmod>2025-03-02T21:32:09+00:00</lastmod>
 		<changefreq>monthly</changefreq>
-		<priority>0.99</priority>
+		<priority>0.98</priority>
 	</url>
 	<url>
 		<loc>https://winter-shelter.vercel.app/be/</loc>
@@ -36,12 +36,6 @@
 	</url>
 	<url>
 		<loc>https://winter-shelter.vercel.app/learn-more/</loc>
-		<lastmod>2025-03-02T21:32:10+00:00</lastmod>
-		<changefreq>monthly</changefreq>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://winter-shelter.vercel.app/about/</loc>
 		<lastmod>2025-03-02T21:32:10+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.80</priority>

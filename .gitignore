@@ -1,0 +1,42 @@
+# === CAD formats ===
+*.stl
+*.stp
+*.cdw
+*.dxf
+*.dwg
+*.3dm
+*.eps
+*.smg
+*.smgSce
+*.smgView
+*.afdesign
+
+# === Backups & temp ===
+*.bak
+*.log
+*.pdfbak
+*.svgbak
+*.3dmbak
+*.dxfbak
+*.a3d.bak
+*.m3d.bak
+*.cdw.bak
+*.lnk
+*.m3~
+*.a3~
+
+# === Specific file to ignore globally ===
+00.99.m3d
+
+# === Everything to ignore ONLY inside cad-source ===
+cad-source/**/*.rar
+cad-source/**/*.zip
+cad-source/**/*.7z
+cad-source/**/*.svg
+cad-source/**/*.png
+cad-source/**/*.pdf
+cad-source/**/*.jpg
+cad-source/**/Manuals/
+
+# Ignore entire directory
+cad-source/visual/

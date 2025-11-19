@@ -1,0 +1,62 @@
+# ===========================
+*.js     text eol=lf
+*.css    text eol=lf
+*.html   text eol=lf
+*.htm    text eol=lf
+*.json   text eol=lf
+*.md     text eol=lf
+*.yml    text eol=lf
+*.yaml   text eol=lf
+*.ts     text eol=lf
+*.jsx    text eol=lf
+*.tsx    text eol=lf
+
+# ===========================
+#   TEXT FILES WITH CUSTOM DIFF
+# ===========================
+*.md      diff=markdown
+*.svg     text diff=xml 
+*.json    text diff=json
+
+# ===========================
+#   BNARY FILES
+# ===========================
+
+# CAD / 3D
+*.stl     binary
+*.stp     binary
+*.step    binary
+*.iges    binary
+*.igs     binary
+*.dxf     binary
+*.dwg     binary
+*.3dm     binary
+*.a3d     binary
+*.m3d     binary
+
+# Archive files
+*.zip     binary
+*.rar     binary
+*.7z      binary
+*.tar     binary
+*.gz      binary
+
+# Document files
+*.pdf     binary
+*.eps     binary
+*.afdesign binary
+
+# SMG files
+*.smg       binary
+*.smgSce    binary
+*.smgView   binary
+
+# Backup files
+*.bak       binary
+*.pdfbak    binary
+*.svgbak    binary
+*.3dmbak    binary
+*.dxfbak    binary
+*.cdw.bak   binary
+*.a3d.bak   binary
+*.m3d.bak   binary
