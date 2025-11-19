@@ -2,12 +2,6 @@
 [![Static Badge](https://img.shields.io/badge/Latest-Release-brightgreen)](https://github.com/kkrugley/winter-shelter/releases)
 [![Static Badge](https://img.shields.io/badge/OpenCollective-SafePaws-blue?logo=opencollective&logoColor=white)](https://opencollective.com/safepawsorganization)
 
-# SafePaws Shelters
-
-Open DIY blueprints for insulated outdoor shelters that help stray cats survive the winter.
-
----
-
 ## 💛 What is SafePaws?
 
 SafePaws Shelters is an open, non-commercial project that gives anyone free plans to build warm, safe outdoor shelters for stray cats.  
