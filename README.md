@@ -132,6 +132,14 @@ You can help even if you never touch a laser cutter:
 
 Every shelter built is a real, practical difference for animals that have nowhere else to go.
 
+### Cloning this repository
+
+Cloning the repo with all its history results in a download of hundreds of megabytes. If you don't need the whole history you can use the `depth` parameter to significantly reduce download size.
+
+```sh
+git clone --depth=1 https://github.com/kkrugley/winter-shelter.git
+```
+
 ---
 
 ## 📎 License & Usage
