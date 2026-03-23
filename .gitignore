@@ -7,6 +7,7 @@
 *.3dm
 *.eps
 *.smg
+*.gcode
 *.smgSce
 *.smgView
 *.afdesign
@@ -36,6 +37,7 @@ cad-source/**/*.svg
 cad-source/**/*.png
 cad-source/**/*.pdf
 cad-source/**/*.jpg
+cad-source/**/*.md
 cad-source/**/Manuals/
 
 # Ignore entire directory
