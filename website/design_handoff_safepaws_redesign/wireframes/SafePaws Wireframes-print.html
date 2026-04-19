@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>SafePaws — Wireframes (print)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/wireframe.css">
+<style>
+  html, body {
+    background: #f5f1ea;
+    color: var(--ink);
+    font-family: 'Kalam', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .print-page {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 24px 18px 40px;
+    break-after: page;
+    page-break-after: always;
+  }
+  .print-page:last-child { break-after: auto; page-break-after: auto; }
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 8px;
+    margin-bottom: 18px;
+  }
+  .page-header .brand {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .page-header .brand .paw {
+    width: 24px; height: 24px;
+    background: var(--accent);
+    color: white;
+    border: 2px solid var(--ink);
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    font-size: 12px;
+  }
+  .page-header .title-bit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  /* Neutralize interactive shell styles */
+  .sheet {
+    box-shadow: none !important;
+    border: 2px solid var(--ink);
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  /* COVER page */
+  .cover {
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 60px 40px;
+    border: 2px solid var(--ink);
+    border-radius: 14px;
+    background: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 25% 30%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 55%),
+      repeating-linear-gradient(45deg, transparent 0 20px, rgba(0,0,0,0.025) 20px 21px);
+    pointer-events: none;
+  }
+  .cover > * { position: relative; }
+  .cover h1 { font-size: 72px; line-height: 0.95; max-width: 900px; }
+  .cover .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: var(--ink-3);
+  }
+  .toc { margin-top: 28px; }
+  .toc-row {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    gap: 16px;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--ink-muted);
+    align-items: baseline;
+  }
+  .toc-row .num { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-size: 13px; }
+  .toc-row .label { font-family: 'Caveat', cursive; font-size: 22px; font-weight: 700; }
+  .toc-row .desc { font-size: 13px; color: var(--ink-3); font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .meta-footer {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Page identifiers */
+  .page-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    border: 2px solid var(--ink);
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Hide nothing in print — but avoid breaks inside key blocks */
+  .product-card, .box, .box-accent, .box-filled, .box-dashed {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Screen-only hint */
+  .screen-hint {
+    text-align: center;
+    padding: 14px;
+    background: var(--accent);
+    color: white;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  /* PRINT SETUP */
+  @media print {
+    @page {
+      size: A3 landscape;
+      margin: 10mm;
+    }
+    html, body {
+      background: white !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .screen-hint { display: none; }
+    .print-page {
+      padding: 0;
+      max-width: none;
+    }
+    .sheet {
+      box-shadow: none !important;
+    }
+    /* ensure coloured backgrounds and borders render */
+    *, *::before, *::after {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="screen-hint">
+  Для сохранения в PDF → Cmd/Ctrl + P → размер A3, ориентация landscape. Фон и цвета включены.
+</div>
+
+<!-- ========== COVER ========== -->
+<section class="print-page">
+  <div class="cover">
+    <div>
+      <div class="kicker">SafePaws · Structural UX/UI Redesign</div>
+      <h1 class="mt" style="margin-top:18px;">Wireframes<br><span class="scribble" style="color:var(--accent);">всего сайта</span></h1>
+      <p class="mt" style="max-width:560px; font-size:17px; margin-top:18px;">
+        Low-fi исследование: 5 подходов к главной, единая архитектура каталога и 7 ключевых страниц.
+      </p>
+    </div>
+
+    <div class="toc">
+      <div class="kicker">содержание</div>
+      <div class="toc-row"><span class="num">01</span><span class="label">Site map · архитектура</span><span class="desc">3 пути · каталог · карта</span></div>
+      <div class="toc-row"><span class="num">02</span><span class="label">Home · гибрид A+Д</span><span class="desc">развилка + встроенный квиз</span></div>
+      <div class="toc-row"><span class="num">03</span><span class="label">Solutions</span><span class="desc">сетка + фильтры</span></div>
+      <div class="toc-row"><span class="num">04</span><span class="label">Product page</span><span class="desc">Cozy Shelter · пример</span></div>
+      <div class="toc-row"><span class="num">05</span><span class="label">Help / Get Involved</span><span class="desc">9 путей участия</span></div>
+      <div class="toc-row"><span class="num">06</span><span class="label">Stories</span><span class="desc">карта + сетка</span></div>
+      <div class="toc-row"><span class="num">07</span><span class="label">About</span><span class="desc">миссия · автор · timeline</span></div>
+      <div class="toc-row"><span class="num">08</span><span class="label">Download flow</span><span class="desc">модель → материал → файл</span></div>
+    </div>
+
+    <div class="meta-footer">
+      <span>v1 · low-fi</span>
+      <span>для печати на A3 landscape</span>
+      <span>2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- Pages will be injected here -->
+<div id="pages-out"></div>
+
+<!-- Load the page generators -->
+<script src="pages/home.js"></script>
+<script src="pages/solutions.js"></script>
+<script src="pages/product.js"></script>
+<script src="pages/help.js"></script>
+<script src="pages/stories.js"></script>
+<script src="pages/about.js"></script>
+<script src="pages/download.js"></script>
+<script src="pages/flow.js"></script>
+
+<script>
+  const SEQUENCE = [
+    { page: 'flow',       variant: 'v1',     num: '01', label: 'Site map · архитектура' },
+    { page: 'home',       variant: 'hybrid', num: '02', label: 'Home · A+Д · развилка + квиз' },
+    { page: 'solutions',  variant: 'v1',     num: '03', label: 'Solutions · сетка + фильтры' },
+    { page: 'product',    variant: 'v1',     num: '04', label: 'Product · Cozy Shelter' },
+    { page: 'help',       variant: 'v1',     num: '05', label: 'Help · как помочь' },
+    { page: 'stories',    variant: 'v1',     num: '06', label: 'Stories · карта + сетка' },
+    { page: 'about',      variant: 'v1',     num: '07', label: 'About · миссия' },
+    { page: 'download',   variant: 'v1',     num: '08', label: 'Download · 3-шага' },
+  ];
+
+  const out = document.getElementById('pages-out');
+  SEQUENCE.forEach(s => {
+    const wrap = document.createElement('section');
+    wrap.className = 'print-page';
+    wrap.innerHTML = `
+      <div class="page-header">
+        <div class="brand"><span class="paw">🐾</span> SafePaws · Wireframes</div>
+        <div class="title-bit">${s.num} · ${s.label}</div>
+      </div>
+      ${window.SP_PAGES[s.page](s.variant)}
+    `;
+    out.appendChild(wrap);
+  });
+
+  // Auto-print after fonts + layout settle
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+      setTimeout(() => { window.print(); }, 600);
+    });
+  } else {
+    window.addEventListener('load', () => setTimeout(() => window.print(), 800));
+  }
+</script>
+
+</body>
+</html>

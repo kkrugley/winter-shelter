@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>SafePaws — Wireframes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/wireframe.css">
+<style>
+  body.shell {
+    background: #e8e2d5;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(0,0,0,0.06) 50%, transparent 50%),
+      radial-gradient(1px 1px at 70% 80%, rgba(0,0,0,0.05) 50%, transparent 50%);
+    background-size: 140px 140px, 110px 110px;
+    min-height: 100vh;
+  }
+  .shell-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(232, 226, 213, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 2px solid var(--ink);
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .brand-mark {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Caveat', cursive; font-weight: 700; font-size: 24px;
+  }
+  .brand-mark .paw {
+    width: 32px; height: 32px;
+    border: 2px solid var(--ink); border-radius: 10px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--accent); color: white;
+  }
+  .tabs {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .tab {
+    font-family: 'Kalam', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 6px 12px;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    background: var(--paper);
+    cursor: pointer;
+    color: var(--ink);
+  }
+  .tab.active {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .tab .count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    opacity: 0.6;
+    margin-left: 6px;
+  }
+  .subtabs {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    padding: 10px 18px 0;
+  }
+  .subtab {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1.5px dashed var(--ink-3);
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+    color: var(--ink-3);
+  }
+  .subtab.active {
+    border-style: solid;
+    border-color: var(--accent);
+    color: var(--accent);
+    background: color-mix(in oklab, var(--accent) 8%, var(--paper));
+  }
+  .page-wrap { padding: 24px 18px 60px; }
+  .page-title-block {
+    max-width: 1180px; margin: 0 auto 20px;
+    display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap;
+  }
+  .page-title-block h2 { font-size: 36px; }
+  .page-title-block .desc { max-width: 560px; color: var(--ink-2); font-size: 15px; }
+  .variant-hidden { display: none; }
+
+  /* Tweaks panel */
+  #tweaks-panel {
+    position: fixed; right: 18px; bottom: 18px;
+    width: 260px;
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    background: var(--paper);
+    padding: 14px;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+    z-index: 100;
+    display: none;
+  }
+  #tweaks-panel.open { display: block; }
+  #tweaks-panel h4 { margin-bottom: 8px; }
+  .tweak-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; font-size: 13px; }
+  .tweak-row label { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); }
+  .tweak-row select, .tweak-row input {
+    border: 2px solid var(--ink); border-radius: 6px; padding: 5px 8px;
+    font-family: 'Kalam', sans-serif; background: var(--paper);
+  }
+  .print-hint {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body class="shell">
+
+<div class="shell-topbar">
+  <div class="brand-mark">
+    <span class="paw">🐾</span>
+    <span>SafePaws · wireframes</span>
+    <span class="chip" style="margin-left:8px;">low-fi · v1</span>
+  </div>
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-page="home">Home <span class="count">1</span></button>
+    <button class="tab" data-page="solutions">Solutions <span class="count">1</span></button>
+    <button class="tab" data-page="product">Product <span class="count">1</span></button>
+    <button class="tab" data-page="help">Help <span class="count">1</span></button>
+    <button class="tab" data-page="stories">Stories <span class="count">1</span></button>
+    <button class="tab" data-page="about">About <span class="count">1</span></button>
+    <button class="tab" data-page="download">Download <span class="count">1</span></button>
+    <button class="tab" data-page="flow">Site map</button>
+  </div>
+</div>
+
+<div class="subtabs" id="subtabs"></div>
+
+<div class="page-wrap" id="page-wrap">
+  <!-- pages injected here -->
+</div>
+
+<!-- Pages as templates -->
+<template id="tpl-home-v1"></template>
+<template id="tpl-home-v2"></template>
+<template id="tpl-home-v3"></template>
+<template id="tpl-home-v4"></template>
+<template id="tpl-home-v5"></template>
+<template id="tpl-solutions-v1"></template>
+<template id="tpl-solutions-v2"></template>
+<template id="tpl-product-v1"></template>
+<template id="tpl-help-v1"></template>
+<template id="tpl-stories-v1"></template>
+<template id="tpl-about-v1"></template>
+<template id="tpl-download-v1"></template>
+<template id="tpl-flow-v1"></template>
+
+<!-- Tweaks panel -->
+<div id="tweaks-panel">
+  <h4>Tweaks</h4>
+  <div class="tweak-row">
+    <label>Акцентный цвет</label>
+    <select id="tw-accent">
+      <option value="#e86a4c">коралловый (default)</option>
+      <option value="#3a8c5f">хвойный зелёный</option>
+      <option value="#5a6ee6">чернильный синий</option>
+      <option value="#d4a017">охра</option>
+      <option value="#b84b85">фуксия</option>
+    </select>
+  </div>
+  <div class="tweak-row">
+    <label>Плотность</label>
+    <select id="tw-density">
+      <option value="comfortable">свободно</option>
+      <option value="compact">компактно</option>
+    </select>
+  </div>
+  <div class="tweak-row">
+    <label>Показывать аннотации</label>
+    <select id="tw-annot">
+      <option value="on">да — все пометки</option>
+      <option value="off">нет — чистый вид</option>
+    </select>
+  </div>
+  <div class="print-hint">нажми «T» чтобы скрыть/показать</div>
+</div>
+
+<!-- Page loader + logic -->
+<script src="pages/home.js"></script>
+<script src="pages/solutions.js"></script>
+<script src="pages/product.js"></script>
+<script src="pages/help.js"></script>
+<script src="pages/stories.js"></script>
+<script src="pages/about.js"></script>
+<script src="pages/download.js"></script>
+<script src="pages/flow.js"></script>
+
+<script>
+  // State — persisted
+  const state = {
+    page: localStorage.getItem('sp_page') || 'home',
+    variant: JSON.parse(localStorage.getItem('sp_variant') || '{}'),
+  };
+
+  const VARIANTS = {
+    home: [
+      { id: 'hybrid', label: 'A+Д · развилка + квиз' },
+    ],
+    solutions: [
+      { id: 'v1', label: 'Сетка + фильтры' },
+    ],
+    product: [{ id: 'v1', label: 'Cozy Shelter (пример)' }],
+    help: [{ id: 'v1', label: 'Варианты участия' }],
+    stories: [{ id: 'v1', label: 'Карта + сетка' }],
+    about: [{ id: 'v1', label: 'Миссия + автор' }],
+    download: [{ id: 'v1', label: 'Модель → материал → файл' }],
+    flow: [{ id: 'v1', label: 'Архитектура сайта' }],
+  };
+
+  function render() {
+    // topbar tabs
+    document.querySelectorAll('.tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.page === state.page);
+    });
+
+    // subtabs
+    const subtabs = document.getElementById('subtabs');
+    subtabs.innerHTML = '';
+    const variants = VARIANTS[state.page] || [];
+    if (variants.length > 1) {
+      variants.forEach(v => {
+        const b = document.createElement('button');
+        b.className = 'subtab' + ((state.variant[state.page] || variants[0].id) === v.id ? ' active' : '');
+        b.textContent = v.label;
+        b.onclick = () => {
+          state.variant[state.page] = v.id;
+          localStorage.setItem('sp_variant', JSON.stringify(state.variant));
+          render();
+        };
+        subtabs.appendChild(b);
+      });
+    }
+
+    const cur = state.variant[state.page] || variants[0].id;
+    const wrap = document.getElementById('page-wrap');
+    const fn = window.SP_PAGES && window.SP_PAGES[state.page];
+    wrap.innerHTML = '';
+    if (fn) {
+      wrap.innerHTML = fn(cur);
+    } else {
+      wrap.innerHTML = `<div class="sheet"><h2>Страница ${state.page} — в работе</h2></div>`;
+    }
+    window.scrollTo({ top: 0 });
+  }
+
+  document.querySelectorAll('.tab').forEach(t => {
+    t.onclick = () => {
+      state.page = t.dataset.page;
+      localStorage.setItem('sp_page', state.page);
+      render();
+    };
+  });
+
+  // Tweaks
+  const tw = document.getElementById('tweaks-panel');
+  document.addEventListener('keydown', e => {
+    if (e.key === 't' || e.key === 'T' || e.key === 'е' || e.key === 'Е') tw.classList.toggle('open');
+  });
+
+  // Auto-activate on load
+  function applyTweaks() {
+    const accent = document.getElementById('tw-accent').value;
+    document.documentElement.style.setProperty('--accent', accent);
+    const density = document.getElementById('tw-density').value;
+    document.documentElement.style.setProperty('--radius-md', density === 'compact' ? '8px' : '10px');
+    document.body.classList.toggle('compact', density === 'compact');
+    const annot = document.getElementById('tw-annot').value;
+    document.body.classList.toggle('no-annot', annot === 'off');
+  }
+  document.querySelectorAll('#tweaks-panel select').forEach(s => s.addEventListener('change', applyTweaks));
+
+  // edit-mode protocol (tweaks toolbar integration)
+  window.addEventListener('message', (e) => {
+    if (!e.data) return;
+    if (e.data.type === '__activate_edit_mode') tw.classList.add('open');
+    if (e.data.type === '__deactivate_edit_mode') tw.classList.remove('open');
+  });
+  window.parent && window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+  render();
+</script>
+
+<style>
+  body.no-annot .annot, body.no-annot .note { display: none; }
+  body.compact .sheet { padding: 20px; }
+  body.compact h1 { font-size: 38px; }
+</style>
+
+</body>
+</html>
