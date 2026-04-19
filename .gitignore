@@ -42,3 +42,9 @@ cad-source/**/Manuals/
 
 # Ignore entire directory
 cad-source/visual/
+
+# Website rebuild — legacy parallel dev dir
+website-new/
+
+# Claude Code project settings
+.claude/
