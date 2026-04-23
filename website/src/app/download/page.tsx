@@ -11,11 +11,16 @@ const downloadableProducts = getAvailableProducts().filter(
   (p) => p.downloads.length > 0
 );
 
+const nextSteps = [
+  { label: "дальше", title: "Прочти инструкцию", desc: "5 минут — сэкономят часы.", href: null },
+  { label: "дальше", title: "Нет инструмента?", desc: "Список хакспейсов рядом.", href: null },
+  { label: "когда соберёшь", title: "Добавь историю", desc: "Фото + точка на карте.", href: "/stories/add" },
+];
+
 export default function DownloadPage() {
   const [step, setStep] = useState<Step>(1);
   const [selectedSlug, setSelectedSlug] = useState<string>("cozy-shelter");
   const [selectedVariant, setSelectedVariant] = useState<string>("6mm");
-  const [email, setEmail] = useState("");
   const [done, setDone] = useState(false);
 
   const selectedProduct = products.find((p) => p.slug === selectedSlug);
@@ -29,8 +34,7 @@ export default function DownloadPage() {
         <CheckCircle size={56} weight="duotone" className="text-accent mx-auto mb-6" />
         <h1 className="font-hand text-5xl text-ink mb-4">Скачивание начато!</h1>
         <p className="text-sm text-ink-muted mb-8">
-          Если файл не скачался — нажми кнопку ещё раз. Спасибо, что помогаешь
-          животным!
+          Если файл не скачался — нажми кнопку ещё раз. Спасибо, что помогаешь животным!
         </p>
         <div className="flex flex-wrap gap-3 justify-center">
           <Link
@@ -77,19 +81,11 @@ export default function DownloadPage() {
             >
               {n}
             </div>
-            <span
-              className={`text-sm font-medium transition-colors ${
-                step >= n ? "text-ink" : "text-ink-muted"
-              }`}
-            >
+            <span className={`text-sm font-medium transition-colors ${step >= n ? "text-ink" : "text-ink-muted"}`}>
               {["модель", "материал", "файл"][i]}
             </span>
             {n < 3 && (
-              <div
-                className={`flex-1 h-0.5 transition-colors ${
-                  step > n ? "bg-accent" : "bg-border-soft"
-                }`}
-              />
+              <div className={`flex-1 h-0.5 transition-colors ${step > n ? "bg-accent" : "bg-border-soft"}`} />
             )}
           </div>
         ))}
@@ -98,9 +94,7 @@ export default function DownloadPage() {
       {/* Step 1 */}
       {step === 1 && (
         <div className="border border-border-soft rounded-xl p-6">
-          <span className="font-mono text-xs text-ink-muted block mb-4">
-            шаг 1 / 3
-          </span>
+          <span className="font-mono text-xs text-ink-muted block mb-4">шаг 1 / 3</span>
           <h2 className="font-hand text-3xl text-ink mb-6">Выбери модель</h2>
           <div className="grid sm:grid-cols-3 gap-4">
             {downloadableProducts.map((p) => (
@@ -108,22 +102,14 @@ export default function DownloadPage() {
                 key={p.slug}
                 onClick={() => setSelectedSlug(p.slug)}
                 className={`border-2 rounded-xl overflow-hidden text-left transition-colors ${
-                  selectedSlug === p.slug
-                    ? "border-accent"
-                    : "border-border-soft hover:border-accent/40"
+                  selectedSlug === p.slug ? "border-accent" : "border-border-soft hover:border-accent/40"
                 }`}
               >
-                <div
-                  className={`ph min-h-[120px] rounded-none border-0 text-sm ${
-                    selectedSlug === p.slug ? "bg-accent-soft/60" : ""
-                  }`}
-                >
+                <div className={`ph min-h-[120px] rounded-none border-0 text-sm ${selectedSlug === p.slug ? "bg-accent-soft/60" : ""}`}>
                   {p.name}
                 </div>
                 <div className="p-3">
-                  <strong className="font-hand text-lg text-ink block">
-                    {p.name}
-                  </strong>
+                  <strong className="font-hand text-lg text-ink block">{p.name}</strong>
                   <p className="text-xs text-ink-muted">{p.capacity}</p>
                   {selectedSlug === p.slug && (
                     <span className="mt-2 inline-block px-2 py-0.5 rounded-full border border-accent/40 bg-accent-soft text-xs text-accent">
@@ -148,9 +134,7 @@ export default function DownloadPage() {
       {/* Step 2 */}
       {step === 2 && selectedProduct && (
         <div className="border border-border-soft rounded-xl p-6">
-          <span className="font-mono text-xs text-ink-muted block mb-4">
-            шаг 2 / 3
-          </span>
+          <span className="font-mono text-xs text-ink-muted block mb-4">шаг 2 / 3</span>
           <h2 className="font-hand text-3xl text-ink mb-2">Выбери материал</h2>
           <p className="text-sm text-ink-muted mb-6">
             Модель: <strong>{selectedProduct.name}</strong>
@@ -198,52 +182,27 @@ export default function DownloadPage() {
       {/* Step 3 */}
       {step === 3 && selectedProduct && selectedDownload && (
         <div className="border border-border-soft rounded-xl p-6">
-          <span className="font-mono text-xs text-ink-muted block mb-4">
-            шаг 3 / 3
-          </span>
-          <h2 className="font-hand text-3xl text-ink mb-2">Получи файл</h2>
-          <p className="text-sm text-ink-muted mb-6">
-            {selectedProduct.name} · {selectedDownload.label} · {selectedDownload.size}
-          </p>
-
-          <div className="bg-accent-soft border border-accent/20 rounded-xl p-5 mb-5">
-            <div className="flex flex-wrap gap-3 mb-4">
-              <a
-                href={selectedDownload.file}
-                download
-                onClick={() => setTimeout(() => setDone(true), 500)}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-white text-sm font-medium hover:bg-[#c4673d] transition-colors"
-              >
-                <DownloadSimple size={18} weight="bold" />
-                Скачать DXF + PDF
-              </a>
+          <span className="font-mono text-xs text-ink-muted block mb-4">шаг 3 / 3 · твой файл</span>
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h3 className="font-hand text-2xl text-ink mb-1">
+                {selectedProduct.name} · {selectedDownload.label}
+              </h3>
+              <p className="text-sm text-ink-muted">
+                SafePaws{selectedProduct.name.replace(" ", "")}.zip · {selectedDownload.size}
+              </p>
+              <p className="text-xs text-ink-muted mt-1">внутри: DXF (раскрой) + PDF (инструкция) + README</p>
             </div>
-            <p className="text-xs text-ink-muted">
-              {selectedDownload.size} · CC BY 4.0 · бесплатно
-            </p>
+            <a
+              href={selectedDownload.file}
+              download
+              onClick={() => setTimeout(() => setDone(true), 500)}
+              className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-accent text-white text-sm font-medium hover:bg-[#c4673d] transition-colors"
+            >
+              <DownloadSimple size={18} weight="bold" />
+              Скачать
+            </a>
           </div>
-
-          <div className="border border-border-soft rounded-xl p-5">
-            <label className="font-mono text-xs text-ink-muted block mb-2">
-              email для получения ссылки (опционально)
-            </label>
-            <div className="flex gap-3">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                className="flex-1 px-3 py-2 border border-border-soft rounded-lg text-sm bg-paper text-ink placeholder:text-ink-muted/50 focus:outline-none focus:border-accent"
-              />
-              <button className="px-4 py-2 rounded-lg border border-border-soft text-ink text-sm hover:bg-accent-soft transition-colors">
-                Отправить
-              </button>
-            </div>
-            <p className="text-xs text-ink-muted mt-2">
-              Пришлём ссылку и уведомление об обновлениях.
-            </p>
-          </div>
-
           <div className="mt-6">
             <button
               onClick={() => setStep(2)}
@@ -254,6 +213,22 @@ export default function DownloadPage() {
           </div>
         </div>
       )}
+
+      {/* NEXT STEPS */}
+      <div className="grid md:grid-cols-3 gap-5 mt-10">
+        {nextSteps.map(({ label, title, desc, href }) => (
+          <div key={title} className="border border-border-soft rounded-xl p-5">
+            <span className="font-mono text-xs text-ink-muted block mb-2">{label}</span>
+            <h4 className="font-hand text-xl text-ink mb-2">{title}</h4>
+            <p className="text-xs text-ink-muted mb-3">{desc}</p>
+            {href && (
+              <Link href={href} className="text-xs text-accent hover:underline">
+                Перейти →
+              </Link>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

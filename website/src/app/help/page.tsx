@@ -6,12 +6,12 @@ import {
   Hammer,
   Drop,
   MapPin,
-  VideoCamera,
-  Translate,
+  PencilSimple,
   MegaphoneSimple,
-  Code,
-  CurrencyDollar,
-  Star,
+  Heart,
+  Globe,
+  Handshake,
+  UsersThree,
 } from "@phosphor-icons/react";
 
 type Cap = "all" | "hands" | "time" | "money" | "voice";
@@ -48,49 +48,29 @@ const ways = [
     accent: false,
   },
   {
-    icon: VideoCamera,
-    title: "Снять отчёт",
-    desc: "Сделай фото или видео установленного домика — помоги вдохновить других.",
-    chips: ["смартфон", "15 минут"],
-    caps: ["voice", "time"] as Cap[],
-    cta: "Добавить историю →",
-    href: "/stories/add",
-    accent: false,
-  },
-  {
-    icon: Translate,
-    title: "Помочь с переводом",
-    desc: "Перевести сайт или инструкции на другие языки.",
-    chips: ["язык", "удалённо"],
-    caps: ["time"] as Cap[],
-    cta: "Написать нам →",
-    href: "mailto:kkrugley@proton.me",
-    accent: false,
-  },
-  {
     icon: MegaphoneSimple,
-    title: "Рассказать в соцсетях",
-    desc: "Репост, история, упоминание — это уже помощь.",
-    chips: ["5 минут", "соцсети"],
+    title: "Рассказать",
+    desc: "Поделиться в соцсетях, переслать другу с CNC.",
+    chips: ["Telegram", "5 минут"],
     caps: ["voice"] as Cap[],
     cta: "Поделиться →",
     href: "/about#share",
     accent: false,
   },
   {
-    icon: Code,
-    title: "Помочь с разработкой",
-    desc: "Код, дизайн, тестирование — всё принимается. GitHub open source.",
-    chips: ["код", "дизайн"],
-    caps: ["hands", "time"] as Cap[],
-    cta: "GitHub →",
-    href: "https://github.com/kkrugley/winter-shelter",
+    icon: PencilSimple,
+    title: "Добавить историю",
+    desc: "Уже есть домик? Добавь точку на карту и фото. Это мотивирует других.",
+    chips: ["2 фото", "пара строк"],
+    caps: ["time", "voice"] as Cap[],
+    cta: "Форма истории →",
+    href: "/stories/add",
     accent: false,
   },
   {
-    icon: CurrencyDollar,
-    title: "Финансовая поддержка",
-    desc: "Любая сумма идёт на материалы для партийных сборок.",
+    icon: Heart,
+    title: "Поддержать",
+    desc: "Донат идёт на материалы и раздачу готовых домиков.",
     chips: ["любая сумма"],
     caps: ["money"] as Cap[],
     cta: "Поддержать →",
@@ -98,14 +78,35 @@ const ways = [
     accent: false,
   },
   {
-    icon: Star,
-    title: "Стать амбассадором",
-    desc: "Организуй кормовую точку или воркшоп в своём городе.",
-    chips: ["город", "организация"],
+    icon: Globe,
+    title: "Перевести сайт",
+    desc: "Помоги локализовать на другой язык — файлы в GitHub.",
+    chips: ["язык", "удалённо"],
+    caps: ["time"] as Cap[],
+    cta: "Открыть GitHub →",
+    href: "https://github.com/kkrugley/winter-shelter",
+    accent: false,
+  },
+  {
+    icon: Handshake,
+    title: "Партнёрство",
+    desc: "Хакспейс, приют, компания — готовы сотрудничать.",
+    chips: ["организация"],
     caps: ["time", "voice"] as Cap[],
-    cta: "Написать нам →",
+    cta: "Написать →",
     href: "mailto:kkrugley@proton.me",
     accent: false,
+  },
+  {
+    icon: UsersThree,
+    title: "Сеть волонтёров",
+    desc: "Чат в Telegram, где обсуждаем установки и помогаем новичкам.",
+    chips: ["Telegram"],
+    caps: ["time", "voice"] as Cap[],
+    cta: "Вступить →",
+    href: "https://t.me/safepaws",
+    accent: false,
+    dashed: true,
   },
 ];
 
@@ -125,86 +126,114 @@ export default function HelpPage() {
   );
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-      {/* Breadcrumb */}
-      <div className="font-mono text-xs text-ink-muted mb-6">
-        <Link href="/" className="hover:text-accent">главная</Link>
-        {" / "}
-        <span className="text-accent">как помочь</span>
-      </div>
+    <>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+        {/* Breadcrumb */}
+        <div className="font-mono text-xs text-ink-muted mb-6">
+          <Link href="/" className="hover:text-accent">главная</Link>
+          {" / "}
+          <span className="text-accent">как помочь</span>
+        </div>
 
-      <h1 className="font-hand text-5xl text-ink mb-3">
-        Помогать можно по-разному.
-      </h1>
-      <p className="text-base text-ink-muted mb-10 max-w-[560px]">
-        Не у всех есть лобзик. Не у всех есть время. Но у каждого есть хоть
-        что-то. Вот пути.
-      </p>
+        <h1 className="font-hand text-5xl text-ink mb-3">
+          Помогать можно по-разному.
+        </h1>
+        <p className="text-base text-ink-muted mb-10 max-w-[560px]">
+          Не у всех есть лобзик. Не у всех есть время. Но у каждого есть хоть
+          что-то. Вот пути.
+        </p>
 
-      {/* Filter */}
-      <div className="border border-border-soft rounded-xl p-4 mb-10 flex flex-wrap gap-3 items-center">
-        <span className="font-mono text-xs text-ink-muted">у меня есть:</span>
-        {capFilters.map(({ key, label, emoji }) => (
-          <button
-            key={key}
-            onClick={() => setCap(key)}
-            className={`px-3 py-1.5 rounded-full border text-xs transition-colors ${
-              cap === key
-                ? "border-accent bg-accent-soft text-accent"
-                : "border-border-soft text-ink-muted hover:border-accent/40 hover:text-accent"
-            }`}
-          >
-            {emoji && <span className="mr-1">{emoji}</span>}
-            {label}
-          </button>
-        ))}
-      </div>
-
-      {/* 9-card grid */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {filtered.map(({ icon: Icon, title, desc, chips, cta, href, accent }) => (
-          <div
-            key={title}
-            className={`rounded-xl p-6 flex flex-col gap-3 border ${
-              accent
-                ? "bg-accent-soft border-accent/20"
-                : "bg-paper border-border-soft"
-            }`}
-          >
-            <Icon
-              size={32}
-              weight="duotone"
-              className={accent ? "text-accent" : "text-ink-muted"}
-            />
-            <h3 className="font-hand text-2xl text-ink">{title}</h3>
-            <p className="text-sm text-ink-muted flex-1">{desc}</p>
-            <div className="flex flex-wrap gap-2">
-              {chips.map((c) => (
-                <span
-                  key={c}
-                  className="px-2 py-0.5 rounded-full border border-border-soft text-xs text-ink-muted"
-                >
-                  {c}
-                </span>
-              ))}
-            </div>
-            <Link
-              href={href}
-              className={`inline-flex items-center text-sm font-medium hover:underline ${
-                accent ? "text-accent" : "text-ink"
+        {/* Filter */}
+        <div className="border border-border-soft rounded-xl p-4 mb-10 flex flex-wrap gap-3 items-center">
+          <span className="font-mono text-xs text-ink-muted">у меня есть:</span>
+          {capFilters.map(({ key, label, emoji }) => (
+            <button
+              key={key}
+              onClick={() => setCap(key)}
+              className={`px-3 py-1.5 rounded-full border text-xs transition-colors ${
+                cap === key
+                  ? "border-accent bg-accent-soft text-accent"
+                  : "border-border-soft text-ink-muted hover:border-accent/40 hover:text-accent"
               }`}
             >
-              {cta}
-            </Link>
+              {emoji && <span className="mr-1">{emoji}</span>}
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* 9-card grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {filtered.map(({ icon: Icon, title, desc, chips, cta, href, accent, dashed }) => (
+            <div
+              key={title}
+              className={`rounded-xl p-6 flex flex-col gap-3 border ${
+                dashed
+                  ? "border-dashed border-accent/30 bg-paper"
+                  : accent
+                  ? "bg-accent-soft border-accent/20"
+                  : "bg-paper border-border-soft"
+              }`}
+            >
+              <Icon
+                size={32}
+                weight="duotone"
+                className={accent ? "text-accent" : "text-ink-muted"}
+              />
+              <h3 className="font-hand text-2xl text-ink">{title}</h3>
+              <p className="text-sm text-ink-muted flex-1">{desc}</p>
+              <div className="flex flex-wrap gap-2">
+                {chips.map((c) => (
+                  <span
+                    key={c}
+                    className="px-2 py-0.5 rounded-full border border-border-soft text-xs text-ink-muted"
+                  >
+                    {c}
+                  </span>
+                ))}
+              </div>
+              <Link
+                href={href}
+                className={`inline-flex items-center text-sm font-medium hover:underline mt-1 ${
+                  accent ? "text-accent" : "text-ink"
+                }`}
+              >
+                {cta}
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        {filtered.length === 0 && (
+          <div className="text-center py-20 font-hand text-2xl text-ink-muted">
+            Нет способов для этого фильтра
           </div>
-        ))}
+        )}
       </div>
 
-      {filtered.length === 0 && (
-        <div className="text-center py-20 font-hand text-2xl text-ink-muted">
-          Нет способов для этого фильтра
+      {/* BIG CALL */}
+      <section className="py-14 bg-ink text-paper">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+          <h2 className="font-hand text-4xl mb-4">Пока ты читаешь это, на улице –5°C.</h2>
+          <p className="text-sm text-paper/70 mb-8 max-w-md mx-auto">
+            Любое действие с этой страницы — шаг в правильную сторону.
+          </p>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <Link
+              href="/solutions/purrtap"
+              className="px-6 py-3 rounded-lg bg-accent text-white text-sm font-medium hover:bg-[#c4673d] transition-colors"
+            >
+              Самое простое: скачать PurrTap
+            </Link>
+            <Link
+              href="/help"
+              className="px-6 py-3 rounded-lg border border-paper/20 text-paper text-sm font-medium hover:bg-paper/10 transition-colors"
+            >
+              Пройти квиз
+            </Link>
+          </div>
         </div>
-      )}
-    </div>
+      </section>
+    </>
   );
 }
