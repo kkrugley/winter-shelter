@@ -84,7 +84,7 @@ const ways = [
     chips: ["язык", "удалённо"],
     caps: ["time"] as Cap[],
     cta: "Открыть GitHub →",
-    href: "https://github.com/kkrugley/winter-shelter",
+    href: "https://github.com/kkrugley/safepaws",
     accent: false,
   },
   {

@@ -22,7 +22,7 @@ const cols = [
   {
     title: "Связь",
     links: [
-      { href: "https://github.com/kkrugley/winter-shelter", label: "GitHub" },
+      { href: "https://github.com/kkrugley/safepaws", label: "GitHub" },
       { href: "https://t.me/safepaws", label: "Telegram" },
       { href: "mailto:kkrugley@proton.me", label: "Email" },
       { href: "/about", label: "О проекте" },
