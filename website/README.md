@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SafePaws Website
 
-## Getting Started
+Сайт проекта SafePaws — открытые чертежи домиков и поилок для бездомных кошек.
 
-First, run the development server:
+## Структура проекта
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── page.tsx           # Главная страница
+│   ├── layout.tsx         # Корневой layout (шрифты, мета-теги)
+│   ├── globals.css        # Глобальные стили + CSS-переменные
+│   ├── solutions/         # Каталог решений
+│   │   ├── page.tsx       # Список всех продуктов
+│   │   └── [slug]/        # Детальная страница продукта
+│   ├── download/          # Страница загрузки файлов
+│   ├── help/              # Как помочь проекту
+│   ├── stories/           # Истории пользователей
+│   │   └── add/           # Форма добавления истории
+│   └── about/             # О проекте
+├── components/
+│   ├── ui/                # shadcn/ui компоненты
+│   │   ├── button.tsx
+│   │   ├── card.tsx
+│   │   ├── badge.tsx
+│   │   └── separator.tsx
+│   └── layout/            # Layout-компоненты
+│       ├── Header.tsx     # Навигация (sticky, mobile-friendly)
+│       └── Footer.tsx     # Подвал
+├── data/
+│   └── products.ts        # Данные продуктов (shelters, hydration, feeding)
+└── lib/
+    └── utils.ts           # Утилиты (cn для tailwind-merge)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Страницы сайта
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Маршрут | Описание |
+|---------|----------|
+| `/` | Главная — Hero, 3 пути помощи, превью каталога, как это работает, истории |
+| `/solutions` | Каталог всех решений (фильтры по категориям) |
+| `/solutions/[slug]` | Детальная страница продукта с характеристиками и файлами |
+| `/download` | Центральная страница загрузки всех чертежей |
+| `/help` | Варианты помощи: собрать, поделиться, задонатить |
+| `/stories` | Истории людей, собравших домики |
+| `/stories/add` | Форма отправки своей истории |
+| `/about` | О проекте, миссия, контакты |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Архитектура данных
 
-## Learn More
+### Продукты (`src/data/products.ts`)
 
-To learn more about Next.js, take a look at the following resources:
+Каждый продукт содержит:
+- **slug** — уникальный идентификатор для URL
+- **name/tagline** — название и слоган
+- **category** — `shelter` | `hydration` | `feeding`
+- **status** — `available` | `new` | `coming-soon` | `prototype`
+- **specs** — массив характеристик (размер, материал, время сборки)
+- **downloads** — файлы для скачивания (варианты материалов)
+- **tags** — для фильтрации и SEO
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Дизайн-система
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Цвета (CSS-переменные)
 
-## Deploy on Vercel
+```css
+--sp-bg: #FDFBF7        /* paper — фон страницы */
+--sp-fg: #1A1917        /* ink — основной текст */
+--sp-muted: #6B6862     /* ink-muted — вторичный текст */
+--sp-accent: #D97757      /* accent — кнопки, ссылки */
+--sp-accent-soft: #FBE8DE /* accent-soft — фоны карточек */
+--sp-border: #E8E4DF     /* border-soft — границы */
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Типографика
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Inter** (`--font-inter`) — основной текст, интерфейс
+- **Caveat** (`--font-caveat`) — рукописные заголовки (`font-hand`)
+- Оба шрифта подключаются с кириллическими подмножествами
+
+### CSS-классы
+
+- `bg-paper` / `text-ink` — базовые цвета
+- `font-hand` — рукописный шрифт для заголовков
+- `ph` — placeholder для изображений (lo-fi wireframe стиль)
+
+## Команды разработки
+
+```bash
+npm install              # Установка зависимостей
+npm run dev              # Dev-сервер localhost:3000
+npm run build            # Статический экспорт в dist/
+```
+
+## Стек
+
+- **Next.js 16.2.4** + **React 19.2.4** — App Router
+- **Tailwind CSS v4** — `@tailwindcss/postcss`, без `tailwind.config`
+- **shadcn/ui** — стиль `base-nova`, иконки `lucide`
+- **Phosphor Icons** — `@phosphor-icons/react`
+- **TypeScript** — пути `@/*` → `./src/*`
+
+## Особенности
+
+- **Язык**: весь контент на русском (`lang="ru"`)
+- **Статический экспорт**: `output: 'export'` только в production
+- **Изображения**: `unoptimized: true` (требуется для static export)
+- **Деплой**: Vercel, выходная директория `dist/`

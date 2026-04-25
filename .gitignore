@@ -25,6 +25,7 @@
 *.lnk
 *.m3~
 *.a3~
+_tmp_assets/
 
 # === Specific file to ignore globally ===
 00.99.m3d
@@ -48,3 +49,5 @@ website-new/
 
 # Claude Code project settings
 .claude/
+CLAUDE.md
+AGENTS.md
