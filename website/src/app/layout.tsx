@@ -37,6 +37,7 @@ export default function RootLayout({
     <html
       lang="ru"
       className={`${inter.variable} ${caveat.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-paper text-ink">
         <Header />
