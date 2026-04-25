@@ -18,13 +18,48 @@ const caveat = Caveat({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://safepaws.vercel.app"),
-  title: "SafePaws — чертежи домиков и поилок для уличных кошек",
+  title: {
+    default: "SafePaws — чертежи домиков и поилок для уличных кошек",
+    template: "%s · SafePaws",
+  },
   description:
-    "Открытый проект: бесплатные чертежи защитных решений для бездомных животных. Скачай, собери, установи — или помоги иначе.",
+    "Открытый проект: бесплатные чертежи защитных домиков и поилок для бездомных кошек. Скачай DXF/PDF, собери сам или помоги иначе.",
+  keywords: [
+    "бездомные кошки",
+    "домик для кошки",
+    "чертежи",
+    "DXF",
+    "волонтёрство",
+    "SafePaws",
+    "уличные кошки",
+    "поилка для кошек",
+    "открытый проект",
+  ],
+  authors: [{ name: "SafePaws" }],
+  robots: { index: true, follow: true },
   openGraph: {
-    title: "SafePaws",
-    description: "Открытые чертежи для защиты уличных животных",
-    images: ["/images/og-preview.jpg"],
+    type: "website",
+    url: "https://safepaws.vercel.app",
+    siteName: "SafePaws",
+    title: "SafePaws — чертежи домиков и поилок для уличных кошек",
+    description:
+      "Бесплатные чертежи защитных домиков и поилок для бездомных кошек. Скачай, собери, установи — или помоги иначе.",
+    locale: "ru_RU",
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "SafePaws — домики и поилки для уличных кошек",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SafePaws — чертежи домиков и поилок для уличных кошек",
+    description:
+      "Бесплатные чертежи защитных домиков и поилок для бездомных кошек. Скачай, собери, установи.",
+    images: ["/images/og-image.jpg"],
   },
 };
 
