@@ -1,15 +1,15 @@
 {
-  "name": "Safepaws",
-  "short_name": "Safepaws",
+  "name": "SafePaws",
+  "short_name": "SafePaws",
   "icons": [
     {
-      "src": "/web-app-manifest-192x192.png?v=20260424",
+      "src": "/images/favicon/web-app-manifest-192x192.png?v=20260511",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/web-app-manifest-512x512.png?v=20260424",
+      "src": "/images/favicon/web-app-manifest-512x512.png?v=20260511",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

@@ -116,6 +116,7 @@
   * {
     @apply border-border;
   }
+  button { cursor: pointer; }
   body {
     @apply bg-paper text-ink font-sans;
     -webkit-font-smoothing: antialiased;
@@ -198,6 +199,65 @@
 .author-contact-link:hover span {
   color: var(--ember);
 }
+
+/* ── Quiz component ─────────────────────────────────────────────────────── */
+.quiz-body-wrap {
+  display: grid;
+  transition:
+    grid-template-rows 0.46s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease 0.1s;
+}
+.quiz-body-wrap-inner { overflow: hidden; }
+
+/* "Подобрать" button collapses during active quiz */
+.quiz-start-btn {
+  padding: 10px 20px;
+  transition: opacity 0.2s ease, width 0.2s ease, padding 0.2s ease;
+}
+[aria-hidden="true"].quiz-start-btn {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  padding: 0;
+  pointer-events: none;
+}
+
+/* Answer buttons */
+.quiz-answer-btn {
+  text-align: left;
+  background: var(--cream);
+  border: 1px solid var(--sand-2);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--charcoal);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+.quiz-answer-btn:hover:not(:disabled) {
+  border-color: var(--ember);
+  background: var(--ember-pale);
+  transform: translateY(-1px);
+}
+.quiz-answer-btn.selected {
+  border-color: var(--ember);
+  background: var(--ember-pale);
+  transform: translateY(-1px);
+}
+.quiz-answer-btn:disabled { cursor: default; }
+
+@keyframes quiz-slide-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes quiz-result-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.quiz-slide-in  { animation: quiz-slide-in  0.3s  ease; }
+.quiz-result-in { animation: quiz-result-in 0.35s ease; }
 
 /* Placeholder for contenteditable quote field */
 .quote-editable:empty::before {

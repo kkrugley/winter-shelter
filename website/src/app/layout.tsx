@@ -49,6 +49,15 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "SafePaws" }],
   robots: { index: true, follow: true },
+  icons: {
+    icon: [
+      { url: "/images/favicon/favicon.ico", sizes: "any" },
+      { url: "/images/favicon/favicon.svg", type: "image/svg+xml" },
+      { url: "/images/favicon/favicon-96x96.png", type: "image/png", sizes: "96x96" },
+    ],
+    apple: "/images/favicon/apple-touch-icon.png",
+  },
+  manifest: "/images/favicon/site.webmanifest",
   openGraph: {
     type: "website",
     url: "https://safepaws.ru",

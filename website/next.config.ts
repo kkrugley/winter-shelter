@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizePackageImports: ["@phosphor-icons/react"],
-    browsersListForSwc: true,
   },
 };
 
