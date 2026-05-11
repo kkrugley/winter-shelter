@@ -2,6 +2,14 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import Image from "next/image";
 import { ArrowLeft, CheckCircle, MapPin, Spinner, X, UploadSimple } from "@phosphor-icons/react";
 
@@ -233,13 +241,21 @@ export default function AddStoryPage() {
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 py-12">
       {/* Breadcrumb */}
-      <div className="font-mono text-xs mb-8" style={{ color: "var(--stone)" }}>
-        <Link href="/" className="hover:underline">главная</Link>
-        {" / "}
-        <Link href="/stories" className="hover:underline">истории</Link>
-        {" / "}
-        <span style={{ color: "var(--ember)" }}>добавить</span>
-      </div>
+      <Breadcrumb className="mb-8">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">главная</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/stories">истории</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>добавить</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
       <h1 className="heading-display mb-2">Поделись историей</h1>
       <p className="text-sm mb-10" style={{ color: "var(--stone)" }}>

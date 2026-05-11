@@ -14,6 +14,8 @@ export interface ProductDownload {
   recommended?: boolean;
 }
 
+export type ProductMaterial = "3mm" | "6mm" | "other";
+
 export interface Product {
   slug: string;
   name: string;
@@ -26,6 +28,8 @@ export interface Product {
   specs: ProductSpec[];
   downloads: ProductDownload[];
   tags: string[];
+  images: string[];
+  materials: ProductMaterial[];
 }
 
 export const products: Product[] = [
@@ -61,6 +65,12 @@ export const products: Product[] = [
       },
     ],
     tags: ["укрытие", "фанера", "open source"],
+    images: [
+      "/images/products/cozy-shelter/img1.jpg",
+      "/images/products/cozy-shelter/img2.jpg",
+      "/images/products/cozy-shelter/img3.jpg",
+      "/images/products/cozy-shelter/img4.jpg",
+    ],
   },
   {
     slug: "family-shelter",
@@ -94,6 +104,12 @@ export const products: Product[] = [
       },
     ],
     tags: ["укрытие", "фанера", "open source"],
+    images: [
+      "/images/products/family-shelter/img1.jpg",
+      "/images/products/family-shelter/img2.jpg",
+      "/images/products/family-shelter/img3.jpg",
+      "/images/products/family-shelter/img4.jpg",
+    ],
   },
   {
     slug: "purrtap",
@@ -121,6 +137,12 @@ export const products: Product[] = [
       },
     ],
     tags: ["поилка", "бутылка", "быстро"],
+    images: [
+      "/images/products/purrtap/img1.jpg",
+      "/images/products/purrtap/img2.jpg",
+      "/images/products/purrtap/img3.jpg",
+      "/images/products/purrtap/img4.jpg",
+    ],
   },
   {
     slug: "edc-feeder",
@@ -140,6 +162,12 @@ export const products: Product[] = [
     ],
     downloads: [],
     tags: ["кормление", "3D-печать", "скоро"],
+    images: [
+      "/images/products/edc-feeder/img1.jpg",
+      "/images/products/edc-feeder/img2.jpg",
+      "/images/products/edc-feeder/img3.jpg",
+      "/images/products/edc-feeder/img4.jpg",
+    ],
   },
 ];
 

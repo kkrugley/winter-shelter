@@ -2,6 +2,14 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { CtaBlock } from "@/components/ui/CtaBlock";
 import { StoryCard } from "@/components/ui/StoryCard";
 import { Map, MapClusterLayer, MapPopup } from "@/components/ui/map";
@@ -91,11 +99,17 @@ export default function StoriesPage() {
     <>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
         {/* Breadcrumb */}
-        <div className="font-mono text-xs text-ink-muted mb-6">
-          <Link href="/" className="hover:text-accent">главная</Link>
-          {" / "}
-          <span className="text-accent">истории</span>
-        </div>
+        <Breadcrumb className="mb-6">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">главная</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>истории</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
 
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>

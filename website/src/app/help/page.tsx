@@ -2,6 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { CtaBlock } from "@/components/ui/CtaBlock";
 import {
   Hammer,
@@ -130,11 +138,17 @@ export default function HelpPage() {
     <>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
         {/* Breadcrumb */}
-        <div className="font-mono text-xs text-ink-muted mb-6">
-          <Link href="/" className="hover:text-accent">главная</Link>
-          {" / "}
-          <span className="text-accent">как помочь</span>
-        </div>
+        <Breadcrumb className="mb-6">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">главная</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>как помочь</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
 
         <h1 className="heading-display mb-3">Помогать можно по-разному.</h1>
         <p className="text-base text-ink-muted mb-10 max-w-[560px]">
