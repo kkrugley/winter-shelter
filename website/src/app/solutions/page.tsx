@@ -2,7 +2,16 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { SlidersHorizontal, ChevronDown } from "lucide-react";
 import { products } from "@/data/products";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { ProductIllustration } from "@/components/ui/ProductIllustration";
 
 type FilterType = "all" | "shelter" | "hydration" | "feeding";
@@ -27,6 +36,9 @@ export default function SolutionsPage() {
   const [type, setType] = useState<FilterType>("all");
   const [material, setMaterial] = useState<FilterMaterial>("all");
   const [status, setStatus] = useState<FilterStatus>("all");
+  const [filtersOpen, setFiltersOpen] = useState(false);
+
+  const activeFilterCount = [type !== "all", material !== "all", status !== "all"].filter(Boolean).length;
 
   const filtered = products.filter((p) => {
     if (type !== "all" && p.category !== type) return false;
@@ -40,11 +52,17 @@ export default function SolutionsPage() {
     <>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
         {/* Breadcrumb */}
-        <div className="font-mono text-xs text-ink-muted mb-6">
-          <Link href="/" className="hover:text-accent">главная</Link>
-          {" / "}
-          <span className="text-accent">решения</span>
-        </div>
+        <Breadcrumb className="mb-6">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">главная</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>решения</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
 
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
@@ -59,40 +77,73 @@ export default function SolutionsPage() {
           </span>
         </div>
 
-        {/* Filters */}
-        <div className="border rounded-xl p-4 mb-8 flex flex-wrap gap-3 items-center" style={{ borderColor: "var(--sand)", background: "var(--cream)" }}>
-          <span className="font-mono text-xs text-ink-muted">тип:</span>
-          {(["all", "shelter", "hydration", "feeding"] as const).map((v) => (
-            <FilterChip
-              key={v}
-              active={type === v}
-              onClick={() => setType(v)}
-              label={{ all: "все", shelter: "укрытия", hydration: "поение", feeding: "кормление" }[v]}
+        {/* Filter toggle */}
+        <div className="mb-3">
+          <button
+            onClick={() => setFiltersOpen((v) => !v)}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border font-mono text-xs text-ink-muted transition-colors hover:border-[var(--stone)]"
+            style={{ borderColor: filtersOpen ? "var(--ember)" : "var(--sand-2)", color: filtersOpen ? "#C55C1C" : undefined }}
+          >
+            <SlidersHorizontal size={13} />
+            фильтры
+            {activeFilterCount > 0 && (
+              <span className="flex h-4 w-4 items-center justify-center rounded-full text-[10px] bg-[var(--ember-pale)] text-[#C55C1C]">
+                {activeFilterCount}
+              </span>
+            )}
+            <ChevronDown
+              size={13}
+              className="transition-transform duration-200"
+              style={{ transform: filtersOpen ? "rotate(180deg)" : "rotate(0deg)" }}
             />
-          ))}
-          <span className="font-mono text-xs text-ink-muted ml-2">материал:</span>
-          {(["all", "3mm", "6mm", "other"] as const).map((v) => (
-            <FilterChip
-              key={v}
-              active={material === v}
-              onClick={() => setMaterial(v)}
-              label={{ all: "все", "3mm": "3 мм фанера", "6mm": "6 мм фанера", other: "другое" }[v]}
-            />
-          ))}
-          <span className="font-mono text-xs text-ink-muted ml-2">статус:</span>
-          {(["all", "available", "new", "coming-soon"] as const).map((v) => (
-            <FilterChip
-              key={v}
-              active={status === v}
-              onClick={() => setStatus(v as FilterStatus)}
-              label={{ all: "все", available: "готов", new: "NEW", "coming-soon": "скоро" }[v]}
-            />
-          ))}
-          <span className="ml-auto">
-            <button className="px-3 py-1 rounded-full border border-border-soft text-xs text-ink-muted">
-              сортировка: популярные ▾
-            </button>
-          </span>
+          </button>
+        </div>
+
+        {/* Collapsible filter panel */}
+        <div
+          className="grid transition-[grid-template-rows] duration-200 ease-in-out"
+          style={{ gridTemplateRows: filtersOpen ? "1fr" : "0fr" }}
+        >
+          <div className="overflow-hidden">
+            <div
+              className="border rounded-xl p-4 mb-8 flex flex-col gap-3"
+              style={{ borderColor: "var(--sand)", background: "var(--cream)" }}
+            >
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-mono text-xs text-ink-muted w-16 shrink-0">тип</span>
+                {(["all", "shelter", "hydration", "feeding"] as const).map((v) => (
+                  <FilterChip
+                    key={v}
+                    active={type === v}
+                    onClick={() => setType(v)}
+                    label={{ all: "показать все", shelter: "укрытия", hydration: "поение", feeding: "кормление" }[v]}
+                  />
+                ))}
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-mono text-xs text-ink-muted w-16 shrink-0">материал</span>
+                {(["all", "3mm", "6mm", "other"] as const).map((v) => (
+                  <FilterChip
+                    key={v}
+                    active={material === v}
+                    onClick={() => setMaterial(v)}
+                    label={{ all: "показать все", "3mm": "3 мм фанера", "6mm": "6 мм фанера", other: "другое" }[v]}
+                  />
+                ))}
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-mono text-xs text-ink-muted w-16 shrink-0">статус</span>
+                {(["all", "available", "new", "coming-soon"] as const).map((v) => (
+                  <FilterChip
+                    key={v}
+                    active={status === v}
+                    onClick={() => setStatus(v as FilterStatus)}
+                    label={{ all: "показать все", available: "готов", new: "NEW", "coming-soon": "скоро" }[v]}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Grid */}

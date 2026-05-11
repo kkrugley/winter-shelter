@@ -2,6 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { DownloadSimple, CheckCircle } from "@phosphor-icons/react";
 import { products, getAvailableProducts } from "@/data/products";
 
@@ -57,11 +65,17 @@ export default function DownloadPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
       {/* Breadcrumb */}
-      <div className="font-mono text-xs text-ink-muted mb-8">
-        <Link href="/" className="hover:text-accent">главная</Link>
-        {" / "}
-        <span className="text-accent">скачать</span>
-      </div>
+      <Breadcrumb className="mb-8">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">главная</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>скачать</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
       <h1 className="heading-display mb-2">Скачать чертежи</h1>
       <p className="text-sm text-ink-muted mb-10">

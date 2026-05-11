@@ -2,6 +2,15 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { products, getProduct } from "@/data/products";
 import { DownloadButton } from "@/components/DownloadButton";
+import { ProductGallery } from "@/components/ProductGallery";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -110,38 +119,29 @@ export default async function ProductPage({ params }: Props) {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
       {/* Breadcrumb */}
-      <div className="font-mono text-xs text-ink-muted mb-8">
-        <Link href="/" className="hover:text-accent">главная</Link>
-        {" / "}
-        <Link href="/solutions" className="hover:text-accent">решения</Link>
-        {" / "}
-        <span className="text-accent">{product.name.toLowerCase()}</span>
-      </div>
+      <Breadcrumb className="mb-8">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">главная</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/solutions">решения</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{product.name.toLowerCase()}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
       {/* Hero row */}
       <div className="grid lg:grid-cols-2 gap-10 items-start mb-14">
         {/* Gallery */}
-        <div>
-          <div className="ph min-h-[340px] mb-3">
-            {product.name} · главное фото / 3D
-          </div>
-          <div className="grid grid-cols-4 gap-2">
-            {["1", "2", "3", "схема"].map((n) => (
-              <div key={n} className="ph min-h-[70px] text-sm">{n}</div>
-            ))}
-          </div>
-        </div>
+        <ProductGallery images={product.images} productName={product.name} />
 
         {/* Info + Actions */}
         <div>
-          <div className="flex flex-wrap gap-2 mb-3">
-            <StatusBadge status={product.status} />
-            <span className="px-2 py-0.5 rounded-full border border-border-soft text-xs text-ink-muted">
-              {product.category === "shelter" ? "укрытие" : product.category === "hydration" ? "поение" : "кормление"}
-            </span>
-            <span className="px-2 py-0.5 rounded-full border border-border-soft text-xs text-ink-muted">open source</span>
-          </div>
-
           <h1 className="heading-display mb-2">{product.name}</h1>
           <p className="heading-card text-xl mb-4" style={{ color: "var(--sp-accent)" }}>
             {product.tagline}

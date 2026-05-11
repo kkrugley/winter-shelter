@@ -2,6 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { getStats } from "@/lib/stats";
 import { RoadmapZigzag, type TimelineItem } from "@/components/RoadmapZigzag";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 const BADGE_TILTS = [-1.1, 0.8, -0.6, 1.3];
 
@@ -41,11 +49,17 @@ export default async function AboutPage() {
     <>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
         {/* Breadcrumb */}
-        <div className="font-mono text-xs text-ink-muted mb-8">
-          <Link href="/" className="hover:text-accent">главная</Link>
-          {" / "}
-          <span className="text-accent">о проекте</span>
-        </div>
+        <Breadcrumb className="mb-8">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">главная</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>о проекте</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
 
         {/* Mission hero */}
         <div className="grid md:grid-cols-2 gap-10 items-center mb-14">
