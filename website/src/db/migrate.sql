@@ -26,3 +26,11 @@ CREATE TABLE IF NOT EXISTS stories (
 CREATE INDEX IF NOT EXISTS stories_status_idx        ON stories (status);
 CREATE INDEX IF NOT EXISTS stories_product_slug_idx  ON stories (product_slug);
 CREATE INDEX IF NOT EXISTS stories_country_idx       ON stories (country);
+
+CREATE TABLE IF NOT EXISTS downloads (
+  id           SERIAL PRIMARY KEY,
+  created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  product_slug TEXT
+);
+
+CREATE INDEX IF NOT EXISTS downloads_product_slug_idx ON downloads (product_slug);

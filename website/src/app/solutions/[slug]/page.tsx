@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { DownloadSimple } from "@phosphor-icons/react/dist/ssr";
 import { products, getProduct } from "@/data/products";
+import { DownloadButton } from "@/components/DownloadButton";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -176,15 +176,11 @@ export default async function ProductPage({ params }: Props) {
               </div>
               <div className="flex flex-wrap gap-3">
                 {product.downloads.filter((d) => d.recommended).map((d) => (
-                  <a
+                  <DownloadButton
                     key={d.variant}
                     href={d.file}
-                    download
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-accent text-white text-sm font-medium hover:bg-[#c4673d] transition-colors"
-                  >
-                    <DownloadSimple size={16} weight="bold" />
-                    Скачать DXF + PDF
-                  </a>
+                    productSlug={slug}
+                  />
                 ))}
                 <Link
                   href="/download"
