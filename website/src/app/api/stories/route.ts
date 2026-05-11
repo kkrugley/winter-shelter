@@ -1,16 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { filterStories, submitStory } from "@/lib/stories";
 
-export const runtime = "edge";
-
 /** GET /api/stories?product_slug=cozy-shelter&country=BY */
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const product_slug = searchParams.get("product_slug") ?? undefined;
   const country = searchParams.get("country") ?? undefined;
 
-  const stories = await filterStories({ product_slug, country });
-  return NextResponse.json(stories);
+  try {
+    const stories = await filterStories({ product_slug, country });
+    return NextResponse.json(stories);
+  } catch (err) {
+    console.error("[/api/stories GET]", err);
+    return NextResponse.json({ error: "Failed to load stories" }, { status: 500 });
+  }
 }
 
 /** POST /api/stories  — accepts a new submission */
@@ -34,6 +37,11 @@ export async function POST(req: NextRequest) {
     body.lng = (body.lng as number) + (distance / (111_000 * Math.cos(latRad))) * Math.sin(angle);
   }
 
-  const id = await submitStory(body);
-  return NextResponse.json({ id }, { status: 201 });
+  try {
+    const id = await submitStory(body);
+    return NextResponse.json({ id }, { status: 201 });
+  } catch (err) {
+    console.error("[/api/stories POST]", err);
+    return NextResponse.json({ error: "Failed to submit story" }, { status: 500 });
+  }
 }

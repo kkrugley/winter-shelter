@@ -224,12 +224,16 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
       container: containerRef.current,
       style: initialStyle,
       renderWorldCopies: false,
-      attributionControl: {
-        compact: true,
-      },
+      attributionControl: false,
       ...props,
       ...viewport,
     });
+
+    map.addControl(new MapLibreGL.AttributionControl({ compact: true }));
+    // MapLibre v5 _updateCompact() opens the <details> on init — force it closed.
+    const attrEl = map.getContainer().querySelector<HTMLElement>('.maplibregl-ctrl-attrib');
+    attrEl?.classList.remove('maplibregl-compact-show');
+    if (attrEl instanceof HTMLDetailsElement) attrEl.open = false;
 
     const styleDataHandler = () => {
       clearStyleTimeout();
