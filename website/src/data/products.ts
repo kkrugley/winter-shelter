@@ -104,7 +104,7 @@ export const products: Product[] = [
     category: "hydration",
     status: "new",
     capacity: "1–5 котов",
-    subtitle: "Поилка для двора · инструкция",
+    subtitle: "Поилка для двора · 3Д-печать",
     specs: [
       { label: "время сборки", value: "20 минут" },
       { label: "материал", value: "бутылка + крепёж" },
@@ -131,7 +131,7 @@ export const products: Product[] = [
     category: "feeding",
     status: "coming-soon",
     capacity: "1–3 кота",
-    subtitle: "Портативная кормушка",
+    subtitle: "Карманная кормушка-дозатор для корма",
     specs: [
       { label: "материал", value: "PETG / ABS" },
       { label: "время печати", value: "~ 3 часа" },

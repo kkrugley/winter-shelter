@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const cols = [
@@ -38,7 +39,7 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-3">
-              <img src="/images/favicon/favicon.svg" alt="" width={24} height={24} aria-hidden />
+              <Image src="/images/favicon/favicon.svg" alt="" width={24} height={24} aria-hidden unoptimized />
               <span className="heading-logo">SafePaws</span>
             </div>
             <p className="text-sm text-[var(--stone)] leading-relaxed">

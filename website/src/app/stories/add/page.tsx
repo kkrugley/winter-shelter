@@ -121,6 +121,7 @@ export default function AddStoryPage() {
 
   useEffect(() => {
     if (geoSelected || cityQuery.length < 3) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: clear suggestions on early bail-out
       setGeoResults([]);
       return;
     }
