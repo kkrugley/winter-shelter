@@ -79,7 +79,7 @@ export default function StoriesPage() {
 
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>
-            <h1 className="font-hand text-5xl text-ink">Где уже стоят домики</h1>
+            <h1 className="heading-display">Где уже стоят домики</h1>
             <p className="text-sm text-ink-muted mt-2">
               Каждая точка — реальный собранный и установленный домик или поилка.
             </p>
@@ -194,8 +194,8 @@ export default function StoriesPage() {
 
                       {/* Quote */}
                       <p
-                        className="font-hand text-[16px] text-ink font-bold leading-snug"
-                        style={{ letterSpacing: "-0.01em", fontVariationSettings: '"wght" 700, "SOFT" 50, "opsz" 24' }}
+                        className="heading-quote leading-snug"
+                        style={{ fontVariationSettings: '"wght" 700' }}
                       >
                         {popup.quote}
                       </p>
@@ -218,7 +218,7 @@ export default function StoriesPage() {
           {/* Stories list */}
           <div className="flex flex-col gap-3 overflow-y-auto max-h-[480px] pr-1">
             {loading && (
-              <div className="text-center py-10 font-hand text-xl text-ink-muted">Загрузка…</div>
+              <div className="heading-card text-xl text-ink-muted text-center py-10">Загрузка…</div>
             )}
             {!loading && stories.map((s) => (
               <div
@@ -243,7 +243,7 @@ export default function StoriesPage() {
               </div>
             ))}
             {!loading && stories.length === 0 && (
-              <div className="text-center py-10 font-hand text-xl text-ink-muted">
+              <div className="heading-card text-xl text-ink-muted text-center py-10">
                 Нет историй по этим фильтрам
               </div>
             )}
@@ -252,7 +252,7 @@ export default function StoriesPage() {
 
         {/* ALL STORIES GRID */}
         <div>
-          <h2 className="font-hand text-4xl text-ink mb-6">Все истории</h2>
+          <h2 className="heading-section mb-6">Все истории</h2>
           {loading ? (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3].map((i) => (
@@ -271,7 +271,7 @@ export default function StoriesPage() {
             </div>
           )}
           {!loading && stories.length === 0 && (
-            <p className="text-center py-10 font-hand text-xl text-ink-muted">
+            <p className="heading-card text-xl text-ink-muted text-center py-10">
               Нет историй по этим фильтрам
             </p>
           )}
@@ -281,7 +281,7 @@ export default function StoriesPage() {
       {/* ADD STORY CTA */}
       <section className="py-14 bg-accent-soft">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="font-hand text-4xl text-ink mb-3">Собрал домик? Расскажи.</h2>
+          <h2 className="heading-section mb-3">Собрал домик? Расскажи.</h2>
           <p className="text-sm text-ink-muted mb-8">
             2 фото + пара строк — и точка появится на карте.
           </p>

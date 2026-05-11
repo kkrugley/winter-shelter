@@ -99,12 +99,12 @@ const ways = [
   },
   {
     icon: UsersThree,
-    title: "Сеть волонтёров",
-    desc: "Чат в Telegram, где обсуждаем установки и помогаем новичкам.",
+    title: "Сообщество в Telegram",
+    desc: "Канал в Telegram, где обсуждаем установки и помогаем новичкам.",
     chips: ["Telegram"],
     caps: ["time", "voice"] as Cap[],
     cta: "Вступить →",
-    href: "https://t.me/safepaws",
+    href: "https://t.me/safepaws_help",
     accent: false,
     dashed: true,
   },
@@ -135,9 +135,7 @@ export default function HelpPage() {
           <span className="text-accent">как помочь</span>
         </div>
 
-        <h1 className="font-hand text-5xl text-ink mb-3">
-          Помогать можно по-разному.
-        </h1>
+        <h1 className="heading-display mb-3">Помогать можно по-разному.</h1>
         <p className="text-base text-ink-muted mb-10 max-w-[560px]">
           Не у всех есть лобзик. Не у всех есть время. Но у каждого есть хоть
           что-то. Вот пути.
@@ -180,7 +178,7 @@ export default function HelpPage() {
                 weight="duotone"
                 className={accent ? "text-accent" : "text-ink-muted"}
               />
-              <h3 className="font-hand text-2xl text-ink">{title}</h3>
+              <h3 className="heading-card">{title}</h3>
               <p className="text-sm text-ink-muted flex-1">{desc}</p>
               <div className="flex flex-wrap gap-2">
                 {chips.map((c) => (
@@ -205,7 +203,7 @@ export default function HelpPage() {
         </div>
 
         {filtered.length === 0 && (
-          <div className="text-center py-20 font-hand text-2xl text-ink-muted">
+          <div className="heading-card text-ink-muted text-center py-20">
             Нет способов для этого фильтра
           </div>
         )}
@@ -214,7 +212,7 @@ export default function HelpPage() {
       {/* BIG CALL */}
       <section className="py-14 bg-ink text-paper">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="font-hand text-4xl mb-4">Пока ты читаешь это, на улице –5°C.</h2>
+          <h2 className="heading-section mb-4">Пока ты читаешь это, на улице –5°C.</h2>
           <p className="text-sm text-paper/70 mb-8 max-w-md mx-auto">
             Любое действие с этой страницы — шаг в правильную сторону.
           </p>

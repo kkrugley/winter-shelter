@@ -214,7 +214,7 @@ export default function AddStoryPage() {
     return (
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-20 text-center">
         <CheckCircle size={52} weight="duotone" style={{ color: "var(--ember)", margin: "0 auto 16px" }} />
-        <h1 className="font-hand text-4xl text-ink mb-3">Спасибо!</h1>
+        <h1 className="heading-section mb-3">Спасибо!</h1>
         <p className="text-sm mb-8" style={{ color: "var(--stone)" }}>
           Твоя история получена. Мы проверим её и добавим на карту — обычно это занимает 1–2 дня.
         </p>
@@ -240,12 +240,7 @@ export default function AddStoryPage() {
         <span style={{ color: "var(--ember)" }}>добавить</span>
       </div>
 
-      <h1
-        className="font-hand text-5xl text-ink mb-2"
-        style={{ letterSpacing: "-0.02em", fontVariationSettings: '"wght" 600, "SOFT" 50, "opsz" 48' }}
-      >
-        Поделись историей
-      </h1>
+      <h1 className="heading-display mb-2">Поделись историей</h1>
       <p className="text-sm mb-10" style={{ color: "var(--stone)" }}>
         Расскажи, как ты поставил домик или поилку. После проверки история появится на карте.
       </p>

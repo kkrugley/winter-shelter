@@ -90,12 +90,7 @@ export function StoryCard({ city, product_slug, quote, author_name, installed_da
 
       {/* Text */}
       <div className="flex flex-col gap-1.5">
-        <h3
-          className="font-hand text-[22px] text-ink"
-          style={{ letterSpacing: "-0.01em", marginTop: 2, fontVariationSettings: '"wght" 600, "SOFT" 50, "opsz" 24' }}
-        >
-          {quote}
-        </h3>
+        <h3 className="heading-quote" style={{ marginTop: 2 }}>{quote}</h3>
         <p className="text-sm" style={{ color: "var(--stone)" }}>
           {author_name}{dateLabel ? ` · ${dateLabel}` : ""}
         </p>

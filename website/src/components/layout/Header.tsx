@@ -29,7 +29,7 @@ export function Header() {
           onClick={() => setOpen(false)}
         >
           <span className="text-xl" aria-hidden>🐾</span>
-          <span className="font-hand text-[22px] text-charcoal leading-none" style={{ letterSpacing: "-0.015em", fontVariationSettings: '"wght" 400, "SOFT" 100, "opsz" 48' }}>SafePaws</span>
+          <span className="heading-logo">SafePaws</span>
         </Link>
 
         {/* Desktop nav */}

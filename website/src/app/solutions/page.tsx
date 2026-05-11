@@ -49,10 +49,7 @@ export default function SolutionsPage() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
           <div>
-            <h1
-              className="font-hand text-5xl text-ink"
-              style={{ letterSpacing: "-0.03em", fontWeight: 600, fontVariationSettings: '"wght" 600, "SOFT" 50, "opsz" 144' }}
-            >Каталог решений</h1>
+            <h1 className="heading-display">Каталог решений</h1>
             <p className="text-sm text-ink-muted mt-2">
               Всё, что можно собрать или установить. Фильтруй по цели и материалу.
             </p>
@@ -100,7 +97,7 @@ export default function SolutionsPage() {
 
         {/* Grid */}
         {filtered.length === 0 ? (
-          <div className="text-center py-20 text-ink-muted font-hand text-2xl">
+          <div className="heading-card text-ink-muted text-center py-20">
             Ничего не найдено по этим фильтрам
           </div>
         ) : (
@@ -119,7 +116,7 @@ export default function SolutionsPage() {
                 />
                 <div className="p-4 flex flex-col flex-1 gap-2">
                   <div className="flex items-center justify-between">
-                    <strong className="font-hand text-xl text-ink" style={{ letterSpacing: "-0.01em" }}>{p.name}</strong>
+                    <strong className="heading-card text-xl">{p.name}</strong>
                     <span className={`px-2 py-0.5 rounded-full border text-xs ${statusColor[p.status] ?? statusColor["coming-soon"]}`}>
                       {statusLabel[p.status] ?? p.status}
                     </span>
@@ -175,10 +172,7 @@ export default function SolutionsPage() {
               boxShadow: "var(--shadow-lift)",
             }}
           >
-            <h3
-              className="font-hand text-3xl text-ink mb-3"
-              style={{ letterSpacing: "-0.02em", fontVariationSettings: '"wght" 600, "SOFT" 50, "opsz" 48' }}
-            >Не знаешь, что выбрать?</h3>
+            <h3 className="heading-sub mb-3">Не знаешь, что выбрать?</h3>
             <p className="text-sm mb-8" style={{ color: "var(--stone)" }}>Сравни решения рядом или пройди квиз.</p>
             <div className="flex flex-wrap gap-3 justify-center">
               <Link
