@@ -55,11 +55,11 @@ export default function SolutionsPage() {
         <Breadcrumb className="mb-6">
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">главная</BreadcrumbLink>
+              <BreadcrumbLink href="/">Главная</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>решения</BreadcrumbPage>
+              <BreadcrumbPage>Решения</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -73,7 +73,7 @@ export default function SolutionsPage() {
             </p>
           </div>
           <span className="font-mono text-xs text-ink-muted whitespace-nowrap">
-            {filtered.length} решени{filtered.length === 1 ? "е" : "я"} · обновлено в апреле 2026
+            {filtered.length} решени{filtered.length === 1 ? "е" : "я"} · Обновлено в апреле 2026
           </span>
         </div>
 
@@ -191,7 +191,7 @@ export default function SolutionsPage() {
                     </Link>
                     {(p.status === "available" || p.status === "new") && p.downloads.length > 0 ? (
                       <Link
-                        href="/download"
+                        href={`/download?product=${p.slug}`}
                         className="flex-1 text-center px-3 py-1.5 rounded-full bg-[var(--ember)] text-white text-xs hover:opacity-90 transition-colors"
                       >
                         Скачать
