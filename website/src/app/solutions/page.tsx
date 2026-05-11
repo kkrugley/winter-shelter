@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { products } from "@/data/products";
+import { ProductIllustration } from "@/components/ui/ProductIllustration";
 
 type FilterType = "all" | "shelter" | "hydration" | "feeding";
 type FilterMaterial = "all" | "3mm" | "6mm" | "other";
@@ -16,10 +17,10 @@ const statusLabel: Record<string, string> = {
 };
 
 const statusColor: Record<string, string> = {
-  available: "border-green-300 text-green-700 bg-green-50",
-  new: "border-accent/40 text-accent bg-accent-soft",
-  "coming-soon": "border-border-soft text-ink-muted",
-  prototype: "border-border-soft text-ink-muted",
+  available: "border-[var(--forest-pale)] text-[var(--forest)] bg-[var(--forest-pale)]",
+  new: "border-transparent text-[#C55C1C] bg-[var(--ember-pale)]",
+  "coming-soon": "border-[var(--sand-2)] text-[var(--stone)]",
+  prototype: "border-[var(--sand-2)] text-[var(--stone)]",
 };
 
 export default function SolutionsPage() {
@@ -48,7 +49,10 @@ export default function SolutionsPage() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
           <div>
-            <h1 className="font-hand text-5xl text-ink">Каталог решений</h1>
+            <h1
+              className="font-hand text-5xl text-ink"
+              style={{ letterSpacing: "-0.03em", fontWeight: 600, fontVariationSettings: '"wght" 600, "SOFT" 50, "opsz" 144' }}
+            >Каталог решений</h1>
             <p className="text-sm text-ink-muted mt-2">
               Всё, что можно собрать или установить. Фильтруй по цели и материалу.
             </p>
@@ -59,7 +63,7 @@ export default function SolutionsPage() {
         </div>
 
         {/* Filters */}
-        <div className="border border-border-soft rounded-xl p-4 mb-8 flex flex-wrap gap-3 items-center">
+        <div className="border rounded-xl p-4 mb-8 flex flex-wrap gap-3 items-center" style={{ borderColor: "var(--sand)", background: "var(--cream)" }}>
           <span className="font-mono text-xs text-ink-muted">тип:</span>
           {(["all", "shelter", "hydration", "feeding"] as const).map((v) => (
             <FilterChip
@@ -104,25 +108,27 @@ export default function SolutionsPage() {
             {filtered.map((p) => (
               <div
                 key={p.slug}
-                className={`border border-border-soft rounded-xl overflow-hidden flex flex-col ${p.status === "coming-soon" || p.status === "prototype" ? "opacity-70" : ""}`}
+                className={`border rounded-[16px] overflow-hidden flex flex-col transition-all hover:-translate-y-0.5 ${p.status === "coming-soon" || p.status === "prototype" ? "opacity-70" : ""}`}
+                style={{ borderColor: "var(--sand)", background: "var(--card-bg)", boxShadow: "var(--shadow-card)" }}
               >
-                <div
-                  className={`ph min-h-[150px] rounded-none border-0 border-b border-dashed border-border-soft ${p.status === "new" ? "bg-accent-soft/60" : ""}`}
-                >
-                  {p.name} · рендер
-                </div>
+                <ProductIllustration
+                  slug={p.slug}
+                  isNew={p.status === "new"}
+                  className="aspect-[5/4] border-b border-dashed"
+                  style={{ borderColor: "var(--sand-2)" }}
+                />
                 <div className="p-4 flex flex-col flex-1 gap-2">
                   <div className="flex items-center justify-between">
-                    <strong className="font-hand text-xl text-ink">{p.name}</strong>
+                    <strong className="font-hand text-xl text-ink" style={{ letterSpacing: "-0.01em" }}>{p.name}</strong>
                     <span className={`px-2 py-0.5 rounded-full border text-xs ${statusColor[p.status] ?? statusColor["coming-soon"]}`}>
                       {statusLabel[p.status] ?? p.status}
                     </span>
                   </div>
-                  <p className="text-xs text-ink-muted">{p.capacity}</p>
-                  <p className="text-sm text-ink-muted line-clamp-2">{p.description}</p>
+                  <p className="text-xs" style={{ color: "var(--stone)" }}>{p.capacity}</p>
+                  <p className="text-sm line-clamp-2" style={{ color: "var(--stone)" }}>{p.description}</p>
                   <div className="flex flex-wrap gap-1 mt-1">
                     {p.tags.map((t) => (
-                      <span key={t} className="px-2 py-0.5 text-xs rounded-full border border-border-soft text-ink-muted">
+                      <span key={t} className="px-2 py-0.5 text-xs rounded-full border" style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}>
                         {t}
                       </span>
                     ))}
@@ -130,19 +136,23 @@ export default function SolutionsPage() {
                   <div className="mt-auto pt-2 flex gap-2">
                     <Link
                       href={`/solutions/${p.slug}`}
-                      className="flex-1 text-center px-3 py-1.5 rounded-lg border border-border-soft text-xs text-ink hover:border-accent/40 hover:text-accent transition-colors"
+                      className="flex-1 text-center px-3 py-1.5 rounded-full border text-xs transition-colors hover:border-[var(--ember)] hover:text-[var(--ember)]"
+                      style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}
                     >
                       Детали →
                     </Link>
                     {(p.status === "available" || p.status === "new") && p.downloads.length > 0 ? (
                       <Link
                         href="/download"
-                        className="flex-1 text-center px-3 py-1.5 rounded-lg bg-accent text-white text-xs hover:bg-[#c4673d] transition-colors"
+                        className="flex-1 text-center px-3 py-1.5 rounded-full bg-[var(--ember)] text-white text-xs hover:opacity-90 transition-colors"
                       >
                         Скачать
                       </Link>
                     ) : (
-                      <button className="flex-1 px-3 py-1.5 rounded-lg border border-border-soft text-xs text-ink-muted hover:border-accent/40 transition-colors">
+                      <button
+                        className="flex-1 px-3 py-1.5 rounded-full border text-xs transition-colors hover:border-[var(--ember)]"
+                        style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}
+                      >
                         Уведомить
                       </button>
                     )}
@@ -155,23 +165,37 @@ export default function SolutionsPage() {
       </div>
 
       {/* Compare CTA */}
-      <section className="py-14 bg-accent-soft">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <h3 className="font-hand text-3xl text-ink mb-3">Не знаешь, что выбрать?</h3>
-          <p className="text-sm text-ink-muted mb-8">Сравни решения рядом или пройди квиз.</p>
-          <div className="flex flex-wrap gap-3 justify-center">
-            <Link
-              href="/download"
-              className="px-6 py-3 rounded-lg bg-accent text-white text-sm font-medium hover:bg-[#c4673d] transition-colors"
-            >
-              Сравнить все →
-            </Link>
-            <Link
-              href="/help"
-              className="px-6 py-3 rounded-lg border border-accent/30 text-ink text-sm font-medium hover:bg-paper transition-colors"
-            >
-              Пройти квиз
-            </Link>
+      <section className="py-14">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div
+            className="relative overflow-hidden rounded-[24px] px-8 py-12 text-center"
+            style={{
+              background: "linear-gradient(180deg, var(--ember-pale) 0%, var(--cream) 100%)",
+              border: "1px solid var(--ember-soft)",
+              boxShadow: "var(--shadow-lift)",
+            }}
+          >
+            <h3
+              className="font-hand text-3xl text-ink mb-3"
+              style={{ letterSpacing: "-0.02em", fontVariationSettings: '"wght" 600, "SOFT" 50, "opsz" 48' }}
+            >Не знаешь, что выбрать?</h3>
+            <p className="text-sm mb-8" style={{ color: "var(--stone)" }}>Сравни решения рядом или пройди квиз.</p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <Link
+                href="/download"
+                className="px-6 py-3 rounded-full bg-[var(--ember)] text-white text-sm font-medium hover:opacity-90 transition-all hover:-translate-y-px"
+                style={{ boxShadow: "var(--shadow-btn)" }}
+              >
+                Сравнить все →
+              </Link>
+              <Link
+                href="/help"
+                className="px-6 py-3 rounded-full border text-ink text-sm font-medium hover:border-[var(--stone)] transition-colors"
+                style={{ borderColor: "var(--sand-2)" }}
+              >
+                Пройти квиз
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -191,11 +215,12 @@ function FilterChip({
   return (
     <button
       onClick={onClick}
-      className={`px-3 py-1 rounded-full border text-xs transition-colors ${
-        active
-          ? "border-accent bg-accent-soft text-accent"
-          : "border-border-soft text-ink-muted hover:border-accent/40 hover:text-accent"
-      }`}
+      className="px-3 py-1 rounded-full border text-xs transition-colors"
+      style={{
+        borderColor: active ? "var(--ember)" : "var(--sand-2)",
+        background: active ? "var(--ember-pale)" : "transparent",
+        color: active ? "#C55C1C" : "var(--stone)",
+      }}
     >
       {label}
     </button>

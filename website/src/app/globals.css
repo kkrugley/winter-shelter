@@ -1,69 +1,116 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&subset=latin,cyrillic&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* SafePaws design tokens */
-  --color-paper: var(--sp-bg);
-  --color-ink: var(--sp-fg);
-  --color-ink-muted: var(--sp-muted);
-  --color-accent: var(--sp-accent);
-  --color-accent-soft: var(--sp-accent-soft);
-  --color-border-soft: var(--sp-border);
+  /* SafePaws hi-fi design tokens */
+  --color-paper:        var(--sp-bg);
+  --color-ink:          var(--sp-fg);
+  --color-ink-muted:    var(--sp-muted);
+  --color-accent:       var(--sp-accent);
+  --color-accent-soft:  var(--sp-accent-soft);
+  --color-border-soft:  var(--sp-border);
 
-  /* Fonts */
-  --font-sans: var(--font-inter);
-  --font-hand: var(--font-caveat);
-  --font-mono: var(--font-geist-mono);
+  /* Extended palette */
+  --color-ember:            #E8712A;
+  --color-ember-soft:       #F2945A;
+  --color-ember-accessible: #AB4E1A;
+  --color-ember-pale:       #FDE8D6;
+  --color-forest:       #3D6B4F;
+  --color-forest-pale:  #D6E8DC;
+  --color-charcoal:     #2C2A27;
+  --color-stone:        #756A5E;
+  --color-sand:         #EDE3D1;
+  --color-sand-2:       #E3D6BE;
+  --color-cream:        #FBF7F0;
+  --color-cream-2:      #F7F1E5;
+
+  /* Fonts — font-hand now maps to Fraunces (display serif) */
+  --font-sans:    "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-hand:    var(--font-fraunces);
+  --font-display: var(--font-fraunces);
+  --font-script:  var(--font-caveat);
+  --font-mono:    ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* shadcn overrides */
-  --color-background: var(--sp-bg);
-  --color-foreground: var(--sp-fg);
-  --color-card: var(--sp-bg);
-  --color-card-foreground: var(--sp-fg);
-  --color-primary: var(--sp-accent);
+  --color-background:         var(--sp-bg);
+  --color-foreground:         var(--sp-fg);
+  --color-card:               var(--sp-bg);
+  --color-card-foreground:    var(--sp-fg);
+  --color-primary:            var(--sp-accent);
   --color-primary-foreground: #fff;
-  --color-muted: var(--sp-accent-soft);
-  --color-muted-foreground: var(--sp-muted);
-  --color-border: var(--sp-border);
-  --color-ring: var(--sp-accent);
+  --color-muted:              var(--sp-accent-soft);
+  --color-muted-foreground:   var(--sp-muted);
+  --color-border:             var(--sp-border);
+  --color-ring:               var(--sp-accent);
 
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --radius-sm: 10px;
+  --radius-md: 12px;
+  --radius-lg: 14px;
   --radius-xl: 20px;
 }
 
 :root {
-  --sp-bg: #FDFBF7;
-  --sp-fg: #1A1917;
-  --sp-muted: #6B6862;
-  --sp-accent: #D97757;
-  --sp-accent-soft: #FBE8DE;
-  --sp-border: #E8E4DF;
+  /* Ember (Primary) */
+  --ember:             #E8712A;
+  --ember-soft:        #F2945A;
+  --ember-accessible:  #AB4E1A;
+  --ember-pale:        #FDE8D6;
+  --ember-wash:        #FBDAC0;
+
+  /* Forest (Secondary) */
+  --forest:       #3D6B4F;
+  --forest-mid:   #557A64;
+  --forest-pale:  #D6E8DC;
+
+  /* Neutrals */
+  --cream:        #F9F5EE;
+  --cream-2:      #F7F1E5;
+  --sand:         #EDE3D1;
+  --sand-2:       #E3D6BE;
+  --charcoal:     #2C2A27;
+  --stone:        #756A5E;
+
+  /* SafePaws aliases */
+  --sp-bg:         var(--cream);
+  --sp-fg:         var(--charcoal);
+  --sp-muted:      var(--stone);
+  --sp-accent:     var(--ember);
+  --sp-accent-soft:var(--ember-pale);
+  --sp-border:     var(--sand);
 
   /* shadcn compat */
-  --background: var(--sp-bg);
-  --foreground: var(--sp-fg);
-  --card: var(--sp-bg);
-  --card-foreground: var(--sp-fg);
-  --popover: var(--sp-bg);
-  --popover-foreground: var(--sp-fg);
-  --primary: var(--sp-accent);
-  --primary-foreground: #ffffff;
-  --secondary: var(--sp-accent-soft);
-  --secondary-foreground: var(--sp-fg);
-  --muted: var(--sp-accent-soft);
-  --muted-foreground: var(--sp-muted);
-  --accent: var(--sp-accent-soft);
-  --accent-foreground: var(--sp-fg);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: var(--sp-border);
-  --input: var(--sp-border);
-  --ring: var(--sp-accent);
-  --radius: 0.75rem;
+  --background:          var(--sp-bg);
+  --foreground:          var(--sp-fg);
+  --card:                var(--sp-bg);
+  --card-foreground:     var(--sp-fg);
+  --popover:             var(--sp-bg);
+  --popover-foreground:  var(--sp-fg);
+  --primary:             var(--sp-accent);
+  --primary-foreground:  #ffffff;
+  --secondary:           var(--sp-accent-soft);
+  --secondary-foreground:var(--sp-fg);
+  --muted:               var(--sp-accent-soft);
+  --muted-foreground:    var(--sp-muted);
+  --accent:              var(--sp-accent-soft);
+  --accent-foreground:   var(--sp-fg);
+  --destructive:         oklch(0.577 0.245 27.325);
+  --border:              var(--sp-border);
+  --input:               var(--sp-border);
+  --ring:                var(--sp-accent);
+  --radius:              0.875rem;
+
+  /* Card surface (lighter than page bg so cards pop) */
+  --card-bg: #FFFDF7;
+
+  /* Shadows */
+  --shadow-pale: 0 1px 0 rgba(44,42,39,.06), 0 2px 6px rgba(44,42,39,.06);
+  --shadow-card: 0 1px 0 rgba(44,42,39,.05), 0 4px 16px -4px rgba(44,42,39,.12), 0 12px 32px -12px rgba(44,42,39,.10);
+  --shadow-lift: 0 2px 0 rgba(44,42,39,.04), 0 22px 48px -28px rgba(44,42,39,.28), 0 1px 0 rgba(255,255,255,.7) inset;
+  --shadow-btn:  0 1px 0 rgba(0,0,0,.1), 0 6px 18px -8px rgba(232,113,42,.5), inset 0 1px 0 rgba(255,255,255,.22);
 }
 
 @layer base {
@@ -72,10 +119,97 @@
   }
   body {
     @apply bg-paper text-ink font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.17  0 0 0 0 0.16  0 0 0 0 0.15  0 0 0 0.7 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: multiply;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-fraunces, var(--font-sans));
+    color: var(--charcoal);
+    font-weight: 600;
+    font-variation-settings: "wght" 600, "SOFT" 0, "WONK" 0;
+    letter-spacing: -0.018em;
+    margin: 0;
+  }
+  p { margin: 0; }
+  .maplibregl-popup-content {
+    @apply bg-transparent! shadow-none! p-0! overflow-hidden!;
+    border-radius: 12px !important;
+    max-width: none !important;
+    filter: drop-shadow(2px 4px 12px rgba(44,42,39,.22)) !important;
+  }
+  .maplibregl-popup {
+    max-width: none !important;
+  }
+  .maplibregl-popup-tip {
+    @apply hidden!;
   }
 }
 
-/* Lo-fi wireframe helpers */
+/* Placeholder / wireframe boxes */
 .ph {
-  @apply bg-[#E8E4DF] border-2 border-dashed border-[#C8C3BC] rounded-lg flex items-center justify-center text-ink-muted font-hand text-lg;
+  @apply bg-[#EDE3D1] border-2 border-dashed border-[#C8C3BC] rounded-xl flex items-center justify-center text-[var(--stone)] font-sans text-sm;
+}
+
+/* Scribble underline accent */
+.scribble-underline {
+  position: relative;
+  display: inline;
+  padding-right: 2px;
+}
+.scribble-underline::after {
+  content: "";
+  position: absolute;
+  left: -2px; right: -2px; bottom: -0.08em;
+  height: 0.28em;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 18' preserveAspectRatio='none'><path d='M2 12 C 30 2, 60 18, 100 8 S 170 14, 210 6 S 280 14, 298 8' stroke='%23E8712A' stroke-width='3.2' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+}
+
+/* Section label (monospaced eyebrow) */
+.sec-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ember);
+  font-weight: 500;
+}
+.author-contact-link {
+  transition: color 0.15s;
+}
+.author-contact-link:hover {
+  color: var(--ember);
+}
+.author-contact-link:hover span {
+  color: var(--ember);
+}
+
+/* Placeholder for contenteditable quote field */
+.quote-editable:empty::before {
+  content: attr(data-placeholder);
+  color: var(--stone);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.sec-label::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--ember);
 }

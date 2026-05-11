@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { Caveat, Inter } from "next/font/google";
+import { Fraunces, Inter, Caveat } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  axes: ["SOFT", "WONK"],
+  display: "swap",
+});
+
 const inter = Inter({
-  variable: "--font-inter",
+  variable: "--font-dm-sans",
   subsets: ["latin", "cyrillic"],
   display: "swap",
 });
@@ -17,7 +24,7 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://safepaws.vercel.app"),
+  metadataBase: new URL("https://safepaws.ru"),
   title: {
     default: "SafePaws — чертежи домиков и поилок для уличных кошек",
     template: "%s · SafePaws",
@@ -39,7 +46,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
-    url: "https://safepaws.vercel.app",
+    url: "https://safepaws.ru",
     siteName: "SafePaws",
     title: "SafePaws — чертежи домиков и поилок для уличных кошек",
     description:
@@ -71,7 +78,7 @@ export default function RootLayout({
   return (
     <html
       lang="ru"
-      className={`${inter.variable} ${caveat.variable} h-full antialiased`}
+      className={`${fraunces.variable} ${inter.variable} ${caveat.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-paper text-ink">

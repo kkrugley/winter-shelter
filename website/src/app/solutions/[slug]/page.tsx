@@ -269,7 +269,7 @@ export default async function ProductPage({ params }: Props) {
         <div className="mb-14">
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-hand text-3xl text-ink">Кто уже собрал {product.name}</h2>
-            <Link href="/stories" className="font-hand text-xl text-accent hover:underline hidden sm:block">
+            <Link href="/stories" className="font-script text-2xl text-accent hover:underline hidden sm:block">
               все истории →
             </Link>
           </div>

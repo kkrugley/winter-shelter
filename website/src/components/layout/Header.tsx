@@ -17,7 +17,10 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border-soft bg-paper/95 backdrop-blur-sm">
+    <header
+      className="sticky top-0 z-50 border-b border-[var(--sand)]"
+      style={{ backdropFilter: "saturate(1.2) blur(10px)", background: "color-mix(in oklab, var(--cream) 84%, transparent)" }}
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
         {/* Logo */}
         <Link
@@ -25,8 +28,8 @@ export function Header() {
           className="flex items-center gap-2 shrink-0"
           onClick={() => setOpen(false)}
         >
-          <span className="text-2xl">🐾</span>
-          <span className="font-hand text-2xl text-accent">SafePaws</span>
+          <span className="text-xl" aria-hidden>🐾</span>
+          <span className="font-hand text-[22px] text-charcoal leading-none" style={{ letterSpacing: "-0.015em", fontVariationSettings: '"wght" 400, "SOFT" 100, "opsz" 48' }}>SafePaws</span>
         </Link>
 
         {/* Desktop nav */}
@@ -35,10 +38,10 @@ export function Header() {
             <Link
               key={href}
               href={href}
-              className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors hover:bg-accent-soft hover:text-accent ${
+              className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors hover:bg-[var(--ember-pale)] hover:text-[var(--charcoal)] ${
                 pathname === href
-                  ? "text-accent bg-accent-soft"
-                  : "text-ink-muted"
+                  ? "text-[var(--charcoal)] bg-[var(--ember-pale)]"
+                  : "text-[var(--stone)]"
               }`}
             >
               {label}
@@ -50,12 +53,13 @@ export function Header() {
         <div className="flex items-center gap-2">
           <Link
             href="/download"
-            className="hidden sm:inline-flex items-center px-4 py-1.5 rounded-lg bg-accent text-white text-sm font-medium hover:bg-[#c4673d] transition-colors"
+            className="hidden sm:inline-flex items-center px-4 py-1.5 rounded-full bg-[var(--ember)] text-white text-sm font-medium transition-all hover:opacity-90 hover:-translate-y-px"
+            style={{ boxShadow: "var(--shadow-btn)" }}
           >
             Скачать
           </Link>
           <button
-            className="md:hidden p-2 rounded-md text-ink-muted hover:bg-accent-soft"
+            className="md:hidden p-2 rounded-full text-[var(--stone)] hover:bg-[var(--ember-pale)]"
             onClick={() => setOpen((v) => !v)}
             aria-label="Меню"
           >
@@ -66,14 +70,14 @@ export function Header() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t border-border-soft bg-paper px-4 pb-4">
+        <div className="md:hidden border-t border-[var(--sand)] bg-[var(--cream)] px-4 pb-4">
           {nav.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
               onClick={() => setOpen(false)}
-              className={`block py-2.5 text-sm font-medium border-b border-border-soft last:border-0 ${
-                pathname === href ? "text-accent" : "text-ink"
+              className={`block py-2.5 text-sm font-medium border-b border-[var(--sand)] last:border-0 ${
+                pathname === href ? "text-[var(--ember)]" : "text-ink"
               }`}
             >
               {label}
@@ -82,7 +86,7 @@ export function Header() {
           <Link
             href="/download"
             onClick={() => setOpen(false)}
-            className="mt-3 flex items-center justify-center px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium"
+            className="mt-3 flex items-center justify-center px-4 py-2 rounded-full bg-[var(--ember)] text-white text-sm font-medium hover:opacity-90 transition-all"
           >
             Скачать чертежи
           </Link>
