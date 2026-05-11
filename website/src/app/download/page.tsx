@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
   Breadcrumb,
@@ -26,8 +27,14 @@ const nextSteps = [
 ];
 
 export default function DownloadPage() {
+  const searchParams = useSearchParams();
+  const paramSlug = searchParams.get("product") ?? "";
+  const validSlug = downloadableProducts.some((p) => p.slug === paramSlug)
+    ? paramSlug
+    : "cozy-shelter";
+
   const [step, setStep] = useState<Step>(1);
-  const [selectedSlug, setSelectedSlug] = useState<string>("cozy-shelter");
+  const [selectedSlug, setSelectedSlug] = useState<string>(validSlug);
   const [selectedVariant, setSelectedVariant] = useState<string>("6mm");
   const [done, setDone] = useState(false);
 
@@ -68,11 +75,11 @@ export default function DownloadPage() {
       <Breadcrumb className="mb-8">
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/">главная</BreadcrumbLink>
+            <BreadcrumbLink href="/">Главная</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>скачать</BreadcrumbPage>
+            <BreadcrumbPage>Скачать</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
