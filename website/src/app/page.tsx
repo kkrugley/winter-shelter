@@ -5,12 +5,8 @@ import { products } from "@/data/products";
 import { ProductIllustration } from "@/components/ui/ProductIllustration";
 import { StoryCard } from "@/components/ui/StoryCard";
 import { getPublishedStories } from "@/lib/stories";
+import { QuizSection } from "@/components/ui/QuizSection";
 
-const stats = [
-  { value: "1 200+", label: "скачиваний" },
-  { value: "47", label: "домиков в мире" },
-  { value: "4", label: "языка" },
-];
 
 const paths = [
   {
@@ -37,12 +33,6 @@ const paths = [
     cta: "Истории людей →",
     href: "/stories",
   },
-];
-
-const quizSteps = [
-  { step: "шаг 1", q: "Что у тебя есть?", opts: "руки · время · средства · голос" },
-  { step: "шаг 2", q: "Сколько животных рядом?", opts: "1–2 · 4–5 · колония · не знаю" },
-  { step: "шаг 3", q: "Когда хочешь начать?", opts: "на выходных · 1–2 недели · потом" },
 ];
 
 const previewProducts = products.slice(0, 4);
@@ -83,7 +73,7 @@ export default async function HomePage() {
               </span>
             </h1>
             <p className="text-base md:text-lg mb-8 max-w-[440px] leading-relaxed" style={{ color: "var(--stone)" }}>
-              SafePaws — открытые чертежи домиков и поилок для бездомных кошек.
+              SafePaws — открытые чертежи домиков и поилок для бездомных кошек.<br></br><br></br>
               Скачай, собери, установи — или помоги иначе.
             </p>
             <div className="flex flex-wrap gap-3">
@@ -100,18 +90,6 @@ export default async function HomePage() {
               >
                 Посмотреть каталог
               </Link>
-            </div>
-            <div className="flex flex-wrap gap-3 mt-5">
-              {stats.map((s) => (
-                <span
-                  key={s.label}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[var(--sand-2)] bg-[#FFFDF7] text-sm"
-                  style={{ color: "var(--stone)" }}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--forest)] inline-block" />
-                  {s.value} {s.label}
-                </span>
-              ))}
             </div>
           </div>
           <div className="ph min-h-[300px] md:min-h-[360px]" style={{ boxShadow: "var(--shadow-lift)" }}>
@@ -165,82 +143,12 @@ export default async function HomePage() {
             ))}
           </div>
 
-          {/* QUIZ ENTRY */}
-          <div
-            className="mt-5 rounded-[20px] p-7"
-            style={{
-              background: "linear-gradient(180deg, var(--ember-pale) 0%, var(--cream) 80%)",
-              border: "1.5px dashed var(--ember-soft)",
-            }}
-          >
-            <div className="flex flex-col lg:flex-row lg:items-center gap-5">
-              <div className="flex-1">
-                <span
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-medium mb-2"
-                  style={{ borderColor: "transparent", background: "var(--ember-pale)", color: "#93430E" }}
-                >
-                  опросник · 30 сек
-                </span>
-                <h3 className="heading-card mb-1" style={{ marginTop: 4 }}>
-                  Не уверен, какой путь твой?
-                </h3>
-                <p className="text-sm" style={{ color: "var(--stone)" }}>
-                  3 коротких вопроса — подскажем, какое решение ближе именно тебе.
-                </p>
-              </div>
-              <div className="flex gap-3 shrink-0">
-                <Link
-                  href="/help"
-                  className="px-5 py-2.5 rounded-full bg-[var(--ember)] text-white text-sm font-medium hover:opacity-90 transition-all hover:-translate-y-px"
-                  style={{ boxShadow: "var(--shadow-btn)" }}
-                >
-                  Подобрать за 30 сек →
-                </Link>
-                <button
-                  className="px-4 py-2.5 rounded-full border text-sm transition-colors hover:border-[var(--stone)]"
-                  style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}
-                >
-                  позже
-                </button>
-              </div>
-            </div>
-            <div className="mt-5 grid grid-cols-2 md:grid-cols-4 gap-3 items-stretch">
-              {quizSteps.map(({ step, q, opts }) => (
-                <div
-                  key={step}
-                  className="rounded-[12px] p-3.5 border"
-                  style={{ background: "var(--card-bg)", borderColor: "var(--sand)" }}
-                >
-                  <span
-                    className="inline-flex items-center px-2 py-0.5 rounded-full border text-xs mb-2"
-                    style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}
-                  >
-                    {step}
-                  </span>
-                  <p className="heading-card text-sm font-medium text-ink mb-1">{q}</p>
-                  <p className="text-xs" style={{ color: "var(--stone)" }}>{opts}</p>
-                </div>
-              ))}
-              <div
-                className="rounded-[12px] p-3.5 border"
-                style={{ background: "var(--ember)", borderColor: "var(--ember)" }}
-              >
-                <span
-                  className="inline-flex items-center px-2 py-0.5 rounded-full text-xs mb-2"
-                  style={{ background: "rgba(255,255,255,.18)", color: "#FFF6EC" }}
-                >
-                  результат
-                </span>
-                <p className="heading-card text-sm font-medium mb-1" style={{ color: "#FFF6EC" }}>Рекомендация + файл</p>
-                <p className="text-xs" style={{ color: "rgba(255,246,236,.85)" }}>напр. Cozy 6 мм + истории похожих</p>
-              </div>
-            </div>
-          </div>
+          <QuizSection />
         </div>
       </section>
 
       {/* CATALOG PREVIEW */}
-      <section className="py-14">
+      <section id="catalog" className="py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between mb-8">
             <h2 className="heading-section">Каталог решений</h2>

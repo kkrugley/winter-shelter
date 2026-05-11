@@ -38,7 +38,7 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-xl" aria-hidden>🐾</span>
+              <img src="/images/favicon/favicon.svg" alt="" width={24} height={24} aria-hidden />
               <span className="heading-logo">SafePaws</span>
             </div>
             <p className="text-sm text-[var(--stone)] leading-relaxed">

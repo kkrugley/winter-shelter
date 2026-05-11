@@ -28,7 +28,7 @@ export function Header() {
           className="flex items-center gap-2 shrink-0"
           onClick={() => setOpen(false)}
         >
-          <span className="text-xl" aria-hidden>🐾</span>
+          <img src="/images/favicon/favicon.svg" alt="" width={28} height={28} aria-hidden />
           <span className="heading-logo">SafePaws</span>
         </Link>
 
