@@ -52,11 +52,11 @@ export default async function AboutPage() {
         <Breadcrumb className="mb-8">
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">главная</BreadcrumbLink>
+              <BreadcrumbLink href="/">Главная</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>о проекте</BreadcrumbPage>
+              <BreadcrumbPage>О проекте</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -240,6 +240,8 @@ export default async function AboutPage() {
                 <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-2 group"
                   style={{ lineHeight: "24px" }}
                 >
@@ -293,6 +295,8 @@ export default async function AboutPage() {
             <div className="flex flex-col gap-3">
               <a
                 href="https://t.me/safepaws_help"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center justify-center px-5 py-2.5 rounded-full border text-sm text-ink hover:border-[var(--ember)] hover:text-[var(--ember)] transition-colors"
                 style={{ borderColor: "var(--sand-2)" }}
               >
@@ -307,6 +311,8 @@ export default async function AboutPage() {
               </a>
               <a
                 href="https://github.com/kkrugley/safepaws"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center justify-center px-5 py-2.5 rounded-full border text-sm text-ink hover:border-[var(--ember)] hover:text-[var(--ember)] transition-colors"
                 style={{ borderColor: "var(--sand-2)" }}
               >

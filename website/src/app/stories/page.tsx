@@ -27,7 +27,7 @@ const PRODUCT_LABELS: Record<string, string> = {
 };
 
 const PRODUCT_FILTER_LABELS: Record<ProductFilter, string> = {
-  "all":            "все",
+  "all":            "Все",
   "cozy-shelter":   "Cozy Shelter",
   "family-shelter": "Family Shelter",
   "purrtap":        "PurrTap",
@@ -102,11 +102,11 @@ export default function StoriesPage() {
         <Breadcrumb className="mb-6">
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">главная</BreadcrumbLink>
+              <BreadcrumbLink href="/">Главная</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>истории</BreadcrumbPage>
+              <BreadcrumbPage>Истории</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -151,7 +151,7 @@ export default function StoriesPage() {
                   : "border-border-soft text-ink-muted hover:border-accent/40"
               }`}
             >
-              вид: карта
+              Карта
             </button>
             <button
               onClick={() => handleSetViewMode("map-grid")}
@@ -162,7 +162,7 @@ export default function StoriesPage() {
                   : "border-border-soft text-ink-muted hover:border-accent/40"
               }`}
             >
-              вид: карта + сетка
+              Карта + список
             </button>
           </span>
         </div>

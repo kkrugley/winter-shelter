@@ -244,28 +244,29 @@ export default function AddStoryPage() {
       <Breadcrumb className="mb-8">
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/">главная</BreadcrumbLink>
+            <BreadcrumbLink href="/">Главная</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/stories">истории</BreadcrumbLink>
+            <BreadcrumbLink href="/stories">Истории</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>добавить</BreadcrumbPage>
+            <BreadcrumbPage>Добавить новую</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
 
       <h1 className="heading-display mb-2">Поделись историей</h1>
       <p className="text-sm mb-10" style={{ color: "var(--stone)" }}>
-        Расскажи, как ты поставил домик или поилку. После проверки история появится на карте.
+        Расскажи, какое из наших решений вы воплотили в жизнь?<br></br>
+        После проверки история появится на карте.
       </p>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
 
         {/* Product */}
-        <Field label="Что установил?" required>
+        <Field label="О чем хотите рассказать?" required>
           <div className="grid sm:grid-cols-2 gap-2">
             {PRODUCTS.map((p) => (
               <button
@@ -289,9 +290,96 @@ export default function AddStoryPage() {
             ))}
           </div>
         </Field>
+        
+        <div className="h-px" style={{ background: "var(--sand-2)" }} />
 
+        {/* Author */}
+        <Field label="Твоё имя" required hint="Как подписать историю">
+          <input
+            type="text"
+            value={form.author_name}
+            onChange={(e) => set("author_name", e.target.value)}
+            placeholder="Достаточно просто имени, или абстрактного «волонтёры»"
+            className={`${inputCls} ${inputFocusStyle}`}
+            style={inputStyle}
+          />
+        </Field>
+
+        {/* Quote */}
+        <Field
+          label="Цитата — одна фраза о результате"
+          required
+          hint='Короткая фраза, которая войдёт в карточку. Например: «Создали укрытие для 4 кошек во дворе»'
+        >
+          <div
+            className="relative flex items-center rounded-xl border transition-colors focus-within:border-[var(--ember)] cursor-text"
+            style={{ ...inputStyle, background: "var(--cream)" }}
+            onClick={() => quoteEditableRef.current?.focus()}
+          >
+            <span className="pl-3 text-sm select-none font-medium shrink-0" style={{ color: "var(--ember)" }}>«</span>
+            <span
+              ref={quoteEditableRef}
+              contentEditable
+              suppressContentEditableWarning
+              role="textbox"
+              aria-label="Цитата"
+              data-placeholder="5 котят пережили зиму"
+              onInput={(e) => {
+                const text = e.currentTarget.textContent ?? "";
+                if (text.length > 70) {
+                  e.currentTarget.textContent = text.slice(0, 70);
+                  // Restore cursor to end after truncation
+                  const range = document.createRange();
+                  range.selectNodeContents(e.currentTarget);
+                  range.collapse(false);
+                  window.getSelection()?.removeAllRanges();
+                  window.getSelection()?.addRange(range);
+                }
+                set("quote", e.currentTarget.textContent?.slice(0, 70) ?? "");
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") e.preventDefault();
+              }}
+              className="quote-editable py-2.5 px-1 bg-transparent text-sm text-ink focus:outline-none min-w-[4px] whitespace-nowrap"
+              style={{ outline: "none" }}
+            />
+            <span className="pl-1 pr-3 text-sm select-none font-medium shrink-0" style={{ color: "var(--ember)" }}>»</span>
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs tabular-nums pointer-events-none select-none" style={{ color: "var(--stone)", opacity: 0.45 }}>
+              {form.quote.length}/70
+            </span>
+          </div>
+        </Field>
+
+        {/* Body 
+        <Field label="История (необязательно)" hint="2–4 предложения: где поставил, что получилось, сколько котов">
+          <textarea
+            rows={4}
+            value={form.body}
+            onChange={(e) => set("body", e.target.value)}
+            placeholder="Поставили у магазина, 2 кота сразу заселились. Соседи тоже стали кормить."
+            className={`${inputCls} ${inputFocusStyle} resize-none`}
+            style={inputStyle}
+          />
+        </Field>
+          */}
+
+        {/* Telegram */}
+        <Field label="Telegram (необязательно)" hint="Если захотим уточнить детали или поблагодарить">
+          <div className="relative">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm select-none" style={{ color: "var(--stone)" }}>@</span>
+            <input
+              type="text"
+              value={form.telegram}
+              onChange={(e) => set("telegram", e.target.value.replace(/^@/, ""))}
+              placeholder="username"
+              className={`${inputCls} ${inputFocusStyle} pl-7`}
+              style={inputStyle}
+            />
+          </div>
+        </Field>
+        
         {/* City geocoding */}
-        <Field label="Город" required hint="Начни вводить — подберём варианты">
+        <Field label="Место" required hint="Достаточно названия города, но если хотите указать точнее - пожалуйста! Для вашей приватности координаты будут смещены на 500 метров в случайную сторону.">
           <div className="relative">
             <input
               type="text"
@@ -336,10 +424,6 @@ export default function AddStoryPage() {
               {form.city}, {form.country} · {parseFloat(form.lat).toFixed(4)}, {parseFloat(form.lng).toFixed(4)}
             </p>
           )}
-          <p className="text-xs flex items-start gap-1.5 px-3 py-2 rounded-lg" style={{ background: "var(--ember-pale)", color: "#93430E" }}>
-            <span className="shrink-0 mt-px">🔒</span>
-            Координаты будут случайно смещены на ~500 м перед сохранением — чтобы точное место не было видно на карте.
-          </p>
         </Field>
 
         {/* Date installed */}
@@ -368,91 +452,7 @@ export default function AddStoryPage() {
 
         <div className="h-px" style={{ background: "var(--sand-2)" }} />
 
-        {/* Quote */}
-        <Field
-          label="Цитата — одна фраза о результате"
-          required
-          hint='Короткая фраза, которая войдёт в карточку. Например: «5 котят пережили зиму»'
-        >
-          <div
-            className="flex items-center rounded-xl border transition-colors focus-within:border-[var(--ember)] cursor-text"
-            style={{ ...inputStyle, background: "var(--cream)" }}
-            onClick={() => quoteEditableRef.current?.focus()}
-          >
-            <span className="pl-3 text-sm select-none font-medium shrink-0" style={{ color: "var(--ember)" }}>«</span>
-            <span
-              ref={quoteEditableRef}
-              contentEditable
-              suppressContentEditableWarning
-              role="textbox"
-              aria-label="Цитата"
-              data-placeholder="5 котят пережили зиму"
-              onInput={(e) => {
-                const text = e.currentTarget.textContent ?? "";
-                if (text.length > 60) {
-                  e.currentTarget.textContent = text.slice(0, 60);
-                  // Restore cursor to end after truncation
-                  const range = document.createRange();
-                  range.selectNodeContents(e.currentTarget);
-                  range.collapse(false);
-                  window.getSelection()?.removeAllRanges();
-                  window.getSelection()?.addRange(range);
-                }
-                set("quote", e.currentTarget.textContent?.slice(0, 60) ?? "");
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") e.preventDefault();
-              }}
-              className="quote-editable py-2.5 px-1 bg-transparent text-sm text-ink focus:outline-none min-w-[4px] whitespace-nowrap"
-              style={{ outline: "none" }}
-            />
-            <span className="pl-1 pr-3 text-sm select-none font-medium shrink-0" style={{ color: "var(--ember)" }}>»</span>
-          </div>
-          <p className="text-right text-xs" style={{ color: "var(--stone)", opacity: 0.5 }}>
-            {form.quote.length}/60
-          </p>
-        </Field>
 
-        {/* Body */}
-        <Field label="История (необязательно)" hint="2–4 предложения: где поставил, что получилось, сколько котов">
-          <textarea
-            rows={4}
-            value={form.body}
-            onChange={(e) => set("body", e.target.value)}
-            placeholder="Поставили у магазина, 2 кота сразу заселились. Соседи тоже стали кормить."
-            className={`${inputCls} ${inputFocusStyle} resize-none`}
-            style={inputStyle}
-          />
-        </Field>
-
-        <div className="h-px" style={{ background: "var(--sand-2)" }} />
-
-        {/* Author */}
-        <Field label="Твоё имя" required hint="Как подписать историю">
-          <input
-            type="text"
-            value={form.author_name}
-            onChange={(e) => set("author_name", e.target.value)}
-            placeholder="Анна, Козловские, волонтёры…"
-            className={`${inputCls} ${inputFocusStyle}`}
-            style={inputStyle}
-          />
-        </Field>
-
-        {/* Telegram */}
-        <Field label="Telegram (необязательно)" hint="Если захотим уточнить детали или поблагодарить">
-          <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm select-none" style={{ color: "var(--stone)" }}>@</span>
-            <input
-              type="text"
-              value={form.telegram}
-              onChange={(e) => set("telegram", e.target.value.replace(/^@/, ""))}
-              placeholder="username"
-              className={`${inputCls} ${inputFocusStyle} pl-7`}
-              style={inputStyle}
-            />
-          </div>
-        </Field>
 
         {/* Photo upload */}
         <Field label="Фото" hint="JPG, PNG, WEBP — до 10 МБ">
