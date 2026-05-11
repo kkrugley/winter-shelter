@@ -142,8 +142,8 @@ export default async function ProductPage({ params }: Props) {
             <span className="px-2 py-0.5 rounded-full border border-border-soft text-xs text-ink-muted">open source</span>
           </div>
 
-          <h1 className="font-hand text-5xl text-ink mb-2">{product.name}</h1>
-          <p className="font-hand text-xl mb-4" style={{ color: "var(--sp-accent)" }}>
+          <h1 className="heading-display mb-2">{product.name}</h1>
+          <p className="heading-card text-xl mb-4" style={{ color: "var(--sp-accent)" }}>
             {product.tagline}
           </p>
           <p className="text-sm text-ink-muted leading-relaxed mb-6">{product.description}</p>
@@ -197,7 +197,7 @@ export default async function ProductPage({ params }: Props) {
             </div>
           ) : (
             <div className="bg-[#F5F1EB] border border-border-soft rounded-xl p-5 text-center">
-              <p className="font-hand text-xl text-ink-muted mb-2">Скоро в каталоге</p>
+              <p className="heading-card text-xl text-ink-muted mb-2">Скоро в каталоге</p>
               <p className="text-sm text-ink-muted">Следи за обновлениями в Telegram</p>
             </div>
           )}
@@ -222,7 +222,7 @@ export default async function ProductPage({ params }: Props) {
       {/* WHEN TO CHOOSE */}
       {why.length > 0 && (
         <div className="mb-14">
-          <h2 className="font-hand text-3xl text-ink mb-6">Когда выбрать {product.name}</h2>
+          <h2 className="heading-sub mb-6">Когда выбрать {product.name}</h2>
           <div className="grid md:grid-cols-3 gap-5">
             {why.map(({ title, desc }) => (
               <div key={title} className="border border-border-soft rounded-xl p-5">
@@ -236,14 +236,14 @@ export default async function ProductPage({ params }: Props) {
 
       {/* ASSEMBLY — 4 steps grid */}
       <div className="mb-14">
-        <h2 className="font-hand text-3xl text-ink mb-6">За 4 шага</h2>
+        <h2 className="heading-sub mb-6">За 4 шага</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {assemblySteps.map(({ n, title, desc }) => (
             <div key={n} className="border border-border-soft rounded-xl p-5">
               <span className="w-8 h-8 rounded-full border-2 border-accent text-accent font-mono text-sm flex items-center justify-center font-medium mb-3">
                 {n}
               </span>
-              <h4 className="font-hand text-xl text-ink mb-2">{title}</h4>
+              <h4 className="heading-card text-xl mb-2">{title}</h4>
               <div className="ph mb-3" style={{ minHeight: "70px" }}>пик</div>
               <p className="text-xs text-ink-muted">{desc}</p>
             </div>
@@ -258,7 +258,7 @@ export default async function ProductPage({ params }: Props) {
           {calc.map(({ label, value }) => (
             <div key={label}>
               <span className="font-mono text-xs text-ink-muted block mb-1">{label}</span>
-              <p className="font-hand text-xl text-ink">{value}</p>
+              <p className="heading-card text-xl">{value}</p>
             </div>
           ))}
         </div>
@@ -268,8 +268,8 @@ export default async function ProductPage({ params }: Props) {
       {stories.length > 0 && (
         <div className="mb-14">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="font-hand text-3xl text-ink">Кто уже собрал {product.name}</h2>
-            <Link href="/stories" className="font-script text-2xl text-accent hover:underline hidden sm:block">
+            <h2 className="heading-sub">Кто уже собрал {product.name}</h2>
+            <Link href="/stories" className="link-script hidden sm:block hover:underline">
               все истории →
             </Link>
           </div>
@@ -280,7 +280,7 @@ export default async function ProductPage({ params }: Props) {
                   {city}
                 </div>
                 <div className="p-4">
-                  <strong className="font-hand text-xl text-ink block mb-1">{quote}</strong>
+                  <strong className="heading-quote block mb-1">{quote}</strong>
                   <p className="text-xs text-ink-muted">{author}, {date}</p>
                 </div>
               </div>
@@ -292,7 +292,7 @@ export default async function ProductPage({ params }: Props) {
       {/* FAQ */}
       {faq.length > 0 && (
         <div className="mb-14">
-          <h2 className="font-hand text-3xl text-ink mb-6">Частые вопросы</h2>
+          <h2 className="heading-sub mb-6">Частые вопросы</h2>
           <div className="space-y-3">
             {faq.map(({ q, a }) => (
               <div key={q} className="border border-border-soft rounded-xl p-5">

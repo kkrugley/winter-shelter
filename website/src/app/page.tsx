@@ -76,10 +76,7 @@ export default async function HomePage() {
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-14 pb-12">
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <h1
-              className="font-hand text-5xl md:text-6xl text-ink mb-5"
-              style={{ lineHeight: 1.05, letterSpacing: "-0.03em", fontWeight: 600, fontVariationSettings: '"wght" 600, "SOFT" 50, "WONK" 1, "opsz" 144' }}
-            >
+            <h1 className="heading-display md:text-6xl mb-5">
               Зима приходит.{" "}
               <span className="scribble-underline">
                 Им некуда спрятаться.
@@ -126,12 +123,7 @@ export default async function HomePage() {
       {/* 3-PATH FORK + QUIZ */}
       <section className="py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <h2
-            className="font-hand text-4xl text-ink mb-8"
-            style={{ letterSpacing: "-0.02em", fontVariationSettings: '"wght" 600, "SOFT" 50, "opsz" 48' }}
-          >
-            Как ты хочешь помочь?
-          </h2>
+          <h2 className="heading-section mb-8">Как ты хочешь помочь?</h2>
           <div className="grid md:grid-cols-3 gap-5">
             {paths.map(({ icon: Icon, title, desc, chips, cta, href }) => (
               <div
@@ -149,7 +141,7 @@ export default async function HomePage() {
                 >
                   <Icon size={26} weight="duotone" />
                 </div>
-                <h3 className="relative z-10 font-hand text-2xl text-ink" style={{ marginTop: 6, letterSpacing: "-0.01em" }}>{title}</h3>
+                <h3 className="relative z-10 heading-card" style={{ marginTop: 6 }}>{title}</h3>
                 <p className="relative z-10 text-sm leading-[1.5]" style={{ color: "var(--stone)" }}>{desc}</p>
                 <div className="relative z-10 flex flex-wrap gap-1.5">
                   {chips.map((c) => (
@@ -189,10 +181,7 @@ export default async function HomePage() {
                 >
                   опросник · 30 сек
                 </span>
-                <h3
-                  className="font-hand text-2xl text-ink mb-1"
-                  style={{ marginTop: 4, letterSpacing: "-0.01em" }}
-                >
+                <h3 className="heading-card mb-1" style={{ marginTop: 4 }}>
                   Не уверен, какой путь твой?
                 </h3>
                 <p className="text-sm" style={{ color: "var(--stone)" }}>
@@ -228,7 +217,7 @@ export default async function HomePage() {
                   >
                     {step}
                   </span>
-                  <p className="text-sm font-medium text-ink mb-1" style={{ fontFamily: "var(--font-fraunces)", letterSpacing: "-0.01em" }}>{q}</p>
+                  <p className="heading-card text-sm font-medium text-ink mb-1">{q}</p>
                   <p className="text-xs" style={{ color: "var(--stone)" }}>{opts}</p>
                 </div>
               ))}
@@ -242,7 +231,7 @@ export default async function HomePage() {
                 >
                   результат
                 </span>
-                <p className="text-sm font-medium mb-1" style={{ color: "#FFF6EC", fontFamily: "var(--font-fraunces)", letterSpacing: "-0.01em" }}>Рекомендация + файл</p>
+                <p className="heading-card text-sm font-medium mb-1" style={{ color: "#FFF6EC" }}>Рекомендация + файл</p>
                 <p className="text-xs" style={{ color: "rgba(255,246,236,.85)" }}>напр. Cozy 6 мм + истории похожих</p>
               </div>
             </div>
@@ -254,17 +243,8 @@ export default async function HomePage() {
       <section className="py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between mb-8">
-            <h2
-              className="font-hand text-4xl text-ink"
-              style={{ letterSpacing: "-0.02em", fontVariationSettings: '"wght" 600, "SOFT" 50, "opsz" 48' }}
-            >
-              Каталог решений
-            </h2>
-            <Link
-              href="/solutions"
-              className="font-script text-2xl hidden sm:block hover:underline"
-              style={{ color: "var(--ember)" }}
-            >
+            <h2 className="heading-section">Каталог решений</h2>
+            <Link href="/solutions" className="link-script hidden sm:block hover:underline">
               все решения →
             </Link>
           </div>
@@ -284,12 +264,7 @@ export default async function HomePage() {
                   style={{ borderColor: "var(--sand-2)" }}
                 />
                 <div className="p-4 flex flex-col flex-1 gap-2">
-                  <strong
-                    className="font-hand text-lg text-ink"
-                    style={{ letterSpacing: "-0.01em" }}
-                  >
-                    {p.name}
-                  </strong>
+                  <strong className="heading-card text-lg">{p.name}</strong>
                   <p className="text-xs" style={{ color: "var(--stone)" }}>{p.subtitle}</p>
                   <div className="mt-auto pt-2">
                     <Link
@@ -310,7 +285,7 @@ export default async function HomePage() {
             ))}
           </div>
           <div className="mt-4 sm:hidden text-center">
-            <Link href="/solutions" className="font-script text-xl hover:underline" style={{ color: "var(--ember)" }}>Все решения →</Link>
+            <Link href="/solutions" className="link-script text-xl hover:underline">Все решения →</Link>
           </div>
         </div>
       </section>
@@ -318,12 +293,7 @@ export default async function HomePage() {
       {/* HOW IT WORKS */}
       <section className="py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <h2
-            className="font-hand text-4xl text-ink mb-8"
-            style={{ letterSpacing: "-0.02em", fontVariationSettings: '"wght" 600, "SOFT" 50, "opsz" 48' }}
-          >
-            Как это работает
-          </h2>
+          <h2 className="heading-section mb-8">Как это работает</h2>
 
           {/* Desktop: card + dashed connector + card */}
           <div
@@ -349,12 +319,7 @@ export default async function HomePage() {
                     >
                       {n}
                     </span>
-                    <strong
-                      className="text-[20px] text-ink font-bold leading-tight"
-                      style={{ fontFamily: "var(--font-fraunces)", letterSpacing: "-0.01em" }}
-                    >
-                      {title}
-                    </strong>
+                    <strong className="heading-card leading-tight">{title}</strong>
                   </div>
                   {/* Description */}
                   <p className="text-sm leading-relaxed" style={{ color: "var(--stone)" }}>{desc}</p>
@@ -398,12 +363,7 @@ export default async function HomePage() {
                   {n}
                 </span>
                 <div className="flex-1">
-                  <strong
-                    className="text-[18px] text-ink font-bold block mb-1"
-                    style={{ fontFamily: "var(--font-fraunces)", letterSpacing: "-0.01em" }}
-                  >
-                    {title}
-                  </strong>
+                  <strong className="heading-card text-lg block mb-1">{title}</strong>
                   <p className="text-sm" style={{ color: "var(--stone)" }}>{desc}</p>
                 </div>
                 <div style={{ color: "var(--forest-mid)", opacity: 0.55 }}>
@@ -419,17 +379,8 @@ export default async function HomePage() {
       <section className="py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between mb-8">
-            <h2
-              className="font-hand text-4xl text-ink"
-              style={{ letterSpacing: "-0.02em", fontVariationSettings: '"wght" 600, "SOFT" 50, "opsz" 48' }}
-            >
-              Истории
-            </h2>
-            <Link
-              href="/stories"
-              className="font-script text-2xl hidden sm:block hover:underline"
-              style={{ color: "var(--ember)" }}
-            >
+            <h2 className="heading-section">Истории</h2>
+            <Link href="/stories" className="link-script hidden sm:block hover:underline">
               все истории →
             </Link>
           </div>
@@ -439,7 +390,7 @@ export default async function HomePage() {
             ))}
           </div>
           <div className="mt-4 sm:hidden text-center">
-            <Link href="/stories" className="font-script text-xl hover:underline" style={{ color: "var(--ember)" }}>Все истории →</Link>
+            <Link href="/stories" className="link-script text-xl hover:underline">Все истории →</Link>
           </div>
         </div>
       </section>
@@ -488,8 +439,8 @@ export default async function HomePage() {
 
             {/* Content */}
             <h2
-              className="font-hand relative text-ink"
-              style={{ fontSize: "clamp(36px, 3.2vw, 52px)", letterSpacing: "-0.02em", fontVariationSettings: '"wght" 600, "SOFT" 50, "opsz" 48' }}
+              className="heading-display relative"
+              style={{ fontSize: "clamp(36px, 3.2vw, 52px)" }}
             >
               Готов начать?
             </h2>

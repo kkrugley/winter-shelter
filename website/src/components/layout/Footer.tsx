@@ -23,7 +23,7 @@ const cols = [
     title: "Связь",
     links: [
       { href: "https://github.com/kkrugley/safepaws", label: "GitHub" },
-      { href: "https://t.me/safepaws", label: "Telegram" },
+      { href: "https://t.me/safepaws_help", label: "Telegram" },
       { href: "mailto:kkrugley@proton.me", label: "Email" },
       { href: "/about", label: "О проекте" },
     ],
@@ -39,12 +39,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-3">
               <span className="text-xl" aria-hidden>🐾</span>
-              <span
-                className="font-hand text-[22px] text-charcoal leading-none"
-                style={{ letterSpacing: "-0.015em", fontVariationSettings: '"wght" 400, "SOFT" 100, "opsz" 48' }}
-              >
-                SafePaws
-              </span>
+              <span className="heading-logo">SafePaws</span>
             </div>
             <p className="text-sm text-[var(--stone)] leading-relaxed">
               Открытый проект: чертежи и решения для уличных животных.

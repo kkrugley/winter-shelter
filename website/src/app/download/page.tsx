@@ -32,7 +32,7 @@ export default function DownloadPage() {
     return (
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-20 text-center">
         <CheckCircle size={56} weight="duotone" className="text-accent mx-auto mb-6" />
-        <h1 className="font-hand text-5xl text-ink mb-4">Скачивание начато!</h1>
+        <h1 className="heading-display mb-4">Скачивание начато!</h1>
         <p className="text-sm text-ink-muted mb-8">
           Если файл не скачался — нажми кнопку ещё раз. Спасибо, что помогаешь животным!
         </p>
@@ -63,7 +63,7 @@ export default function DownloadPage() {
         <span className="text-accent">скачать</span>
       </div>
 
-      <h1 className="font-hand text-5xl text-ink mb-2">Скачать чертежи</h1>
+      <h1 className="heading-display mb-2">Скачать чертежи</h1>
       <p className="text-sm text-ink-muted mb-10">
         Три шага: выбери модель, материал, получи файл. Всё бесплатно.
       </p>
@@ -95,7 +95,7 @@ export default function DownloadPage() {
       {step === 1 && (
         <div className="border border-border-soft rounded-xl p-6">
           <span className="font-mono text-xs text-ink-muted block mb-4">шаг 1 / 3</span>
-          <h2 className="font-hand text-3xl text-ink mb-6">Выбери модель</h2>
+          <h2 className="heading-sub mb-6">Выбери модель</h2>
           <div className="grid sm:grid-cols-3 gap-4">
             {downloadableProducts.map((p) => (
               <button
@@ -109,7 +109,7 @@ export default function DownloadPage() {
                   {p.name}
                 </div>
                 <div className="p-3">
-                  <strong className="font-hand text-lg text-ink block">{p.name}</strong>
+                  <strong className="heading-card text-lg block">{p.name}</strong>
                   <p className="text-xs text-ink-muted">{p.capacity}</p>
                   {selectedSlug === p.slug && (
                     <span className="mt-2 inline-block px-2 py-0.5 rounded-full border border-accent/40 bg-accent-soft text-xs text-accent">
@@ -135,7 +135,7 @@ export default function DownloadPage() {
       {step === 2 && selectedProduct && (
         <div className="border border-border-soft rounded-xl p-6">
           <span className="font-mono text-xs text-ink-muted block mb-4">шаг 2 / 3</span>
-          <h2 className="font-hand text-3xl text-ink mb-2">Выбери материал</h2>
+          <h2 className="heading-sub mb-2">Выбери материал</h2>
           <p className="text-sm text-ink-muted mb-6">
             Модель: <strong>{selectedProduct.name}</strong>
           </p>
@@ -185,7 +185,7 @@ export default function DownloadPage() {
           <span className="font-mono text-xs text-ink-muted block mb-4">шаг 3 / 3 · твой файл</span>
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h3 className="font-hand text-2xl text-ink mb-1">
+              <h3 className="heading-card mb-1">
                 {selectedProduct.name} · {selectedDownload.label}
               </h3>
               <p className="text-sm text-ink-muted">
@@ -219,7 +219,7 @@ export default function DownloadPage() {
         {nextSteps.map(({ label, title, desc, href }) => (
           <div key={title} className="border border-border-soft rounded-xl p-5">
             <span className="font-mono text-xs text-ink-muted block mb-2">{label}</span>
-            <h4 className="font-hand text-xl text-ink mb-2">{title}</h4>
+            <h4 className="heading-card text-xl mb-2">{title}</h4>
             <p className="text-xs text-ink-muted mb-3">{desc}</p>
             {href && (
               <Link href={href} className="text-xs text-accent hover:underline">
