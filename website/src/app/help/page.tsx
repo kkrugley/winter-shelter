@@ -28,7 +28,7 @@ type Cap = "all" | "hands" | "time" | "money" | "voice";
 const ways = [
   {
     icon: Hammer,
-    title: "Собрать домик",
+    title: "Сделать домик",
     desc: "Скачай чертёж, вырежи и установи. Или найди ближайший хакспейс.",
     chips: ["2 часа", "фанера"],
     caps: ["hands"] as Cap[],
@@ -45,16 +45,6 @@ const ways = [
     cta: "Инструкция →",
     href: "/solutions/purrtap",
     accent: true,
-  },
-  {
-    icon: MapPin,
-    title: "Забрать готовый",
-    desc: "В 3 городах мы собираем домики партиями — можешь забрать и поставить.",
-    chips: ["Минск", "Брест", "Гродно"],
-    caps: ["time"] as Cap[],
-    cta: "Записаться →",
-    href: "/about#contact",
-    accent: false,
   },
   {
     icon: MegaphoneSimple,
@@ -120,11 +110,11 @@ const ways = [
 ];
 
 const capFilters: { key: Cap; label: string; emoji: string }[] = [
-  { key: "all", label: "всё показать", emoji: "" },
-  { key: "hands", label: "руки/инструмент", emoji: "🔨" },
-  { key: "time", label: "время", emoji: "🕐" },
-  { key: "money", label: "средства", emoji: "💸" },
-  { key: "voice", label: "голос/сеть", emoji: "📱" },
+  { key: "hands", label: "Инструменты", emoji: "🔨" },
+  { key: "time", label: "Время", emoji: "🕐" },
+  { key: "money", label: "Финансы", emoji: "💸" },
+  { key: "voice", label: "Аудитория", emoji: "📱" },
+  { key: "all", label: "Показать всё", emoji: "" },
 ];
 
 export default function HelpPage() {
@@ -141,24 +131,24 @@ export default function HelpPage() {
         <Breadcrumb className="mb-6">
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">главная</BreadcrumbLink>
+              <BreadcrumbLink href="/">Главная</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>как помочь</BreadcrumbPage>
+              <BreadcrumbPage>Как помочь</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
 
         <h1 className="heading-display mb-3">Помогать можно по-разному.</h1>
         <p className="text-base text-ink-muted mb-10 max-w-[560px]">
-          Не у всех есть лобзик. Не у всех есть время. Но у каждого есть хоть
-          что-то. Вот пути.
+          Не у всех есть лобзик. Не у всех есть время. Но у каждого есть хоть что-то. 
+          Вот пути.
         </p>
 
         {/* Filter */}
         <div className="border border-border-soft rounded-xl p-4 mb-10 flex flex-wrap gap-3 items-center">
-          <span className="font-mono text-xs text-ink-muted">у меня есть:</span>
+          <span className="font-mono text-xs text-ink-muted">У меня есть:</span>
           {capFilters.map(({ key, label, emoji }) => (
             <button
               key={key}

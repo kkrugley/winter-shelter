@@ -80,7 +80,7 @@ export const products: Product[] = [
       "Большое укрытие для целой колонии. Отдельные отсеки, утеплённые стены, удобный доступ для чистки.",
     category: "shelter",
     status: "available",
-    capacity: "4–5 котов",
+    capacity: "3–5 котов",
     subtitle: "Фанера 3 / 6 мм · DXF + PDF",
     specs: [
       { label: "размер", value: "80 × 50 × 45 см" },
@@ -119,7 +119,7 @@ export const products: Product[] = [
       "Простая поилка из бутылки. Инструкция на 1 страницу. Можно собрать за 20 минут.",
     category: "hydration",
     status: "new",
-    capacity: "1–5 котов",
+    capacity: "много котов",
     subtitle: "Поилка для двора · 3Д-печать",
     specs: [
       { label: "время сборки", value: "20 минут" },
@@ -152,7 +152,7 @@ export const products: Product[] = [
       "Компактная кормушка для разовой выкладки корма. Печатается на обычном FDM-принтере.",
     category: "feeding",
     status: "coming-soon",
-    capacity: "1–3 кота",
+    capacity: "много котов",
     subtitle: "Карманная кормушка-дозатор для корма",
     specs: [
       { label: "материал", value: "PETG / ABS" },
