@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { CtaBlock } from "@/components/ui/CtaBlock";
 import {
   Hammer,
   Drop,
@@ -210,28 +211,14 @@ export default function HelpPage() {
       </div>
 
       {/* BIG CALL */}
-      <section className="py-14 bg-ink text-paper">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="heading-section mb-4">Пока ты читаешь это, на улице –5°C.</h2>
-          <p className="text-sm text-paper/70 mb-8 max-w-md mx-auto">
-            Любое действие с этой страницы — шаг в правильную сторону.
-          </p>
-          <div className="flex flex-wrap gap-3 justify-center">
-            <Link
-              href="/solutions/purrtap"
-              className="px-6 py-3 rounded-lg bg-accent text-white text-sm font-medium hover:bg-[#c4673d] transition-colors"
-            >
-              Самое простое: скачать PurrTap
-            </Link>
-            <Link
-              href="/help"
-              className="px-6 py-3 rounded-lg border border-paper/20 text-paper text-sm font-medium hover:bg-paper/10 transition-colors"
-            >
-              Пройти квиз
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CtaBlock
+        heading="Пока ты читаешь это, на улице –5°C."
+        body="Любое действие с этой страницы — шаг в правильную сторону."
+        links={[
+          { label: "Самое простое: поделиться", href: "/", primary: true, action: 'copy' as const },
+          { label: "Пройти квиз",                    href: "/#quiz" },
+        ]}
+      />
     </>
   );
 }

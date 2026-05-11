@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
+import { CtaBlock } from "@/components/ui/CtaBlock";
 import { StoryCard } from "@/components/ui/StoryCard";
 import { Map, MapClusterLayer, MapPopup, MapControls } from "@/components/ui/map";
 import type { Story } from "@/lib/stories";
@@ -279,20 +280,13 @@ export default function StoriesPage() {
       </div>
 
       {/* ADD STORY CTA */}
-      <section className="py-14 bg-accent-soft">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="heading-section mb-3">Собрал домик? Расскажи.</h2>
-          <p className="text-sm text-ink-muted mb-8">
-            2 фото + пара строк — и точка появится на карте.
-          </p>
-          <Link
-            href="/stories/add"
-            className="px-6 py-3 rounded-lg bg-accent text-white text-sm font-medium hover:bg-[#c4673d] transition-colors"
-          >
-            Добавить историю →
-          </Link>
-        </div>
-      </section>
+      <CtaBlock
+        heading="Собрал домик? Расскажи."
+        body="2 фото + пара строк — и точка появится на карте."
+        links={[
+          { label: "Добавить историю →", href: "/stories/add", primary: true },
+        ]}
+      />
     </>
   );
 }

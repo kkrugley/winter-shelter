@@ -6,6 +6,7 @@ import { ProductIllustration } from "@/components/ui/ProductIllustration";
 import { StoryCard } from "@/components/ui/StoryCard";
 import { getPublishedStories } from "@/lib/stories";
 import { QuizSection } from "@/components/ui/QuizSection";
+import { CtaBlock } from "@/components/ui/CtaBlock";
 
 
 const paths = [
@@ -304,76 +305,14 @@ export default async function HomePage() {
       </section>
 
       {/* BOTTOM CTA */}
-      <section className="py-14">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div
-            className="relative overflow-hidden rounded-[24px] px-8 py-14 text-center"
-            style={{
-              background: "var(--ember-pale)",
-              border: "1px solid var(--ember-soft)",
-              boxShadow: "var(--shadow-lift)",
-            }}
-          >
-            {/* Radial depth overlays */}
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                backgroundImage:
-                  "radial-gradient(circle at 15% 75%, rgba(232,113,42,.09), transparent 38%), radial-gradient(circle at 85% 25%, rgba(61,107,79,.06), transparent 38%)",
-              }}
-            />
-
-            {/* Paw prints — decorative background */}
-            <span
-              className="absolute pointer-events-none select-none"
-              style={{ top: "18%", left: "7%", transform: "rotate(-20deg)", fontSize: 34, opacity: 0.13, filter: "grayscale(1) sepia(0.4)" }}
-              aria-hidden
-            >🐾</span>
-            <span
-              className="absolute pointer-events-none select-none"
-              style={{ bottom: "20%", right: "10%", transform: "rotate(15deg)", fontSize: 34, opacity: 0.13, filter: "grayscale(1) sepia(0.4)" }}
-              aria-hidden
-            >🐾</span>
-            <span
-              className="absolute pointer-events-none select-none"
-              style={{ top: "55%", left: "17%", transform: "rotate(8deg)", fontSize: 22, opacity: 0.11, filter: "grayscale(1) sepia(0.4)" }}
-              aria-hidden
-            >🐾</span>
-            <span
-              className="absolute pointer-events-none select-none"
-              style={{ top: "22%", right: "16%", transform: "rotate(-10deg)", fontSize: 22, opacity: 0.11, filter: "grayscale(1) sepia(0.4)" }}
-              aria-hidden
-            >🐾</span>
-
-            {/* Content */}
-            <h2
-              className="heading-display relative"
-              style={{ fontSize: "clamp(36px, 3.2vw, 52px)" }}
-            >
-              Готов начать?
-            </h2>
-            <p className="relative text-sm mt-3 mb-8" style={{ color: "var(--stone)" }}>
-              Все файлы бесплатные и открытые.
-            </p>
-            <div className="relative flex flex-wrap gap-3 justify-center">
-              <Link
-                href="/solutions"
-                className="px-6 py-3 rounded-full bg-[var(--ember)] text-white text-sm font-medium hover:opacity-90 transition-all hover:-translate-y-px"
-                style={{ boxShadow: "var(--shadow-btn)" }}
-              >
-                Открыть каталог
-              </Link>
-              <Link
-                href="/help"
-                className="px-6 py-3 rounded-full border text-ink text-sm font-medium hover:border-[var(--stone)] transition-colors"
-                style={{ background: "#FFFDF7", borderColor: "var(--sand-2)" }}
-              >
-                Как помочь без инструментов
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CtaBlock
+        heading="Готов начать?"
+        body="Все файлы бесплатные и открытые."
+        links={[
+          { label: "Открыть каталог",              href: "/solutions", primary: true },
+          { label: "Как помочь без инструментов",  href: "/help" },
+        ]}
+      />
     </>
   );
 }
