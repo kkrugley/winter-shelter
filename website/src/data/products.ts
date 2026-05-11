@@ -22,6 +22,7 @@ export interface Product {
   category: ProductCategory;
   status: ProductStatus;
   capacity: string;
+  subtitle: string;
   specs: ProductSpec[];
   downloads: ProductDownload[];
   tags: string[];
@@ -37,6 +38,7 @@ export const products: Product[] = [
     category: "shelter",
     status: "available",
     capacity: "1–2 кота",
+    subtitle: "Фанера 3 / 6 мм · DXF + PDF",
     specs: [
       { label: "размер", value: "40 × 40 × 30 см" },
       { label: "материал", value: "фанера 3 или 6 мм" },
@@ -69,6 +71,7 @@ export const products: Product[] = [
     category: "shelter",
     status: "available",
     capacity: "4–5 котов",
+    subtitle: "Фанера 3 / 6 мм · DXF + PDF",
     specs: [
       { label: "размер", value: "80 × 50 × 45 см" },
       { label: "материал", value: "фанера 6 мм" },
@@ -101,6 +104,7 @@ export const products: Product[] = [
     category: "hydration",
     status: "new",
     capacity: "1–5 котов",
+    subtitle: "Поилка для двора · инструкция",
     specs: [
       { label: "время сборки", value: "20 минут" },
       { label: "материал", value: "бутылка + крепёж" },
@@ -127,6 +131,7 @@ export const products: Product[] = [
     category: "feeding",
     status: "coming-soon",
     capacity: "1–3 кота",
+    subtitle: "Портативная кормушка",
     specs: [
       { label: "материал", value: "PETG / ABS" },
       { label: "время печати", value: "~ 3 часа" },
@@ -135,42 +140,6 @@ export const products: Product[] = [
     ],
     downloads: [],
     tags: ["кормление", "3D-печать", "скоро"],
-  },
-  {
-    slug: "insulated-cozy",
-    name: "Insulated Cozy",
-    tagline: "Cozy Shelter + слой пенофола",
-    description:
-      "Утеплённая версия Cozy с дополнительным слоем теплоизоляции для самых холодных регионов.",
-    category: "shelter",
-    status: "prototype",
-    capacity: "1–2 кота",
-    specs: [
-      { label: "материал", value: "фанера 6 мм + пенофол" },
-      { label: "время сборки", value: "~ 3 часа" },
-      { label: "статус", value: "прототип" },
-      { label: "регионы", value: "−30°C и ниже" },
-    ],
-    downloads: [],
-    tags: ["укрытие", "утеплённый", "прототип"],
-  },
-  {
-    slug: "colony-kit",
-    name: "Colony Kit",
-    tagline: "Комплект для колонии 10+ котов",
-    description:
-      "Набор из нескольких домиков и поилок для организованной кормовой точки.",
-    category: "shelter",
-    status: "coming-soon",
-    capacity: "10+ котов",
-    specs: [
-      { label: "состав", value: "2× Family + 3× PurrTap" },
-      { label: "статус", value: "в разработке" },
-      { label: "тип", value: "комплект" },
-      { label: "площадь", value: "~ 4 м²" },
-    ],
-    downloads: [],
-    tags: ["колония", "комплект", "скоро"],
   },
 ];
 

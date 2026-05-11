@@ -35,16 +35,12 @@ export default function AboutPage() {
         {/* Mission hero */}
         <div className="grid md:grid-cols-2 gap-10 items-center mb-14">
           <div>
-            <h1 className="font-hand text-5xl md:text-6xl text-ink mb-5">
+            <h1
+              className="font-hand text-5xl md:text-6xl text-ink mb-5"
+              style={{ lineHeight: 1.05, letterSpacing: "-0.03em", fontWeight: 600, fontVariationSettings: '"wght" 600, "SOFT" 50, "WONK" 1, "opsz" 144' }}
+            >
               Добро должно быть{" "}
-              <span
-                style={{
-                  textDecoration: "underline",
-                  textDecorationStyle: "wavy",
-                  textDecorationColor: "var(--sp-accent)",
-                  textUnderlineOffset: "6px",
-                }}
-              >
+              <span className="scribble-underline">
                 простым.
               </span>
             </h1>
@@ -67,12 +63,12 @@ export default function AboutPage() {
         </div>
 
         {/* Stats */}
-        <div className="bg-[#F5F1EB] rounded-2xl p-8 mb-14">
+        <div className="rounded-2xl p-8 mb-14 border" style={{ background: "var(--sand)", borderColor: "var(--sand-2)" }}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map(({ value, label }) => (
               <div key={label}>
-                <span className="font-mono text-xs text-ink-muted block mb-1">{label}</span>
-                <div className="font-hand text-4xl text-ink">{value}</div>
+                <span className="font-mono text-xs block mb-1" style={{ color: "var(--stone)" }}>{label}</span>
+                <div className="font-hand text-4xl text-ink" style={{ letterSpacing: "-0.02em", fontVariationSettings: '"wght" 400, "SOFT" 50, "opsz" 48' }}>{value}</div>
               </div>
             ))}
           </div>
@@ -80,7 +76,7 @@ export default function AboutPage() {
 
         {/* Story of project */}
         <div className="mb-14">
-          <h2 className="font-hand text-4xl text-ink mb-8">Как это началось</h2>
+          <h2 className="font-hand text-4xl text-ink mb-8" style={{ letterSpacing: "-0.02em", fontVariationSettings: '"wght" 600, "SOFT" 50, "opsz" 48' }}>Как это началось</h2>
           <div className="grid md:grid-cols-2 gap-10 items-start">
             <div className="space-y-4 text-sm text-ink-muted leading-relaxed">
               <p>В 2023-м Паша сделал один домик для кошек у подъезда. Потом второй. Потом соседи попросили чертёж.</p>
@@ -88,30 +84,75 @@ export default function AboutPage() {
               <p>Сегодня в проекте 2 модели домиков, поилка PurrTap, и в планах кормушка EDC.</p>
             </div>
             {/* Author card */}
-            <div className="bg-[#F5F1EB] border border-border-soft rounded-xl p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-accent-soft border-2 border-accent/30 flex items-center justify-center font-hand text-2xl text-accent">П</div>
-                <div>
-                  <strong className="text-sm text-ink block">Паша · автор проекта</strong>
-                  <p className="text-xs text-ink-muted">Брест · делаю это в свободное время</p>
+            <div
+              className="rounded-2xl p-6 flex flex-col gap-5"
+              style={{
+                background: "var(--card-bg)",
+                border: "1px solid var(--sand-2)",
+                boxShadow: "var(--shadow-card)",
+              }}
+            >
+              {/* Header */}
+              <div className="flex items-center gap-4">
+                <div
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center font-hand text-3xl shrink-0"
+                  style={{
+                    background: "linear-gradient(135deg, var(--ember-pale) 0%, var(--ember-wash) 100%)",
+                    border: "1.5px solid var(--ember-soft)",
+                    color: "var(--ember)",
+                    boxShadow: "0 2px 8px rgba(232,113,42,.15)",
+                  }}
+                >П</div>
+                <div className="min-w-0">
+                  <strong className="text-base text-ink block leading-tight">Паша Круглей</strong>
+                  <p className="text-xs text-ink-muted mt-0.5">автор · Брест, Беларусь</p>
+                  {/* Status dot */}
+                  <div className="flex items-center gap-1.5 mt-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--forest)] opacity-80 inline-block" />
+                    <span className="font-mono text-[10px]" style={{ color: "var(--forest-mid)" }}>открыт для сотрудничества</span>
+                  </div>
                 </div>
               </div>
-              <p className="font-hand text-xl text-ink mb-4">
-                «Привет, я Паша. Если хочется помочь — пиши в Telegram.»
-              </p>
-              <div className="flex gap-2">
-                <a
-                  href="https://t.me/safepaws"
-                  className="px-4 py-2 rounded-lg border border-border-soft text-sm text-ink hover:border-accent/40 hover:text-accent transition-colors"
-                >
-                  Telegram
-                </a>
-                <a
-                  href="mailto:kkrugley@proton.me"
-                  className="px-4 py-2 rounded-lg border border-border-soft text-sm text-ink-muted hover:border-accent/40 transition-colors"
-                >
-                  Email
-                </a>
+
+              {/* Quote */}
+              <blockquote
+                className="font-hand text-xl text-ink leading-snug"
+                style={{ letterSpacing: "-0.01em", fontVariationSettings: '"wght" 400, "SOFT" 50, "opsz" 32' }}
+              >
+                «Начал с одного домика у подъезда — теперь это проект для всех.»
+              </blockquote>
+
+              {/* Role tags */}
+              <div className="flex flex-wrap gap-1.5">
+                {["Industrial design", "Open source", "DIY / maker"].map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-2.5 py-1 rounded-lg text-[11px] font-mono"
+                    style={{ background: "var(--sand)", color: "var(--stone)" }}
+                  >{tag}</span>
+                ))}
+              </div>
+
+              {/* Divider */}
+              <div className="h-px" style={{ background: "var(--sand)" }} />
+
+              {/* Contact links */}
+              <div className="flex flex-col gap-2">
+                {[
+                  { label: "Telegram", value: "@safepaws", href: "https://t.me/safepaws" },
+                  { label: "Email", value: "kkrugley@proton.me", href: "mailto:kkrugley@proton.me" },
+                  { label: "GitHub", value: "kkrugley / winter-shelter", href: "https://github.com/kkrugley/winter-shelter" },
+                ].map(({ label, value, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    className="author-contact-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-ink"
+                    style={{ background: "var(--sand)" }}
+                  >
+                    <span className="font-mono text-[11px] text-ink-muted w-16 shrink-0">{label}</span>
+                    <span className="text-ink-muted truncate">{value}</span>
+                  </a>
+                ))}
               </div>
             </div>
           </div>
@@ -119,12 +160,12 @@ export default function AboutPage() {
 
         {/* Timeline */}
         <div className="mb-14">
-          <h2 className="font-hand text-4xl text-ink mb-8">Шаги проекта</h2>
+          <h2 className="font-hand text-4xl text-ink mb-8" style={{ letterSpacing: "-0.02em", fontVariationSettings: '"wght" 600, "SOFT" 50, "opsz" 48' }}>Шаги проекта</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {timeline.map(({ year, title, desc }) => (
-              <div key={year} className="border border-border-soft rounded-xl p-5">
-                <span className="font-mono text-xs text-ink-muted block mb-3">{year}</span>
-                <strong className="font-hand text-xl text-ink block mb-2">{title}</strong>
+              <div key={year} className="border rounded-xl p-5" style={{ borderColor: "var(--sand)", background: "var(--cream)" }}>
+                <span className="font-mono text-xs block mb-3" style={{ color: "var(--stone)" }}>{year}</span>
+                <strong className="font-hand text-xl text-ink block mb-2" style={{ letterSpacing: "-0.01em" }}>{title}</strong>
                 <p className="text-xs text-ink-muted">{desc}</p>
               </div>
             ))}
@@ -133,7 +174,7 @@ export default function AboutPage() {
 
         {/* Partners */}
         <div className="mb-14">
-          <h2 className="font-hand text-4xl text-ink mb-8">Кто помогает</h2>
+          <h2 className="font-hand text-4xl text-ink mb-8" style={{ letterSpacing: "-0.02em", fontVariationSettings: '"wght" 600, "SOFT" 50, "opsz" 48' }}>Кто помогает</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
             {partners.map((name) => (
               <div key={name} className="border border-border-soft rounded-xl p-5 text-center">
@@ -145,10 +186,20 @@ export default function AboutPage() {
         </div>
 
         {/* Contact CTA */}
-        <div className="bg-accent-soft border border-accent/20 rounded-2xl p-8">
+        <div
+          className="relative overflow-hidden rounded-2xl p-8"
+          style={{
+            background: "linear-gradient(180deg, var(--ember-pale) 0%, var(--cream) 100%)",
+            border: "1px solid var(--ember-soft)",
+            boxShadow: "var(--shadow-lift)",
+          }}
+        >
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="font-hand text-4xl text-ink mb-3">Связаться</h2>
+              <h2
+                className="font-hand text-4xl text-ink mb-3"
+                style={{ letterSpacing: "-0.02em", fontVariationSettings: '"wght" 600, "SOFT" 50, "opsz" 48' }}
+              >Связаться</h2>
               <p className="text-sm text-ink-muted">
                 Вопрос, предложение, партнёрство — пиши любым способом.
               </p>
@@ -156,19 +207,22 @@ export default function AboutPage() {
             <div className="flex flex-col gap-3">
               <a
                 href="https://t.me/safepaws"
-                className="flex items-center justify-center px-5 py-2.5 rounded-lg border border-border-soft text-sm text-ink hover:border-accent/40 hover:text-accent transition-colors"
+                className="flex items-center justify-center px-5 py-2.5 rounded-full border text-sm text-ink hover:border-[var(--ember)] hover:text-[var(--ember)] transition-colors"
+                style={{ borderColor: "var(--sand-2)" }}
               >
                 Telegram · @safepaws
               </a>
               <a
                 href="mailto:kkrugley@proton.me"
-                className="flex items-center justify-center px-5 py-2.5 rounded-lg border border-border-soft text-sm text-ink hover:border-accent/40 hover:text-accent transition-colors"
+                className="flex items-center justify-center px-5 py-2.5 rounded-full border text-sm text-ink hover:border-[var(--ember)] hover:text-[var(--ember)] transition-colors"
+                style={{ borderColor: "var(--sand-2)" }}
               >
                 Email · kkrugley@proton.me
               </a>
               <a
                 href="https://github.com/kkrugley/winter-shelter"
-                className="flex items-center justify-center px-5 py-2.5 rounded-lg border border-border-soft text-sm text-ink hover:border-accent/40 hover:text-accent transition-colors"
+                className="flex items-center justify-center px-5 py-2.5 rounded-full border text-sm text-ink hover:border-[var(--ember)] hover:text-[var(--ember)] transition-colors"
+                style={{ borderColor: "var(--sand-2)" }}
               >
                 GitHub · safepaws/website
               </a>

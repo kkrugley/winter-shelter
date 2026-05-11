@@ -32,25 +32,30 @@ const cols = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border-soft bg-[#F5F1EB] mt-auto">
+    <footer className="border-t border-[var(--sand)] mt-auto" style={{ background: "#F7F1E5" }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-2xl">🐾</span>
-              <span className="font-hand text-2xl text-accent">SafePaws</span>
+              <span className="text-xl" aria-hidden>🐾</span>
+              <span
+                className="font-hand text-[22px] text-charcoal leading-none"
+                style={{ letterSpacing: "-0.015em", fontVariationSettings: '"wght" 400, "SOFT" 100, "opsz" 48' }}
+              >
+                SafePaws
+              </span>
             </div>
-            <p className="text-sm text-ink-muted leading-relaxed">
+            <p className="text-sm text-[var(--stone)] leading-relaxed">
               Открытый проект: чертежи и решения для уличных животных.
             </p>
-            <p className="text-xs text-ink-muted mt-3">CC BY 4.0 · 2023–2026</p>
+            <p className="text-xs text-[var(--stone)] mt-3">CC BY 4.0 · 2023–2026</p>
           </div>
 
           {/* Nav columns */}
           {cols.map(({ title, links }) => (
             <div key={title}>
-              <div className="font-mono text-xs uppercase tracking-wider text-ink-muted mb-3">
+              <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--stone)] mb-3">
                 {title}
               </div>
               <ul className="space-y-2">
@@ -58,7 +63,7 @@ export function Footer() {
                   <li key={href}>
                     <Link
                       href={href}
-                      className="text-sm text-ink-muted hover:text-accent transition-colors"
+                      className="text-sm text-[var(--stone)] hover:text-[var(--ember)] transition-colors"
                     >
                       {label}
                     </Link>
@@ -70,13 +75,14 @@ export function Footer() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-10 pt-6 border-t border-border-soft flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-ink-muted">
+        <div className="mt-10 pt-6 border-t border-[var(--sand)] flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-[var(--stone)]">
             Каждый домик — это шанс на жизнь.
           </p>
           <Link
             href="/download"
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-[#c4673d] transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--ember)] text-white text-sm font-medium hover:opacity-90 transition-all hover:-translate-y-px"
+            style={{ boxShadow: "var(--shadow-btn)" }}
           >
             Скачать первый чертёж →
           </Link>
