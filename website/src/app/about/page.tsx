@@ -100,77 +100,116 @@ export default function AboutPage() {
               <p>Так и появился SafePaws — чтобы чертёж, который уже есть, мог скачать и сделать каждый.</p>
               <p>Сегодня в проекте 2 модели домиков, поилка PurrTap, и в планах кормушка EDC.</p>
             </div>
-            {/* Author card */}
+            {/* Author card — Maker's Notebook style, 24px baseline grid */}
+            {/* Outer div handles rotation; inner keeps the background flat to avoid jagged lines */}
             <div
-              className="rounded-2xl p-6 flex flex-col gap-5"
+              className="max-w-xs mx-auto md:ml-auto md:mr-20 md:mx-0"
+              style={{ transform: "rotate(1.2deg)" }}
+            >
+            <div
+              className="rounded-2xl"
               style={{
+                position: "relative",
                 background: "var(--card-bg)",
-                border: "1px solid var(--sand-2)",
-                boxShadow: "var(--shadow-card)",
+                border: "2px dashed var(--sand-2)",
+                boxShadow: "4px 4px 0 var(--sand-2)",
+                padding: "24px",
+                overflow: "hidden",
               }}
             >
-              {/* Header */}
-              <div className="flex items-center gap-4">
+              {/* Ruled lines as real DOM elements — render crisply at any rotation */}
+              {Array.from({ length: 20 }, (_, i) => (
                 <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center font-hand text-3xl shrink-0"
+                  key={i}
+                  aria-hidden
                   style={{
-                    background: "linear-gradient(135deg, var(--ember-pale) 0%, var(--ember-wash) 100%)",
-                    border: "1.5px solid var(--ember-soft)",
-                    color: "var(--ember)",
-                    boxShadow: "0 2px 8px rgba(232,113,42,.15)",
+                    position: "absolute",
+                    top: `${(i + 1) * 24}px`,
+                    left: 0,
+                    right: 0,
+                    height: "1px",
+                    background: "var(--sand)",
                   }}
-                >П</div>
-                <div className="min-w-0">
-                  <strong className="text-base text-ink block leading-tight">Паша Круглей</strong>
-                  <p className="text-xs text-ink-muted mt-0.5">автор · Брест, Беларусь</p>
-                  {/* Status dot */}
-                  <div className="flex items-center gap-1.5 mt-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--forest)] opacity-80 inline-block" />
-                    <span className="font-mono text-[10px]" style={{ color: "var(--forest-mid)" }}>открыт для сотрудничества</span>
+                />
+              ))}
+              {/* Header: photo (72px = 3 lines) + info (3 lines) → total 72px + mb 24px */}
+              <div className="flex items-start gap-4" style={{ marginBottom: "24px" }}>
+                <div
+                  className="relative shrink-0 overflow-hidden"
+                  style={{
+                    width: "56px",
+                    height: "72px",
+                    borderRadius: "2px",
+                    border: "3px solid #fff",
+                    transform: "rotate(-1.5deg)",
+                    boxShadow: "2px 4px 0 var(--sand-2), 0 6px 14px rgba(44,42,39,.14)",
+                  }}
+                >
+                  <Image src="/images/general/author-1.jpg" alt="Паша Круглей" fill className="object-cover object-top" sizes="56px" />
+                </div>
+                <div style={{ lineHeight: "24px" }}>
+                  <strong
+                    className="block"
+                    style={{ fontFamily: "var(--font-caveat)", fontSize: "1.375rem", fontWeight: 700, color: "var(--charcoal)", lineHeight: "24px" }}
+                  >Паша Круглей</strong>
+                  <p style={{ fontSize: "0.75rem", color: "var(--stone)", lineHeight: "24px" }}>автор · Брест, Беларусь</p>
+                  <div className="flex items-center gap-1.5" style={{ lineHeight: "24px" }}>
+                    <span className="shrink-0 rounded-full" style={{ width: "6px", height: "6px", background: "var(--forest)", display: "inline-block" }} />
+                    <span className="font-mono" style={{ fontSize: "0.625rem", color: "var(--forest-mid)" }}>открыт для сотрудничества</span>
                   </div>
                 </div>
               </div>
 
-              {/* Quote */}
+              {/* Dashed rule — falls on a line */}
+              <div style={{ borderTop: "1px dashed var(--sand-2)", marginBottom: "24px" }} />
+
+              {/* Quote: Caveat font, line-height 24px → stays on grid regardless of wrap count */}
               <blockquote
-                className="heading-card text-xl leading-snug"
-                style={{ fontVariationSettings: '"wght" 400' }}
+                style={{
+                  fontFamily: "var(--font-caveat)",
+                  fontSize: "1.2rem",
+                  fontWeight: 600,
+                  color: "var(--charcoal)",
+                  lineHeight: "24px",
+                  marginBottom: "24px",
+                }}
               >
                 «Начал с одного домика у подъезда — теперь это проект для всех.»
               </blockquote>
 
-              {/* Role tags */}
-              <div className="flex flex-wrap gap-1.5">
+              {/* Tags as #slug, height = 24px */}
+              <div className="flex flex-wrap gap-x-3" style={{ lineHeight: "24px", marginBottom: "24px" }}>
                 {["Industrial design", "Open source", "DIY / maker"].map((tag) => (
                   <span
                     key={tag}
-                    className="px-2.5 py-1 rounded-lg text-[11px] font-mono"
-                    style={{ background: "var(--sand)", color: "var(--stone)" }}
-                  >{tag}</span>
+                    className="font-mono"
+                    style={{ fontSize: "0.75rem", color: "var(--ember)" }}
+                  >#{tag.toLowerCase().replace(/[\s/]+/g, "-")}</span>
                 ))}
               </div>
 
-              {/* Divider */}
-              <div className="h-px" style={{ background: "var(--sand)" }} />
+              {/* Dashed rule */}
+              <div style={{ borderTop: "1px dashed var(--sand-2)", marginBottom: "24px" }} />
 
-              {/* Contact links */}
-              <div className="flex flex-col gap-2">
-                {[
-                  { label: "Telegram", value: "@safepaws", href: "https://t.me/safepaws_help" },
-                  { label: "Email", value: "kkrugley@proton.me", href: "mailto:kkrugley@proton.me" },
-                  { label: "GitHub", value: "kkrugley / winter-shelter", href: "https://github.com/kkrugley/winter-shelter" },
-                ].map(({ label, value, href }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    className="author-contact-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-ink"
-                    style={{ background: "var(--sand)" }}
-                  >
-                    <span className="font-mono text-[11px] text-ink-muted w-16 shrink-0">{label}</span>
-                    <span className="text-ink-muted truncate">{value}</span>
-                  </a>
-                ))}
-              </div>
+              {/* Contact links — each 24px tall */}
+              {[
+                { label: "Telegram", value: "@krutoj_perec", href: "https://t.me/krutoj_perec" },
+                { label: "Сайт", value: "pasza.ru", href: "https://pasza.ru/" },
+              ].map(({ label, value, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="flex items-center gap-2 group"
+                  style={{ lineHeight: "24px" }}
+                >
+                  <span className="font-mono shrink-0" style={{ fontSize: "0.6875rem", color: "var(--stone)" }}>{label} →</span>
+                  <span
+                    className="underline underline-offset-2 decoration-transparent group-hover:decoration-current transition-colors"
+                    style={{ fontFamily: "var(--font-caveat)", fontSize: "1.1rem", color: "var(--charcoal)" }}
+                  >{value}</span>
+                </a>
+              ))}
+            </div>
             </div>
           </div>
         </div>
@@ -224,7 +263,7 @@ export default function AboutPage() {
                 className="flex items-center justify-center px-5 py-2.5 rounded-full border text-sm text-ink hover:border-[var(--ember)] hover:text-[var(--ember)] transition-colors"
                 style={{ borderColor: "var(--sand-2)" }}
               >
-                Telegram · @safepaws
+                Telegram · @safepaws_help
               </a>
               <a
                 href="mailto:kkrugley@proton.me"
@@ -234,11 +273,11 @@ export default function AboutPage() {
                 Email · kkrugley@proton.me
               </a>
               <a
-                href="https://github.com/kkrugley/winter-shelter"
+                href="https://github.com/kkrugley/safepaws"
                 className="flex items-center justify-center px-5 py-2.5 rounded-full border text-sm text-ink hover:border-[var(--ember)] hover:text-[var(--ember)] transition-colors"
                 style={{ borderColor: "var(--sand-2)" }}
               >
-                GitHub · safepaws/website
+                GitHub · kkrugley/safepaws
               </a>
             </div>
           </div>
