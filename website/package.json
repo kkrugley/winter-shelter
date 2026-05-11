@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",
+    "@lottiefiles/dotlottie-react": "^0.19.2",
     "@neondatabase/serverless": "^1.1.0",
     "@phosphor-icons/react": "^2.1.10",
     "class-variance-authority": "^0.7.1",
