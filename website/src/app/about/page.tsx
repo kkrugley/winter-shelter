@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const stats = [
@@ -13,6 +14,11 @@ const timeline = [
   { year: "2024 · зима", title: "Family + сайт", desc: "4 языка, Vercel." },
   { year: "2026", title: "PurrTap · redesign", desc: "Новый сайт + каталог." },
 ];
+
+// About image card — adjust ring gap, ring width (px), and tilt (degrees, positive = clockwise)
+const ABOUT_RING_GAP = 3;
+const ABOUT_RING_WIDTH = 3;
+const ABOUT_TILT = -2;
 
 const partners = [
   "Хакспейс Брест",
@@ -54,7 +60,23 @@ export default function AboutPage() {
               ))}
             </div>
           </div>
-          <div className="ph min-h-[280px]">фото автора / команды</div>
+          <div
+            className="hero-card overflow-hidden rounded-2xl"
+            style={{
+              ["--hero-tilt-base" as string]: `${ABOUT_TILT}deg`,
+              boxShadow: "var(--shadow-lift)",
+              outline: `${ABOUT_RING_WIDTH}px solid var(--ember)`,
+              outlineOffset: `${ABOUT_RING_GAP}px`,
+            }}
+          >
+            <Image
+              src="/images/general/about-1.jpeg"
+              alt="Команда SafePaws"
+              width={1376}
+              height={768}
+              className="w-full h-auto"
+            />
+          </div>
         </div>
 
         {/* Stats */}

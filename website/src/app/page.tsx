@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Hammer, Heart, BookOpenText, ArrowLineDown, PencilSimple, HouseLine } from "@phosphor-icons/react/dist/ssr";
 import { products } from "@/data/products";
@@ -46,20 +47,20 @@ const steps = [
 
 
 const statusLabel: Record<string, string> = {
-  new: "НОВЫЙ",
-  "coming-soon": "СКОРО",
+  new: "Новинка",
+  "coming-soon": "В разработке!",
   prototype: "прототип",
 };
-const statusColor: Record<string, string> = {
-  available: "border-[var(--forest-pale)] text-[var(--forest)] bg-[var(--forest-pale)]",
-  new: "border-transparent text-[#93430E] bg-[var(--ember-pale)]",
-  "coming-soon": "border-[var(--sand-2)] text-[var(--stone)]",
-  prototype: "border-[var(--sand-2)] text-[var(--stone)]",
-};
+
+// Hero image card — adjust ring gap, ring width (px), and tilt (degrees, positive = clockwise)
+const HERO_RING_GAP = 3;
+const HERO_RING_WIDTH = 3;
+const HERO_TILT = 2;
 
 export default async function HomePage() {
   const allStories = await getPublishedStories().catch(() => []);
-  const miniStories = allStories.sort(() => Math.random() - 0.5).slice(0, 3);
+  // eslint-disable-next-line react-hooks/purity -- Server Component: runs once on server, Math.random is safe here
+  const miniStories = [...allStories].sort(() => Math.random() - 0.5).slice(0, 3);
 
   return (
     <>
@@ -93,8 +94,23 @@ export default async function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="ph min-h-[300px] md:min-h-[360px]" style={{ boxShadow: "var(--shadow-lift)" }}>
-            фото котов зимой / hero · 16:10
+          <div
+            className="hero-card overflow-hidden rounded-2xl"
+            style={{
+              ["--hero-tilt-base" as string]: `${HERO_TILT}deg`,
+              boxShadow: "var(--shadow-lift)",
+              outline: `${HERO_RING_WIDTH}px solid var(--ember)`,
+              outlineOffset: `${HERO_RING_GAP}px`,
+            }}
+          >
+            <Image
+              src="/images/general/hero-1.jpg"
+              alt="Бездомные кошки зимой"
+              width={1376}
+              height={768}
+              className="w-full h-auto"
+              priority
+            />
           </div>
         </div>
       </section>

@@ -55,7 +55,7 @@ export default function SolutionsPage() {
             </p>
           </div>
           <span className="font-mono text-xs text-ink-muted whitespace-nowrap">
-            {filtered.length} решени{filtered.length === 1 ? "е" : "я"} · обновлено 04.26
+            {filtered.length} решени{filtered.length === 1 ? "е" : "я"} · обновлено в апреле 2026
           </span>
         </div>
 

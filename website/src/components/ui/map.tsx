@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable react-hooks/refs -- maplibre adapter uses "sync ref to latest prop" pattern throughout */
 
 import MapLibreGL, { type PopupOptions, type MarkerOptions } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -668,6 +669,7 @@ function MarkerTooltip({
       tooltip.setMaxWidth(popupOptions.maxWidth ?? "none");
     }
 
+     
     prevTooltipOptions.current = popupOptions;
   }
 
@@ -957,6 +959,7 @@ function MapPopup({
   const { map } = useMap();
   const popupOptionsRef = useRef(popupOptions);
   const onCloseRef = useRef(onClose);
+   
   onCloseRef.current = onClose;
   const container = useMemo(() => document.createElement("div"), []);
 
@@ -1002,12 +1005,15 @@ function MapPopup({
       popup.setLngLat([longitude, latitude]);
     }
 
+     
     if (prev.offset !== popupOptions.offset) {
       popup.setOffset(popupOptions.offset ?? 16);
     }
+     
     if (prev.maxWidth !== popupOptions.maxWidth && popupOptions.maxWidth) {
       popup.setMaxWidth(popupOptions.maxWidth ?? "none");
     }
+     
     popupOptionsRef.current = popupOptions;
   }
 
@@ -1367,6 +1373,7 @@ function MapArc<T extends MapArcDatum = MapArcDatum>({
   );
 
   const latestRef = useRef({ data, onClick, onHover });
+   
   latestRef.current = { data, onClick, onHover };
 
   // Add source and layers on mount.

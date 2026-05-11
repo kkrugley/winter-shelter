@@ -33,8 +33,10 @@ export async function POST(req: NextRequest) {
     const angle    = Math.random() * 2 * Math.PI;
     const distance = Math.random() * 500;
     const latRad   = (body.lat as number) * (Math.PI / 180);
+    const cosLat   = Math.cos(latRad);
     body.lat = (body.lat as number) + (distance / 111_000) * Math.cos(angle);
-    body.lng = (body.lng as number) + (distance / (111_000 * Math.cos(latRad))) * Math.sin(angle);
+    // NOTE: clamp cosLat to avoid division by near-zero at poles (lat ≈ ±90°)
+    body.lng = (body.lng as number) + (distance / (111_000 * Math.max(Math.abs(cosLat), 0.001))) * Math.sin(angle);
   }
 
   try {

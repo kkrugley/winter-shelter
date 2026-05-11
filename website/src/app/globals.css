@@ -348,4 +348,15 @@
     font-size: 1.5rem;
     color: var(--ember);
   }
+
+  /* Hero image card — base tilt from HERO_TILT constant (page.tsx) via --hero-tilt-base */
+  .hero-card {
+    transform: rotate(var(--hero-tilt-base, 0deg));
+    transition: transform 0.35s ease-out;
+  }
+
+  /* hover tilt — adjust the angle here */
+  .hero-card:hover {
+    transform: rotate(-1deg);
+  }
 }

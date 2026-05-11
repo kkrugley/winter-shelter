@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { List, X } from "@phosphor-icons/react";
@@ -28,7 +29,7 @@ export function Header() {
           className="flex items-center gap-2 shrink-0"
           onClick={() => setOpen(false)}
         >
-          <img src="/images/favicon/favicon.svg" alt="" width={28} height={28} aria-hidden />
+          <Image src="/images/favicon/favicon.svg" alt="" width={28} height={28} aria-hidden unoptimized />
           <span className="heading-logo">SafePaws</span>
         </Link>
 
