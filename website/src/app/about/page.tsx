@@ -1,18 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getStats } from "@/lib/stats";
+import { RoadmapZigzag, type TimelineItem } from "@/components/RoadmapZigzag";
 
-const stats = [
-  { value: "1 200+", label: "скачиваний" },
-  { value: "47", label: "установленных" },
-  { value: "4", label: "страны" },
-  { value: "4", label: "языка" },
-];
+const BADGE_TILTS = [-1.1, 0.8, -0.6, 1.3];
 
-const timeline = [
+const timeline: TimelineItem[] = [
   { year: "2023 · осень", title: "Первый домик", desc: "Прототип у подъезда." },
   { year: "2024 · весна", title: "Cozy v1", desc: "Первый публичный чертёж." },
   { year: "2024 · зима", title: "Family + сайт", desc: "4 языка, Vercel." },
-  { year: "2026", title: "PurrTap · redesign", desc: "Новый сайт + каталог." },
+  { year: "2026", title: "PurrTap · redesign", desc: "Новый сайт + каталог.", future: true },
 ];
 
 // About image card — adjust ring gap, ring width (px), and tilt (degrees, positive = clockwise)
@@ -27,7 +24,19 @@ const partners = [
   "И 40+ других",
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const stats = await getStats();
+
+  const badgeItems = [
+    {
+      value: stats.downloads > 0 ? `${stats.downloads.toLocaleString("ru")}+` : "1 200+",
+      label: "скачиваний",
+    },
+    { value: String(stats.installations || "47"), label: "установленных" },
+    { value: String(stats.countries || "4"), label: "стран" },
+    { value: String(stats.languages), label: "языка" },
+  ];
+
   return (
     <>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
@@ -49,14 +58,44 @@ export default function AboutPage() {
               SafePaws — открытый проект: чертежи и решения, чтобы любой человек
               мог с минимальным усилием помочь уличным животным пережить зиму.
             </p>
-            <div className="flex flex-wrap gap-2">
-              {["open source", "CC BY 4.0", "2023 →"].map((tag) => (
-                <span
-                  key={tag}
-                  className="px-3 py-1 rounded-full border border-border-soft text-xs text-ink-muted"
+            <div className="flex flex-wrap gap-3">
+              {badgeItems.map(({ value, label }, i) => (
+                <div
+                  key={label}
+                  style={{
+                    transform: `rotate(${BADGE_TILTS[i % BADGE_TILTS.length]}deg)`,
+                    border: "2px dashed var(--sand-2)",
+                    background: "var(--card-bg)",
+                    boxShadow: "3px 3px 0 var(--sand-2)",
+                    borderRadius: "10px",
+                    padding: "8px 14px 10px",
+                  }}
                 >
-                  {tag}
-                </span>
+                  <span
+                    className="font-mono block"
+                    style={{
+                      fontSize: "0.5625rem",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.1em",
+                      color: "var(--stone)",
+                      marginBottom: "2px",
+                    }}
+                  >
+                    {label}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-lora)",
+                      fontSize: "1.625rem",
+                      fontWeight: 700,
+                      color: "var(--ember)",
+                      lineHeight: 1,
+                      display: "block",
+                    }}
+                  >
+                    {value}
+                  </span>
+                </div>
               ))}
             </div>
           </div>
@@ -76,18 +115,6 @@ export default function AboutPage() {
               height={768}
               className="w-full h-auto"
             />
-          </div>
-        </div>
-
-        {/* Stats */}
-        <div className="rounded-2xl p-8 mb-14 border" style={{ background: "var(--sand)", borderColor: "var(--sand-2)" }}>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map(({ value, label }) => (
-              <div key={label}>
-                <span className="font-mono text-xs block mb-1" style={{ color: "var(--stone)" }}>{label}</span>
-                <div className="heading-section" style={{ fontVariationSettings: '"wght" 400' }}>{value}</div>
-              </div>
-            ))}
           </div>
         </div>
 
@@ -217,15 +244,7 @@ export default function AboutPage() {
         {/* Timeline */}
         <div className="mb-14">
           <h2 className="heading-section mb-8">Шаги проекта</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {timeline.map(({ year, title, desc }) => (
-              <div key={year} className="border rounded-xl p-5" style={{ borderColor: "var(--sand)", background: "var(--cream)" }}>
-                <span className="font-mono text-xs block mb-3" style={{ color: "var(--stone)" }}>{year}</span>
-                <strong className="heading-card text-xl block mb-2">{title}</strong>
-                <p className="text-xs text-ink-muted">{desc}</p>
-              </div>
-            ))}
-          </div>
+          <RoadmapZigzag items={timeline} />
         </div>
 
         {/* Partners */}
