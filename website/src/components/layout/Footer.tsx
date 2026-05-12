@@ -23,10 +23,10 @@ const cols = [
   {
     title: "Связь",
     links: [
-      { href: "https://github.com/kkrugley/safepaws", label: "GitHub" },
-      { href: "https://t.me/safepaws_help", label: "Telegram" },
       { href: "mailto:kkrugley@proton.me", label: "Email" },
+      { href: "https://t.me/safepaws_help", label: "Telegram" },
       { href: "/about", label: "О проекте" },
+      { href: "https://github.com/kkrugley/safepaws", label: "Проект на GitHub" },
     ],
   },
 ];
@@ -43,7 +43,7 @@ export function Footer() {
               <span className="heading-logo">SafePaws</span>
             </div>
             <p className="text-sm text-[var(--stone)] leading-relaxed">
-              Открытый проект: чертежи и решения для уличных животных.
+              Решения для помощи уличным животным
             </p>
             <p className="text-xs text-[var(--stone)] mt-3">CC BY 4.0 · 2023–2026</p>
           </div>
