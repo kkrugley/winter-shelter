@@ -21,7 +21,7 @@ export default function NotFound() {
           >
             404
           </p>
-          <p className="text-ink-muted mb-8" style={{ fontSize: "clamp(0.85rem, 4vw, 1.125rem)" }}>Кажется, этой страницы нет</p>
+          <p className="text-ink-muted mb-8" style={{ fontSize: "clamp(0.85rem, 4vw, 1.125rem)" }}>Кажется, такой страницы нет</p>
           <Link
             href="/"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-accent text-white font-medium hover:opacity-90 transition-opacity whitespace-nowrap"
