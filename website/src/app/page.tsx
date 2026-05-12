@@ -14,7 +14,7 @@ const paths = [
   {
     icon: Hammer,
     title: "У меня есть инструмент",
-    desc: "Собрать домик по чертежам или поилку PurrTap.",
+    desc: "Хочу собрать домик или одно из других устройств!",
     chips: ["ЧПУ-станок", "3Д принтер"],
     cta: "Выбрать чертёж →",
     href: "/solutions",
@@ -22,15 +22,15 @@ const paths = [
   {
     icon: Heart,
     title: "Хочу поддержать",
-    desc: "Рассказать о проекте, поддержать финансово.",
+    desc: "Хочу рассказать о проекте или поддержать финансово.",
     chips: ["Поделиться", "Поддержать"],
     cta: "Варианты →",
     href: "/help",
   },
   {
     icon: BookOpenText,
-    title: "Просто смотрю",
-    desc: "Узнать, что это и кому нужно.",
+    title: "Заинтересовался",
+    desc: "Хочу узнать, о проекте больше и как я могу помочь.",
     chips: ["Истории", "О Проекте"],
     cta: "Истории людей →",
     href: "/stories",
@@ -40,9 +40,9 @@ const paths = [
 const previewProducts = products.slice(0, 4);
 
 const steps = [
-  { n: 1, title: "Скачай чертёж", desc: "Выбери модель и материал — получи DXF и PDF.", Icon: ArrowLineDown },
+  { n: 1, title: "Скачай", desc: "Выбери модель и материал — получи DXF и PDF.", Icon: ArrowLineDown },
   { n: 2, title: "Собери", desc: "Сам или на ближайшем хакспейсе / CNC.", Icon: PencilSimple },
-  { n: 3, title: "Установи и расскажи", desc: "Помести во двор и поделись историей.", Icon: HouseLine },
+  { n: 3, title: "Установи", desc: "Помести во двор и поделись историей.", Icon: HouseLine },
 ];
 
 
@@ -60,7 +60,7 @@ const HERO_TILT = 2;
 export default async function HomePage() {
   const allStories = await getPublishedStories().catch(() => []);
   // eslint-disable-next-line react-hooks/purity -- Server Component: runs once on server, Math.random is safe here
-  const miniStories = [...allStories].sort(() => Math.random() - 0.5).slice(0, 3);
+  const miniStories = allStories.filter((s) => s.photo_url).sort(() => Math.random() - 0.5).slice(0, 3);
 
   return (
     <>
@@ -75,7 +75,7 @@ export default async function HomePage() {
               </span>
             </h1>
             <p className="text-base md:text-lg mb-8 max-w-[440px] leading-relaxed" style={{ color: "var(--stone)" }}>
-              SafePaws — открытые чертежи домиков и поилок для бездомных кошек.<br></br><br></br>
+              SafePaws — открытые чертежи домиков и поилок для бездомных кошек.<br></br>
               Скачай, собери, установи — или помоги иначе.
             </p>
             <div className="flex flex-wrap gap-3">
@@ -218,7 +218,7 @@ export default async function HomePage() {
       {/* HOW IT WORKS */}
       <section className="py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <h2 className="heading-section mb-8">Как это работает</h2>
+          <h2 className="heading-section mb-8">Как это работает?</h2>
 
           {/* Desktop: card + dashed connector + card */}
           <div

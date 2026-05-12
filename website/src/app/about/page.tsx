@@ -37,7 +37,7 @@ export default async function AboutPage() {
 
   const badgeItems = [
     {
-      value: stats.downloads > 0 ? `${stats.downloads.toLocaleString("ru")}+` : "1 200+",
+      value: stats.downloads > 0 ? `${Math.floor(stats.downloads / 10) * 10}+` : "150+",
       label: "скачиваний",
     },
     { value: String(stats.installations || "47"), label: "установленных" },
