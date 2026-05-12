@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { formatInstalledDate } from "@/lib/utils";
+import { formatInstalledDateLong } from "@/lib/utils";
 
 const PRODUCT_LABELS: Record<string, string> = {
   "cozy-shelter":   "Cozy Shelter",
@@ -41,7 +41,7 @@ export interface StoryCardData {
 export function StoryCard({ city, product_slug, quote, author_name, installed_date, photo_url }: StoryCardData) {
   const [imgError, setImgError] = useState(false);
   const productLabel = PRODUCT_LABELS[product_slug] ?? product_slug;
-  const dateLabel = formatInstalledDate(installed_date);
+  const dateLabel = formatInstalledDateLong(installed_date);
   const showPhoto = photo_url && !imgError;
 
   return (
@@ -71,21 +71,21 @@ export function StoryCard({ city, product_slug, quote, author_name, installed_da
           <PhotoPlaceholder />
         )}
 
-        {/* Badge: city — top-left */}
-        <span
-          className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full border text-xs font-medium"
-          style={{ borderColor: "var(--sand-2)", background: "#FFFDF7CC", color: "var(--stone)", backdropFilter: "blur(4px)" }}
-        >
-          {city}
-        </span>
-
-        {/* Badge: product — top-right */}
-        <span
-          className="absolute top-2.5 right-2.5 px-2.5 py-0.5 rounded-full border text-xs font-medium"
-          style={{ borderColor: "transparent", background: "var(--ember-pale)", color: "#93430E", backdropFilter: "blur(4px)" }}
-        >
-          {productLabel}
-        </span>
+        {/* Badges: product + city — top-left row */}
+        <div className="absolute top-2.5 left-2.5 flex gap-1.5">
+          <span
+            className="px-2.5 py-0.5 rounded-full border text-xs font-medium"
+            style={{ borderColor: "transparent", background: "var(--ember-pale)", color: "#93430E", backdropFilter: "blur(4px)" }}
+          >
+            {productLabel}
+          </span>
+          <span
+            className="px-2.5 py-0.5 rounded-full border text-xs font-medium"
+            style={{ borderColor: "var(--sand-2)", background: "#FFFDF7CC", color: "var(--stone)", backdropFilter: "blur(4px)" }}
+          >
+            {city}
+          </span>
+        </div>
       </div>
 
       {/* Text */}

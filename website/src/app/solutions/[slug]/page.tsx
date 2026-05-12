@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { products, getProduct } from "@/data/products";
+import { filterStories } from "@/lib/stories";
+import { StoryCard } from "@/components/ui/StoryCard";
 import { DownloadButton } from "@/components/DownloadButton";
 import { ProductGallery } from "@/components/ProductGallery";
 import { StepCard } from "@/components/StepCard";
@@ -21,28 +23,6 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-const productStories: Record<string, { city: string; quote: string; author: string; date: string }[]> = {
-  "cozy-shelter": [
-    { city: "Брест", quote: "«Поставили 2 домика»", author: "Паша", date: "11.24" },
-    { city: "Варшава", quote: "«Первый опыт сборки»", author: "Катя", date: "01.25" },
-    { city: "Минск", quote: "«Домик в подъезде»", author: "Аня", date: "02.25" },
-  ],
-  "family-shelter": [
-    { city: "Гродно", quote: "«Семейная сборка»", author: "Козловские", date: "01.25" },
-    { city: "Вильнюс", quote: "«Три домика у парка»", author: "Indrė", date: "12.24" },
-    { city: "Минск", quote: "«5 котят пережили зиму»", author: "Лена", date: "04.26" },
-  ],
-  "purrtap": [
-    { city: "Гродно", quote: "«−18°C — не замёрзла»", author: "Настя", date: "01.25" },
-    { city: "Гомель", quote: "«За 20 минут»", author: "Коля", date: "03.25" },
-    { city: "Варшава", quote: "«Поилка у подъезда»", author: "Марта", date: "02.26" },
-  ],
-    "edc-feeder": [
-    { city: "Гродно", quote: "«−18°C — не замёрзла»", author: "Настя", date: "01.25" },
-    { city: "Гомель", quote: "«За 20 минут»", author: "Коля", date: "03.25" },
-    { city: "Варшава", quote: "«Поилка у подъезда»", author: "Марта", date: "02.26" },
-  ],
-};
 
 const whyChoose: Record<string, { title: string; desc: string }[]> = {
   "cozy-shelter": [
@@ -148,7 +128,7 @@ export default async function ProductPage({ params }: Props) {
   const prevProduct = currentIndex > 0 ? products[currentIndex - 1] : null;
   const nextProduct = currentIndex < products.length - 1 ? products[currentIndex + 1] : null;
 
-  const stories = productStories[slug] ?? [];
+  const stories = await filterStories({ product_slug: slug });
   const why = whyChoose[slug] ?? [];
   const faq = faqs[slug] ?? [];
   const calc = materialCalc[slug] ?? product.specs;
@@ -300,16 +280,8 @@ export default async function ProductPage({ params }: Props) {
             </Link>
           </div>
           <div className="grid md:grid-cols-3 gap-5">
-            {stories.map(({ city, quote, author, date }) => (
-              <div key={city} className="border border-border-soft rounded-xl overflow-hidden">
-                <div className="ph min-h-[140px] rounded-none border-0 border-b border-dashed border-border-soft">
-                  {city}
-                </div>
-                <div className="p-4">
-                  <strong className="heading-quote block mb-1">{quote}</strong>
-                  <p className="text-xs text-ink-muted">{author}, {date}</p>
-                </div>
-              </div>
+            {stories.map((s) => (
+              <StoryCard key={s.id} {...s} />
             ))}
           </div>
         </div>
