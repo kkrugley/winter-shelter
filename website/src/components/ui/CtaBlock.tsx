@@ -77,7 +77,7 @@ export function CtaBlock({ heading, body, links }: CtaBlockProps) {
                 const copied = copiedHref === href;
                 return (
                   <button key={href} onClick={() => handleCopy(href)} className={cls} style={style}>
-                    {copied ? 'Скопировано ✓' : label}
+                    {copied ? 'Ссылка скопирована ✓' : label}
                   </button>
                 );
               }
