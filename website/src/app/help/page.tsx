@@ -166,7 +166,7 @@ export default function HelpPage() {
           </BreadcrumbList>
         </Breadcrumb>
 
-        <h1 className="heading-display mb-3">Помогать можно по-разному.</h1>
+        <h1 className="heading-display mb-3">Помогать можно по-разному!</h1>
         <p className="text-base text-ink-muted mb-10 max-w-[560px]">
           Не у всех есть лобзик. Не у всех есть время. Но у каждого есть хоть что-то.
           Вот пути.
