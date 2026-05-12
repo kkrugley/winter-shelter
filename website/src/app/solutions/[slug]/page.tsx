@@ -3,6 +3,7 @@ import Link from "next/link";
 import { products, getProduct } from "@/data/products";
 import { DownloadButton } from "@/components/DownloadButton";
 import { ProductGallery } from "@/components/ProductGallery";
+import { StepCard } from "@/components/StepCard";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -36,6 +37,11 @@ const productStories: Record<string, { city: string; quote: string; author: stri
     { city: "Гомель", quote: "«За 20 минут»", author: "Коля", date: "03.25" },
     { city: "Варшава", quote: "«Поилка у подъезда»", author: "Марта", date: "02.26" },
   ],
+    "edc-feeder": [
+    { city: "Гродно", quote: "«−18°C — не замёрзла»", author: "Настя", date: "01.25" },
+    { city: "Гомель", quote: "«За 20 минут»", author: "Коля", date: "03.25" },
+    { city: "Варшава", quote: "«Поилка у подъезда»", author: "Марта", date: "02.26" },
+  ],
 };
 
 const whyChoose: Record<string, { title: string; desc: string }[]> = {
@@ -54,14 +60,39 @@ const whyChoose: Record<string, { title: string; desc: string }[]> = {
     { title: "✓ Нужна вода, не укрытие", desc: "Просто и быстро — 20 минут." },
     { title: "✓ Маленький бюджет", desc: "Из подручных материалов." },
   ],
+    "edc-feeder": [
+    { title: "✓ Нет инструментов", desc: "Только нож и дрель." },
+    { title: "✓ Нужна вода, не укрытие", desc: "Просто и быстро — 20 минут." },
+    { title: "✓ Маленький бюджет", desc: "Из подручных материалов." },
+  ],
 };
 
-const assemblySteps = [
-  { n: 1, title: "Скачай архив", desc: "DXF + PDF инструкция." },
-  { n: 2, title: "Вырежи детали", desc: "Лобзиком или на CNC." },
-  { n: 3, title: "Собери в коробку", desc: "Саморезы + клей ПВА." },
-  { n: 4, title: "Установи и оформи", desc: "Помести во двор. Расскажи о результате." },
-];
+const assemblySteps: Record<string, { n: number; title: string; desc: string; image?: string }[]> = {
+  "cozy-shelter": [
+    { n: 1, title: "Скачай архив", desc: "DXF-раскрой + PDF инструкция.", image: "/images/products/cozy-shelter/steps/step-1.jpg" },
+    { n: 2, title: "Вырежи детали", desc: "Лобзиком или на маломощном лазере.", image: "/images/products/cozy-shelter/steps/step-2.jpg" },
+    { n: 3, title: "Собери в коробку", desc: "Саморезы + клей ПВА. Без специальных навыков.", image: "/images/products/cozy-shelter/steps/step-3.jpg" },
+    { n: 4, title: "Установи и оформи", desc: "Помести в подъезде или во дворе. Поделись результатом.", image: "/images/products/cozy-shelter/steps/step-4.jpg" },
+  ],
+  "family-shelter": [
+    { n: 1, title: "Скачай архив", desc: "DXF-раскрой + PDF инструкция.", image: "/images/products/family-shelter/steps/step-1.jpg" },
+    { n: 2, title: "Вырежи детали", desc: "Рекомендуем CNC — много деталей.", image: "/images/products/family-shelter/steps/step-2.jpg" },
+    { n: 3, title: "Собери корпус", desc: "Столярный клей + саморезы. Есть отсеки — следи за схемой.", image: "/images/products/family-shelter/steps/step-3.jpg" },
+    { n: 4, title: "Установи и заселяй", desc: "Помести на улице, добавь утеплитель зимой.", image: "/images/products/family-shelter/steps/step-4.jpg" },
+  ],
+  "purrtap": [
+    { n: 1, title: "Скачай STL", desc: "Готовая модель для 3D-печати.", image: "/images/products/purrtap/steps/step-1.jpg" },
+    { n: 2, title: "Напечатай основание", desc: "PETG или ABS, 20% заполнение, ~2 часа.", image: "/images/products/purrtap/steps/step-2.jpg" },
+    { n: 3, title: "Собери поилку", desc: "Вставь бутылку в основание, закрепи.", image: "/images/products/purrtap/steps/step-3.jpg" },
+    { n: 4, title: "Установи у подъезда", desc: "Анкерный болт или положи на поверхность.", image: "/images/products/purrtap/steps/step-4.jpg" },
+  ],
+  "edc-feeder": [
+    { n: 1, title: "Скачай STL", desc: "Готовая модель для 3D-печати.", image: "/images/products/edc-feeder/steps/step-1.jpg" },
+    { n: 2, title: "Напечатай корпус", desc: "PETG или ABS, ~3 часа печати.", image: "/images/products/edc-feeder/steps/step-2.jpg" },
+    { n: 3, title: "Собери кормушку", desc: "Пружина сжатия + крепёж по схеме.", image: "/images/products/edc-feeder/steps/step-3.jpg" },
+    { n: 4, title: "Возьми с собой", desc: "Насыпь корм, выложи коту. Компактно.", image: "/images/products/edc-feeder/steps/step-4.jpg" },
+  ],
+};
 
 const faqs: Record<string, { q: string; a: string }[]> = {
   "cozy-shelter": [
@@ -83,22 +114,28 @@ const faqs: Record<string, { q: string; a: string }[]> = {
 
 const materialCalc: Record<string, { label: string; value: string }[]> = {
   "cozy-shelter": [
-    { label: "лист фанеры", value: "1 лист 1525×1525" },
-    { label: "саморезы", value: "~ 24 шт" },
-    { label: "крепёж", value: "клей ПВА" },
-    { label: "доп.", value: "утеплитель (опц.)" },
+    { label: "Лист фанеры", value: "1,5 листа 1525×1525" },
+    { label: "Утеплитель", value: "Газеты / ветошь" },
+    { label: "Пропитка", value: "Водоотталкивающая пропитка для защиты дерева" },
+    { label: "Клей", value: "Столярный клей ПВА" },
   ],
   "family-shelter": [
-    { label: "лист фанеры", value: "2 листа 1525×1525" },
-    { label: "саморезы", value: "~ 48 шт" },
-    { label: "крепёж", value: "клей ПВА + уголки" },
-    { label: "покрытие", value: "лак водоотталк." },
+    { label: "Лист фанеры", value: "3 листа 1525×1525" },
+    { label: "Утеплитель", value: "Газеты / ветошь" },
+    { label: "Пропитка", value: "Водоотталкивающая пропитка для защиты дерева" },
+    { label: "Клей", value: "Столярный клей ПВА" },
   ],
   "purrtap": [
-    { label: "бутылка", value: "ПЭТ 1.5–2 л" },
-    { label: "крепление", value: "хомут + дрель" },
-    { label: "поверхность", value: "стена / столб" },
-    { label: "время", value: "20 минут" },
+    { label: "Пластик", value: "PETG / ABS - 200 грамм" },
+    { label: "Время печати", value: "2 часа" },
+    { label: "Бутылка", value: "ПЭТ 0.5-1 л" },
+    { label: "Крепеж", value: "Анкерный болт" },
+  ],
+  "edc-feeder": [
+    { label: "Пластик", value: "PETG / ABS - 200 грамм" },
+    { label: "Время печати", value: "2 часа" },
+    { label: "Крепеж", value: "Гайки, винты" },
+    { label: "Дополнительно", value: "Пружина сжатия" },
   ],
 };
 
@@ -115,6 +152,7 @@ export default async function ProductPage({ params }: Props) {
   const why = whyChoose[slug] ?? [];
   const faq = faqs[slug] ?? [];
   const calc = materialCalc[slug] ?? product.specs;
+  const steps = assemblySteps[slug] ?? [];
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
@@ -143,9 +181,6 @@ export default async function ProductPage({ params }: Props) {
         {/* Info + Actions */}
         <div>
           <h1 className="heading-display mb-2">{product.name}</h1>
-          <p className="heading-card text-xl mb-4" style={{ color: "var(--sp-accent)" }}>
-            {product.tagline}
-          </p>
           <p className="text-sm text-ink-muted leading-relaxed mb-6">{product.description}</p>
 
           {/* Specs 2×2 */}
@@ -231,21 +266,16 @@ export default async function ProductPage({ params }: Props) {
       )}
 
       {/* ASSEMBLY — 4 steps grid */}
+      {steps.length > 0 && (
       <div className="mb-14">
-        <h2 className="heading-sub mb-6">За 4 шага</h2>
+        <h2 className="heading-sub mb-6">Собери за 4 шага</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {assemblySteps.map(({ n, title, desc }) => (
-            <div key={n} className="border border-border-soft rounded-xl p-5">
-              <span className="w-8 h-8 rounded-full border-2 border-accent text-accent font-mono text-sm flex items-center justify-center font-medium mb-3">
-                {n}
-              </span>
-              <h4 className="heading-card text-xl mb-2">{title}</h4>
-              <div className="ph mb-3" style={{ minHeight: "70px" }}>пик</div>
-              <p className="text-xs text-ink-muted">{desc}</p>
-            </div>
+          {steps.map(({ n, title, desc, image }) => (
+            <StepCard key={n} n={n} title={title} desc={desc} image={image} />
           ))}
         </div>
       </div>
+      )}
 
       {/* MATERIAL CALC */}
       <div className="mb-14 bg-[#F5F1EB] border border-border-soft rounded-2xl p-8">

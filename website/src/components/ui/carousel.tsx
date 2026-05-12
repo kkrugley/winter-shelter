@@ -50,8 +50,8 @@ function Carousel({
     { ...opts, axis: orientation === "horizontal" ? "x" : "y" },
     plugins
   )
-  const [canScrollPrev, setCanScrollPrev] = React.useState(false)
-  const [canScrollNext, setCanScrollNext] = React.useState(false)
+  const [canScrollPrev, setCanScrollPrev] = React.useState(true)
+  const [canScrollNext, setCanScrollNext] = React.useState(true)
 
   const onSelect = React.useCallback((api: CarouselApi) => {
     if (!api) return
@@ -135,7 +135,7 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
 
 function CarouselPrevious({
   className,
-  variant = "outline",
+  variant = "ghost",
   size = "icon",
   ...props
 }: React.ComponentProps<typeof Button>) {
@@ -163,7 +163,7 @@ function CarouselPrevious({
 
 function CarouselNext({
   className,
-  variant = "outline",
+  variant = "ghost",
   size = "icon",
   ...props
 }: React.ComponentProps<typeof Button>) {

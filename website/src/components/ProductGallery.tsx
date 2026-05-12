@@ -47,8 +47,8 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="left-3 top-1/2 -translate-y-1/2 bg-paper/80 hover:bg-paper border-border-soft" />
-          <CarouselNext className="right-3 top-1/2 -translate-y-1/2 bg-paper/80 hover:bg-paper border-border-soft" />
+          <CarouselPrevious className="left-3 top-1/2 -translate-y-1/2 bg-transparent hover:bg-white/20 border-none text-white" />
+          <CarouselNext className="right-3 top-1/2 -translate-y-1/2 bg-transparent hover:bg-white/20 border-none text-white" />
         </Carousel>
       </div>
 
