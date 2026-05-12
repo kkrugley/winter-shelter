@@ -14,9 +14,9 @@ const cols = [
   {
     title: "Участие",
     links: [
-      { href: "/help#build", label: "Собрать домик" },
-      { href: "/help#install", label: "Поставить поилку" },
-      { href: "/help#share", label: "Рассказать" },
+      { href: "/help?card=build", label: "Собрать домик" },
+      { href: "/help?card=install", label: "Поставить поилку" },
+      { href: "/help?card=share", label: "Рассказать" },
       { href: "/help", label: "Все способы →" },
     ],
   },

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
   Breadcrumb,
@@ -27,6 +28,7 @@ type Cap = "all" | "hands" | "time" | "money" | "voice";
 
 const ways = [
   {
+    slug: "build",
     icon: Hammer,
     title: "Сделать домик",
     desc: "Скачай чертёж, вырежи и установи. Или найди ближайший хакспейс.",
@@ -34,9 +36,10 @@ const ways = [
     caps: ["hands"] as Cap[],
     cta: "К каталогу →",
     href: "/solutions",
-    accent: true,
+    dashed: false,
   },
   {
+    slug: "install",
     icon: Drop,
     title: "Поставить PurrTap",
     desc: "Простая поилка из бутылки. Инструкция на 1 страницу.",
@@ -44,19 +47,10 @@ const ways = [
     caps: ["hands", "time"] as Cap[],
     cta: "Инструкция →",
     href: "/solutions/purrtap",
-    accent: true,
+    dashed: false,
   },
   {
-    icon: MegaphoneSimple,
-    title: "Рассказать",
-    desc: "Поделиться в соцсетях, переслать другу с CNC.",
-    chips: ["Telegram", "5 минут"],
-    caps: ["voice"] as Cap[],
-    cta: "Поделиться →",
-    href: "/about#share",
-    accent: false,
-  },
-  {
+    slug: "story",
     icon: PencilSimple,
     title: "Добавить историю",
     desc: "Уже есть домик? Добавь точку на карту и фото. Это мотивирует других.",
@@ -64,9 +58,21 @@ const ways = [
     caps: ["time", "voice"] as Cap[],
     cta: "Форма истории →",
     href: "/stories/add",
-    accent: false,
+    dashed: false,
   },
   {
+    slug: "share",
+    icon: MegaphoneSimple,
+    title: "Рассказать",
+    desc: "Поделиться в соцсетях, переслать другу с CNC.",
+    chips: ["Telegram", "5 минут"],
+    caps: ["voice"] as Cap[],
+    cta: "Поделиться →",
+    href: "/about#share",
+    dashed: false,
+  },
+  {
+    slug: "donate",
     icon: Heart,
     title: "Поддержать",
     desc: "Донат идёт на материалы и раздачу готовых домиков.",
@@ -74,29 +80,10 @@ const ways = [
     caps: ["money"] as Cap[],
     cta: "Поддержать →",
     href: "/about#donate",
-    accent: false,
+    dashed: false,
   },
   {
-    icon: Globe,
-    title: "Перевести сайт",
-    desc: "Помоги локализовать на другой язык — файлы в GitHub.",
-    chips: ["язык", "удалённо"],
-    caps: ["time"] as Cap[],
-    cta: "Открыть GitHub →",
-    href: "https://github.com/kkrugley/safepaws",
-    accent: false,
-  },
-  {
-    icon: Handshake,
-    title: "Партнёрство",
-    desc: "Хакспейс, приют, компания — готовы сотрудничать.",
-    chips: ["организация"],
-    caps: ["time", "voice"] as Cap[],
-    cta: "Написать →",
-    href: "mailto:kkrugley@proton.me",
-    accent: false,
-  },
-  {
+    slug: "community",
     icon: UsersThree,
     title: "Сообщество в Telegram",
     desc: "Канал в Telegram, где обсуждаем установки и помогаем новичкам.",
@@ -104,21 +91,60 @@ const ways = [
     caps: ["time", "voice"] as Cap[],
     cta: "Вступить →",
     href: "https://t.me/safepaws_help",
-    accent: false,
-    dashed: true,
+    dashed: false,
+  },
+  {
+    slug: "partner",
+    icon: Handshake,
+    title: "Партнёрство",
+    desc: "Хакспейс, приют, компания — готовы сотрудничать.",
+    chips: ["организация"],
+    caps: ["time", "voice"] as Cap[],
+    cta: "Написать →",
+    href: "mailto:kkrugley@proton.me",
+    dashed: false,
+  },
+  {
+    slug: "translate",
+    icon: Globe,
+    title: "Перевести сайт",
+    desc: "Помоги локализовать на другой язык — файлы в GitHub.",
+    chips: ["язык", "удалённо"],
+    caps: ["time"] as Cap[],
+    cta: "Открыть GitHub →",
+    href: "https://github.com/kkrugley/safepaws",
+    dashed: false,
   },
 ];
 
 const capFilters: { key: Cap; label: string; emoji: string }[] = [
+  { key: "all", label: "Показать всё", emoji: "" },
   { key: "hands", label: "Инструменты", emoji: "🔨" },
   { key: "time", label: "Время", emoji: "🕐" },
   { key: "money", label: "Финансы", emoji: "💸" },
   { key: "voice", label: "Аудитория", emoji: "📱" },
-  { key: "all", label: "Показать всё", emoji: "" },
 ];
 
 export default function HelpPage() {
+  const searchParams = useSearchParams();
+  const cardParam = searchParams.get("card");
+
   const [cap, setCap] = useState<Cap>("all");
+  const [highlighted, setHighlighted] = useState<string | null>(cardParam);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    if (cardParam) {
+      setHighlighted(cardParam);
+      timerRef.current = setTimeout(() => setHighlighted(null), 3000);
+    } else {
+      setHighlighted(null);
+    }
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [cardParam]);
 
   const filtered = ways.filter(
     (w) => cap === "all" || w.caps.includes(cap)
@@ -142,7 +168,7 @@ export default function HelpPage() {
 
         <h1 className="heading-display mb-3">Помогать можно по-разному.</h1>
         <p className="text-base text-ink-muted mb-10 max-w-[560px]">
-          Не у всех есть лобзик. Не у всех есть время. Но у каждого есть хоть что-то. 
+          Не у всех есть лобзик. Не у всех есть время. Но у каждого есть хоть что-то.
           Вот пути.
         </p>
 
@@ -167,44 +193,47 @@ export default function HelpPage() {
 
         {/* 9-card grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filtered.map(({ icon: Icon, title, desc, chips, cta, href, accent, dashed }) => (
-            <div
-              key={title}
-              className={`rounded-xl p-6 flex flex-col gap-3 border ${
-                dashed
-                  ? "border-dashed border-accent/30 bg-paper"
-                  : accent
-                  ? "bg-accent-soft border-accent/20"
-                  : "bg-paper border-border-soft"
-              }`}
-            >
-              <Icon
-                size={32}
-                weight="duotone"
-                className={accent ? "text-accent" : "text-ink-muted"}
-              />
-              <h3 className="heading-card">{title}</h3>
-              <p className="text-sm text-ink-muted flex-1">{desc}</p>
-              <div className="flex flex-wrap gap-2">
-                {chips.map((c) => (
-                  <span
-                    key={c}
-                    className="px-2 py-0.5 rounded-full border border-border-soft text-xs text-ink-muted"
-                  >
-                    {c}
-                  </span>
-                ))}
-              </div>
-              <Link
-                href={href}
-                className={`inline-flex items-center text-sm font-medium hover:underline mt-1 ${
-                  accent ? "text-accent" : "text-ink"
+          {filtered.map(({ slug, icon: Icon, title, desc, chips, cta, href, dashed }) => {
+            const isHighlighted = highlighted === slug;
+            return (
+              <div
+                key={slug}
+                className={`rounded-xl p-6 flex flex-col gap-3 border bg-paper transition-colors duration-500 hover:border-accent ${
+                  dashed ? "border-dashed" : ""
+                } ${
+                  isHighlighted
+                    ? "border-accent"
+                    : dashed
+                    ? "border-accent/30"
+                    : "border-border-soft"
                 }`}
               >
-                {cta}
-              </Link>
-            </div>
-          ))}
+                <Icon
+                  size={32}
+                  weight="duotone"
+                  className="text-ink-muted"
+                />
+                <h3 className="heading-card">{title}</h3>
+                <p className="text-sm text-ink-muted flex-1">{desc}</p>
+                <div className="flex flex-wrap gap-2">
+                  {chips.map((c) => (
+                    <span
+                      key={c}
+                      className="px-2 py-0.5 rounded-full border border-border-soft text-xs text-ink-muted"
+                    >
+                      {c}
+                    </span>
+                  ))}
+                </div>
+                <Link
+                  href={href}
+                  className="inline-flex items-center text-sm font-medium hover:underline mt-1 text-ink"
+                >
+                  {cta}
+                </Link>
+              </div>
+            );
+          })}
         </div>
 
         {filtered.length === 0 && (

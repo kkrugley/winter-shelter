@@ -45,7 +45,7 @@ function CtaButton({
   // copy
   return (
     <button onClick={() => onCopy(action.href)} className={cls} style={style}>
-      {isCopied ? 'Скопировано ✓' : label}
+      {isCopied ? 'Ссылка скопирована ✓' : label}
     </button>
   )
 }

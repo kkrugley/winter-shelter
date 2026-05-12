@@ -315,7 +315,7 @@ function MapContent({
   };
 
   return (
-    <Map center={[27.5, 53.9]} zoom={3}>
+    <Map center={[27.5, 53]} zoom={0}>
       <MapClusterLayer
         data={geoJson}
         clusterRadius={40}
