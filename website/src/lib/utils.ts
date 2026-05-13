@@ -15,15 +15,10 @@ export function formatInstalledDate(iso: string | null): string {
   return `${mm}.${yy}`;
 }
 
-const RU_MONTHS = [
-  "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
-  "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь",
-];
-
-/** "2024-11-01" → "Ноябрь 2024". Returns "" for null or unparseable strings. */
-export function formatInstalledDateLong(iso: string | null): string {
+/** "2024-11-01" → "Ноябрь 2024" (locale-aware). Returns "" for null or unparseable strings. */
+export function formatInstalledDateLong(iso: string | null, locale = "ru"): string {
   if (!iso) return "";
   const d = new Date(iso);
   if (isNaN(d.getTime())) return "";
-  return `${RU_MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+  return new Intl.DateTimeFormat(locale, { month: "long", year: "numeric", timeZone: "UTC" }).format(d);
 }

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -13,24 +14,14 @@ import {
 import Image from "next/image";
 import { ArrowLeft, CheckCircle, MapPin, Spinner, X, UploadSimple } from "@phosphor-icons/react";
 
-const PRODUCTS = [
-  { slug: "cozy-shelter",   label: "Cozy Shelter — компактный домик" },
-  { slug: "family-shelter", label: "Family Shelter — большой домик" },
-  { slug: "purrtap",        label: "PurrTap — поилка" },
-  { slug: "edc-feeder",     label: "EDC Feeder — кормушка" },
-];
-
-const MONTHS = [
-  "январь","февраль","март","апрель","май","июнь",
-  "июль","август","сентябрь","октябрь","ноябрь","декабрь",
-];
-
 interface GeoResult {
   display_name: string;
   lat: string;
   lon: string;
   address: { country_code: string; city?: string; town?: string; village?: string; state?: string };
 }
+
+interface TranslatedProduct { slug: string; label: string }
 
 const inputCls = "w-full px-3 py-2.5 border rounded-xl text-sm bg-[var(--cream)] text-ink placeholder:text-[var(--stone)] focus:outline-none transition-colors";
 const inputStyle = { borderColor: "var(--sand-2)" };
@@ -51,6 +42,12 @@ function Field({ label, required, hint, children }: {
 }
 
 export default function AddStoryPage() {
+  const t = useTranslations("StoriesAdd");
+  const tCommon = useTranslations("Common");
+
+  const PRODUCTS = t.raw("products") as TranslatedProduct[];
+  const MONTHS = t.raw("months") as string[];
+
   const [form, setForm] = useState({
     author_name: "",
     telegram: "",
@@ -173,13 +170,10 @@ export default function AddStoryPage() {
     e.preventDefault();
     setError("");
 
-    const required = ["author_name", "quote", "product_slug", "city", "country"];
-    for (const f of required) {
-      if (!form[f as keyof typeof form]) {
-        setError(`Заполни поле: ${f === "author_name" ? "имя" : f === "product_slug" ? "продукт" : f === "quote" ? "цитата" : f === "body" ? "история" : "город"}`);
-        return;
-      }
-    }
+    if (!form.author_name)   { setError(t("errorName"));    return; }
+    if (!form.product_slug)  { setError(t("errorProduct")); return; }
+    if (!form.quote)         { setError(t("errorQuote"));   return; }
+    if (!form.city || !form.country) { setError(t("errorCity")); return; }
 
     let installed_date: string | undefined;
     if (form.month && form.year) {
@@ -223,16 +217,14 @@ export default function AddStoryPage() {
     return (
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-20 text-center">
         <CheckCircle size={52} weight="duotone" style={{ color: "var(--ember)", margin: "0 auto 16px" }} />
-        <h1 className="heading-section mb-3">Спасибо!</h1>
-        <p className="text-sm mb-8" style={{ color: "var(--stone)" }}>
-          Твоя история получена. Мы проверим её и добавим на карту — обычно это занимает 1–2 дня.
-        </p>
+        <h1 className="heading-section mb-3">{t("successTitle")}</h1>
+        <p className="text-sm mb-8" style={{ color: "var(--stone)" }}>{t("successDesc")}</p>
         <Link
           href="/stories"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium text-white transition-opacity hover:opacity-90"
           style={{ background: "var(--ember)" }}
         >
-          Смотреть все истории →
+          {t("successLink")}
         </Link>
       </div>
     );
@@ -240,33 +232,30 @@ export default function AddStoryPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 py-12">
-      {/* Breadcrumb */}
       <Breadcrumb className="mb-8">
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/">Главная</BreadcrumbLink>
+            <BreadcrumbLink href="/">{tCommon("breadHome")}</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/stories">Истории</BreadcrumbLink>
+            <BreadcrumbLink href="/stories">{t("breadStories")}</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Добавить новую</BreadcrumbPage>
+            <BreadcrumbPage>{t("breadAdd")}</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
 
-      <h1 className="heading-display mb-2">Поделись историей</h1>
+      <h1 className="heading-display mb-2">{t("heading")}</h1>
       <p className="text-sm mb-10" style={{ color: "var(--stone)" }}>
-        Расскажи, какое из наших решений вы воплотили в жизнь?<br></br>
-        После проверки история появится на карте.
+        {t("subheading").split("\n").map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}
       </p>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
 
-        {/* Product */}
-        <Field label="О чем хотите рассказать?" required>
+        <Field label={t("fieldProduct")} required>
           <div className="grid sm:grid-cols-2 gap-2">
             {PRODUCTS.map((p) => (
               <button
@@ -290,27 +279,21 @@ export default function AddStoryPage() {
             ))}
           </div>
         </Field>
-        
+
         <div className="h-px" style={{ background: "var(--sand-2)" }} />
 
-        {/* Author */}
-        <Field label="Твоё имя" required hint="Как подписать историю">
+        <Field label={t("fieldAuthor")} required hint={t("fieldAuthorHint")}>
           <input
             type="text"
             value={form.author_name}
             onChange={(e) => set("author_name", e.target.value)}
-            placeholder="Достаточно просто имени, или абстрактного «волонтёры»"
+            placeholder={t("fieldAuthorPlaceholder")}
             className={`${inputCls} ${inputFocusStyle}`}
             style={inputStyle}
           />
         </Field>
 
-        {/* Quote */}
-        <Field
-          label="Цитата — одна фраза о результате"
-          required
-          hint='Короткая фраза, которая войдёт в карточку. Например: «Создали укрытие для 4 кошек во дворе»'
-        >
+        <Field label={t("fieldQuote")} required hint={t("fieldQuoteHint")}>
           <div
             className="relative flex items-center rounded-xl border transition-colors focus-within:border-[var(--ember)] cursor-text"
             style={{ ...inputStyle, background: "var(--cream)" }}
@@ -322,13 +305,12 @@ export default function AddStoryPage() {
               contentEditable
               suppressContentEditableWarning
               role="textbox"
-              aria-label="Цитата"
-              data-placeholder="5 котят пережили зиму"
+              aria-label={t("fieldQuoteAriaLabel")}
+              data-placeholder={t("fieldQuotePlaceholder")}
               onInput={(e) => {
                 const text = e.currentTarget.textContent ?? "";
                 if (text.length > 70) {
                   e.currentTarget.textContent = text.slice(0, 70);
-                  // Restore cursor to end after truncation
                   const range = document.createRange();
                   range.selectNodeContents(e.currentTarget);
                   range.collapse(false);
@@ -350,21 +332,7 @@ export default function AddStoryPage() {
           </div>
         </Field>
 
-        {/* Body 
-        <Field label="История (необязательно)" hint="2–4 предложения: где поставил, что получилось, сколько котов">
-          <textarea
-            rows={4}
-            value={form.body}
-            onChange={(e) => set("body", e.target.value)}
-            placeholder="Поставили у магазина, 2 кота сразу заселились. Соседи тоже стали кормить."
-            className={`${inputCls} ${inputFocusStyle} resize-none`}
-            style={inputStyle}
-          />
-        </Field>
-          */}
-
-        {/* Telegram */}
-        <Field label="Telegram (необязательно)" hint="Если захотим уточнить детали или поблагодарить">
+        <Field label={t("fieldTelegram")} hint={t("fieldTelegramHint")}>
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm select-none" style={{ color: "var(--stone)" }}>@</span>
             <input
@@ -377,15 +345,14 @@ export default function AddStoryPage() {
             />
           </div>
         </Field>
-        
-        {/* City geocoding */}
-        <Field label="Место" required hint="Достаточно названия города, но если хотите указать точнее - пожалуйста! Для вашей приватности координаты будут смещены на 500 метров в случайную сторону.">
+
+        <Field label={t("fieldPlace")} required hint={t("fieldPlaceHint")}>
           <div className="relative">
             <input
               type="text"
               value={cityQuery}
               onChange={(e) => { setCityQuery(e.target.value); setGeoSelected(false); }}
-              placeholder="Минск, Варшава, Вильнюс…"
+              placeholder={t("fieldPlacePlaceholder")}
               className={`${inputCls} ${inputFocusStyle} pr-9`}
               style={inputStyle}
               autoComplete="off"
@@ -396,7 +363,6 @@ export default function AddStoryPage() {
                 : <MapPin size={14} weight={form.lat ? "fill" : "regular"} style={{ color: form.lat ? "var(--ember)" : undefined }} />
               }
             </span>
-
             {geoResults.length > 0 && (
               <ul
                 className="absolute z-20 top-full left-0 right-0 mt-1 rounded-xl border overflow-hidden shadow-md"
@@ -417,7 +383,6 @@ export default function AddStoryPage() {
               </ul>
             )}
           </div>
-
           {form.lat && (
             <p className="text-xs flex items-center gap-1" style={{ color: "var(--stone)", opacity: 0.7 }}>
               <MapPin size={11} weight="fill" style={{ color: "var(--ember)" }} />
@@ -426,8 +391,7 @@ export default function AddStoryPage() {
           )}
         </Field>
 
-        {/* Date installed */}
-        <Field label="Когда установил?" hint="Примерно — достаточно месяца и года">
+        <Field label={t("fieldDate")} hint={t("fieldDateHint")}>
           <div className="grid grid-cols-2 gap-3">
             <select
               value={form.month}
@@ -435,7 +399,7 @@ export default function AddStoryPage() {
               className={`${inputCls} ${inputFocusStyle}`}
               style={inputStyle}
             >
-              <option value="">Месяц</option>
+              <option value="">{t("fieldDateMonthPlaceholder")}</option>
               {MONTHS.map((m) => <option key={m}>{m}</option>)}
             </select>
             <select
@@ -444,7 +408,7 @@ export default function AddStoryPage() {
               className={`${inputCls} ${inputFocusStyle}`}
               style={inputStyle}
             >
-              <option value="">Год</option>
+              <option value="">{t("fieldDateYearPlaceholder")}</option>
               {years.map((y) => <option key={y}>{y}</option>)}
             </select>
           </div>
@@ -452,10 +416,7 @@ export default function AddStoryPage() {
 
         <div className="h-px" style={{ background: "var(--sand-2)" }} />
 
-
-
-        {/* Photo upload */}
-        <Field label="Фото" hint="JPG, PNG, WEBP — до 10 МБ">
+        <Field label={t("fieldPhoto")} hint={t("fieldPhotoHint")}>
           <input
             ref={fileInputRef}
             type="file"
@@ -463,39 +424,27 @@ export default function AddStoryPage() {
             className="hidden"
             onChange={handleFileInput}
           />
-
           {photoPreview ? (
             <div className="relative rounded-xl overflow-hidden" style={{ aspectRatio: "4/3" }}>
-              <Image
-                src={photoPreview}
-                alt="превью"
-                fill
-                className="object-cover"
-                unoptimized
-              />
-              {/* Overlay while uploading */}
+              <Image src={photoPreview} alt="превью" fill className="object-cover" unoptimized />
               {photoUploading && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2"
-                  style={{ background: "rgba(44,42,39,0.55)" }}>
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2" style={{ background: "rgba(44,42,39,0.55)" }}>
                   <Spinner size={28} className="animate-spin" style={{ color: "#fff" }} />
-                  <span className="text-xs text-white font-medium">Загружаю…</span>
+                  <span className="text-xs text-white font-medium">{t("photoUploading")}</span>
                 </div>
               )}
-              {/* Uploaded checkmark */}
               {photoUrl && !photoUploading && (
-                <div className="absolute bottom-2.5 left-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium"
-                  style={{ background: "rgba(44,42,39,0.6)", color: "#fff" }}>
+                <div className="absolute bottom-2.5 left-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium" style={{ background: "rgba(44,42,39,0.6)", color: "#fff" }}>
                   <CheckCircle size={13} weight="fill" style={{ color: "#7EC86E" }} />
-                  Загружено
+                  {t("photoUploaded")}
                 </div>
               )}
-              {/* Remove button */}
               <button
                 type="button"
                 onClick={removePhoto}
                 className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full flex items-center justify-center transition-opacity hover:opacity-80"
                 style={{ background: "rgba(44,42,39,0.6)" }}
-                aria-label="Удалить фото"
+                aria-label={t("photoRemoveLabel")}
               >
                 <X size={14} style={{ color: "#fff" }} />
               </button>
@@ -508,18 +457,14 @@ export default function AddStoryPage() {
               onDragLeave={() => setDragOver(false)}
               onDrop={handleDrop}
               className="w-full flex flex-col items-center justify-center gap-2.5 rounded-xl border-2 border-dashed py-10 transition-colors"
-              style={{
-                borderColor: dragOver ? "var(--ember)" : "var(--sand-2)",
-                background: dragOver ? "var(--ember-pale)" : "var(--sand)",
-              }}
+              style={{ borderColor: dragOver ? "var(--ember)" : "var(--sand-2)", background: dragOver ? "var(--ember-pale)" : "var(--sand)" }}
             >
               <UploadSimple size={24} style={{ color: dragOver ? "var(--ember)" : "var(--stone)", opacity: dragOver ? 1 : 0.5 }} />
               <span className="text-sm" style={{ color: "var(--stone)" }}>
-                Перетащи фото или <span style={{ color: "var(--ember)" }}>выбери файл</span>
+                {t("photoDrop")} <span style={{ color: "var(--ember)" }}>{t("photoSelect")}</span>
               </span>
             </button>
           )}
-
           {photoError && (
             <p className="text-xs px-3 py-2 rounded-lg" style={{ background: "#FFF0EC", color: "#93430E" }}>
               {photoError}
@@ -527,14 +472,12 @@ export default function AddStoryPage() {
           )}
         </Field>
 
-        {/* Error */}
         {error && (
           <p className="text-sm px-4 py-3 rounded-xl" style={{ background: "#FFF0EC", color: "#93430E", border: "1px solid #F5C4AF" }}>
             {error}
           </p>
         )}
 
-        {/* Submit */}
         <button
           type="submit"
           disabled={submitting || photoUploading}
@@ -542,26 +485,20 @@ export default function AddStoryPage() {
           style={{ background: "var(--ember)", boxShadow: "var(--shadow-btn)" }}
         >
           {submitting
-            ? <><Spinner size={16} className="animate-spin" /> Отправляю…</>
+            ? <><Spinner size={16} className="animate-spin" /> {t("submitting")}</>
             : photoUploading
-            ? <><Spinner size={16} className="animate-spin" /> Загружаю фото…</>
-            : "Отправить историю →"
+            ? <><Spinner size={16} className="animate-spin" /> {t("uploadingPhoto")}</>
+            : t("submit")
           }
         </button>
 
-        <p className="text-xs text-center" style={{ color: "var(--stone)", opacity: 0.7 }}>
-          Мы проверим историю вручную — обычно 1–2 дня — и добавим точку на карту.
-        </p>
+        <p className="text-xs text-center" style={{ color: "var(--stone)", opacity: 0.7 }}>{t("submitNote")}</p>
       </form>
 
       <div className="mt-8">
-        <Link
-          href="/stories"
-          className="inline-flex items-center gap-2 text-sm hover:underline transition-colors"
-          style={{ color: "var(--stone)" }}
-        >
+        <Link href="/stories" className="inline-flex items-center gap-2 text-sm hover:underline transition-colors" style={{ color: "var(--stone)" }}>
           <ArrowLeft size={14} />
-          Все истории
+          {t("backLink")}
         </Link>
       </div>
     </div>

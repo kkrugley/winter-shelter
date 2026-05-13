@@ -1,4 +1,5 @@
 import { sql } from "./db";
+import { routing } from "@/i18n/routing";
 
 export interface Stats {
   installations: number;
@@ -17,7 +18,7 @@ export async function getStats(): Promise<Stats> {
   return {
     installations: (installsRes[0] as { count: number }).count,
     countries: (countriesRes[0] as { count: number }).count,
-    languages: 4,
+    languages: routing.locales.length,
     downloads: (downloadsRes[0] as { count: number }).count,
   };
 }
