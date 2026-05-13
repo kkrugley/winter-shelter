@@ -122,7 +122,7 @@ For full instructions and diagrams, see the assembly manual in this repo and on 
 You can help even if you never touch a laser cutter:
 
 - **Build a shelter** for cats in your yard, neighbourhood, or near a known feeding spot.
-- **Share your results** – post photos, write about your experience, and tag the project on social media (for example, Instagram [`@safepaws.home`](https://www.instagram.com/safepaws.home/)).
+- **Share your results** – post photos, write about your experience, and tag the project on social media: Instagram [`@safepaws.help`](https://www.instagram.com/safepaws.help/) or Telegram Channel [`@safepaws_help`](https://t.me/safepaws_help).
 - **Contribute to the project**:
   - Improve documentation or translations
   - Help with new layouts or formats for other sheet sizes

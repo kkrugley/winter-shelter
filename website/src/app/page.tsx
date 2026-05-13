@@ -40,9 +40,9 @@ const paths = [
 const previewProducts = products.slice(0, 4);
 
 const steps = [
-  { n: 1, title: "Скачай", desc: "Выбери модель и материал — получи DXF и PDF.", Icon: ArrowLineDown },
-  { n: 2, title: "Собери", desc: "Сам или на ближайшем хакспейсе / CNC.", Icon: PencilSimple },
-  { n: 3, title: "Установи", desc: "Помести во двор и поделись историей.", Icon: HouseLine },
+  { n: 1, title: "Скачай", desc: "Выберите нужный продукт и загрузите соответствующие файлы: DXF - для лазерной резки, STL - для 3Д-печати", Icon: ArrowLineDown },
+  { n: 2, title: "Собери", desc: "Изготовьте детали своими силами или в ближайшей мастерской. Сборка максимальна проста - справится каждый!", Icon: PencilSimple },
+  { n: 3, title: "Установи", desc: "Установите домики в подходящем месте и поделитесь своей историей!.", Icon: HouseLine },
 ];
 
 
