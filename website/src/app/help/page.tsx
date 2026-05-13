@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
@@ -114,7 +114,7 @@ const capFilters: { key: Cap; label: string; emoji: string }[] = [
   { key: "voice", label: "Аудитория", emoji: "📱" },
 ];
 
-export default function HelpPage() {
+function HelpPageContent() {
   const searchParams = useSearchParams();
   const cardParam = searchParams?.get("card") ?? null;
 
@@ -242,5 +242,13 @@ const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
       />
 
     </>
+  );
+}
+
+export default function HelpPage() {
+  return (
+    <Suspense>
+      <HelpPageContent />
+    </Suspense>
   );
 }
