@@ -1,0 +1,525 @@
+{
+  "Metadata": {
+    "title": "SafePaws — blueprints for cat shelters and water stations",
+    "description": "Open project: free blueprints for protective shelters and water stations for stray cats. Download DXF/PDF, build it yourself, or help in other ways."
+  },
+  "Nav": {
+    "solutions": "Solutions",
+    "help": "How to help",
+    "stories": "Stories",
+    "about": "About",
+    "download": "Download",
+    "downloadFull": "Download blueprints",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu"
+  },
+  "Footer": {
+    "tagline": "Solutions for helping street animals",
+    "ctaText": "Every shelter is a chance at life.",
+    "ctaButton": "Download first blueprint →",
+    "colSolutions": "Solutions",
+    "colParticipation": "Get involved",
+    "colContact": "Contact",
+    "allSolutions": "All solutions →",
+    "build": "Build a shelter",
+    "install": "Install a water station",
+    "share": "Spread the word",
+    "allWays": "All ways →",
+    "aboutProject": "About the project",
+    "githubProject": "Project on GitHub"
+  },
+  "LangSwitcher": {
+    "label": "Choose language",
+    "ru": "Русский",
+    "be": "Беларуская",
+    "pl": "Polski",
+    "en": "English"
+  },
+  "Common": {
+    "copiedLink": "Link copied ✓",
+    "breadHome": "Home",
+    "photoPlaceholder": "Photo"
+  },
+  "Home": {
+    "heroTitle": "Winter is coming.",
+    "heroTitle2": "They have nowhere to hide.",
+    "heroSubtitle": "SafePaws — open blueprints for shelters and water stations for stray cats.\nDownload, build, install — or help in other ways.",
+    "heroCta": "Start helping →",
+    "heroCta2": "Browse catalog",
+    "heroImgAlt": "Stray cats in winter",
+    "pathsHeading": "How do you want to help?",
+    "paths": [
+      { "title": "I have tools", "desc": "I want to build a shelter or one of the other devices!", "chips": ["CNC machine", "3D printer"], "cta": "Choose a blueprint →" },
+      { "title": "I want to support", "desc": "I want to spread the word or support the project financially.", "chips": ["Share", "Support"], "cta": "Options →" },
+      { "title": "I'm curious", "desc": "I want to learn more about the project and how I can help.", "chips": ["Stories", "About"], "cta": "People's stories →" }
+    ],
+    "catalogHeading": "Solutions catalog",
+    "catalogAll": "all solutions →",
+    "catalogAllMobile": "All solutions →",
+    "statusComingSoon": "Coming soon!",
+    "cardLearnMore": "Learn more →",
+    "cardInstall": "How to install →",
+    "cardDetails": "Details →",
+    "stepsHeading": "How does it work?",
+    "steps": [
+      { "title": "Download", "desc": "Choose a product and download the files: DXF for laser cutting, STL for 3D printing." },
+      { "title": "Build", "desc": "Fabricate the parts yourself or at a nearby makerspace. Assembly is simple — anyone can do it!" },
+      { "title": "Install", "desc": "Place shelters in a suitable spot and share your story!" }
+    ],
+    "storiesHeading": "Stories",
+    "storiesAll": "all stories →",
+    "storiesAllMobile": "All stories →",
+    "ctaHeading": "Ready to start?",
+    "ctaBody": "All files are free and open.",
+    "ctaLink1": "Open catalog",
+    "ctaLink2": "How to help without tools"
+  },
+  "About": {
+    "breadAbout": "About the project",
+    "heroTitle": "Doing good should be",
+    "heroTitle2": "simple.",
+    "heroDesc": "SafePaws is an open project: blueprints and solutions so anyone can help street animals survive the winter with minimal effort.",
+    "heroImgAlt": "SafePaws team",
+    "badgeDownloads": "downloads",
+    "badgeInstalled": "installed",
+    "badgeCountries": "countries",
+    "badgeLanguages": "languages",
+    "howStartedHeading": "How it started",
+    "howStarted1": "In 2023, Pasha built one cat shelter near his apartment entrance. Then a second one. Then the neighbours asked for the blueprint.",
+    "howStarted2": "That's how SafePaws was born — so that a blueprint that already exists can be downloaded and built by anyone.",
+    "howStarted3": "Today the project has 2 shelter models, the PurrTap water station, and the EDC feeder in the pipeline.",
+    "authorName": "Pasha Krugley",
+    "authorRole": "founder · Brest, Belarus",
+    "authorOpen": "open to collaboration",
+    "authorQuote": "\"Started with one shelter by the entrance — now it's a project for everyone.\"",
+    "authorContactSite": "Website",
+    "timelineHeading": "Project milestones",
+    "timeline": [
+      { "year": "2023 · autumn", "title": "First shelter", "desc": "Prototype by the entrance." },
+      { "year": "2024 · spring", "title": "Cozy v1", "desc": "First public blueprint." },
+      { "year": "2024 · winter", "title": "Family + website", "desc": "4 languages, Vercel." },
+      { "year": "2026", "title": "PurrTap · redesign", "desc": "New website + catalog.", "future": true }
+    ],
+    "partnersHeading": "Who helps",
+    "partners": ["Hackspace Brest", "Shelter «Dom»", "Volunteers Minsk", "And 40+ others"],
+    "contactHeading": "Get in touch",
+    "contactDesc": "Question, suggestion, partnership — write us any way you like."
+  },
+  "Help": {
+    "breadHelp": "How to help",
+    "heading": "There are many ways to help!",
+    "subheading": "Not everyone has tools and skills. Not everyone has time or money. But everyone has something.",
+    "filterLabel": "I have:",
+    "filterAll": "Show all",
+    "filterHands": "Tools",
+    "filterTime": "Time",
+    "filterMoney": "Money",
+    "filterVoice": "Audience",
+    "noResults": "No options for this filter",
+    "ways": [
+      { "title": "Download files", "desc": "Download the files for any product and build it! A shelter or water station you build will definitely find an animal in need!", "chips": ["Build", "Tools"], "cta": "To the catalog →" },
+      { "title": "Suggest an idea", "desc": "Have a new idea for helping animals? Fill out the form — we'll definitely make it happen!", "chips": ["Help", "Ideas"], "cta": "Fill out the form →" },
+      { "title": "Share", "desc": "Tell people about the project on social media, send it to friends and family — suggest building a shelter together on the weekend!", "chips": ["Help", "Social media"], "cta": "Share ↗" },
+      { "title": "Support", "desc": "Funds go toward materials for prototyping new solutions and building existing ones.", "chips": ["Growth", "Project support"], "cta": "Support →" },
+      { "title": "Telegram community", "desc": "A Telegram channel where we discuss installations and help newcomers.", "chips": ["Telegram", "Chat"], "cta": "Join →" },
+      { "title": "Partnership", "desc": "Makerspaces, shelters, private companies — we're open to collaborating with everyone.", "chips": ["Cooperation", "Collaboration"], "cta": "Write →" },
+      { "title": "Translate the website", "desc": "Help translate the website into other languages! If you're an experienced developer or engineer — help improve the website or the products. All source files are on GitHub.", "chips": ["Translation", "Development", "Dev"], "cta": "Open GitHub →" }
+    ],
+    "ctaHeading": "While you're reading this, it's −5°C outside.",
+    "ctaBody": "Any action from this page is a step in the right direction.",
+    "ctaShare": "The simplest: share",
+    "ctaQuiz": "Take the quiz"
+  },
+  "Solutions": {
+    "breadSolutions": "Solutions",
+    "heading": "Solutions catalog",
+    "subheading": "Everything you can build or install. Filter by purpose and material.",
+    "updatedLabel": "Updated in April 2026",
+    "countOne": "solution",
+    "countFew": "",
+    "filterBtn": "Filters",
+    "filterReset": "Reset",
+    "filterTypeLabel": "Type",
+    "filterMaterialLabel": "Material",
+    "filterStatusLabel": "Status",
+    "typeShelter": "Shelters",
+    "typeHydration": "Hydration",
+    "typeFeeding": "Feeding",
+    "materialWood": "Plywood",
+    "materialPlastic": "Plastic",
+    "materialMetal": "Metal",
+    "materialRecycled": "Recycled",
+    "statusAvailable": "Ready",
+    "statusComingSoon": "Soon",
+    "noResults": "Nothing found for these filters",
+    "cardDetails": "Details →",
+    "cardDownload": "Download",
+    "cardNotify": "Notify me",
+    "ctaNotSure": "Not sure what to choose?",
+    "ctaNotSureDesc": "Compare solutions side by side or take the quiz.",
+    "ctaCompare": "Compare all →",
+    "ctaQuiz": "Take the quiz"
+  },
+  "ProductSlug": {
+    "breadSolutions": "Solutions",
+    "chooseVariant": "choose material:",
+    "recommended": " · recommended",
+    "viewInstructions": "view sample instructions",
+    "comingSoon": "Coming to the catalog soon",
+    "comingSoonDesc": "Follow updates on Telegram",
+    "compareTo": "Compare with",
+    "share": "Share",
+    "whenToChooseHeading": "When to choose this",
+    "assemblyHeading": "Assemble in 4 steps",
+    "materialCalcLabel": "materials calculator",
+    "storiesWithHeading": "Who's already built it",
+    "storiesAll": "all stories →",
+    "faqHeading": "Frequently asked questions",
+    "statusAvailable": "Ready",
+    "statusComingSoon": "Soon",
+    "cardAriaLearnAbout": "Learn about",
+    "cardAriaInstall": "How to install",
+    "cardAriaDetails": "Details about",
+    "downloadBtn": "Download DXF + PDF"
+  },
+  "Download": {
+    "breadDownload": "Download",
+    "heading": "Download blueprints",
+    "subheading": "Three steps: choose a model, material, get the file. All free.",
+    "stepModel": "Model",
+    "stepMaterial": "Material",
+    "stepFile": "File",
+    "step1Header": "Step 1 / 3",
+    "step1Title": "Choose a model",
+    "step2Header": "Step 2 / 3",
+    "step2Title": "Choose a material",
+    "step2ModelLabel": "Model:",
+    "step3Header": "Step 3 / 3 · Your file",
+    "step3Inside": "Includes: DXF (cutting layout) + PDF (instructions)",
+    "btnNext": "Next →",
+    "btnBack": "← Back",
+    "btnDownload": "Download",
+    "sizeLabel": "Size:",
+    "selected": "selected",
+    "recommended": "recommended",
+    "nextStepsHeading": "Next steps",
+    "nextSteps": [
+      { "label": "Before building", "title": "Read the instructions", "desc": "5 minutes will save you hours.", "linkLabel": "Go →" },
+      { "label": "Having trouble?", "title": "Join the Telegram channel", "desc": "Your question has probably been discussed and answered there!", "linkLabel": "Go →" },
+      { "label": "When you're done", "title": "Add your story", "desc": "Photo, a few words + a pin on the map!", "linkLabel": "Go →" }
+    ],
+    "doneTitle": "Download started!",
+    "doneDesc": "If the file didn't download — click the button again. Thank you for helping animals!",
+    "doneShare": "Tell us when you've built it →",
+    "doneMore": "More solutions"
+  },
+  "Stories": {
+    "breadStories": "Stories",
+    "heading": "Where shelters are already standing",
+    "subheading": "Every pin is a real built and installed shelter or water station.",
+    "addStory": "+ Add a story",
+    "filterAll": "All",
+    "viewMap": "Map",
+    "viewMapGrid": "Map + list",
+    "loading": "Loading…",
+    "noStoriesFilter": "No stories for these filters",
+    "allStoriesHeading": "All stories",
+    "noStoriesYet": "No stories yet",
+    "showAll": "show all ({count})",
+    "hide": "hide",
+    "closePopup": "Close",
+    "ctaHeading": "Built a shelter? Share it!",
+    "ctaBody": "A photo + a few lines — and your pin appears on the map.",
+    "ctaLink": "Add a story →"
+  },
+  "StoriesAdd": {
+    "breadStories": "Stories",
+    "breadAdd": "Add new",
+    "heading": "Share your story",
+    "subheading": "Tell us which of our solutions you've brought to life?\nAfter review your story will appear on the map.",
+    "fieldProduct": "What do you want to share about?",
+    "fieldAuthor": "Your name",
+    "fieldAuthorHint": "How to sign the story",
+    "fieldAuthorPlaceholder": "Just a name, or something like «volunteers»",
+    "fieldQuote": "Quote — one phrase about the result",
+    "fieldQuoteHint": "A short phrase that will appear on the card. For example: «Created a shelter for 4 cats in the yard»",
+    "fieldQuotePlaceholder": "5 kittens survived the winter",
+    "fieldQuoteAriaLabel": "Quote",
+    "fieldTelegram": "Telegram (optional)",
+    "fieldTelegramHint": "In case we want to clarify details or say thank you",
+    "fieldPlace": "Location",
+    "fieldPlaceHint": "City name is enough, but feel free to be more specific! For your privacy, coordinates will be shifted by 500 metres in a random direction.",
+    "fieldPlacePlaceholder": "Minsk, Warsaw, Vilnius…",
+    "fieldDate": "When did you install it?",
+    "fieldDateHint": "Approximately — month and year is enough",
+    "fieldDateMonthPlaceholder": "Month",
+    "fieldDateYearPlaceholder": "Year",
+    "fieldPhoto": "Photo",
+    "fieldPhotoHint": "JPG, PNG, WEBP — up to 10 MB",
+    "photoUploading": "Uploading…",
+    "photoUploaded": "Uploaded",
+    "photoRemoveLabel": "Remove photo",
+    "photoDrop": "Drop a photo or",
+    "photoSelect": "choose a file",
+    "submit": "Submit story →",
+    "submitting": "Submitting…",
+    "uploadingPhoto": "Uploading photo…",
+    "submitNote": "We review stories manually — usually 1–2 days — and add the pin to the map.",
+    "successTitle": "Thank you!",
+    "successDesc": "Your story has been received. We'll review it and add it to the map — usually within 1–2 days.",
+    "successLink": "See all stories →",
+    "backLink": "All stories",
+    "errorName": "Please fill in: name",
+    "errorProduct": "Please fill in: product",
+    "errorQuote": "Please fill in: quote",
+    "errorCity": "Please fill in: city",
+    "products": [
+      { "slug": "cozy-shelter", "label": "Cozy Shelter — compact shelter" },
+      { "slug": "family-shelter", "label": "Family Shelter — large shelter" },
+      { "slug": "purrtap", "label": "PurrTap — water station" },
+      { "slug": "edc-feeder", "label": "EDC Feeder — cat feeder" }
+    ],
+    "months": ["January","February","March","April","May","June","July","August","September","October","November","December"]
+  },
+  "SolutionsAdd": {
+    "breadSolutions": "Solutions",
+    "breadAdd": "Suggest an idea",
+    "heading": "Suggest an idea",
+    "subheading": "Have a new idea for helping animals?\nDescribe it — we'll definitely consider it.",
+    "fieldCategory": "Idea category",
+    "categories": [
+      { "slug": "new-product", "label": "New product" },
+      { "slug": "improvement", "label": "Improvement to existing" },
+      { "slug": "other", "label": "Other" }
+    ],
+    "fieldTitle": "Idea name",
+    "fieldTitleHint": "Brief — one phrase",
+    "fieldTitlePlaceholder": "Folding feeder for balconies",
+    "fieldDesc": "Description",
+    "fieldDescHint": "Tell us more: why, for whom, how it could work",
+    "fieldDescPlaceholder": "I want a feeder that can be easily attached to balcony railings — so it doesn't take up floor space and doesn't get wet in the rain.",
+    "fieldAuthor": "Your name",
+    "fieldAuthorHint": "How to credit the idea",
+    "fieldAuthorPlaceholder": "Name or nickname",
+    "fieldTelegram": "Telegram (optional)",
+    "fieldTelegramHint": "In case we want to clarify details or say thank you",
+    "fieldPhoto": "Photo or sketch (optional)",
+    "fieldPhotoHint": "JPG, PNG, WEBP — up to 10 MB. You can attach a hand-drawn sketch or a reference image.",
+    "photoUploading": "Uploading…",
+    "photoUploaded": "Uploaded",
+    "photoRemoveLabel": "Remove photo",
+    "photoDrop": "Drop a photo or",
+    "photoSelect": "choose a file",
+    "submit": "Submit idea →",
+    "submitting": "Submitting…",
+    "uploadingPhoto": "Uploading photo…",
+    "submitNote": "We review every idea and will reach out if it's a good fit.",
+    "successTitle": "Thank you!",
+    "successDesc": "Your idea has been received. We'll definitely consider it.",
+    "successLink": "See all solutions →",
+    "backLink": "All solutions",
+    "errorName": "Please fill in: name",
+    "errorTitle": "Please fill in: idea name",
+    "errorDesc": "Please fill in: description"
+  },
+  "NotFound": {
+    "desc": "Looks like this page doesn't exist",
+    "goHome": "Go home"
+  },
+  "Quiz": {
+    "heading": "Not sure which path is yours?",
+    "subheading": "3 quick questions — we'll suggest the solution that fits you best.",
+    "startBtn": "Find out in 30 sec",
+    "laterBtn": "later",
+    "closeBtn": "← close",
+    "restartBtn": "Take again",
+    "resultLabel": "your path",
+    "done": "Done",
+    "questionOf": "Question {step} of {total}",
+    "copiedLink": "Link copied ✓",
+    "steps": [
+      {
+        "q": "What do you have?",
+        "opts": [
+          { "label": "Hands and tools", "path": "hands" },
+          { "label": "A bit of time", "path": "time" },
+          { "label": "Ready to support financially", "path": "money" },
+          { "label": "A voice on social media", "path": "voice" }
+        ]
+      },
+      {
+        "q": "How many animals are nearby?",
+        "opts": [
+          { "label": "1–2 cats", "path": "cozy" },
+          { "label": "4–5 cats", "path": "family" },
+          { "label": "A whole colony", "path": "purrtap" },
+          { "label": "Not sure", "path": "unknown" }
+        ]
+      },
+      {
+        "q": "When do you want to start?",
+        "opts": [
+          { "label": "This weekend", "path": "now" },
+          { "label": "Within 1–2 weeks", "path": "soon" },
+          { "label": "Just browsing for now", "path": "later" }
+        ]
+      }
+    ],
+    "results": {
+      "hands_cozy":    { "title": "Cozy Shelter · 6mm plywood", "body": "For 1–2 cats. An evening's build. DXF + PDF with layout.", "cta": [{ "label": "Download blueprint" }, { "label": "Find CNC nearby" }] },
+      "hands_family":  { "title": "Family Shelter · 6mm plywood", "body": "For a small group. Two-section shelter with a shared roof.", "cta": [{ "label": "Download blueprint" }, { "label": "Find CNC nearby" }] },
+      "hands_purrtap": { "title": "PurrTap · yard water station", "body": "Minimal tools, maximum impact. Installed in an hour.", "cta": [{ "label": "Open instructions" }, { "label": "Order kit" }] },
+      "hands_unknown": { "title": "Cozy Shelter · universal", "body": "The easiest entry point. Works for most yards.", "cta": [{ "label": "Download blueprint" }, { "label": "How to choose a spot" }] },
+      "time_cozy":     { "title": "Build at a makerspace", "body": "Bring plywood — CNC cuts the parts in an hour. You assemble.", "cta": [{ "label": "Find a makerspace" }, { "label": "Open Cozy" }] },
+      "time_family":   { "title": "Family Shelter at a makerspace", "body": "Ask for CNC, then jigsaw and screwdriver.", "cta": [{ "label": "Find a makerspace" }, { "label": "Open Family" }] },
+      "time_purrtap":  { "title": "PurrTap in one walk", "body": "Bring water, set it up — 30 minutes of your time.", "cta": [{ "label": "Instructions" }, { "label": "Find a yard" }] },
+      "time_unknown":  { "title": "Help a volunteer", "body": "Join someone else's build — teams are looking for hands.", "cta": [{ "label": "Find a build" }, { "label": "Stories" }] },
+      "money_cozy":    { "title": "Fund one Cozy Shelter", "body": "Plywood + hardware = ~€35. A volunteer will build and install it.", "cta": [{ "label": "Support" }, { "label": "Stories" }] },
+      "money_family":  { "title": "Fund a Family Shelter", "body": "Materials ~€70. We'll keep a group warm this winter.", "cta": [{ "label": "Support" }, { "label": "Stories" }] },
+      "money_purrtap": { "title": "PurrTap kit", "body": "Water station + supplies ~€20. Install with volunteers.", "cta": [{ "label": "Support" }, { "label": "Stories" }] },
+      "money_unknown": { "title": "Open donation", "body": "We'll direct it where it's needed most: materials or logistics.", "cta": [{ "label": "Support" }, { "label": "Expense report" }] },
+      "voice_cozy":    { "title": "Share Cozy", "body": "Ready-made post with the blueprint. 1 click — a neighbour finds out.", "cta": [{ "label": "Copy link" }, { "label": "Open page" }] },
+      "voice_family":  { "title": "Share Family", "body": "Link + story «5 cats survived the winter».", "cta": [{ "label": "Copy link" }, { "label": "Read the story" }] },
+      "voice_purrtap": { "title": "PurrTap — the simplest", "body": "Video «how to set it up in 30 minutes».", "cta": [{ "label": "Open page" }, { "label": "Copy link" }] },
+      "voice_unknown": { "title": "Share SafePaws", "body": "General description + 3 stories. Share it with one person.", "cta": [{ "label": "Open website" }, { "label": "Copy link" }] }
+    }
+  },
+  "Products": {
+    "cozy-shelter": {
+      "description": "A warm shelter from a sheet of plywood. Two entrances, wind protection, minimal tools needed.",
+      "subtitle": "Compact shelter with insulated walls for a couple of cats",
+      "capacity": "1–2 cats",
+      "specs": [
+        { "label": "Size", "value": "40 × 40 × 30 cm" },
+        { "label": "Material", "value": "Plywood / Acrylic" },
+        { "label": "Assembly time", "value": "~ 2 hours" },
+        { "label": "Build cost", "value": "~€25" }
+      ],
+      "downloads": { "3mm": "3mm plywood", "6mm": "6mm plywood" },
+      "tags": ["shelter", "plywood", "open source"],
+      "whyChoose": [
+        { "title": "✓ In a stairwell / on a balcony", "desc": "Compact, fits behind a door." },
+        { "title": "✓ First time building", "desc": "Simple assembly, few parts." },
+        { "title": "✓ 1–2 cats nearby", "desc": "More cats? Go for Family." }
+      ],
+      "assemblySteps": [
+        { "n": 1, "title": "Download the archive", "desc": "DXF cutting layout + PDF instructions." },
+        { "n": 2, "title": "Cut the parts", "desc": "With a jigsaw or a low-power laser." },
+        { "n": 3, "title": "Assemble the box", "desc": "Wood screws + PVA glue. No special skills needed." },
+        { "n": 4, "title": "Install and share", "desc": "Place in a stairwell or yard. Share the result." }
+      ],
+      "faqs": [
+        { "q": "Which plywood is better — 3mm or 6mm?", "a": "6mm is stronger and warmer. 3mm — if you're cutting on a low-power laser." },
+        { "q": "Does it need sealing?", "a": "Yes, any water-repellent sealant. Details in the PDF instructions." },
+        { "q": "Do cats actually use it?", "a": "Yes, see the stories above. The key is placing it where they already feel comfortable." }
+      ],
+      "materialCalc": [
+        { "label": "Plywood sheet", "value": "1.5 sheets 1525×1525" },
+        { "label": "Insulation", "value": "Newspaper / rags" },
+        { "label": "Sealant", "value": "Water-repellent wood sealant" },
+        { "label": "Glue", "value": "PVA wood glue" }
+      ]
+    },
+    "family-shelter": {
+      "description": "A large shelter for an entire colony. Separate compartments, insulated walls, easy-access cleaning.",
+      "subtitle": "Spacious shelter for a cat family with wind and cold protection",
+      "capacity": "3–5 cats",
+      "specs": [
+        { "label": "Size", "value": "80 × 50 × 45 cm" },
+        { "label": "Material", "value": "Plywood / Acrylic" },
+        { "label": "Assembly time", "value": "~ 2 hours" },
+        { "label": "Build cost", "value": "~€40" }
+      ],
+      "downloads": { "3mm": "3mm plywood", "6mm": "6mm plywood" },
+      "tags": ["shelter", "plywood", "open source"],
+      "whyChoose": [
+        { "title": "✓ Colony of 4–5 cats", "desc": "Separate compartments for each." },
+        { "title": "✓ In a yard / by an entrance", "desc": "Spacious, easy to clean." },
+        { "title": "✓ CNC access available", "desc": "We recommend CNC for precise parts." }
+      ],
+      "assemblySteps": [
+        { "n": 1, "title": "Download the archive", "desc": "DXF cutting layout + PDF instructions." },
+        { "n": 2, "title": "Cut the parts", "desc": "CNC recommended — many parts." },
+        { "n": 3, "title": "Assemble the body", "desc": "Wood glue + screws. Has compartments — follow the diagram." },
+        { "n": 4, "title": "Install and welcome cats", "desc": "Place outdoors, add insulation in winter." }
+      ],
+      "faqs": [
+        { "q": "Can I do it without CNC?", "a": "Yes, but CNC makes cutting complex parts much easier." },
+        { "q": "How many cats fit?", "a": "4–5 comfortably. Up to 6–7 in freezing weather." },
+        { "q": "Does it need sealing?", "a": "Absolutely — 6mm plywood absorbs moisture. Use any water-repellent varnish." }
+      ],
+      "materialCalc": [
+        { "label": "Plywood sheet", "value": "3 sheets 1525×1525" },
+        { "label": "Insulation", "value": "Newspaper / rags" },
+        { "label": "Sealant", "value": "Water-repellent wood sealant" },
+        { "label": "Glue", "value": "PVA wood glue" }
+      ]
+    },
+    "purrtap": {
+      "description": "A simple water station made from a bottle. One-page instructions. Can be assembled in 20 minutes.",
+      "subtitle": "Outdoor water station with a 3D-printed base and a bottle",
+      "capacity": "many cats",
+      "specs": [
+        { "label": "Assembly time", "value": "10 minutes" },
+        { "label": "Materials", "value": "PETG/ABS plastic" },
+        { "label": "Tool", "value": "3D printer" },
+        { "label": "Build cost", "value": "~€10" }
+      ],
+      "downloads": { "pdf": "PDF Instructions" },
+      "tags": ["water station", "bottle", "quick"],
+      "whyChoose": [
+        { "title": "✓ No tools needed", "desc": "Just a knife and a drill." },
+        { "title": "✓ Need water, not shelter", "desc": "Simple and fast — 20 minutes." },
+        { "title": "✓ Tight budget", "desc": "Made from everyday materials." }
+      ],
+      "assemblySteps": [
+        { "n": 1, "title": "Download STL", "desc": "Ready-to-print 3D model." },
+        { "n": 2, "title": "Print the base", "desc": "PETG or ABS, 20% infill, ~2 hours." },
+        { "n": 3, "title": "Assemble the station", "desc": "Insert bottle into base and secure." },
+        { "n": 4, "title": "Install by an entrance", "desc": "Anchor bolt or set on a surface." }
+      ],
+      "faqs": [
+        { "q": "Does it freeze in winter?", "a": "Depends on the temperature. Works above −15°C, below that you'll need heating." },
+        { "q": "Which bottle to use?", "a": "PET 1.5–2L. Dark colour is better — less algae." },
+        { "q": "How often to refill?", "a": "Every 2–3 days in summer, daily in freezing weather." }
+      ],
+      "materialCalc": [
+        { "label": "Plastic", "value": "PETG / ABS - 200g" },
+        { "label": "Print time", "value": "2 hours" },
+        { "label": "Bottle", "value": "PET 0.5–1L" },
+        { "label": "Fastener", "value": "Anchor bolt" }
+      ]
+    },
+    "edc-feeder": {
+      "description": "A compact feeder for single-serve food placement. Prints on a standard FDM printer.",
+      "subtitle": "Pocket-sized dispenser feeder for cats",
+      "capacity": "many cats",
+      "specs": [
+        { "label": "Material", "value": "PETG / ABS" },
+        { "label": "Print time", "value": "~ 3 hours" },
+        { "label": "Tool", "value": "3D printer" },
+        { "label": "Build cost", "value": "~€10" }
+      ],
+      "downloads": {},
+      "tags": ["feeding", "3D printing", "coming soon"],
+      "whyChoose": [
+        { "title": "✓ No tools needed", "desc": "Just a knife and a drill." },
+        { "title": "✓ Need water, not shelter", "desc": "Simple and fast — 20 minutes." },
+        { "title": "✓ Tight budget", "desc": "Made from everyday materials." }
+      ],
+      "assemblySteps": [
+        { "n": 1, "title": "Download STL", "desc": "Ready-to-print 3D model." },
+        { "n": 2, "title": "Print the body", "desc": "PETG or ABS, ~3 hours print time." },
+        { "n": 3, "title": "Assemble the feeder", "desc": "Compression spring + fasteners per the diagram." },
+        { "n": 4, "title": "Take it with you", "desc": "Fill with food, set it down for a cat. Compact." }
+      ],
+      "faqs": [],
+      "materialCalc": [
+        { "label": "Plastic", "value": "PETG / ABS - 200g" },
+        { "label": "Print time", "value": "2 hours" },
+        { "label": "Fasteners", "value": "Nuts, bolts" },
+        { "label": "Extra", "value": "Compression spring" }
+      ]
+    }
+  }
+}

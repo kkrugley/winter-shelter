@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { SlidersHorizontal, CaretDown, Eraser } from "@phosphor-icons/react";
 import { products, type ProductMaterial, type ProductCategory, type ProductStatus } from "@/data/products";
 import {
@@ -20,17 +21,16 @@ function toggle<T>(set: Set<T>, value: T): Set<T> {
   return next;
 }
 
-const statusLabel: Record<string, string> = {
-  available: "Готов",
-  "coming-soon": "Скоро",
-};
-
 const statusColor: Record<string, string> = {
   available: "border-[var(--forest-pale)] text-[var(--forest)] bg-[var(--forest-pale)]",
   "coming-soon": "border-[var(--sand-2)] text-[var(--stone)]",
 };
 
 export default function SolutionsPage() {
+  const t = useTranslations("Solutions");
+  const tCommon = useTranslations("Common");
+  const tProducts = useTranslations("Products");
+
   const [types, setTypes] = useState<Set<ProductCategory>>(new Set());
   const [materials, setMaterials] = useState<Set<ProductMaterial>>(new Set());
   const [statuses, setStatuses] = useState<Set<ProductStatus>>(new Set());
@@ -45,36 +45,36 @@ export default function SolutionsPage() {
     return true;
   });
 
+  const statusLabel: Record<string, string> = {
+    available: t("statusAvailable"),
+    "coming-soon": t("statusComingSoon"),
+  };
+
   return (
     <>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-        {/* Breadcrumb */}
         <Breadcrumb className="mb-6">
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">Главная</BreadcrumbLink>
+              <BreadcrumbLink href="/">{tCommon("breadHome")}</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Решения</BreadcrumbPage>
+              <BreadcrumbPage>{t("breadSolutions")}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
 
-        {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
           <div>
-            <h1 className="heading-display">Каталог решений</h1>
-            <p className="text-sm text-ink-muted mt-2">
-              Всё, что можно собрать или установить. Фильтруй по цели и материалу.
-            </p>
+            <h1 className="heading-display">{t("heading")}</h1>
+            <p className="text-sm text-ink-muted mt-2">{t("subheading")}</p>
           </div>
           <span className="font-mono text-xs text-ink-muted whitespace-nowrap">
-            {filtered.length} решени{filtered.length === 1 ? "е" : "я"} · Обновлено в апреле 2026
+            {filtered.length} {filtered.length === 1 ? t("countOne") : t("countFew")} · {t("updatedLabel")}
           </span>
         </div>
 
-        {/* Filter toggle */}
         <div className="flex items-center gap-2 mb-3">
           <button
             onClick={() => setFiltersOpen((v) => !v)}
@@ -82,7 +82,7 @@ export default function SolutionsPage() {
             style={{ borderColor: filtersOpen ? "var(--ember)" : "var(--sand-2)", color: filtersOpen ? "#C55C1C" : undefined }}
           >
             <SlidersHorizontal size={13} />
-            Фильтры
+            {t("filterBtn")}
             {activeFilterCount > 0 && (
               <span className="flex h-4 w-4 items-center justify-center rounded-full text-[10px] bg-[var(--ember-pale)] text-[#C55C1C]">
                 {activeFilterCount}
@@ -95,11 +95,13 @@ export default function SolutionsPage() {
             />
           </button>
           {activeFilterCount > 0 && (
-            <ClearChip onClick={() => { setTypes(new Set()); setMaterials(new Set()); setStatuses(new Set()); }} />
+            <ClearChip
+              label={t("filterReset")}
+              onClick={() => { setTypes(new Set()); setMaterials(new Set()); setStatuses(new Set()); }}
+            />
           )}
         </div>
 
-        {/* Collapsible filter panel */}
         <div
           className="grid transition-[grid-template-rows] duration-200 ease-in-out"
           style={{ gridTemplateRows: filtersOpen ? "1fr" : "0fr" }}
@@ -110,35 +112,35 @@ export default function SolutionsPage() {
               style={{ borderColor: "var(--sand)", background: "var(--cream)" }}
             >
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-mono text-xs text-ink-muted w-16 shrink-0">Тип</span>
+                <span className="font-mono text-xs text-ink-muted w-16 shrink-0">{t("filterTypeLabel")}</span>
                 {(["shelter", "hydration", "feeding"] as const).map((v) => (
                   <FilterChip
                     key={v}
                     active={types.has(v)}
                     onClick={() => setTypes((s) => toggle(s, v))}
-                    label={{ shelter: "Укрытия", hydration: "Поение", feeding: "Кормление" }[v]}
+                    label={{ shelter: t("typeShelter"), hydration: t("typeHydration"), feeding: t("typeFeeding") }[v]}
                   />
                 ))}
               </div>
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-mono text-xs text-ink-muted w-16 shrink-0">Материал</span>
+                <span className="font-mono text-xs text-ink-muted w-16 shrink-0">{t("filterMaterialLabel")}</span>
                 {(["wood", "plastic", "metal", "recycled"] as const).map((v) => (
                   <FilterChip
                     key={v}
                     active={materials.has(v)}
                     onClick={() => setMaterials((s) => toggle(s, v))}
-                    label={{ wood: "Фанера", plastic: "Пластик", metal: "Металл", recycled: "Переработка" }[v]}
+                    label={{ wood: t("materialWood"), plastic: t("materialPlastic"), metal: t("materialMetal"), recycled: t("materialRecycled") }[v]}
                   />
                 ))}
               </div>
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-mono text-xs text-ink-muted w-16 shrink-0">Статус</span>
+                <span className="font-mono text-xs text-ink-muted w-16 shrink-0">{t("filterStatusLabel")}</span>
                 {(["available", "coming-soon"] as const).map((v) => (
                   <FilterChip
                     key={v}
                     active={statuses.has(v)}
                     onClick={() => setStatuses((s) => toggle(s, v))}
-                    label={{ available: "Готов", "coming-soon": "Скоро" }[v]}
+                    label={{ available: t("statusAvailable"), "coming-soon": t("statusComingSoon") }[v]}
                   />
                 ))}
               </div>
@@ -146,72 +148,71 @@ export default function SolutionsPage() {
           </div>
         </div>
 
-        {/* Grid */}
         {filtered.length === 0 ? (
-          <div className="heading-card text-ink-muted text-center py-20">
-            Ничего не найдено по этим фильтрам
-          </div>
+          <div className="heading-card text-ink-muted text-center py-20">{t("noResults")}</div>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {filtered.map((p) => (
-              <div
-                key={p.slug}
-                className={`border rounded-[16px] overflow-hidden flex flex-col transition-all hover:-translate-y-0.5 ${p.status === "coming-soon" ? "opacity-70" : ""}`}
-                style={{ borderColor: "var(--sand)", background: "var(--card-bg)", boxShadow: "var(--shadow-card)" }}
-              >
-                <ProductIllustration
-                  slug={p.slug}
-                  className="aspect-[5/4] border-b border-dashed"
-                  style={{ borderColor: "var(--sand-2)" }}
-                />
-                <div className="p-4 flex flex-col flex-1 gap-2">
-                  <div className="flex items-center justify-between">
-                    <strong className="heading-card text-xl">{p.name}</strong>
-                    <span className={`px-2 py-0.5 rounded-full border text-xs ${statusColor[p.status] ?? statusColor["coming-soon"]}`}>
-                      {statusLabel[p.status] ?? p.status}
-                    </span>
-                  </div>
-                  <p className="text-xs" style={{ color: "var(--stone)" }}>{p.capacity}</p>
-                  <p className="text-sm line-clamp-2" style={{ color: "var(--stone)" }}>{p.description}</p>
-                  <div className="flex flex-wrap gap-1 mt-1">
-                    {p.tags.map((t) => (
-                      <span key={t} className="px-2 py-0.5 text-xs rounded-full border" style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}>
-                        {t}
+            {filtered.map((p) => {
+              const pT = tProducts.raw(p.slug) as { description: string; capacity: string; tags: string[] };
+              return (
+                <div
+                  key={p.slug}
+                  className={`border rounded-[16px] overflow-hidden flex flex-col transition-all hover:-translate-y-0.5 ${p.status === "coming-soon" ? "opacity-70" : ""}`}
+                  style={{ borderColor: "var(--sand)", background: "var(--card-bg)", boxShadow: "var(--shadow-card)" }}
+                >
+                  <ProductIllustration
+                    slug={p.slug}
+                    className="aspect-[5/4] border-b border-dashed"
+                    style={{ borderColor: "var(--sand-2)" }}
+                  />
+                  <div className="p-4 flex flex-col flex-1 gap-2">
+                    <div className="flex items-center justify-between">
+                      <strong className="heading-card text-xl">{p.name}</strong>
+                      <span className={`px-2 py-0.5 rounded-full border text-xs ${statusColor[p.status] ?? statusColor["coming-soon"]}`}>
+                        {statusLabel[p.status] ?? p.status}
                       </span>
-                    ))}
-                  </div>
-                  <div className="mt-auto pt-2 flex gap-2">
-                    <Link
-                      href={`/solutions/${p.slug}`}
-                      className="flex-1 text-center px-3 py-1.5 rounded-full border text-xs transition-colors hover:border-[var(--ember)] hover:text-[var(--ember)]"
-                      style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}
-                    >
-                      Детали →
-                    </Link>
-                    {p.status === "available" && p.downloads.length > 0 ? (
+                    </div>
+                    <p className="text-xs" style={{ color: "var(--stone)" }}>{pT.capacity}</p>
+                    <p className="text-sm line-clamp-2" style={{ color: "var(--stone)" }}>{pT.description}</p>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {pT.tags.map((tag) => (
+                        <span key={tag} className="px-2 py-0.5 text-xs rounded-full border" style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="mt-auto pt-2 flex gap-2">
                       <Link
-                        href={`/download?product=${p.slug}`}
-                        className="flex-1 text-center px-3 py-1.5 rounded-full bg-[var(--ember)] text-white text-xs hover:opacity-90 transition-colors"
-                      >
-                        Скачать
-                      </Link>
-                    ) : (
-                      <button
-                        className="flex-1 px-3 py-1.5 rounded-full border text-xs transition-colors hover:border-[var(--ember)]"
+                        href={`/solutions/${p.slug}`}
+                        className="flex-1 text-center px-3 py-1.5 rounded-full border text-xs transition-colors hover:border-[var(--ember)] hover:text-[var(--ember)]"
                         style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}
                       >
-                        Уведомить
-                      </button>
-                    )}
+                        {t("cardDetails")}
+                      </Link>
+                      {p.status === "available" && p.downloads.length > 0 ? (
+                        <Link
+                          href={`/download?product=${p.slug}`}
+                          className="flex-1 text-center px-3 py-1.5 rounded-full bg-[var(--ember)] text-white text-xs hover:opacity-90 transition-colors"
+                        >
+                          {t("cardDownload")}
+                        </Link>
+                      ) : (
+                        <button
+                          className="flex-1 px-3 py-1.5 rounded-full border text-xs transition-colors hover:border-[var(--ember)]"
+                          style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}
+                        >
+                          {t("cardNotify")}
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>
 
-      {/* Compare CTA */}
       <section className="py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div
@@ -222,22 +223,22 @@ export default function SolutionsPage() {
               boxShadow: "var(--shadow-lift)",
             }}
           >
-            <h3 className="heading-sub mb-3">Не знаешь, что выбрать?</h3>
-            <p className="text-sm mb-8" style={{ color: "var(--stone)" }}>Сравни решения рядом или пройди квиз.</p>
+            <h3 className="heading-sub mb-3">{t("ctaNotSure")}</h3>
+            <p className="text-sm mb-8" style={{ color: "var(--stone)" }}>{t("ctaNotSureDesc")}</p>
             <div className="flex flex-wrap gap-3 justify-center">
               <Link
                 href="/download"
                 className="px-6 py-3 rounded-full bg-[var(--ember)] text-white text-sm font-medium hover:opacity-90 transition-all hover:-translate-y-px"
                 style={{ boxShadow: "var(--shadow-btn)" }}
               >
-                Сравнить все →
+                {t("ctaCompare")}
               </Link>
               <Link
                 href="/help"
                 className="px-6 py-3 rounded-full border text-ink text-sm font-medium hover:border-[var(--stone)] transition-colors"
                 style={{ borderColor: "var(--sand-2)" }}
               >
-                Пройти квиз
+                {t("ctaQuiz")}
               </Link>
             </div>
           </div>
@@ -263,7 +264,7 @@ function FilterChip({ active, onClick, label }: { active: boolean; onClick: () =
   );
 }
 
-function ClearChip({ onClick }: { onClick: () => void }) {
+function ClearChip({ onClick, label }: { onClick: () => void; label: string }) {
   return (
     <button
       onClick={onClick}
@@ -271,7 +272,7 @@ function ClearChip({ onClick }: { onClick: () => void }) {
       style={{ borderColor: "var(--sand-2)" }}
     >
       <Eraser size={13} />
-      Сбросить
+      {label}
     </button>
   );
 }

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { formatInstalledDateLong } from "@/lib/utils";
 
 const PRODUCT_LABELS: Record<string, string> = {
@@ -11,7 +12,7 @@ const PRODUCT_LABELS: Record<string, string> = {
   "edc-feeder":     "EDC Feeder",
 };
 
-function PhotoPlaceholder() {
+function PhotoPlaceholder({ label }: { label: string }) {
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
       <svg width="28" height="24" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
@@ -23,7 +24,7 @@ function PhotoPlaceholder() {
         className="font-mono text-[10px] tracking-[0.14em] uppercase"
         style={{ color: "var(--stone)", opacity: 0.6 }}
       >
-        Фото
+        {label}
       </span>
     </div>
   );
@@ -40,8 +41,10 @@ export interface StoryCardData {
 
 export function StoryCard({ city, product_slug, quote, author_name, installed_date, photo_url }: StoryCardData) {
   const [imgError, setImgError] = useState(false);
+  const locale = useLocale();
+  const tCommon = useTranslations("Common");
   const productLabel = PRODUCT_LABELS[product_slug] ?? product_slug;
-  const dateLabel = formatInstalledDateLong(installed_date);
+  const dateLabel = formatInstalledDateLong(installed_date, locale);
   const showPhoto = photo_url && !imgError;
 
   return (
@@ -68,7 +71,7 @@ export function StoryCard({ city, product_slug, quote, author_name, installed_da
             onError={() => setImgError(true)}
           />
         ) : (
-          <PhotoPlaceholder />
+          <PhotoPlaceholder label={tCommon("photoPlaceholder")} />
         )}
 
         {/* Badges: product + city — top-left row */}

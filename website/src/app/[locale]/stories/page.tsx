@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useTranslations, useLocale } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -28,14 +29,11 @@ const PRODUCT_LABELS: Record<string, string> = {
   "edc-feeder":     "EDC Feeder",
 };
 
-const PRODUCT_FILTER_LABELS: Record<ProductFilter, string> = {
-  "all":            "Все",
-  "cozy-shelter":   "Cozy Shelter",
-  "family-shelter": "Family Shelter",
-  "purrtap":        "PurrTap",
-};
-
 export default function StoriesPage() {
+  const t = useTranslations("Stories");
+  const tCommon = useTranslations("Common");
+  const locale = useLocale();
+
   const [viewMode, setViewMode] = useState<ViewMode>("map");
   const [productF, setProductF] = useState<ProductFilter>("all");
   const [stories, setStories] = useState<Story[]>([]);
@@ -73,12 +71,10 @@ export default function StoriesPage() {
       })),
   }), [stories]);
 
-  // Filtered stories for map (and list in map-grid mode)
   useEffect(() => {
     setLoading(true);
     const params = new URLSearchParams();
     if (productF !== "all") params.set("product_slug", productF);
-
     fetch(`/api/stories?${params}`)
       .then((r) => r.json())
       .then((data) => setStories(Array.isArray(data) ? data : []))
@@ -86,7 +82,6 @@ export default function StoriesPage() {
       .finally(() => setLoading(false));
   }, [productF]);
 
-  // All stories for the bottom section — no filters, fetched once
   useEffect(() => {
     fetch("/api/stories")
       .then((r) => r.json())
@@ -97,50 +92,53 @@ export default function StoriesPage() {
 
   const visibleAllStories = showAllStories ? allStories : allStories.slice(0, 6);
 
+  const productFilters: { key: ProductFilter; label: string }[] = [
+    { key: "all",            label: t("filterAll") },
+    { key: "cozy-shelter",   label: "Cozy Shelter" },
+    { key: "family-shelter", label: "Family Shelter" },
+    { key: "purrtap",        label: "PurrTap" },
+  ];
+
   return (
     <>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-        {/* Breadcrumb */}
         <Breadcrumb className="mb-6">
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">Главная</BreadcrumbLink>
+              <BreadcrumbLink href="/">{tCommon("breadHome")}</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Истории</BreadcrumbPage>
+              <BreadcrumbPage>{t("breadStories")}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
 
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>
-            <h1 className="heading-display">Где уже стоят домики</h1>
-            <p className="text-sm text-ink-muted mt-2">
-              Каждая точка — реальный собранный и установленный домик или поилка.
-            </p>
+            <h1 className="heading-display">{t("heading")}</h1>
+            <p className="text-sm text-ink-muted mt-2">{t("subheading")}</p>
           </div>
           <Link
             href="/stories/add"
             className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-[#c4673d] transition-colors whitespace-nowrap"
           >
-            + добавить историю
+            {t("addStory")}
           </Link>
         </div>
 
-        {/* Filters + view toggle */}
         <div className="border border-border-soft rounded-xl p-4 mb-8 flex flex-wrap gap-3 items-center">
-          {(["all", "cozy-shelter", "family-shelter", "purrtap"] as ProductFilter[]).map((v) => (
+          {productFilters.map(({ key, label }) => (
             <button
-              key={v}
-              onClick={() => setProductF(v)}
+              key={key}
+              onClick={() => setProductF(key)}
               className={`px-3 py-1 rounded-full border text-xs transition-colors ${
-                productF === v
+                productF === key
                   ? "border-accent bg-accent-soft text-accent"
                   : "border-border-soft text-ink-muted hover:border-accent/40"
               }`}
             >
-              {PRODUCT_FILTER_LABELS[v]}
+              {label}
             </button>
           ))}
           <span className="ml-auto flex gap-2">
@@ -153,7 +151,7 @@ export default function StoriesPage() {
                   : "border-border-soft text-ink-muted hover:border-accent/40"
               }`}
             >
-              Карта
+              {t("viewMap")}
             </button>
             <button
               onClick={() => handleSetViewMode("map-grid")}
@@ -164,44 +162,32 @@ export default function StoriesPage() {
                   : "border-border-soft text-ink-muted hover:border-accent/40"
               }`}
             >
-              Карта + список
+              {t("viewMapGrid")}
             </button>
           </span>
         </div>
 
-        {/* Map section */}
         {viewMode === "map" ? (
           <div
             className="rounded-[16px] overflow-hidden mb-14"
             style={{ height: 440, border: "1px solid var(--sand-2)", boxShadow: "var(--shadow-card)" }}
           >
-            <MapContent
-              geoJson={geoJson}
-              popup={popup}
-              setPopup={setPopup}
-            />
+            <MapContent geoJson={geoJson} popup={popup} setPopup={setPopup} closeLabel={t("closePopup")} />
           </div>
         ) : (
           <div className="grid lg:grid-cols-[1.3fr_1fr] gap-6 mb-14">
-            {/* Map */}
             <div
               className="rounded-[16px] overflow-hidden"
               style={{ height: 440, border: "1px solid var(--sand-2)", boxShadow: "var(--shadow-card)" }}
             >
-              <MapContent
-                geoJson={geoJson}
-                popup={popup}
-                setPopup={setPopup}
-              />
+              <MapContent geoJson={geoJson} popup={popup} setPopup={setPopup} closeLabel={t("closePopup")} />
             </div>
-
-            {/* Stories list */}
             <div
               className="rounded-[16px] overflow-y-auto flex flex-col gap-3 p-3"
               style={{ height: 440, border: "1px solid var(--sand-2)", boxShadow: "var(--shadow-card)" }}
             >
               {loading && (
-                <div className="heading-card text-xl text-ink-muted text-center py-10">Загрузка…</div>
+                <div className="heading-card text-xl text-ink-muted text-center py-10">{t("loading")}</div>
               )}
               {!loading && stories.map((s) => (
                 <div
@@ -213,13 +199,7 @@ export default function StoriesPage() {
                     style={{ boxShadow: "0 0 0 2px var(--cream), 0 0 0 4px var(--ember)" }}
                   >
                     {s.photo_url ? (
-                      <Image
-                        src={s.photo_url}
-                        alt={s.author_name}
-                        fill
-                        className="object-cover"
-                        sizes="96px"
-                      />
+                      <Image src={s.photo_url} alt={s.author_name} fill className="object-cover" sizes="96px" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center p-2">
                         {(() => { const Illus = illustrations[slugToKind(s.product_slug)]; return <Illus />; })()}
@@ -237,37 +217,28 @@ export default function StoriesPage() {
                     </div>
                     <p className="text-sm font-medium text-ink">{s.quote}</p>
                     <p className="text-xs text-ink-muted">
-                      {s.author_name}{s.installed_date ? ` · ${formatInstalledDateLong(s.installed_date)}` : ""}
+                      {s.author_name}{s.installed_date ? ` · ${formatInstalledDateLong(s.installed_date, locale)}` : ""}
                     </p>
                   </div>
                 </div>
               ))}
               {!loading && stories.length === 0 && (
-                <div className="heading-card text-xl text-ink-muted text-center py-10">
-                  Нет историй по этим фильтрам
-                </div>
+                <div className="heading-card text-xl text-ink-muted text-center py-10">{t("noStoriesFilter")}</div>
               )}
             </div>
           </div>
         )}
 
-        {/* ALL STORIES GRID — always shows full DB, not filtered */}
         <div>
-          <h2 className="heading-section mb-6">Все истории</h2>
+          <h2 className="heading-section mb-6">{t("allStoriesHeading")}</h2>
           {allStoriesLoading ? (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="rounded-[14px] animate-pulse"
-                  style={{ aspectRatio: "4/3", background: "var(--sand)" }}
-                />
+                <div key={i} className="rounded-[14px] animate-pulse" style={{ aspectRatio: "4/3", background: "var(--sand)" }} />
               ))}
             </div>
           ) : allStories.length === 0 ? (
-            <p className="heading-card text-xl text-ink-muted text-center py-10">
-              Историй пока нет
-            </p>
+            <p className="heading-card text-xl text-ink-muted text-center py-10">{t("noStoriesYet")}</p>
           ) : (
             <>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -281,7 +252,7 @@ export default function StoriesPage() {
                     onClick={() => setShowAllStories((v) => !v)}
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-border-soft text-sm text-ink-muted hover:border-accent/40 hover:text-ink transition-colors"
                   >
-                    {showAllStories ? "скрыть" : `показать все (${allStories.length})`}
+                    {showAllStories ? t("hide") : t("showAll", { count: allStories.length })}
                     <svg
                       width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden
                       className={`transition-transform ${showAllStories ? "rotate-180" : ""}`}
@@ -296,23 +267,22 @@ export default function StoriesPage() {
         </div>
       </div>
 
-      {/* ADD STORY CTA */}
       <CtaBlock
-        heading="Собрали домик? Расскажите!"
-        body="Фото + пара строк — и точка появится на карте."
+        heading={t("ctaHeading")}
+        body={t("ctaBody")}
         links={[
-          { label: "Добавить историю →", href: "/stories/add", primary: true },
+          { label: t("ctaLink"), href: "/stories/add", primary: true },
         ]}
       />
     </>
   );
 }
 
-// Extracted to avoid duplicating the map + popup JSX across two layout branches
 function MapContent({
   geoJson,
   popup,
   setPopup,
+  closeLabel,
 }: {
   geoJson: GeoJSON.FeatureCollection<GeoJSON.Point>;
   popup: {
@@ -325,14 +295,8 @@ function MapContent({
     city: string; product_slug: string; quote: string;
     author_name: string; installed_date: string | null; photo_url: string | null;
   }) => void;
+  closeLabel: string;
 }) {
-  const PRODUCT_LABELS_LOCAL: Record<string, string> = {
-    "cozy-shelter":   "Cozy Shelter",
-    "family-shelter": "Family Shelter",
-    "purrtap":        "PurrTap",
-    "edc-feeder":     "EDC Feeder",
-  };
-
   return (
     <Map center={[27.5, 53]} zoom={0}>
       <MapClusterLayer
@@ -356,7 +320,6 @@ function MapContent({
           });
         }}
       />
-
       {popup && (
         <MapPopup
           longitude={popup.lng}
@@ -375,29 +338,23 @@ function MapContent({
                   className="text-[11px] font-medium px-2 py-0.5 rounded-full shrink-0"
                   style={{ background: "var(--ember-pale)", color: "#93430E" }}
                 >
-                  {PRODUCT_LABELS_LOCAL[popup.product_slug] ?? popup.product_slug}
+                  {PRODUCT_LABELS[popup.product_slug] ?? popup.product_slug}
                 </span>
                 <button
                   onClick={() => setPopup(null)}
                   className="w-5 h-5 flex items-center justify-center rounded-full transition-colors hover:bg-[var(--sand)] shrink-0"
                   style={{ color: "var(--stone)", opacity: 0.6 }}
-                  aria-label="Закрыть"
+                  aria-label={closeLabel}
                 >
                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>
                     <path d="M1 1L9 9M9 1L1 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
                 </button>
               </div>
-              <p
-                className="heading-quote leading-snug"
-                style={{ fontVariationSettings: '"wght" 700' }}
-              >
+              <p className="heading-quote leading-snug" style={{ fontVariationSettings: '"wght" 700' }}>
                 {popup.quote}
               </p>
-              <p
-                className="font-mono text-[11px] tracking-wide"
-                style={{ color: "var(--stone)", opacity: 0.75 }}
-              >
+              <p className="font-mono text-[11px] tracking-wide" style={{ color: "var(--stone)", opacity: 0.75 }}>
                 {popup.author_name}
                 {popup.installed_date ? ` · ${formatInstalledDate(popup.installed_date)}` : ""}
               </p>

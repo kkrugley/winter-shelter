@@ -2,25 +2,35 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { STEPS, RESULTS, type QuizCta } from '@/data/quiz'
+import { useTranslations } from 'next-intl'
+import { STEPS, RESULTS } from '@/data/quiz'
+import type { QuizAction } from '@/data/quiz'
 
 type QuizState = 'collapsed' | 'active' | 'result'
+
+interface TranslatedOpt  { label: string; path: string }
+interface TranslatedStep { q: string; opts: TranslatedOpt[] }
+interface TranslatedCta  { label: string }
+interface TranslatedResult { title: string; body: string; cta: [TranslatedCta, TranslatedCta] }
 
 const ghostStyle = { borderColor: 'var(--sand-2)', color: 'var(--stone)', background: 'transparent' }
 const ghostClass = 'px-4 py-2 rounded-full border text-sm font-medium transition-colors hover:border-[var(--stone)]'
 
 function CtaButton({
-  cta,
+  label,
+  action,
   primary,
   copiedHref,
+  copiedLabel,
   onCopy,
 }: {
-  cta: QuizCta
+  label: string
+  action: QuizAction
   primary?: boolean
   copiedHref: string | null
+  copiedLabel: string
   onCopy: (href: string) => void
 }) {
-  const { label, action } = cta
   const isCopied = action.type === 'copy' && copiedHref === action.href
 
   const cls = primary
@@ -42,10 +52,9 @@ function CtaButton({
     )
   }
 
-  // copy
   return (
     <button onClick={() => onCopy(action.href)} className={cls} style={style}>
-      {isCopied ? 'Ссылка скопирована ✓' : label}
+      {isCopied ? copiedLabel : label}
     </button>
   )
 }
@@ -58,6 +67,10 @@ function scrollToId(id: string) {
 }
 
 export function QuizSection() {
+  const t = useTranslations('Quiz')
+  const tSteps = t.raw('steps') as TranslatedStep[]
+  const tResults = t.raw('results') as Record<string, TranslatedResult>
+
   const [state, setState] = useState<QuizState>('collapsed')
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState<string[]>([])
@@ -125,10 +138,16 @@ export function QuizSection() {
   })
 
   const resultKey = (answers[0] ?? 'hands') + '_' + (answers[1] ?? 'unknown')
-  const result =
+  const resultActions =
     RESULTS[resultKey] ??
     RESULTS[(answers[0] ?? 'hands') + '_unknown'] ??
     RESULTS['hands_unknown']
+  const resultText =
+    tResults[resultKey] ??
+    tResults[(answers[0] ?? 'hands') + '_unknown'] ??
+    tResults['hands_unknown']
+
+  const currentStepOpts = tSteps[step]?.opts ?? STEPS[step].opts
 
   return (
     <div
@@ -143,10 +162,10 @@ export function QuizSection() {
       <div className="flex items-center gap-7 flex-wrap justify-between">
         <div className="flex-1 min-w-[280px]">
           <h3 className="heading-card" style={{ fontSize: 28, marginTop: 4 }}>
-            Не уверен, какой путь твой?
+            {t('heading')}
           </h3>
           <p className="text-sm mt-1.5" style={{ color: 'var(--stone)' }}>
-            3 коротких вопроса — подскажем, какое решение ближе именно тебе.
+            {t('subheading')}
           </p>
         </div>
         <div className="flex gap-2.5 items-center">
@@ -156,7 +175,7 @@ export function QuizSection() {
             className="inline-flex items-center gap-2 rounded-full bg-[var(--ember)] text-white text-sm font-medium quiz-start-btn"
             style={{ boxShadow: 'var(--shadow-btn)' }}
           >
-            Подобрать за 30 сек
+            {t('startBtn')}
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M1 7h12m0 0L8 2m5 5l-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -166,7 +185,7 @@ export function QuizSection() {
             className={ghostClass}
             style={ghostStyle}
           >
-            позже
+            {t('laterBtn')}
           </button>
         </div>
       </div>
@@ -204,11 +223,13 @@ export function QuizSection() {
                   className="ml-2.5 text-[11px] uppercase tracking-[0.1em] font-medium"
                   style={{ fontFamily: 'var(--font-mono)', color: 'var(--stone)' }}
                 >
-                  {state === 'result' ? 'Готово' : `Вопрос ${step + 1} из ${STEPS.length}`}
+                  {state === 'result'
+                    ? t('done')
+                    : t('questionOf', { step: step + 1, total: STEPS.length })}
                 </span>
               </div>
               <button onClick={handleClose} className={ghostClass} style={ghostStyle}>
-                ← закрыть
+                {t('closeBtn')}
               </button>
             </div>
 
@@ -226,25 +247,28 @@ export function QuizSection() {
                     lineHeight: 1.2,
                   }}
                 >
-                  {STEPS[step].q}
+                  {tSteps[step]?.q ?? STEPS[step].q}
                 </div>
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
-                  {STEPS[step].opts.map((opt) => (
-                    <button
-                      key={opt.path}
-                      onClick={() => handleAnswer(opt.path)}
-                      disabled={selectedPath !== null}
-                      className={`quiz-answer-btn${selectedPath === opt.path ? ' selected' : ''}`}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
+                  {currentStepOpts.map((opt, i) => {
+                    const path = STEPS[step].opts[i]?.path ?? opt.path
+                    return (
+                      <button
+                        key={path}
+                        onClick={() => handleAnswer(path)}
+                        disabled={selectedPath !== null}
+                        className={`quiz-answer-btn${selectedPath === path ? ' selected' : ''}`}
+                      >
+                        {opt.label}
+                      </button>
+                    )
+                  })}
                 </div>
               </div>
             )}
 
             {/* Result */}
-            {state === 'result' && (
+            {state === 'result' && resultText && (
               <div key="result" className="quiz-result-in flex gap-6 items-center p-1 flex-wrap sm:flex-nowrap">
                 <div
                   className="w-16 h-16 rounded-[14px] flex items-center justify-center shrink-0"
@@ -260,7 +284,7 @@ export function QuizSection() {
                     className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium mb-2.5"
                     style={{ background: 'var(--ember-pale)', color: 'var(--ember-accessible)' }}
                   >
-                    твой путь
+                    {t('resultLabel')}
                   </span>
                   <div
                     style={{
@@ -273,16 +297,29 @@ export function QuizSection() {
                       marginBottom: 4,
                     }}
                   >
-                    {result.title}
+                    {resultText.title}
                   </div>
                   <p className="text-sm mt-1.5" style={{ color: 'var(--stone)' }}>
-                    {result.body}
+                    {resultText.body}
                   </p>
                   <div className="flex gap-2.5 mt-3.5 flex-wrap">
-                    <CtaButton cta={result.cta[0]} primary copiedHref={copiedHref} onCopy={handleCopy} />
-                    <CtaButton cta={result.cta[1]}         copiedHref={copiedHref} onCopy={handleCopy} />
+                    <CtaButton
+                      label={resultText.cta[0].label}
+                      action={resultActions.cta[0].action}
+                      primary
+                      copiedHref={copiedHref}
+                      copiedLabel={t('copiedLink')}
+                      onCopy={handleCopy}
+                    />
+                    <CtaButton
+                      label={resultText.cta[1].label}
+                      action={resultActions.cta[1].action}
+                      copiedHref={copiedHref}
+                      copiedLabel={t('copiedLink')}
+                      onCopy={handleCopy}
+                    />
                     <button onClick={handleRestart} className={ghostClass} style={ghostStyle}>
-                      Пройти ещё раз
+                      {t('restartBtn')}
                     </button>
                   </div>
                 </div>

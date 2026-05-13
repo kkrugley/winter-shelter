@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -13,11 +14,7 @@ import {
 import Image from "next/image";
 import { ArrowLeft, CheckCircle, Spinner, X, UploadSimple } from "@phosphor-icons/react";
 
-const CATEGORIES = [
-  { slug: "new-product",  label: "Новый продукт" },
-  { slug: "improvement",  label: "Улучшение существующего" },
-  { slug: "other",        label: "Другое" },
-];
+interface TranslatedCategory { slug: string; label: string }
 
 const inputCls = "w-full px-3 py-2.5 border rounded-xl text-sm bg-[var(--cream)] text-ink placeholder:text-[var(--stone)] focus:outline-none transition-colors";
 const inputStyle = { borderColor: "var(--sand-2)" };
@@ -38,6 +35,11 @@ function Field({ label, required, hint, children }: {
 }
 
 export default function AddIdeaPage() {
+  const t = useTranslations("SolutionsAdd");
+  const tCommon = useTranslations("Common");
+
+  const CATEGORIES = t.raw("categories") as TranslatedCategory[];
+
   const [form, setForm] = useState({
     author_name: "",
     telegram: "",
@@ -106,9 +108,9 @@ export default function AddIdeaPage() {
     e.preventDefault();
     setError("");
 
-    if (!form.author_name) { setError("Заполни поле: имя"); return; }
-    if (!form.title)       { setError("Заполни поле: название идеи"); return; }
-    if (!form.description) { setError("Заполни поле: описание"); return; }
+    if (!form.author_name)  { setError(t("errorName"));  return; }
+    if (!form.title)        { setError(t("errorTitle")); return; }
+    if (!form.description)  { setError(t("errorDesc"));  return; }
 
     setSubmitting(true);
     try {
@@ -141,16 +143,14 @@ export default function AddIdeaPage() {
     return (
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-20 text-center">
         <CheckCircle size={52} weight="duotone" style={{ color: "var(--ember)", margin: "0 auto 16px" }} />
-        <h1 className="heading-section mb-3">Спасибо!</h1>
-        <p className="text-sm mb-8" style={{ color: "var(--stone)" }}>
-          Твоя идея получена. Мы обязательно её рассмотрим.
-        </p>
+        <h1 className="heading-section mb-3">{t("successTitle")}</h1>
+        <p className="text-sm mb-8" style={{ color: "var(--stone)" }}>{t("successDesc")}</p>
         <Link
           href="/solutions"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium text-white transition-opacity hover:opacity-90"
           style={{ background: "var(--ember)" }}
         >
-          Смотреть все решения →
+          {t("successLink")}
         </Link>
       </div>
     );
@@ -158,33 +158,30 @@ export default function AddIdeaPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 py-12">
-      {/* Breadcrumb */}
       <Breadcrumb className="mb-8">
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/">Главная</BreadcrumbLink>
+            <BreadcrumbLink href="/">{tCommon("breadHome")}</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/solutions">Решения</BreadcrumbLink>
+            <BreadcrumbLink href="/solutions">{t("breadSolutions")}</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Предложить идею</BreadcrumbPage>
+            <BreadcrumbPage>{t("breadAdd")}</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
 
-      <h1 className="heading-display mb-2">Предложить идею</h1>
+      <h1 className="heading-display mb-2">{t("heading")}</h1>
       <p className="text-sm mb-10" style={{ color: "var(--stone)" }}>
-        Придумали что-то новое для помощи хвостатым?<br />
-        Опишите идею — мы обязательно её рассмотрим.
+        {t("subheading").split("\n").map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}
       </p>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
 
-        {/* Category */}
-        <Field label="Категория идеи">
+        <Field label={t("fieldCategory")}>
           <div className="grid sm:grid-cols-3 gap-2">
             {CATEGORIES.map((c) => (
               <button
@@ -211,25 +208,23 @@ export default function AddIdeaPage() {
 
         <div className="h-px" style={{ background: "var(--sand-2)" }} />
 
-        {/* Title */}
-        <Field label="Название идеи" required hint="Кратко — одна фраза">
+        <Field label={t("fieldTitle")} required hint={t("fieldTitleHint")}>
           <input
             type="text"
             value={form.title}
             onChange={(e) => set("title", e.target.value)}
-            placeholder="Складная кормушка для балкона"
+            placeholder={t("fieldTitlePlaceholder")}
             className={`${inputCls} ${inputFocusStyle}`}
             style={inputStyle}
           />
         </Field>
 
-        {/* Description */}
-        <Field label="Описание" required hint="Расскажи подробнее: зачем, для кого, как могло бы работать">
+        <Field label={t("fieldDesc")} required hint={t("fieldDescHint")}>
           <textarea
             rows={5}
             value={form.description}
             onChange={(e) => set("description", e.target.value)}
-            placeholder="Хочу кормушку, которую удобно крепить на балконные перила — чтобы не занимала место на полу и не намокала под дождём."
+            placeholder={t("fieldDescPlaceholder")}
             className={`${inputCls} ${inputFocusStyle} resize-none`}
             style={inputStyle}
           />
@@ -237,20 +232,18 @@ export default function AddIdeaPage() {
 
         <div className="h-px" style={{ background: "var(--sand-2)" }} />
 
-        {/* Author */}
-        <Field label="Твоё имя" required hint="Как подписать идею">
+        <Field label={t("fieldAuthor")} required hint={t("fieldAuthorHint")}>
           <input
             type="text"
             value={form.author_name}
             onChange={(e) => set("author_name", e.target.value)}
-            placeholder="Имя или никнейм"
+            placeholder={t("fieldAuthorPlaceholder")}
             className={`${inputCls} ${inputFocusStyle}`}
             style={inputStyle}
           />
         </Field>
 
-        {/* Telegram */}
-        <Field label="Telegram (необязательно)" hint="Если захотим уточнить детали или поблагодарить">
+        <Field label={t("fieldTelegram")} hint={t("fieldTelegramHint")}>
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm select-none" style={{ color: "var(--stone)" }}>@</span>
             <input
@@ -266,8 +259,7 @@ export default function AddIdeaPage() {
 
         <div className="h-px" style={{ background: "var(--sand-2)" }} />
 
-        {/* Photo upload */}
-        <Field label="Фото или скетч (необязательно)" hint="JPG, PNG, WEBP — до 10 МБ. Можно приложить рисунок от руки или референс.">
+        <Field label={t("fieldPhoto")} hint={t("fieldPhotoHint")}>
           <input
             ref={fileInputRef}
             type="file"
@@ -275,32 +267,19 @@ export default function AddIdeaPage() {
             className="hidden"
             onChange={handleFileInput}
           />
-
           {photoPreview ? (
             <div className="relative rounded-xl overflow-hidden" style={{ aspectRatio: "4/3" }}>
-              <Image
-                src={photoPreview}
-                alt="превью"
-                fill
-                className="object-cover"
-                unoptimized
-              />
+              <Image src={photoPreview} alt="превью" fill className="object-cover" unoptimized />
               {photoUploading && (
-                <div
-                  className="absolute inset-0 flex flex-col items-center justify-center gap-2"
-                  style={{ background: "rgba(44,42,39,0.55)" }}
-                >
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2" style={{ background: "rgba(44,42,39,0.55)" }}>
                   <Spinner size={28} className="animate-spin" style={{ color: "#fff" }} />
-                  <span className="text-xs text-white font-medium">Загружаю…</span>
+                  <span className="text-xs text-white font-medium">{t("photoUploading")}</span>
                 </div>
               )}
               {photoUrl && !photoUploading && (
-                <div
-                  className="absolute bottom-2.5 left-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium"
-                  style={{ background: "rgba(44,42,39,0.6)", color: "#fff" }}
-                >
+                <div className="absolute bottom-2.5 left-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium" style={{ background: "rgba(44,42,39,0.6)", color: "#fff" }}>
                   <CheckCircle size={13} weight="fill" style={{ color: "#7EC86E" }} />
-                  Загружено
+                  {t("photoUploaded")}
                 </div>
               )}
               <button
@@ -308,7 +287,7 @@ export default function AddIdeaPage() {
                 onClick={removePhoto}
                 className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full flex items-center justify-center transition-opacity hover:opacity-80"
                 style={{ background: "rgba(44,42,39,0.6)" }}
-                aria-label="Удалить фото"
+                aria-label={t("photoRemoveLabel")}
               >
                 <X size={14} style={{ color: "#fff" }} />
               </button>
@@ -321,18 +300,14 @@ export default function AddIdeaPage() {
               onDragLeave={() => setDragOver(false)}
               onDrop={handleDrop}
               className="w-full flex flex-col items-center justify-center gap-2.5 rounded-xl border-2 border-dashed py-10 transition-colors"
-              style={{
-                borderColor: dragOver ? "var(--ember)" : "var(--sand-2)",
-                background:  dragOver ? "var(--ember-pale)" : "var(--sand)",
-              }}
+              style={{ borderColor: dragOver ? "var(--ember)" : "var(--sand-2)", background: dragOver ? "var(--ember-pale)" : "var(--sand)" }}
             >
               <UploadSimple size={24} style={{ color: dragOver ? "var(--ember)" : "var(--stone)", opacity: dragOver ? 1 : 0.5 }} />
               <span className="text-sm" style={{ color: "var(--stone)" }}>
-                Перетащи фото или <span style={{ color: "var(--ember)" }}>выбери файл</span>
+                {t("photoDrop")} <span style={{ color: "var(--ember)" }}>{t("photoSelect")}</span>
               </span>
             </button>
           )}
-
           {photoError && (
             <p className="text-xs px-3 py-2 rounded-lg" style={{ background: "#FFF0EC", color: "#93430E" }}>
               {photoError}
@@ -340,14 +315,12 @@ export default function AddIdeaPage() {
           )}
         </Field>
 
-        {/* Error */}
         {error && (
           <p className="text-sm px-4 py-3 rounded-xl" style={{ background: "#FFF0EC", color: "#93430E", border: "1px solid #F5C4AF" }}>
             {error}
           </p>
         )}
 
-        {/* Submit */}
         <button
           type="submit"
           disabled={submitting || photoUploading}
@@ -355,26 +328,20 @@ export default function AddIdeaPage() {
           style={{ background: "var(--ember)", boxShadow: "var(--shadow-btn)" }}
         >
           {submitting
-            ? <><Spinner size={16} className="animate-spin" /> Отправляю…</>
+            ? <><Spinner size={16} className="animate-spin" /> {t("submitting")}</>
             : photoUploading
-            ? <><Spinner size={16} className="animate-spin" /> Загружаю фото…</>
-            : "Отправить идею →"
+            ? <><Spinner size={16} className="animate-spin" /> {t("uploadingPhoto")}</>
+            : t("submit")
           }
         </button>
 
-        <p className="text-xs text-center" style={{ color: "var(--stone)", opacity: 0.7 }}>
-          Мы рассмотрим каждую идею и свяжемся с тобой, если она нам подойдёт.
-        </p>
+        <p className="text-xs text-center" style={{ color: "var(--stone)", opacity: 0.7 }}>{t("submitNote")}</p>
       </form>
 
       <div className="mt-8">
-        <Link
-          href="/solutions"
-          className="inline-flex items-center gap-2 text-sm hover:underline transition-colors"
-          style={{ color: "var(--stone)" }}
-        >
+        <Link href="/solutions" className="inline-flex items-center gap-2 text-sm hover:underline transition-colors" style={{ color: "var(--stone)" }}>
           <ArrowLeft size={14} />
-          Все решения
+          {t("backLink")}
         </Link>
       </div>
     </div>

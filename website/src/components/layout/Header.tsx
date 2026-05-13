@@ -1,22 +1,24 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/navigation";
+import { Link } from "@/i18n/navigation";
 import { List, X } from "@phosphor-icons/react";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { LangSwitcher } from "./LangSwitcher";
-
-const nav = [
-  { href: "/solutions", label: "Решения" },
-  { href: "/help", label: "Как помочь" },
-  { href: "/stories", label: "Истории" },
-  { href: "/about", label: "О нас" },
-];
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const t = useTranslations("Nav");
+
+  const nav = [
+    { href: "/solutions", label: t("solutions") },
+    { href: "/help", label: t("help") },
+    { href: "/stories", label: t("stories") },
+    { href: "/about", label: t("about") },
+  ];
 
   return (
     <header
@@ -59,12 +61,12 @@ export function Header() {
             className="hidden sm:inline-flex items-center px-4 py-1.5 rounded-full bg-[var(--ember)] text-white text-sm font-medium transition-all hover:opacity-90 hover:-translate-y-px"
             style={{ boxShadow: "var(--shadow-btn)" }}
           >
-            Скачать
+            {t("download")}
           </Link>
           <button
             className="md:hidden p-2 rounded-full text-[var(--stone)] hover:bg-[var(--ember-pale)]"
             onClick={() => setOpen((v) => !v)}
-            aria-label="Меню"
+            aria-label={open ? t("menuClose") : t("menuOpen")}
           >
             {open ? <X size={20} /> : <List size={20} />}
           </button>
@@ -91,7 +93,7 @@ export function Header() {
             onClick={() => setOpen(false)}
             className="mt-3 flex items-center justify-center px-4 py-2 rounded-full bg-[var(--ember)] text-white text-sm font-medium hover:opacity-90 transition-all"
           >
-            Скачать чертежи
+            {t("downloadFull")}
           </Link>
         </div>
       )}
