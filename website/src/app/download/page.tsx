@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,7 +27,7 @@ const nextSteps = [
   { label: "Когда соберёшь", title: "Добавь историю", desc: "Фото, пару слов + точка на карте!", href: "/stories/add" },
 ];
 
-export default function DownloadPage() {
+function DownloadPageContent() {
   const searchParams = useSearchParams();
   const paramSlug = searchParams.get("product") ?? "";
   const validSlug = downloadableProducts.some((p) => p.slug === paramSlug)
@@ -265,5 +265,13 @@ export default function DownloadPage() {
         ))}
       </div>
     </div>
+  );
+}
+
+export default function DownloadPage() {
+  return (
+    <Suspense>
+      <DownloadPageContent />
+    </Suspense>
   );
 }
