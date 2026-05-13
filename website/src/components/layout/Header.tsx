@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { List, X } from "@phosphor-icons/react";
 import { useState } from "react";
+import { LangSwitcher } from "./LangSwitcher";
 
 const nav = [
   { href: "/solutions", label: "Решения" },
@@ -52,6 +53,7 @@ export function Header() {
 
         {/* Actions */}
         <div className="flex items-center gap-2">
+          <LangSwitcher />
           <Link
             href="/download"
             className="hidden sm:inline-flex items-center px-4 py-1.5 rounded-full bg-[var(--ember)] text-white text-sm font-medium transition-all hover:opacity-90 hover:-translate-y-px"

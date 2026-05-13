@@ -37,6 +37,8 @@
   /* shadcn overrides */
   --color-background:         var(--sp-bg);
   --color-foreground:         var(--sp-fg);
+  --color-popover:            var(--sp-bg);
+  --color-popover-foreground: var(--sp-fg);
   --color-card:               var(--sp-bg);
   --color-card-foreground:    var(--sp-fg);
   --color-primary:            var(--sp-accent);
