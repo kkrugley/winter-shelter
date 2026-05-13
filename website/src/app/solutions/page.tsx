@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { SlidersHorizontal, ChevronDown } from "lucide-react";
-import { products } from "@/data/products";
+import { SlidersHorizontal, CaretDown, Eraser } from "@phosphor-icons/react";
+import { products, type ProductMaterial, type ProductCategory, type ProductStatus } from "@/data/products";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -14,37 +14,34 @@ import {
 } from "@/components/ui/breadcrumb";
 import { ProductIllustration } from "@/components/ui/ProductIllustration";
 
-type FilterType = "all" | "shelter" | "hydration" | "feeding";
-type FilterMaterial = "all" | "3mm" | "6mm" | "other";
-type FilterStatus = "all" | "available" | "new" | "coming-soon" | "prototype";
+function toggle<T>(set: Set<T>, value: T): Set<T> {
+  const next = new Set(set);
+  if (next.has(value)) next.delete(value); else next.add(value);
+  return next;
+}
 
 const statusLabel: Record<string, string> = {
-  available: "готов",
-  new: "NEW",
-  "coming-soon": "скоро",
-  prototype: "прототип",
+  available: "Готов",
+  "coming-soon": "Скоро",
 };
 
 const statusColor: Record<string, string> = {
   available: "border-[var(--forest-pale)] text-[var(--forest)] bg-[var(--forest-pale)]",
-  new: "border-transparent text-[#C55C1C] bg-[var(--ember-pale)]",
   "coming-soon": "border-[var(--sand-2)] text-[var(--stone)]",
-  prototype: "border-[var(--sand-2)] text-[var(--stone)]",
 };
 
 export default function SolutionsPage() {
-  const [type, setType] = useState<FilterType>("all");
-  const [material, setMaterial] = useState<FilterMaterial>("all");
-  const [status, setStatus] = useState<FilterStatus>("all");
+  const [types, setTypes] = useState<Set<ProductCategory>>(new Set());
+  const [materials, setMaterials] = useState<Set<ProductMaterial>>(new Set());
+  const [statuses, setStatuses] = useState<Set<ProductStatus>>(new Set());
   const [filtersOpen, setFiltersOpen] = useState(false);
 
-  const activeFilterCount = [type !== "all", material !== "all", status !== "all"].filter(Boolean).length;
+  const activeFilterCount = [types.size > 0, materials.size > 0, statuses.size > 0].filter(Boolean).length;
 
   const filtered = products.filter((p) => {
-    if (type !== "all" && p.category !== type) return false;
-    if (status !== "all" && p.status !== status) return false;
-    if (material === "3mm" && !p.downloads.some((d) => d.variant === "3mm")) return false;
-    if (material === "6mm" && !p.downloads.some((d) => d.variant === "6mm")) return false;
+    if (types.size > 0 && !types.has(p.category)) return false;
+    if (statuses.size > 0 && !statuses.has(p.status)) return false;
+    if (materials.size > 0 && !p.materials.some((m) => materials.has(m))) return false;
     return true;
   });
 
@@ -78,25 +75,28 @@ export default function SolutionsPage() {
         </div>
 
         {/* Filter toggle */}
-        <div className="mb-3">
+        <div className="flex items-center gap-2 mb-3">
           <button
             onClick={() => setFiltersOpen((v) => !v)}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border font-mono text-xs text-ink-muted transition-colors hover:border-[var(--stone)]"
             style={{ borderColor: filtersOpen ? "var(--ember)" : "var(--sand-2)", color: filtersOpen ? "#C55C1C" : undefined }}
           >
             <SlidersHorizontal size={13} />
-            фильтры
+            Фильтры
             {activeFilterCount > 0 && (
               <span className="flex h-4 w-4 items-center justify-center rounded-full text-[10px] bg-[var(--ember-pale)] text-[#C55C1C]">
                 {activeFilterCount}
               </span>
             )}
-            <ChevronDown
+            <CaretDown
               size={13}
               className="transition-transform duration-200"
               style={{ transform: filtersOpen ? "rotate(180deg)" : "rotate(0deg)" }}
             />
           </button>
+          {activeFilterCount > 0 && (
+            <ClearChip onClick={() => { setTypes(new Set()); setMaterials(new Set()); setStatuses(new Set()); }} />
+          )}
         </div>
 
         {/* Collapsible filter panel */}
@@ -110,35 +110,35 @@ export default function SolutionsPage() {
               style={{ borderColor: "var(--sand)", background: "var(--cream)" }}
             >
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-mono text-xs text-ink-muted w-16 shrink-0">тип</span>
-                {(["all", "shelter", "hydration", "feeding"] as const).map((v) => (
+                <span className="font-mono text-xs text-ink-muted w-16 shrink-0">Тип</span>
+                {(["shelter", "hydration", "feeding"] as const).map((v) => (
                   <FilterChip
                     key={v}
-                    active={type === v}
-                    onClick={() => setType(v)}
-                    label={{ all: "показать все", shelter: "укрытия", hydration: "поение", feeding: "кормление" }[v]}
+                    active={types.has(v)}
+                    onClick={() => setTypes((s) => toggle(s, v))}
+                    label={{ shelter: "Укрытия", hydration: "Поение", feeding: "Кормление" }[v]}
                   />
                 ))}
               </div>
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-mono text-xs text-ink-muted w-16 shrink-0">материал</span>
-                {(["all", "3mm", "6mm", "other"] as const).map((v) => (
+                <span className="font-mono text-xs text-ink-muted w-16 shrink-0">Материал</span>
+                {(["wood", "plastic", "metal", "recycled"] as const).map((v) => (
                   <FilterChip
                     key={v}
-                    active={material === v}
-                    onClick={() => setMaterial(v)}
-                    label={{ all: "показать все", "3mm": "3 мм фанера", "6mm": "6 мм фанера", other: "другое" }[v]}
+                    active={materials.has(v)}
+                    onClick={() => setMaterials((s) => toggle(s, v))}
+                    label={{ wood: "Фанера", plastic: "Пластик", metal: "Металл", recycled: "Переработка" }[v]}
                   />
                 ))}
               </div>
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-mono text-xs text-ink-muted w-16 shrink-0">статус</span>
-                {(["all", "available", "new", "coming-soon"] as const).map((v) => (
+                <span className="font-mono text-xs text-ink-muted w-16 shrink-0">Статус</span>
+                {(["available", "coming-soon"] as const).map((v) => (
                   <FilterChip
                     key={v}
-                    active={status === v}
-                    onClick={() => setStatus(v as FilterStatus)}
-                    label={{ all: "показать все", available: "готов", new: "NEW", "coming-soon": "скоро" }[v]}
+                    active={statuses.has(v)}
+                    onClick={() => setStatuses((s) => toggle(s, v))}
+                    label={{ available: "Готов", "coming-soon": "Скоро" }[v]}
                   />
                 ))}
               </div>
@@ -156,12 +156,11 @@ export default function SolutionsPage() {
             {filtered.map((p) => (
               <div
                 key={p.slug}
-                className={`border rounded-[16px] overflow-hidden flex flex-col transition-all hover:-translate-y-0.5 ${p.status === "coming-soon" || p.status === "prototype" ? "opacity-70" : ""}`}
+                className={`border rounded-[16px] overflow-hidden flex flex-col transition-all hover:-translate-y-0.5 ${p.status === "coming-soon" ? "opacity-70" : ""}`}
                 style={{ borderColor: "var(--sand)", background: "var(--card-bg)", boxShadow: "var(--shadow-card)" }}
               >
                 <ProductIllustration
                   slug={p.slug}
-                  isNew={p.status === "new"}
                   className="aspect-[5/4] border-b border-dashed"
                   style={{ borderColor: "var(--sand-2)" }}
                 />
@@ -189,7 +188,7 @@ export default function SolutionsPage() {
                     >
                       Детали →
                     </Link>
-                    {(p.status === "available" || p.status === "new") && p.downloads.length > 0 ? (
+                    {p.status === "available" && p.downloads.length > 0 ? (
                       <Link
                         href={`/download?product=${p.slug}`}
                         className="flex-1 text-center px-3 py-1.5 rounded-full bg-[var(--ember)] text-white text-xs hover:opacity-90 transition-colors"
@@ -248,15 +247,7 @@ export default function SolutionsPage() {
   );
 }
 
-function FilterChip({
-  active,
-  onClick,
-  label,
-}: {
-  active: boolean;
-  onClick: () => void;
-  label: string;
-}) {
+function FilterChip({ active, onClick, label }: { active: boolean; onClick: () => void; label: string }) {
   return (
     <button
       onClick={onClick}
@@ -268,6 +259,19 @@ function FilterChip({
       }}
     >
       {label}
+    </button>
+  );
+}
+
+function ClearChip({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="inline-flex items-center gap-2 px-4 py-2 rounded-full border font-mono text-xs text-ink-muted transition-colors hover:border-[var(--stone)]"
+      style={{ borderColor: "var(--sand-2)" }}
+    >
+      <Eraser size={13} />
+      Сбросить
     </button>
   );
 }

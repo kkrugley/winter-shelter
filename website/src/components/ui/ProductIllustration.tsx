@@ -114,7 +114,7 @@ function ColonyIllustration() {
   );
 }
 
-const illustrations: Record<IllustrationKind, () => React.ReactElement> = {
+export const illustrations: Record<IllustrationKind, () => React.ReactElement> = {
   cozy: CozyIllustration,
   family: FamilyIllustration,
   purrtap: PurrTapIllustration,
@@ -122,7 +122,7 @@ const illustrations: Record<IllustrationKind, () => React.ReactElement> = {
   colony: ColonyIllustration,
 };
 
-function slugToKind(slug: string): IllustrationKind {
+export function slugToKind(slug: string): IllustrationKind {
   if (slug === "purrtap") return "purrtap";
   if (slug === "edc-feeder") return "edc";
   if (slug === "family-shelter") return "family";
@@ -132,14 +132,12 @@ function slugToKind(slug: string): IllustrationKind {
 
 export function ProductIllustration({
   slug,
-  isNew,
   badge,
   badgeColor,
   className,
   style,
 }: {
   slug: string;
-  isNew?: boolean;
   badge?: string;
   badgeColor?: string;
   className?: string;
@@ -152,9 +150,7 @@ export function ProductIllustration({
     <div
       className={className}
       style={{
-        background: isNew
-          ? "linear-gradient(180deg, var(--ember-pale) 0%, var(--sand) 100%)"
-          : "var(--sand)",
+        background: "var(--sand)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

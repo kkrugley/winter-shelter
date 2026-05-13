@@ -1,5 +1,6 @@
-export type ProductStatus = "available" | "new" | "coming-soon" | "prototype";
+export type ProductStatus = "available" | "coming-soon";
 export type ProductCategory = "shelter" | "hydration" | "feeding";
+export type ProductMaterial = "wood" | "plastic" | "metal" | "recycled";
 
 export interface ProductSpec {
   label: string;
@@ -26,6 +27,7 @@ export interface Product {
   downloads: ProductDownload[];
   tags: string[];
   images: string[];
+  materials: ProductMaterial[];
 }
 
 export const products: Product[] = [
@@ -59,7 +61,7 @@ export const products: Product[] = [
       },
     ],
     tags: ["укрытие", "фанера", "open source"],
-
+    materials: ["wood"],
     images: [
       "/images/products/cozy-shelter/img1.jpg",
       "/images/products/cozy-shelter/img2.jpg",
@@ -97,7 +99,7 @@ export const products: Product[] = [
       },
     ],
     tags: ["укрытие", "фанера", "open source"],
-
+    materials: ["wood"],
     images: [
       "/images/products/family-shelter/img1.jpg",
       "/images/products/family-shelter/img2.jpg",
@@ -129,7 +131,7 @@ export const products: Product[] = [
       },
     ],
     tags: ["поилка", "бутылка", "быстро"],
-
+    materials: ["plastic"],
     images: [
       "/images/products/purrtap/img1.jpg",
       "/images/products/purrtap/img2.jpg",
@@ -153,7 +155,7 @@ export const products: Product[] = [
     ],
     downloads: [],
     tags: ["кормление", "3D-печать", "скоро"],
-
+    materials: ["plastic"],
     images: [
       "/images/products/edc-feeder/img1.jpg",
       "/images/products/edc-feeder/img2.jpg",
@@ -168,5 +170,5 @@ export function getProduct(slug: string): Product | undefined {
 }
 
 export function getAvailableProducts(): Product[] {
-  return products.filter((p) => p.status === "available" || p.status === "new");
+  return products.filter((p) => p.status === "available");
 }

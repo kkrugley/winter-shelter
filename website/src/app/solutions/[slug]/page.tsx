@@ -331,16 +331,12 @@ export default async function ProductPage({ params }: Props) {
 
 function StatusBadge({ status }: { status: string }) {
   const labels: Record<string, string> = {
-    available: "готов",
-    new: "NEW",
-    "coming-soon": "скоро",
-    prototype: "прототип",
+    available: "Готов",
+    "coming-soon": "Скоро",
   };
   const colors: Record<string, string> = {
     available: "border-green-300 text-green-700 bg-green-50",
-    new: "border-accent/40 text-accent bg-accent-soft",
     "coming-soon": "border-border-soft text-ink-muted",
-    prototype: "border-border-soft text-ink-muted",
   };
   return (
     <span className={`px-2 py-0.5 rounded-full border text-xs ${colors[status] ?? colors["coming-soon"]}`}>
