@@ -45,7 +45,7 @@ export function Footer() {
             <p className="text-sm text-[var(--stone)] leading-relaxed">
               Решения для помощи уличным животным
             </p>
-            <p className="text-xs text-[var(--stone)] mt-3">CC BY 4.0 · 2023–2026</p>
+            <p className="text-xs text-[var(--stone)] mt-3">CC BY 4.0 · 2025–{new Date().getFullYear()}</p>
           </div>
 
           {/* Nav columns */}

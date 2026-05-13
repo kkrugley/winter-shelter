@@ -34,3 +34,22 @@ CREATE TABLE IF NOT EXISTS downloads (
 );
 
 CREATE INDEX IF NOT EXISTS downloads_product_slug_idx ON downloads (product_slug);
+
+CREATE TABLE IF NOT EXISTS ideas (
+  id           SERIAL PRIMARY KEY,
+  submitted_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  status       TEXT        NOT NULL DEFAULT 'pending'
+                           CHECK (status IN ('pending', 'reviewed', 'implemented', 'declined')),
+
+  -- Author
+  author_name  TEXT        NOT NULL,
+  telegram     TEXT,
+
+  -- Content
+  title        TEXT        NOT NULL,
+  description  TEXT        NOT NULL,
+  category     TEXT,
+  photo_url    TEXT
+);
+
+CREATE INDEX IF NOT EXISTS ideas_status_idx ON ideas (status);

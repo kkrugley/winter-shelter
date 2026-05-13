@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
@@ -30,44 +30,33 @@ const ways = [
   {
     slug: "build",
     icon: Hammer,
-    title: "Сделать домик",
-    desc: "Скачай чертёж, вырежи и установи. Или найди ближайший хакспейс.",
-    chips: ["2 часа", "фанера"],
+    title: "Скачайте файлы",
+    desc: "Скачайте файлы любого из продуктов и изготовьте его! Построенный вами домик, или установленная поилка непременно найдет нуждающегося!",
+    chips: ["Производство", "Инструменты"],
     caps: ["hands"] as Cap[],
     cta: "К каталогу →",
     href: "/solutions",
     dashed: false,
   },
   {
-    slug: "install",
-    icon: Drop,
-    title: "Поставить PurrTap",
-    desc: "Простая поилка из бутылки. Инструкция на 1 страницу.",
-    chips: ["20 минут", "бутылка"],
-    caps: ["hands", "time"] as Cap[],
-    cta: "Инструкция →",
-    href: "/solutions/purrtap",
-    dashed: false,
-  },
-  {
     slug: "story",
     icon: PencilSimple,
-    title: "Добавить историю",
-    desc: "Уже есть домик? Добавь точку на карту и фото. Это мотивирует других.",
-    chips: ["2 фото", "пара строк"],
+    title: "Предложить идею",
+    desc: "Придумали что-то новое для помощи хвостатым? Заполните форму - мы обязательное воплотим это в жизнь!",
+    chips: ["Помощь", "Идеи"],
     caps: ["time", "voice"] as Cap[],
-    cta: "Форма истории →",
-    href: "/stories/add",
+    cta: "Заполните форму →",
+    href: "/solutions/add",
     dashed: false,
   },
   {
     slug: "share",
     icon: MegaphoneSimple,
-    title: "Рассказать",
-    desc: "Поделиться в соцсетях, переслать другу с CNC.",
-    chips: ["Telegram", "5 минут"],
+    title: "Поделиться",
+    desc: "Расскажите о проекте в соцсетях, перешлите друзьям и семье - предложите вместе построить домик на выходных!",
+    chips: ["Помощь", "Соц сети"],
     caps: ["voice"] as Cap[],
-    cta: "Поделиться →",
+    cta: "Поделиться ↗",
     href: "/about#share",
     dashed: false,
   },
@@ -75,11 +64,11 @@ const ways = [
     slug: "donate",
     icon: Heart,
     title: "Поддержать",
-    desc: "Донат идёт на материалы и раздачу готовых домиков.",
-    chips: ["любая сумма"],
+    desc: "Деньги пойдут на материалы для прототипов новых решений и изготовление существующих.",
+    chips: ["Развитие", "Поддержка проекта"],
     caps: ["money"] as Cap[],
     cta: "Поддержать →",
-    href: "/about#donate",
+    href: null,
     dashed: false,
   },
   {
@@ -87,7 +76,7 @@ const ways = [
     icon: UsersThree,
     title: "Сообщество в Telegram",
     desc: "Канал в Telegram, где обсуждаем установки и помогаем новичкам.",
-    chips: ["Telegram"],
+    chips: ["Telegram", "Чат"],
     caps: ["time", "voice"] as Cap[],
     cta: "Вступить →",
     href: "https://t.me/safepaws_help",
@@ -97,9 +86,9 @@ const ways = [
     slug: "partner",
     icon: Handshake,
     title: "Партнёрство",
-    desc: "Хакспейс, приют, компания — готовы сотрудничать.",
-    chips: ["организация"],
-    caps: ["time", "voice"] as Cap[],
+    desc: "Хакспейсы, приюты, частная компания — готовы сотрудничать со всеми.",
+    chips: ["Взаимопомощь", "Сотрудничество"],
+    caps: ["money", "voice"] as Cap[],
     cta: "Написать →",
     href: "mailto:kkrugley@proton.me",
     dashed: false,
@@ -108,8 +97,8 @@ const ways = [
     slug: "translate",
     icon: Globe,
     title: "Перевести сайт",
-    desc: "Помоги локализовать на другой язык — файлы в GitHub.",
-    chips: ["язык", "удалённо"],
+    desc: "Помогите перевести сайт на другие языки! Если вы опытный разработчик или инженер - помогите улучшить сайт или продукты. Все исходники хранятся на GitHub.",
+    chips: ["Перевод", "Развитие", "Разработка"],
     caps: ["time"] as Cap[],
     cta: "Открыть GitHub →",
     href: "https://github.com/kkrugley/safepaws",
@@ -127,11 +116,11 @@ const capFilters: { key: Cap; label: string; emoji: string }[] = [
 
 export default function HelpPage() {
   const searchParams = useSearchParams();
-  const cardParam = searchParams.get("card");
+  const cardParam = searchParams?.get("card") ?? null;
 
   const [cap, setCap] = useState<Cap>("all");
   const [highlighted, setHighlighted] = useState<string | null>(cardParam);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -168,8 +157,7 @@ export default function HelpPage() {
 
         <h1 className="heading-display mb-3">Помогать можно по-разному!</h1>
         <p className="text-base text-ink-muted mb-10 max-w-[560px]">
-          Не у всех есть лобзик. Не у всех есть время. Но у каждого есть хоть что-то.
-          Вот пути.
+          Не у всех есть инструменты и навыки. Не у всех есть время или деньги. Но у каждого есть хоть что-то.
         </p>
 
         {/* Filter */}
@@ -193,7 +181,7 @@ export default function HelpPage() {
 
         {/* 9-card grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filtered.map(({ slug, icon: Icon, title, desc, chips, cta, href, dashed }) => {
+          {filtered.map(({ slug, icon: Icon, title, desc, chips, cta, href, dashed }: { slug: string; icon: React.ElementType; title: string; desc: string; chips: string[]; cta: string; href: string | null; dashed: boolean; caps: Cap[] }) => {
             const isHighlighted = highlighted === slug;
             return (
               <div
@@ -226,7 +214,7 @@ export default function HelpPage() {
                   ))}
                 </div>
                 <Link
-                  href={href}
+                  href={href ?? "?donate=open"}
                   className="inline-flex items-center text-sm font-medium hover:underline mt-1 text-ink"
                 >
                   {cta}
@@ -252,6 +240,7 @@ export default function HelpPage() {
           { label: "Пройти квиз",                    href: "/#quiz" },
         ]}
       />
+
     </>
   );
 }
