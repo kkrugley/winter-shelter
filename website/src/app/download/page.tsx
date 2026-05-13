@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Breadcrumb,
@@ -21,9 +22,9 @@ const downloadableProducts = getAvailableProducts().filter(
 );
 
 const nextSteps = [
-  { label: "дальше", title: "Прочти инструкцию", desc: "5 минут — сэкономят часы.", href: null },
-  { label: "дальше", title: "Нет инструмента?", desc: "Список хакспейсов рядом.", href: null },
-  { label: "когда соберёшь", title: "Добавь историю", desc: "Фото + точка на карте.", href: "/stories/add" },
+  { label: "Перед сборкой", title: "Прочти инструкцию", desc: "5 минут — сэкономят часы.", href: null },
+  { label: "Возникли проблемы?", title: "Присоединись к ТГ-каналу", desc: "Вероятно, этот вопрос уже освещался и решение для него уже есть там!", href: "https://t.me/safepaws_help" },
+  { label: "Когда соберёшь", title: "Добавь историю", desc: "Фото, пару слов + точка на карте!", href: "/stories/add" },
 ];
 
 export default function DownloadPage() {
@@ -103,7 +104,7 @@ export default function DownloadPage() {
               {n}
             </div>
             <span className={`text-sm font-medium transition-colors ${step >= n ? "text-ink" : "text-ink-muted"}`}>
-              {["модель", "материал", "файл"][i]}
+              {["Модель", "Материал", "Файл"][i]}
             </span>
             {n < 3 && (
               <div className={`flex-1 h-0.5 transition-colors ${step > n ? "bg-accent" : "bg-border-soft"}`} />
@@ -115,7 +116,7 @@ export default function DownloadPage() {
       {/* Step 1 */}
       {step === 1 && (
         <div className="border border-border-soft rounded-xl p-6">
-          <span className="font-mono text-xs text-ink-muted block mb-4">шаг 1 / 3</span>
+          <span className="font-mono text-xs text-ink-muted block mb-4">Шаг 1 / 3</span>
           <h2 className="heading-sub mb-6">Выбери модель</h2>
           <div className="grid sm:grid-cols-3 gap-4">
             {downloadableProducts.map((p) => (
@@ -126,17 +127,23 @@ export default function DownloadPage() {
                   selectedSlug === p.slug ? "border-accent" : "border-border-soft hover:border-accent/40"
                 }`}
               >
-                <div className={`ph min-h-[120px] rounded-none border-0 text-sm ${selectedSlug === p.slug ? "bg-accent-soft/60" : ""}`}>
-                  {p.name}
+                <div className="relative h-[120px] w-full overflow-hidden">
+                  <Image
+                    src={p.images[0]}
+                    alt={p.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 90vw, 200px"
+                  />
+                  {selectedSlug === p.slug && (
+                    <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full border border-accent/40 bg-accent-soft text-xs text-accent">
+                      выбрано
+                    </span>
+                  )}
                 </div>
                 <div className="p-3">
                   <strong className="heading-card text-lg block">{p.name}</strong>
                   <p className="text-xs text-ink-muted">{p.capacity}</p>
-                  {selectedSlug === p.slug && (
-                    <span className="mt-2 inline-block px-2 py-0.5 rounded-full border border-accent/40 bg-accent-soft text-xs text-accent">
-                      выбрано
-                    </span>
-                  )}
                 </div>
               </button>
             ))}
@@ -155,7 +162,7 @@ export default function DownloadPage() {
       {/* Step 2 */}
       {step === 2 && selectedProduct && (
         <div className="border border-border-soft rounded-xl p-6">
-          <span className="font-mono text-xs text-ink-muted block mb-4">шаг 2 / 3</span>
+          <span className="font-mono text-xs text-ink-muted block mb-4">Шаг 2 / 3</span>
           <h2 className="heading-sub mb-2">Выбери материал</h2>
           <p className="text-sm text-ink-muted mb-6">
             Модель: <strong>{selectedProduct.name}</strong>
@@ -203,16 +210,16 @@ export default function DownloadPage() {
       {/* Step 3 */}
       {step === 3 && selectedProduct && selectedDownload && (
         <div className="border border-border-soft rounded-xl p-6">
-          <span className="font-mono text-xs text-ink-muted block mb-4">шаг 3 / 3 · твой файл</span>
+          <span className="font-mono text-xs text-ink-muted block mb-4">Шаг 3 / 3 · Ваш файл</span>
           <div className="flex items-start justify-between gap-4">
             <div>
               <h3 className="heading-card mb-1">
                 {selectedProduct.name} · {selectedDownload.label}
               </h3>
               <p className="text-sm text-ink-muted">
-                SafePaws{selectedProduct.name.replace(" ", "")}.zip · {selectedDownload.size}
+                Safepaws{selectedProduct.name.replace(" ", "")}.zip · {selectedDownload.size}
               </p>
-              <p className="text-xs text-ink-muted mt-1">внутри: DXF (раскрой) + PDF (инструкция) + README</p>
+              <p className="text-xs text-ink-muted mt-1">Внутри: DXF (раскрой) + PDF (инструкция)</p>
             </div>
             <a
               href={selectedDownload.file}

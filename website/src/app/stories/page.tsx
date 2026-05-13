@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Breadcrumb,
@@ -12,9 +13,10 @@ import {
 } from "@/components/ui/breadcrumb";
 import { CtaBlock } from "@/components/ui/CtaBlock";
 import { StoryCard } from "@/components/ui/StoryCard";
+import { slugToKind, illustrations } from "@/components/ui/ProductIllustration";
 import { Map, MapClusterLayer, MapPopup } from "@/components/ui/map";
 import type { Story } from "@/lib/stories";
-import { formatInstalledDate } from "@/lib/utils";
+import { formatInstalledDate, formatInstalledDateLong } from "@/lib/utils";
 
 type ViewMode = "map" | "map-grid";
 type ProductFilter = "all" | "cozy-shelter" | "family-shelter" | "purrtap";
@@ -206,7 +208,24 @@ export default function StoriesPage() {
                   key={s.id}
                   className="border border-border-soft rounded-lg p-4 hover:border-accent/40 transition-colors flex gap-3"
                 >
-                  <div className="ph w-24 min-h-[80px] shrink-0 rounded-lg border-0 text-xs">ф</div>
+                  <div
+                    className="relative w-24 min-h-[80px] shrink-0 rounded-lg overflow-hidden bg-[var(--sand)]"
+                    style={{ boxShadow: "0 0 0 2px var(--cream), 0 0 0 4px var(--ember)" }}
+                  >
+                    {s.photo_url ? (
+                      <Image
+                        src={s.photo_url}
+                        alt={s.author_name}
+                        fill
+                        className="object-cover"
+                        sizes="96px"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center p-2">
+                        {(() => { const Illus = illustrations[slugToKind(s.product_slug)]; return <Illus />; })()}
+                      </div>
+                    )}
+                  </div>
                   <div className="flex-1 flex flex-col gap-1">
                     <div className="flex flex-wrap gap-1.5">
                       <span className="inline-block px-2 py-0.5 rounded-full border text-xs border-[var(--sand-2)] text-[var(--stone)] bg-[#FFFDF7]">
@@ -218,7 +237,7 @@ export default function StoriesPage() {
                     </div>
                     <p className="text-sm font-medium text-ink">{s.quote}</p>
                     <p className="text-xs text-ink-muted">
-                      {s.author_name}{s.installed_date ? ` · ${formatInstalledDate(s.installed_date)}` : ""}
+                      {s.author_name}{s.installed_date ? ` · ${formatInstalledDateLong(s.installed_date)}` : ""}
                     </p>
                   </div>
                 </div>

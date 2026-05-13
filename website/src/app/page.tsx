@@ -47,9 +47,7 @@ const steps = [
 
 
 const statusLabel: Record<string, string> = {
-  new: "Новинка",
   "coming-soon": "В разработке!",
-  prototype: "прототип",
 };
 
 // Hero image card — adjust ring gap, ring width (px), and tilt (degrees, positive = clockwise)
@@ -182,9 +180,7 @@ export default async function HomePage() {
               >
                 <ProductIllustration
                   slug={p.slug}
-                  isNew={p.status === "new"}
                   badge={p.status === "available" ? p.capacity : (statusLabel[p.status] ?? p.status)}
-                  badgeColor={p.status === "new" ? "ember" : undefined}
                   className="aspect-[5/4] border-b border-dashed"
                   style={{ borderColor: "var(--sand-2)" }}
                 />
@@ -194,11 +190,11 @@ export default async function HomePage() {
                   <div className="mt-auto pt-2">
                     <Link
                       href={`/solutions/${p.slug}`}
-                      aria-label={`${p.status === "coming-soon" || p.status === "prototype" ? "Узнать о" : p.category === "hydration" ? "Как установить" : "Детали о"} ${p.name}`}
+                      aria-label={`${p.status === "coming-soon" ? "Узнать о" : p.category === "hydration" ? "Как установить" : "Детали о"} ${p.name}`}
                       className="inline-flex items-center gap-1 text-xs font-medium transition-colors hover:underline"
                       style={{ color: "var(--ember)" }}
                     >
-                      {p.status === "coming-soon" || p.status === "prototype"
+                      {p.status === "coming-soon"
                         ? "Узнать →"
                         : p.category === "hydration"
                         ? "Как установить →"
