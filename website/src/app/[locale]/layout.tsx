@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Suspense } from "react";
 import "../globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -126,7 +127,9 @@ export default async function LocaleLayout({
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
-          <DonateModalProvider />
+          <Suspense>
+            <DonateModalProvider />
+          </Suspense>
         </NextIntlClientProvider>
       </body>
     </html>
