@@ -2,16 +2,30 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { illustrations, slugToKind } from "@/components/ui/ProductIllustration";
 
 interface StepCardProps {
   n: number;
   title: string;
   desc: string;
   image?: string;
+  slug: string;
 }
 
-export function StepCard({ n, title, desc, image }: StepCardProps) {
+function IllustrationFallback({ slug }: { slug: string }) {
+  const Illustration = illustrations[slugToKind(slug)];
+  return (
+    <div className="w-full h-full flex items-center justify-center bg-[var(--sand)]">
+      <div className="w-[55%]">
+        <Illustration />
+      </div>
+    </div>
+  );
+}
+
+export function StepCard({ n, title, desc, image, slug }: StepCardProps) {
   const [expanded, setExpanded] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   return (
     <div className="border border-border-soft rounded-xl overflow-hidden">
@@ -24,13 +38,18 @@ export function StepCard({ n, title, desc, image }: StepCardProps) {
           className="relative w-full aspect-[4/3] cursor-zoom-out"
           aria-label="Свернуть изображение"
         >
-          <Image
-            src={image}
-            alt={title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 640px) 100vw, 25vw"
-          />
+          {failed ? (
+            <IllustrationFallback slug={slug} />
+          ) : (
+            <Image
+              src={image}
+              alt={title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 100vw, 25vw"
+              onError={() => setFailed(true)}
+            />
+          )}
         </div>
       ) : (
         <div className="p-5">
@@ -47,13 +66,18 @@ export function StepCard({ n, title, desc, image }: StepCardProps) {
               aria-label="Развернуть изображение"
               style={{ minHeight: "70px" }}
             >
-              <Image
-                src={image}
-                alt={title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 640px) 50vw, 25vw"
-              />
+              {failed ? (
+                <IllustrationFallback slug={slug} />
+              ) : (
+                <Image
+                  src={image}
+                  alt={title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 50vw, 25vw"
+                  onError={() => setFailed(true)}
+                />
+              )}
             </button>
           ) : (
             <div className="ph mb-3" style={{ minHeight: "70px" }} />

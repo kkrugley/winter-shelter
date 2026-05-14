@@ -168,7 +168,7 @@ export default async function ProductPage({ params }: Props) {
           <h2 className="heading-sub mb-6">{t("assemblyHeading")}</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {steps.map(({ n, title, desc }) => (
-              <StepCard key={n} n={n} title={title} desc={desc} image={`/images/products/${slug}/steps/step-${n}.jpg`} />
+              <StepCard key={n} n={n} title={title} desc={desc} image={`/images/products/${slug}/steps/step-${n}.jpg`} slug={slug} />
             ))}
           </div>
         </div>
