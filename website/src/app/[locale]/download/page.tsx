@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
@@ -26,7 +26,7 @@ const downloadableProducts = getAvailableProducts().filter(
   (p) => p.downloads.length > 0
 );
 
-export default function DownloadPage() {
+function DownloadPageInner() {
   const t = useTranslations("Download");
   const tCommon = useTranslations("Common");
   const tProducts = useTranslations("Products");
@@ -267,5 +267,13 @@ export default function DownloadPage() {
         ))}
       </div>
     </div>
+  );
+}
+
+export default function DownloadPage() {
+  return (
+    <Suspense>
+      <DownloadPageInner />
+    </Suspense>
   );
 }
