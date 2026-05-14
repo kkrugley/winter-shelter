@@ -83,7 +83,7 @@ export default async function ProductPage({ params }: Props) {
       </Breadcrumb>
 
       <div className="grid lg:grid-cols-2 gap-10 items-start mb-14">
-        <ProductGallery images={product.images} productName={product.name} />
+        <ProductGallery images={product.images} productName={product.name} slug={product.slug} />
 
         <div>
           <h1 className="heading-display mb-2">{product.name}</h1>

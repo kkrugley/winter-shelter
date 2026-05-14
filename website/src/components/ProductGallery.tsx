@@ -11,15 +11,32 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel"
 import { cn } from "@/lib/utils"
+import { illustrations, slugToKind } from "@/components/ui/ProductIllustration"
 
 interface ProductGalleryProps {
   images: string[]
   productName: string
+  slug: string
 }
 
-export function ProductGallery({ images, productName }: ProductGalleryProps) {
+function IllustrationFallback({ slug }: { slug: string }) {
+  const Illustration = illustrations[slugToKind(slug)]
+  return (
+    <div className="w-full h-full flex items-center justify-center bg-[var(--sand)]">
+      <div className="w-[55%]">
+        <Illustration />
+      </div>
+    </div>
+  )
+}
+
+export function ProductGallery({ images, productName, slug }: ProductGalleryProps) {
   const [api, setApi] = React.useState<CarouselApi>()
   const [current, setCurrent] = React.useState(0)
+  const [failedImages, setFailedImages] = React.useState<Set<number>>(new Set())
+
+  const markFailed = (i: number) =>
+    setFailedImages(prev => new Set(prev).add(i))
 
   React.useEffect(() => {
     if (!api) return
@@ -35,14 +52,19 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
             {images.map((src, i) => (
               <CarouselItem key={i}>
                 <div className="relative aspect-[16/10]">
-                  <Image
-                    src={src}
-                    alt={`${productName} — фото ${i + 1}`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    priority={i === 0}
-                  />
+                  {failedImages.has(i) ? (
+                    <IllustrationFallback slug={slug} />
+                  ) : (
+                    <Image
+                      src={src}
+                      alt={`${productName} — фото ${i + 1}`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      priority={i === 0}
+                      onError={() => markFailed(i)}
+                    />
+                  )}
                 </div>
               </CarouselItem>
             ))}
@@ -64,13 +86,18 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                 : "border-transparent opacity-60 hover:opacity-90"
             )}
           >
-            <Image
-              src={src}
-              alt=""
-              fill
-              className="object-cover"
-              sizes="80px"
-            />
+            {failedImages.has(i) ? (
+              <IllustrationFallback slug={slug} />
+            ) : (
+              <Image
+                src={src}
+                alt=""
+                fill
+                className="object-cover"
+                sizes="80px"
+                onError={() => markFailed(i)}
+              />
+            )}
           </button>
         ))}
       </div>
