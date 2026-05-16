@@ -37,12 +37,12 @@ function BuyMeCoffeeIcon({ size = 20 }: { size?: number }) {
   )
 }
 
-function KofiIcon({ size = 20 }: { size?: number }) {
+function KofiIcon({ size = 20, color = "#29ABE0" }: { size?: number; color?: string }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <path
         d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.965-1.041-2.7-.091-3.71.951-1.01 3.005-1.086 4.363.407 0 0 1.565-1.782 3.468-.963 1.904.82 1.832 3.011.723 4.311zm6.173.478c-.928.116-1.682.028-1.682.028V7.284h1.77s1.971.551 1.971 2.638c0 1.913-.985 2.667-2.059 3.015z"
-        fill="#29ABE0"
+        fill={color}
       />
     </svg>
   )
@@ -118,6 +118,7 @@ const SOLANA_ADDRESS = "BSVbY49dS8jitcPfN8RdJyc2W4Qv9RiebE1ERiFnBL8D"
 const ETH_ADDRESS = "0x073a933b2c5f4955B8EfDa54375d19604D018FC6"
 const TRON_ADDRESS = "TJ4GQzyo51Nr1hrt1wQYXTCyEqy2cedgmU"
 const BASE_ADDRESS = "0x073a933b2c5f4955B8EfDa54375d19604D018FC6"
+const TON_TRANSFER_URL = "ton://transfer/UQA2nzI1ygl7gV3cToWa0uMwSj7T18XUkyvB7gfAzL4Us5Ep?text=%D0%9F%D0%BE%D0%B6%D0%B5%D1%80%D1%82%D0%B2%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D1%81%D0%B0%D0%B9%D1%82%20%7C%20Safepaws%20Organization"
 const BUYMEACOFFEE_URL = "https://buymeacoffee.com/safepawsorganization"
 const KOFI_URL = "https://ko-fi.com/safepawsorganization"
 
@@ -179,18 +180,27 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
             {/* Правая область — контент */}
             <div className="flex-1 overflow-hidden" style={{ background: "var(--card-bg)" }}>
               {/* TON */}
-              <TabsContent value="ton" className="h-full flex flex-col items-center gap-5 pt-10 px-8 pb-8">
-                {/* QR-код или плейсхолдер */}
-                <div className="w-40 h-40 rounded-xl overflow-hidden border border-border-soft bg-paper flex items-center justify-center">
-                  <img src="/images/general/qr/ton-qr-code.png" alt="TON QR" className="w-full h-full object-cover block" onError={(e) => {
-                      e.currentTarget.style.display = "none"; e.currentTarget.nextElementSibling?.removeAttribute("style")}} />
-                  <span className="font-mono text-[10px] text-ink-muted text-center px-3" style={{ display: "none" }}>QR-код<br />кошелька<br />TON</span>
-                </div>
-                <div className="w-full max-w-[260px] space-y-2">
-                  <p className="text-xs text-ink-muted text-center">
-                    Toncoin (TON) — быстрый перевод без комиссий
-                  </p>
-                  <CopyAddress address={TON_ADDRESS} />
+              <TabsContent value="ton" className="h-full flex flex-col items-center justify-center px-8 py-8">
+                <div className="flex flex-col items-center w-full">
+                  <div className="w-40 h-40 rounded-xl overflow-hidden border border-border-soft bg-paper flex items-center justify-center shrink-0">
+                    <img src="/images/general/qr/ton-qr-code.png" alt="TON QR" className="w-full h-full object-cover block" onError={(e) => {
+                        e.currentTarget.style.display = "none"; e.currentTarget.nextElementSibling?.removeAttribute("style")}} />
+                    <span className="font-mono text-[10px] text-ink-muted text-center px-3" style={{ display: "none" }}>QR-код<br />кошелька<br />TON</span>
+                  </div>
+                  <div className="w-full max-w-[260px] space-y-2 mt-4">
+                    <p className="text-xs text-ink-muted text-center">
+                      Toncoin (TON) — быстрый перевод без комиссий
+                    </p>
+                    <CopyAddress address={TON_ADDRESS} />
+                  </div>
+                  <a
+                    href={TON_TRANSFER_URL}
+                    className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 mt-3"
+                    style={{ background: "#0098EA" }}
+                  >
+                    <TonIcon size={16} />
+                    Открыть в TON-кошельке
+                  </a>
                 </div>
               </TabsContent>
 
@@ -230,48 +240,75 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
               </TabsContent>
 
               {/* Buy Me a Coffee */}
-              <TabsContent value="bmc" className="h-full flex flex-col items-center gap-4 pt-10 px-8 pb-8">
-                <div className="w-40 h-40 rounded-xl overflow-hidden border border-border-soft bg-paper flex items-center justify-center shrink-0">
-                  <img
-                    src="/images/general/qr/buymeacoffee-qr-code.png"
-                    alt="Buy Me a Coffee QR"
-                    className="w-full h-full object-cover block"
-                    onError={(e) => {
-                      e.currentTarget.style.display = "none"
-                      e.currentTarget.nextElementSibling?.removeAttribute("style")
-                    }}
-                  />
-                  <span className="font-mono text-[10px] text-ink-muted text-center px-3" style={{ display: "none" }}>
-                    QR-код<br />Buy Me<br />a Coffee
-                  </span>
+              <TabsContent value="bmc" className="h-full flex flex-col items-center justify-center px-8 py-8">
+                <div className="flex flex-col items-center w-full">
+                  <div className="w-40 h-40 rounded-xl overflow-hidden border border-border-soft bg-paper flex items-center justify-center shrink-0">
+                    <img
+                      src="/images/general/qr/buymeacoffee-qr-code.png"
+                      alt="Buy Me a Coffee QR"
+                      className="w-full h-full object-cover block"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none"
+                        e.currentTarget.nextElementSibling?.removeAttribute("style")
+                      }}
+                    />
+                    <span className="font-mono text-[10px] text-ink-muted text-center px-3" style={{ display: "none" }}>
+                      QR-код<br />Buy Me<br />a Coffee
+                    </span>
+                  </div>
+                  <div className="text-center space-y-1 max-w-[260px] mt-4">
+                    <p className="text-sm font-medium text-ink">Buy Me a Coffee</p>
+                    <p className="text-xs text-ink-muted">
+                      Удобный способ поддержать проект картой или через PayPal.<br />Минимальная сумма — 1$.
+                    </p>
+                  </div>
+                  <a
+                    href={BUYMEACOFFEE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 mt-3"
+                    style={{ background: "#FF813F" }}
+                  >
+                    <Coffee size={16} weight="bold" />
+                    Поддержать
+                  </a>
                 </div>
-                <div className="text-center space-y-1 max-w-[260px]">
-                  <p className="text-sm font-medium text-ink">Buy Me a Coffee</p>
-                  <p className="text-xs text-ink-muted">
-                    Удобный способ поддержать проект картой или через PayPal.<br></br>Минимальная сумма — 1$.
-                  </p>
-                </div>
-                <a
-                  href={BUYMEACOFFEE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
-                  style={{ background: "#FF813F" }}
-                >
-                  <Coffee size={16} weight="bold" />
-                  Поддержать
-                </a>
               </TabsContent>
 
               {/* Ko-fi */}
-              <TabsContent value="kofi" className="h-full overflow-hidden">
-                <iframe
-                  id="kofiframe"
-                  src="https://ko-fi.com/safepawsorganization/?hidefeed=true&widget=true&embed=true&preview=true"
-                  style={{ border: "none", width: "100%", padding: "4px", background: "#f9f9f9" }}
-                  height="440"
-                  title="safepawsorganization"
-                />
+              <TabsContent value="kofi" className="h-full flex flex-col items-center justify-center px-8 py-8">
+                <div className="flex flex-col items-center w-full">
+                  <div className="w-40 h-40 rounded-xl overflow-hidden border border-border-soft bg-paper flex items-center justify-center shrink-0">
+                    <img
+                      src="/images/general/qr/kofi-qr-code.png"
+                      alt="Ko-fi QR"
+                      className="w-full h-full object-cover block"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none"
+                        e.currentTarget.nextElementSibling?.removeAttribute("style")
+                      }}
+                    />
+                    <span className="font-mono text-[10px] text-ink-muted text-center px-3" style={{ display: "none" }}>
+                      QR-код<br />Ko-fi
+                    </span>
+                  </div>
+                  <div className="text-center space-y-1 max-w-[260px] mt-4">
+                    <p className="text-sm font-medium text-ink">Ko-fi</p>
+                    <p className="text-xs text-ink-muted">
+                      Поддержи проект картой или через PayPal.<br />Без комиссий со стороны Ko-fi.
+                    </p>
+                  </div>
+                  <a
+                    href={KOFI_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 mt-3"
+                    style={{ background: "#29ABE0" }}
+                  >
+                    <KofiIcon size={16} color="white" />
+                    Поддержать
+                  </a>
+                </div>
               </TabsContent>
             </div>
           </Tabs>

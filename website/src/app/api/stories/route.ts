@@ -57,11 +57,19 @@ export async function POST(req: NextRequest) {
     }
   }
 
+  if (typeof body.photo_url === "string" && body.photo_url.length > 0) {
+    if (!body.photo_url.startsWith("https://i.vgy.me/")) {
+      return NextResponse.json({ error: "Invalid photo_url domain" }, { status: 400 });
+    }
+  }
+
   // Offset coordinates by up to 500 m in a random direction so the exact
   // shelter location is never stored (protects animals from bad actors).
   if (body.lat != null && body.lng != null) {
-    const angle    = Math.random() * 2 * Math.PI;
-    const distance = Math.random() * 500;
+    const buf = new Uint32Array(2);
+    crypto.getRandomValues(buf);
+    const angle    = (buf[0] / 0xffff_ffff) * 2 * Math.PI;
+    const distance = (buf[1] / 0xffff_ffff) * 500;
     const latRad   = (body.lat as number) * (Math.PI / 180);
     const cosLat   = Math.cos(latRad);
     body.lat = (body.lat as number) + (distance / 111_000) * Math.cos(angle);
