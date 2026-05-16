@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { detectMimeType } from "@/lib/mime-check";
 
 export const runtime = "nodejs";
 
@@ -18,7 +19,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "No file provided" }, { status: 400 });
   }
 
-  if (!ALLOWED_TYPES.includes(file.type)) {
+  const detectedMime = await detectMimeType(file);
+  if (!detectedMime || !ALLOWED_TYPES.includes(detectedMime)) {
     return NextResponse.json({ error: "Допустимые форматы: JPG, PNG, WEBP, GIF" }, { status: 400 });
   }
 
