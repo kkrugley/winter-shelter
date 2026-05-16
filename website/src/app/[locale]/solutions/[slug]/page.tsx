@@ -8,6 +8,7 @@ import { DownloadButton } from "@/components/DownloadButton";
 import { ProductGallery } from "@/components/ProductGallery";
 import { StepCard } from "@/components/StepCard";
 import { ComingSoonActions } from "@/components/ui/ComingSoonActions";
+import { MaterialsCalculator } from "@/components/ui/MaterialsCalculator";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -168,17 +169,12 @@ export default async function ProductPage({ params }: Props) {
             </div>
           )}
 
-          <div className="mb-14 bg-[#F5F1EB] border border-border-soft rounded-2xl p-8">
-            <span className="font-mono text-xs uppercase tracking-wider text-ink-muted block mb-4">{t("materialCalcLabel")}</span>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-              {calc.map(({ label, value }) => (
-                <div key={label}>
-                  <span className="font-mono text-xs text-ink-muted block mb-1">{label}</span>
-                  <p className="heading-card text-xl">{value}</p>
-                </div>
-              ))}
+          {product.materialsConfig && (
+            <div className="mb-14">
+              <h2 className="heading-sub mb-7">Калькулятор стоимости</h2>
+              <MaterialsCalculator product={product} />
             </div>
-          </div>
+          )}
 
           {stories.length > 0 && (
             <div className="mb-14">
