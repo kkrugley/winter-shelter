@@ -134,10 +134,7 @@ export default function AddStoryPage() {
     debounceRef.current = setTimeout(async () => {
       setGeoLoading(true);
       try {
-        const res = await fetch(
-          `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(cityQuery)}&format=json&addressdetails=1&limit=5&featuretype=city`,
-          { headers: { "Accept-Language": "ru" } }
-        );
+        const res = await fetch(`/api/geocode?q=${encodeURIComponent(cityQuery)}`);
         const data: GeoResult[] = await res.json();
         setGeoResults(data);
       } catch {
