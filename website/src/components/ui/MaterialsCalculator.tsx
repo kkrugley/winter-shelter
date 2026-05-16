@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, DownloadSimple, Copy } from "@phosphor-icons/react";
+import { Check, DownloadSimple, Copy, CaretDown } from "@phosphor-icons/react";
 import type { Product } from "@/data/products";
 import type { LineItem, ProductMaterialsConfig } from "@/data/materials";
 
@@ -191,7 +191,9 @@ export function MaterialsCalculator({ product }: { product: Product }) {
     spareSheet: false,
   }));
 
+  const [expanded, setExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [copyHovered, setCopyHovered] = useState(false);
 
   const result = runCalc(config, state);
   const totalCost = result.materialsCost + result.servicesCost;
@@ -229,6 +231,68 @@ export function MaterialsCalculator({ product }: { product: Product }) {
     await navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  }
+
+  if (!expanded) {
+    return (
+      <button
+        onClick={() => setExpanded(true)}
+        aria-expanded={false}
+        style={{
+          display: "flex", alignItems: "center", gap: 0,
+          maxWidth: 640, width: "100%",
+          background: "var(--cream)",
+          borderRadius: 12,
+          boxShadow: "0 1px 0 rgba(44,42,39,.06), 0 8px 24px -16px rgba(44,42,39,.18)",
+          overflow: "hidden",
+          border: "none", cursor: "pointer", textAlign: "left",
+        }}
+      >
+        {/* Spiral strip */}
+        <div
+          aria-hidden="true"
+          style={{
+            width: 36, alignSelf: "stretch", flexShrink: 0,
+            background: "var(--sand)",
+            borderRight: "1px solid var(--sand-2)",
+            display: "flex", flexDirection: "column",
+            justifyContent: "space-around",
+            padding: "12px 0",
+          }}
+        >
+          {Array.from({ length: 5 }).map((_, i) => (
+            <span
+              key={i}
+              style={{
+                width: 12, height: 12, borderRadius: "50%", margin: "0 auto",
+                background: "radial-gradient(circle at 35% 35%, #4d4944 0%, #2a2825 65%, #1a1816 100%)",
+                boxShadow: "inset 0 -1px 2px rgba(0,0,0,.4), 0 1px 0 rgba(255,255,255,.25)",
+                display: "block", flexShrink: 0,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Text */}
+        <div style={{ padding: "18px 20px", flex: 1 }}>
+          <div style={{ fontFamily: "var(--font-mono)", fontSize: 9, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--forest)", opacity: 0.65, marginBottom: 4 }}>
+            список закупок
+          </div>
+          <div style={{ fontFamily: "var(--font-script)", fontSize: 26, fontWeight: 700, color: "var(--forest)", lineHeight: 1.1, marginBottom: 4 }}>
+            {product.name}
+          </div>
+          <div style={{ fontFamily: "var(--font-sans)", fontSize: 13, color: "var(--stone)" }}>
+            Посчитай материалы и стоимость сборки
+          </div>
+        </div>
+
+        {/* Expand caret */}
+        <div style={{ padding: "0 20px", display: "flex", alignItems: "center", gap: 6, flexShrink: 0, color: "var(--ember)", fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 500 }}>
+          Открыть
+          <CaretDown size={14} weight="bold" />
+        </div>
+      </button>
+    );
   }
 
   return (
@@ -303,7 +367,7 @@ export function MaterialsCalculator({ product }: { product: Product }) {
             </div>
             <div style={{ position: "relative", display: "inline-block" }}>
               {/* Product name in Caveat script */}
-              <span style={{ fontFamily: "var(--font-script)", fontSize: 38, fontWeight: 700, color: "var(--forest)", letterSpacing: "-0.01em", lineHeight: 1 }}>
+              <span style={{ fontFamily: "var(--font-script)", fontSize: 38, fontWeight: 700, color: "var(--ember)", letterSpacing: "-0.01em", lineHeight: 1 }}>
                 {product.name}
               </span>
               {/* Handwritten SVG underline */}
@@ -445,7 +509,7 @@ export function MaterialsCalculator({ product }: { product: Product }) {
 
                 {/* Price — Caveat script */}
                 <div style={{ position: "relative", minWidth: 56, textAlign: "right" }}>
-                  <span style={{ fontFamily: "var(--font-script)", fontSize: 19, color: row.struck ? "var(--stone)" : "var(--forest)", whiteSpace: "nowrap", fontWeight: 600, lineHeight: 1 }}>
+                  <span style={{ fontFamily: "var(--font-script)", fontSize: 19, color: row.struck ? "var(--stone)" : "var(--ember)", whiteSpace: "nowrap", fontWeight: 600, lineHeight: 1 }}>
                     {!row.inList || row.struck ? "—" : fmtCost(row.lineCost)}
                     <span style={{ fontFamily: "var(--font-sans)", fontSize: 10, color: "var(--stone)", marginLeft: 2, fontWeight: 400 }}>BYN</span>
                   </span>
@@ -505,8 +569,16 @@ export function MaterialsCalculator({ product }: { product: Product }) {
           </button>
           <button
             onClick={handleCopy}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm transition-all hover:border-[var(--stone)]"
-            style={{ fontFamily: "var(--font-sans)", background: "rgba(255,255,255,.7)", color: copied ? "var(--forest)" : "var(--charcoal)", border: `1.5px solid ${copied ? "var(--forest)" : "var(--sand-2)"}`, cursor: "pointer" }}
+            onMouseEnter={() => setCopyHovered(true)}
+            onMouseLeave={() => setCopyHovered(false)}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm transition-all"
+            style={{
+              fontFamily: "var(--font-sans)",
+              background: "rgba(255,255,255,.7)",
+              color: copied ? "var(--forest)" : "var(--charcoal)",
+              border: `1.5px solid ${copied ? "var(--forest)" : copyHovered ? "var(--stone)" : "var(--sand-2)"}`,
+              cursor: "pointer",
+            }}
           >
             {copied ? <Check size={15} color="var(--forest)" /> : <Copy size={15} />}
             {copied ? "Скопировано!" : "Скопировать"}
@@ -514,6 +586,18 @@ export function MaterialsCalculator({ product }: { product: Product }) {
           <span style={{ fontFamily: "var(--font-sans)", fontSize: 12, color: "var(--stone)", marginLeft: "auto", opacity: 0.75 }}>
             цены ориентировочные
           </span>
+          <button
+            onClick={() => setExpanded(false)}
+            style={{
+              fontFamily: "var(--font-sans)", fontSize: 12, color: "var(--stone)",
+              background: "none", border: "none", cursor: "pointer",
+              display: "inline-flex", alignItems: "center", gap: 4,
+              opacity: 0.6, padding: "0 2px",
+            }}
+          >
+            <CaretDown size={12} style={{ transform: "rotate(180deg)" }} />
+            Свернуть
+          </button>
         </div>
 
       </div>
