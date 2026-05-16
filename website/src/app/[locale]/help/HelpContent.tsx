@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter, usePathname } from "@/i18n/navigation";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -40,6 +40,8 @@ const WAY_STRUCTURE: { slug: string; icon: React.ElementType; caps: Cap[]; href:
 export function HelpContent() {
   const t = useTranslations("Help");
   const tCommon = useTranslations("Common");
+  const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const cardParam = searchParams?.get("card") ?? null;
 
@@ -135,12 +137,21 @@ export function HelpContent() {
                     </span>
                   ))}
                 </div>
-                <Link
-                  href={href ?? "?donate=open"}
-                  className="inline-flex items-center text-sm font-medium hover:underline mt-1 text-ink"
-                >
-                  {cta}
-                </Link>
+                {href === null ? (
+                  <button
+                    onClick={() => router.push(`${pathname}?donate=open`)}
+                    className="inline-flex items-center text-sm font-medium hover:underline mt-1 text-ink"
+                  >
+                    {cta}
+                  </button>
+                ) : (
+                  <Link
+                    href={href}
+                    className="inline-flex items-center text-sm font-medium hover:underline mt-1 text-ink"
+                  >
+                    {cta}
+                  </Link>
+                )}
               </div>
             );
           })}

@@ -1,9 +1,16 @@
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
+import { headers } from "next/headers";
+import Link from "next/link";
 import { MascotLottie } from "@/components/MascotLottie";
+import { routing } from "@/i18n/routing";
 
-export default function NotFound() {
-  const t = useTranslations("NotFound");
+export default async function NotFound() {
+  const headersList = await headers();
+  const rawLocale = headersList.get("x-next-intl-locale") ?? "";
+  const locale = (routing.locales as readonly string[]).includes(rawLocale)
+    ? rawLocale
+    : routing.defaultLocale;
+  const t = await getTranslations({ locale, namespace: "NotFound" });
 
   return (
     <>

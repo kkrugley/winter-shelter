@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import { Suspense } from "react";
-import "../globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -11,30 +9,6 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-
-const inter = localFont({
-  src: [
-    { path: "../../../public/fonts/Inter/Inter-VariableFont_opsz,wght.ttf", style: "normal" },
-    { path: "../../../public/fonts/Inter/Inter-Italic-VariableFont_opsz,wght.ttf", style: "italic" },
-  ],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const lora = localFont({
-  src: [
-    { path: "../../../public/fonts/Lora/Lora-VariableFont_wght.ttf", style: "normal" },
-    { path: "../../../public/fonts/Lora/Lora-Italic-VariableFont_wght.ttf", style: "italic" },
-  ],
-  variable: "--font-lora",
-  display: "swap",
-});
-
-const caveat = localFont({
-  src: "../../../public/fonts/Caveat/Caveat-VariableFont_wght.ttf",
-  variable: "--font-caveat",
-  display: "swap",
-});
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -118,22 +92,14 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html
-      lang={locale}
-      className={`${inter.variable} ${lora.variable} ${caveat.variable} h-full antialiased`}
-      suppressHydrationWarning
-    >
-      <body className="min-h-full flex flex-col bg-paper text-ink">
-        <NextIntlClientProvider messages={messages}>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <Suspense>
-            <DonateModalProvider />
-          </Suspense>
-          <SpeedInsights />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <Header />
+      <main className="flex-1">{children}</main>
+      <Footer />
+      <Suspense>
+        <DonateModalProvider />
+      </Suspense>
+      <SpeedInsights />
+    </NextIntlClientProvider>
   );
 }

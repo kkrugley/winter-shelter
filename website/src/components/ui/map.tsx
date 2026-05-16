@@ -226,6 +226,13 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
       style: initialStyle,
       renderWorldCopies: false,
       attributionControl: false,
+      // Carto moved their glyph hosting — redirect dead tiles.basemaps.cartocdn.com/fonts/ to openmaptiles.org
+      transformRequest: (url) => {
+        if (url.startsWith("https://tiles.basemaps.cartocdn.com/fonts/")) {
+          return { url: url.replace("https://tiles.basemaps.cartocdn.com/fonts/", "https://fonts.openmaptiles.org/") };
+        }
+        return { url };
+      },
       ...props,
       ...viewport,
     });
