@@ -71,7 +71,7 @@ export default function SolutionsPage() {
             <p className="text-sm text-ink-muted mt-2">{t("subheading")}</p>
           </div>
           <span className="font-mono text-xs text-ink-muted whitespace-nowrap">
-            {filtered.length} {filtered.length === 1 ? t("countOne") : t("countFew")} · {t("updatedLabel")}
+            {t("count", { n: filtered.length })} · {t("updatedLabel")}
           </span>
         </div>
 
@@ -153,7 +153,7 @@ export default function SolutionsPage() {
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {filtered.map((p) => {
-              const pT = tProducts.raw(p.slug) as { description: string; capacity: string; tags: string[] };
+              const pT = tProducts.raw(p.slug) as { subtitle: string; description: string; capacity: string; tags: string[] };
               return (
                 <div
                   key={p.slug}
@@ -173,7 +173,7 @@ export default function SolutionsPage() {
                       </span>
                     </div>
                     <p className="text-xs" style={{ color: "var(--stone)" }}>{pT.capacity}</p>
-                    <p className="text-sm line-clamp-2" style={{ color: "var(--stone)" }}>{pT.description}</p>
+                    <p className="text-sm line-clamp-2" style={{ color: "var(--stone)" }}>{pT.subtitle}</p>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {pT.tags.map((tag) => (
                         <span key={tag} className="px-2 py-0.5 text-xs rounded-full border" style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}>

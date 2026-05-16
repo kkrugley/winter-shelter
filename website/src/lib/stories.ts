@@ -48,8 +48,9 @@ export async function getPublishedStories(): Promise<Story[]> {
 export async function filterStories(opts: {
   product_slug?: string;
   country?: string;
+  limit?: number;
 }): Promise<Story[]> {
-  const { product_slug, country } = opts;
+  const { product_slug, country, limit } = opts;
 
   if (product_slug && country) {
     const rows = await sql`
@@ -57,7 +58,10 @@ export async function filterStories(opts: {
       WHERE  status = 'published'
         AND  product_slug = ${product_slug}
         AND  country = ${country}
-      ORDER  BY installed_date DESC NULLS LAST, submitted_at DESC
+      ORDER  BY (photo_url IS NOT NULL) DESC,
+                installed_date DESC NULLS LAST,
+                submitted_at DESC
+      ${limit ? sql`LIMIT ${limit}` : sql``}
     `;
     return rows as Story[];
   }
@@ -67,7 +71,10 @@ export async function filterStories(opts: {
       SELECT * FROM stories
       WHERE  status = 'published'
         AND  product_slug = ${product_slug}
-      ORDER  BY installed_date DESC NULLS LAST, submitted_at DESC
+      ORDER  BY (photo_url IS NOT NULL) DESC,
+                installed_date DESC NULLS LAST,
+                submitted_at DESC
+      ${limit ? sql`LIMIT ${limit}` : sql``}
     `;
     return rows as Story[];
   }
@@ -77,7 +84,10 @@ export async function filterStories(opts: {
       SELECT * FROM stories
       WHERE  status = 'published'
         AND  country = ${country}
-      ORDER  BY installed_date DESC NULLS LAST, submitted_at DESC
+      ORDER  BY (photo_url IS NOT NULL) DESC,
+                installed_date DESC NULLS LAST,
+                submitted_at DESC
+      ${limit ? sql`LIMIT ${limit}` : sql``}
     `;
     return rows as Story[];
   }

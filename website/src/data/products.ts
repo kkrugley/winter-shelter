@@ -60,7 +60,7 @@ export const products: Product[] = [
         size: "2.1 MB",
       },
     ],
-    tags: ["укрытие", "фанера", "open source"],
+    tags: ["укрытие", "фанера", "лазерная резка"],
     materials: ["wood"],
     images: [
       "/images/products/cozy-shelter/img1.jpg",
@@ -98,7 +98,7 @@ export const products: Product[] = [
         size: "2.8 MB",
       },
     ],
-    tags: ["укрытие", "фанера", "open source"],
+    tags: ["укрытие", "фанера", "лазерная резка"],
     materials: ["wood"],
     images: [
       "/images/products/family-shelter/img1.jpg",
@@ -130,7 +130,7 @@ export const products: Product[] = [
         recommended: true,
       },
     ],
-    tags: ["поилка", "бутылка", "быстро"],
+    tags: ["поилка", "бутылка", "3Д печать"],
     materials: ["plastic"],
     images: [
       "/images/products/purrtap/img1.jpg",
