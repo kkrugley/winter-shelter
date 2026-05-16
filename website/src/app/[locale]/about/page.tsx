@@ -170,6 +170,7 @@ export default async function AboutPage({
           <RoadmapZigzag items={timeline} />
         </div>
 
+        {/* TODO(Pavel): переработать блок "кто помогает" — временно скрыт
         <div className="mb-14">
           <h2 className="heading-section mb-8">{t("partnersHeading")}</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
@@ -181,6 +182,7 @@ export default async function AboutPage({
             ))}
           </div>
         </div>
+        */}
 
         <div
           className="relative overflow-hidden rounded-2xl p-8"
