@@ -36,7 +36,7 @@ function runCalc(config: ProductMaterialsConfig, state: CalcState): CalcResult {
   let servicesCost = 0;
 
   const rows = config.items.map((item): CalcRow => {
-    const inList = item.optional ? (state.extras[item.id] ?? !!item.defaultOn) : true;
+    const inList = state.extras[item.id] ?? true;
     const struck = state.struck[item.id] ?? false;
     const counted = inList && !struck;
 
@@ -107,7 +107,8 @@ function buildTextList(
   ];
   for (const row of result.rows) {
     if (!row.inList) continue;
-    const tick = row.struck ? "[ ]" : "[✓]";
+    // struck = already have → [✓]; not struck = still need to buy → [ ]
+    const tick = row.struck ? "[✓]" : "[ ]";
     const cost = row.struck ? "—" : `${fmtCost(row.lineCost)} BYN`;
     lines.push(`${tick} ${row.label} (${row.spec}) — ${fmtQty(row.qtyTotal, row.unit)} — ${cost}`);
   }
@@ -184,7 +185,7 @@ export function MaterialsCalculator({ product }: { product: Product }) {
     qty: 1,
     thickness: config.defaultThickness ?? "6",
     extras: Object.fromEntries(
-      config.items.filter((i) => i.optional).map((i) => [i.id, !!i.defaultOn])
+      config.items.map((i) => [i.id, true])
     ),
     struck: {},
     spareSheet: false,
@@ -197,29 +198,19 @@ export function MaterialsCalculator({ product }: { product: Product }) {
 
   function handleCheck(item: LineItem) {
     setState((s) => {
-      if (item.optional) {
-        const next = !s.extras[item.id];
-        return {
-          ...s,
-          extras: { ...s.extras, [item.id]: next },
-          struck: next ? { ...s.struck, [item.id]: false } : s.struck,
-        };
-      }
-      return { ...s, struck: { ...s.struck, [item.id]: !s.struck[item.id] } };
+      const next = !(s.extras[item.id] ?? true);
+      return {
+        ...s,
+        extras: { ...s.extras, [item.id]: next },
+        // clear strike when removing from list
+        struck: next ? s.struck : { ...s.struck, [item.id]: false },
+      };
     });
   }
 
   function handleStrikeZone(row: CalcRow) {
-    setState((s) => {
-      if (!row.inList) {
-        return {
-          ...s,
-          extras: { ...s.extras, [row.id]: true },
-          struck: { ...s.struck, [row.id]: false },
-        };
-      }
-      return { ...s, struck: { ...s.struck, [row.id]: !s.struck[row.id] } };
-    });
+    if (!row.inList) return;
+    setState((s) => ({ ...s, struck: { ...s.struck, [row.id]: !s.struck[row.id] } }));
   }
 
   function handleDownload() {
