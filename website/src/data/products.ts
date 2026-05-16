@@ -49,8 +49,8 @@ export const products: Product[] = [
       { label: "Стоимость изготовления", value: "~100 BYN" },
     ],
     downloads: [
-      { variant: "3mm", label: "Фанера 3 мм", file: "/files/SafePawsCozyShelter.zip", size: "2.4 MB", recommended: true },
-      { variant: "6mm", label: "Фанера 6 мм", file: "/files/SafePawsCozyShelter.zip", size: "2.1 MB" },
+      { variant: "3mm", label: "Фанера 3 мм", file: "/files/SafePawsCozyShelter_3mm.zip", size: "1.96 MB", recommended: true },
+      { variant: "6mm", label: "Фанера 6 мм", file: "/files/SafePawsCozyShelter_6mm.zip", size: "3.57 MB" },
     ],
     tags: ["укрытие", "фанера", "лазерная резка"],
     materials: ["wood"],
@@ -90,8 +90,8 @@ export const products: Product[] = [
       { label: "Стоимость изготовления", value: "~150 BYN" },
     ],
     downloads: [
-      { variant: "3mm", label: "Фанера 3 мм", file: "/files/SafePawsFamilyShelter.zip", size: "3.1 MB", recommended: true },
-      { variant: "6mm", label: "Фанера 6 мм", file: "/files/SafePawsFamilyShelter.zip", size: "2.8 MB" },
+      { variant: "3mm", label: "Фанера 3 мм", file: "#", size: "??? MB" },
+      { variant: "6mm", label: "Фанера 6 мм", file: "/files/SafePawsFamilyShelter_6mm.zip", size: "6.8 MB", recommended: true },
     ],
     tags: ["укрытие", "фанера", "лазерная резка"],
     materials: ["wood"],

@@ -4,11 +4,11 @@ import { Link } from "@/i18n/navigation";
 import { products, getProduct } from "@/data/products";
 import { filterStories } from "@/lib/stories";
 import { StoryCard } from "@/components/ui/StoryCard";
-import { DownloadButton } from "@/components/DownloadButton";
 import { ProductGallery } from "@/components/ProductGallery";
 import { StepCard } from "@/components/StepCard";
 import { ComingSoonActions } from "@/components/ui/ComingSoonActions";
 import { MaterialsCalculator } from "@/components/ui/MaterialsCalculator";
+import { VariantSelector } from "@/components/ui/VariantSelector";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -107,33 +107,14 @@ export default async function ProductPage({ params }: Props) {
           ) : (
             <>
               {product.downloads.length > 0 && (
-                <div className="bg-accent-soft border border-accent/20 rounded-xl p-5">
-                  <span className="font-mono text-xs text-ink-muted block mb-3">{t("chooseVariant")}</span>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {product.downloads.map((d) => (
-                      <span
-                        key={d.variant}
-                        className={`px-3 py-1 rounded-full border text-xs cursor-pointer ${
-                          d.recommended ? "border-accent bg-accent text-white" : "border-border-soft text-ink-muted hover:border-accent/40"
-                        }`}
-                      >
-                        {pT.downloads?.[d.variant] ?? d.label}{d.recommended ? t("recommended") : ""}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex flex-wrap gap-3">
-                    {product.downloads.filter((d) => d.recommended).map((d) => (
-                      <DownloadButton key={d.variant} href={d.file} productSlug={slug} />
-                    ))}
-                    <Link
-                      href="/download"
-                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border-soft text-ink text-sm hover:bg-paper transition-colors"
-                    >
-                      {t("viewInstructions")}
-                    </Link>
-                  </div>
-                  <p className="text-xs text-ink-muted mt-3">{product.downloads[0]?.size} · CC BY 4.0</p>
-                </div>
+                <VariantSelector
+                  downloads={product.downloads}
+                  labels={pT.downloads ?? {}}
+                  slug={slug}
+                  chooseVariantLabel={t("chooseVariant")}
+                  recommendedLabel={t("recommended")}
+                  sizeAndLicense="CC BY 4.0"
+                />
               )}
 
               {/* TODO(dev): добавить кнопку сравнения с соседним продуктом → /solutions/compare (страница ещё не создана) */}
