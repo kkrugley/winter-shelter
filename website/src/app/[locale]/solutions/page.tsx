@@ -14,6 +14,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { ProductIllustration } from "@/components/ui/ProductIllustration";
+import { NotifyModal } from "@/components/ui/NotifyModal";
 
 function toggle<T>(set: Set<T>, value: T): Set<T> {
   const next = new Set(set);
@@ -35,6 +36,7 @@ export default function SolutionsPage() {
   const [materials, setMaterials] = useState<Set<ProductMaterial>>(new Set());
   const [statuses, setStatuses] = useState<Set<ProductStatus>>(new Set());
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [notifyProduct, setNotifyProduct] = useState<{ slug: string; name: string } | null>(null);
 
   const activeFilterCount = [types.size > 0, materials.size > 0, statuses.size > 0].filter(Boolean).length;
 
@@ -184,8 +186,10 @@ export default function SolutionsPage() {
                     <div className="mt-auto pt-2 flex gap-2">
                       <Link
                         href={`/solutions/${p.slug}`}
-                        className="flex-1 text-center px-3 py-1.5 rounded-full border text-xs transition-colors hover:border-[var(--ember)] hover:text-[var(--ember)]"
+                        className="flex-1 text-center px-3 py-1.5 rounded-full border text-xs transition-colors"
                         style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}
+                        onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--ember)"; e.currentTarget.style.color = "var(--ember)"; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--sand-2)"; e.currentTarget.style.color = "var(--stone)"; }}
                       >
                         {t("cardDetails")}
                       </Link>
@@ -198,8 +202,11 @@ export default function SolutionsPage() {
                         </Link>
                       ) : (
                         <button
-                          className="flex-1 px-3 py-1.5 rounded-full border text-xs transition-colors hover:border-[var(--ember)]"
+                          onClick={() => setNotifyProduct({ slug: p.slug, name: p.name })}
+                          className="flex-1 px-3 py-1.5 rounded-full border text-xs transition-colors"
                           style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}
+                          onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--ember)"; e.currentTarget.style.color = "var(--ember)"; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--sand-2)"; e.currentTarget.style.color = "var(--stone)"; }}
                         >
                           {t("cardNotify")}
                         </button>
@@ -213,6 +220,14 @@ export default function SolutionsPage() {
         )}
       </div>
 
+      {notifyProduct && (
+        <NotifyModal
+          productName={notifyProduct.name}
+          productSlug={notifyProduct.slug}
+          onClose={() => setNotifyProduct(null)}
+        />
+      )}
+
       <section className="py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div
@@ -225,18 +240,12 @@ export default function SolutionsPage() {
           >
             <h3 className="heading-sub mb-3">{t("ctaNotSure")}</h3>
             <p className="text-sm mb-8" style={{ color: "var(--stone)" }}>{t("ctaNotSureDesc")}</p>
+            {/* TODO(dev): добавить кнопку "Сравнить решения" → /solutions/compare (страница ещё не создана) */}
             <div className="flex flex-wrap gap-3 justify-center">
               <Link
-                href="/download"
+                href="/#quiz"
                 className="px-6 py-3 rounded-full bg-[var(--ember)] text-white text-sm font-medium hover:opacity-90 transition-all hover:-translate-y-px"
                 style={{ boxShadow: "var(--shadow-btn)" }}
-              >
-                {t("ctaCompare")}
-              </Link>
-              <Link
-                href="/help"
-                className="px-6 py-3 rounded-full border text-ink text-sm font-medium hover:border-[var(--stone)] transition-colors"
-                style={{ borderColor: "var(--sand-2)" }}
               >
                 {t("ctaQuiz")}
               </Link>

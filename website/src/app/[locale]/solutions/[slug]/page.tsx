@@ -7,6 +7,7 @@ import { StoryCard } from "@/components/ui/StoryCard";
 import { DownloadButton } from "@/components/DownloadButton";
 import { ProductGallery } from "@/components/ProductGallery";
 import { StepCard } from "@/components/StepCard";
+import { ComingSoonActions } from "@/components/ui/ComingSoonActions";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -64,6 +65,8 @@ export default async function ProductPage({ params }: Props) {
   const calc = pT.materialCalc ?? pT.specs ?? [];
   const steps = pT.assemblySteps ?? [];
 
+  const isComingSoon = product.status === "coming-soon";
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
       <Breadcrumb className="mb-8">
@@ -98,122 +101,115 @@ export default async function ProductPage({ params }: Props) {
             ))}
           </div>
 
-          {product.downloads.length > 0 ? (
-            <div className="bg-accent-soft border border-accent/20 rounded-xl p-5">
-              <span className="font-mono text-xs text-ink-muted block mb-3">{t("chooseVariant")}</span>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {product.downloads.map((d) => (
-                  <span
-                    key={d.variant}
-                    className={`px-3 py-1 rounded-full border text-xs cursor-pointer ${
-                      d.recommended ? "border-accent bg-accent text-white" : "border-border-soft text-ink-muted hover:border-accent/40"
-                    }`}
-                  >
-                    {pT.downloads?.[d.variant] ?? d.label}{d.recommended ? t("recommended") : ""}
-                  </span>
+          {isComingSoon ? (
+            <ComingSoonActions productName={product.name} productSlug={slug} />
+          ) : (
+            <>
+              {product.downloads.length > 0 && (
+                <div className="bg-accent-soft border border-accent/20 rounded-xl p-5">
+                  <span className="font-mono text-xs text-ink-muted block mb-3">{t("chooseVariant")}</span>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {product.downloads.map((d) => (
+                      <span
+                        key={d.variant}
+                        className={`px-3 py-1 rounded-full border text-xs cursor-pointer ${
+                          d.recommended ? "border-accent bg-accent text-white" : "border-border-soft text-ink-muted hover:border-accent/40"
+                        }`}
+                      >
+                        {pT.downloads?.[d.variant] ?? d.label}{d.recommended ? t("recommended") : ""}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                    {product.downloads.filter((d) => d.recommended).map((d) => (
+                      <DownloadButton key={d.variant} href={d.file} productSlug={slug} />
+                    ))}
+                    <Link
+                      href="/download"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border-soft text-ink text-sm hover:bg-paper transition-colors"
+                    >
+                      {t("viewInstructions")}
+                    </Link>
+                  </div>
+                  <p className="text-xs text-ink-muted mt-3">{product.downloads[0]?.size} · CC BY 4.0</p>
+                </div>
+              )}
+
+              {/* TODO(dev): добавить кнопку сравнения с соседним продуктом → /solutions/compare (страница ещё не создана) */}
+            </>
+          )}
+        </div>
+      </div>
+
+      {!isComingSoon && (
+        <>
+          {why.length > 0 && (
+            <div className="mb-14">
+              <h2 className="heading-sub mb-6">{t("whenToChooseHeading")} {product.name}</h2>
+              <div className="grid md:grid-cols-3 gap-5">
+                {why.map(({ title, desc }) => (
+                  <div key={title} className="border border-border-soft rounded-xl p-5">
+                    <strong className="text-sm text-ink block mb-2">{title}</strong>
+                    <p className="text-xs text-ink-muted">{desc}</p>
+                  </div>
                 ))}
               </div>
-              <div className="flex flex-wrap gap-3">
-                {product.downloads.filter((d) => d.recommended).map((d) => (
-                  <DownloadButton key={d.variant} href={d.file} productSlug={slug} />
+            </div>
+          )}
+
+          {steps.length > 0 && (
+            <div className="mb-14">
+              <h2 className="heading-sub mb-6">{t("assemblyHeading")}</h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                {steps.map(({ n, title, desc }) => (
+                  <StepCard key={n} n={n} title={title} desc={desc} image={`/images/products/${slug}/steps/step-${n}.jpg`} slug={slug} />
                 ))}
-                <Link
-                  href="/download"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border-soft text-ink text-sm hover:bg-paper transition-colors"
-                >
-                  {t("viewInstructions")}
+              </div>
+            </div>
+          )}
+
+          <div className="mb-14 bg-[#F5F1EB] border border-border-soft rounded-2xl p-8">
+            <span className="font-mono text-xs uppercase tracking-wider text-ink-muted block mb-4">{t("materialCalcLabel")}</span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+              {calc.map(({ label, value }) => (
+                <div key={label}>
+                  <span className="font-mono text-xs text-ink-muted block mb-1">{label}</span>
+                  <p className="heading-card text-xl">{value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {stories.length > 0 && (
+            <div className="mb-14">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="heading-sub">{t("storiesWithHeading")} {product.name}</h2>
+                <Link href="/stories" className="link-script hidden sm:block hover:underline">
+                  {t("storiesAll")}
                 </Link>
               </div>
-              <p className="text-xs text-ink-muted mt-3">{product.downloads[0]?.size} · CC BY 4.0</p>
-            </div>
-          ) : (
-            <div className="bg-[#F5F1EB] border border-border-soft rounded-xl p-5 text-center">
-              <p className="heading-card text-xl text-ink-muted mb-2">{t("comingSoon")}</p>
-              <p className="text-sm text-ink-muted">{t("comingSoonDesc")}</p>
+              <div className="grid md:grid-cols-3 gap-5">
+                {stories.map((s) => (
+                  <StoryCard key={s.id} {...s} />
+                ))}
+              </div>
             </div>
           )}
 
-          {nextProduct && (
-            <div className="flex gap-2 mt-4">
-              <Link
-                href={`/solutions/${nextProduct.slug}`}
-                className="px-4 py-1.5 rounded-lg border border-border-soft text-xs text-ink hover:border-accent/40 hover:text-accent transition-colors"
-              >
-                {t("compareTo")} {nextProduct.name} →
-              </Link>
-              <button className="px-4 py-1.5 rounded-lg border border-border-soft text-xs text-ink-muted hover:border-accent/40 transition-colors">
-                {t("share")}
-              </button>
+          {faq.length > 0 && (
+            <div className="mb-14">
+              <h2 className="heading-sub mb-6">{t("faqHeading")}</h2>
+              <div className="space-y-3">
+                {faq.map(({ q, a }) => (
+                  <div key={q} className="border border-border-soft rounded-xl p-5">
+                    <strong className="text-sm text-ink block mb-2">{q}</strong>
+                    <p className="text-xs text-ink-muted">{a}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
-        </div>
-      </div>
-
-      {why.length > 0 && (
-        <div className="mb-14">
-          <h2 className="heading-sub mb-6">{t("whenToChooseHeading")} {product.name}</h2>
-          <div className="grid md:grid-cols-3 gap-5">
-            {why.map(({ title, desc }) => (
-              <div key={title} className="border border-border-soft rounded-xl p-5">
-                <strong className="text-sm text-ink block mb-2">{title}</strong>
-                <p className="text-xs text-ink-muted">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {steps.length > 0 && (
-        <div className="mb-14">
-          <h2 className="heading-sub mb-6">{t("assemblyHeading")}</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {steps.map(({ n, title, desc }) => (
-              <StepCard key={n} n={n} title={title} desc={desc} image={`/images/products/${slug}/steps/step-${n}.jpg`} slug={slug} />
-            ))}
-          </div>
-        </div>
-      )}
-
-      <div className="mb-14 bg-[#F5F1EB] border border-border-soft rounded-2xl p-8">
-        <span className="font-mono text-xs uppercase tracking-wider text-ink-muted block mb-4">{t("materialCalcLabel")}</span>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-          {calc.map(({ label, value }) => (
-            <div key={label}>
-              <span className="font-mono text-xs text-ink-muted block mb-1">{label}</span>
-              <p className="heading-card text-xl">{value}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {stories.length > 0 && (
-        <div className="mb-14">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="heading-sub">{t("storiesWithHeading")} {product.name}</h2>
-            <Link href="/stories" className="link-script hidden sm:block hover:underline">
-              {t("storiesAll")}
-            </Link>
-          </div>
-          <div className="grid md:grid-cols-3 gap-5">
-            {stories.map((s) => (
-              <StoryCard key={s.id} {...s} />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {faq.length > 0 && (
-        <div className="mb-14">
-          <h2 className="heading-sub mb-6">{t("faqHeading")}</h2>
-          <div className="space-y-3">
-            {faq.map(({ q, a }) => (
-              <div key={q} className="border border-border-soft rounded-xl p-5">
-                <strong className="text-sm text-ink block mb-2">{q}</strong>
-                <p className="text-xs text-ink-muted">{a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        </>
       )}
 
       <div className="flex justify-between mt-4">

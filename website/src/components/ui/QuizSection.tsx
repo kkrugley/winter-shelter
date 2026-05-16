@@ -154,6 +154,7 @@ export function QuizSection() {
       id="quiz"
       className="mt-5 rounded-[20px] p-7"
       style={{
+        scrollMarginTop: '64px',
         background: 'linear-gradient(180deg, var(--ember-pale) 0%, var(--cream) 80%)',
         border: '1.5px dashed var(--ember-soft)',
       }}
