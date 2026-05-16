@@ -135,8 +135,7 @@
     "heading": "Solutions catalog",
     "subheading": "Everything you can build or install. Filter by purpose and material.",
     "updatedLabel": "Updated in April 2026",
-    "countOne": "solution",
-    "countFew": "",
+    "count": "{n, plural, one {# solution} other {# solutions}}",
     "filterBtn": "Filters",
     "filterReset": "Reset",
     "filterTypeLabel": "Type",
@@ -370,7 +369,7 @@
       "hands_family":  { "title": "Family Shelter · 6mm plywood", "body": "For a small group. Two-section shelter with a shared roof.", "cta": [{ "label": "Download blueprint" }, { "label": "Find CNC nearby" }] },
       "hands_purrtap": { "title": "PurrTap · yard water station", "body": "Minimal tools, maximum impact. Installed in an hour.", "cta": [{ "label": "Open instructions" }, { "label": "Order kit" }] },
       "hands_unknown": { "title": "Cozy Shelter · universal", "body": "The easiest entry point. Works for most yards.", "cta": [{ "label": "Download blueprint" }, { "label": "How to choose a spot" }] },
-      "time_cozy":     { "title": "Build at a makerspace", "body": "Bring plywood — CNC cuts the parts in an hour. You assemble.", "cta": [{ "label": "Find a makerspace" }, { "label": "Open Cozy" }] },
+      "time_cozy":     { "title": "Build at a makerspace", "body": "Bring plywood — laser cuts the parts in an hour. You assemble.", "cta": [{ "label": "Find a makerspace" }, { "label": "Open Cozy" }] },
       "time_family":   { "title": "Family Shelter at a makerspace", "body": "Ask for CNC, then jigsaw and screwdriver.", "cta": [{ "label": "Find a makerspace" }, { "label": "Open Family" }] },
       "time_purrtap":  { "title": "PurrTap in one walk", "body": "Bring water, set it up — 30 minutes of your time.", "cta": [{ "label": "Instructions" }, { "label": "Find a yard" }] },
       "time_unknown":  { "title": "Help a volunteer", "body": "Join someone else's build — teams are looking for hands.", "cta": [{ "label": "Find a build" }, { "label": "Stories" }] },
@@ -396,7 +395,7 @@
         { "label": "Build cost", "value": "~€25" }
       ],
       "downloads": { "3mm": "3mm plywood", "6mm": "6mm plywood" },
-      "tags": ["shelter", "plywood", "open source"],
+      "tags": ["shelter", "plywood", "laser cut"],
       "whyChoose": [
         { "title": "✓ In a stairwell / on a balcony", "desc": "Compact, fits behind a door." },
         { "title": "✓ First time building", "desc": "Simple assembly, few parts." },
@@ -431,7 +430,7 @@
         { "label": "Build cost", "value": "~€40" }
       ],
       "downloads": { "3mm": "3mm plywood", "6mm": "6mm plywood" },
-      "tags": ["shelter", "plywood", "open source"],
+      "tags": ["shelter", "plywood", "laser cut"],
       "whyChoose": [
         { "title": "✓ Colony of 4–5 cats", "desc": "Separate compartments for each." },
         { "title": "✓ In a yard / by an entrance", "desc": "Spacious, easy to clean." },
@@ -466,7 +465,7 @@
         { "label": "Build cost", "value": "~€10" }
       ],
       "downloads": { "pdf": "PDF Instructions" },
-      "tags": ["water station", "bottle", "quick"],
+      "tags": ["water station", "bottle", "3D print"],
       "whyChoose": [
         { "title": "✓ No tools needed", "desc": "Just a knife and a drill." },
         { "title": "✓ Need water, not shelter", "desc": "Simple and fast — 20 minutes." },

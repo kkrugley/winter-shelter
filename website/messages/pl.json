@@ -135,8 +135,7 @@
     "heading": "Katalog rozwiązań",
     "subheading": "Wszystko, co można zbudować lub zainstalować. Filtruj według celu i materiału.",
     "updatedLabel": "Zaktualizowano w kwietniu 2026",
-    "countOne": "rozwiązanie",
-    "countFew": "ia",
+    "count": "{n, plural, one {# rozwiązanie} few {# rozwiązania} many {# rozwiązań} other {# rozwiązania}}",
     "filterBtn": "Filtry",
     "filterReset": "Resetuj",
     "filterTypeLabel": "Typ",
@@ -396,7 +395,7 @@
         { "label": "Koszt produkcji", "value": "~25 €" }
       ],
       "downloads": { "3mm": "Sklejka 3 mm", "6mm": "Sklejka 6 mm" },
-      "tags": ["schronienie", "sklejka", "open source"],
+      "tags": ["schronienie", "sklejka", "cięcie laserowe"],
       "whyChoose": [
         { "title": "✓ W klatce schodowej / na balkonie", "desc": "Kompaktowy, mieści się za drzwiami." },
         { "title": "✓ Pierwszy raz", "desc": "Prosty montaż, mało elementów." },
@@ -431,7 +430,7 @@
         { "label": "Koszt produkcji", "value": "~40 €" }
       ],
       "downloads": { "3mm": "Sklejka 3 mm", "6mm": "Sklejka 6 mm" },
-      "tags": ["schronienie", "sklejka", "open source"],
+      "tags": ["schronienie", "sklejka", "cięcie laserowe"],
       "whyChoose": [
         { "title": "✓ Kolonia 4–5 kotów", "desc": "Osobne przegródki dla każdego." },
         { "title": "✓ Na podwórku / przy wejściu", "desc": "Przestronny, łatwy do czyszczenia." },
@@ -466,7 +465,7 @@
         { "label": "Koszt produkcji", "value": "~10 €" }
       ],
       "downloads": { "pdf": "Instrukcja PDF" },
-      "tags": ["poidło", "butelka", "szybko"],
+      "tags": ["poidło", "butelka", "druk 3D"],
       "whyChoose": [
         { "title": "✓ Brak narzędzi", "desc": "Tylko nóż i wiertarka." },
         { "title": "✓ Potrzebna woda, nie schronienie", "desc": "Prosto i szybko — 20 minut." },

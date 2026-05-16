@@ -58,7 +58,7 @@ export default async function ProductPage({ params }: Props) {
   const prevProduct = currentIndex > 0 ? products[currentIndex - 1] : null;
   const nextProduct = currentIndex < products.length - 1 ? products[currentIndex + 1] : null;
 
-  const stories = await filterStories({ product_slug: slug });
+  const stories = await filterStories({ product_slug: slug, limit: 3 });
   const why = pT.whyChoose ?? [];
   const faq = pT.faqs ?? [];
   const calc = pT.materialCalc ?? pT.specs ?? [];
