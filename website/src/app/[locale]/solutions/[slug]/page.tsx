@@ -1,5 +1,7 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
+import { pageAlternates } from "@/lib/metadata";
 import { Link } from "@/i18n/navigation";
 import { products, getProduct } from "@/data/products";
 import { filterStories } from "@/lib/stories";
@@ -9,6 +11,8 @@ import { StepCard } from "@/components/StepCard";
 import { ComingSoonActions } from "@/components/ui/ComingSoonActions";
 import { MaterialsCalculator } from "@/components/ui/MaterialsCalculator";
 import { VariantSelector } from "@/components/ui/VariantSelector";
+import { JsonLd } from "@/components/JsonLd";
+import { BASE_URL, siteUrl } from "@/lib/site";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -20,6 +24,11 @@ import {
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, slug } = await params;
+  return { alternates: pageAlternates(`/solutions/${slug}`, locale) };
 }
 
 interface Props {
@@ -68,8 +77,30 @@ export default async function ProductPage({ params }: Props) {
 
   const isComingSoon = product.status === "coming-soon";
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: pT.description,
+    image: product.images[0]
+      ? `${BASE_URL}${product.images[0]}`
+      : undefined,
+    brand: { "@type": "Brand", name: "SafePaws" },
+    url: siteUrl(`/solutions/${product.slug}`, locale),
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+      availability: isComingSoon
+        ? "https://schema.org/PreOrder"
+        : "https://schema.org/InStock",
+      url: siteUrl(`/solutions/${product.slug}`, locale),
+    },
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+      <JsonLd data={productSchema} />
       <Breadcrumb className="mb-8">
         <BreadcrumbList>
           <BreadcrumbItem>

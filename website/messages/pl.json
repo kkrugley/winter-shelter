@@ -85,13 +85,13 @@
     "badgeCountries": "krajów",
     "badgeLanguages": "języki",
     "howStartedHeading": "Jak to się zaczęło",
-    "howStarted1": "W 2023 roku Pasza zbudował jeden domek dla kotów przy wejściu do bloku. Potem drugi. Potem sąsiedzi poprosili o plan.",
-    "howStarted2": "Tak powstał SafePaws — żeby plan, który już istnieje, mógł pobrać i zbudować każdy.",
-    "howStarted3": "Dziś w projekcie są 2 modele domków, poidło PurrTap i planowany karmnik EDC.",
+    "howStarted1": "Historia projektu",
+    "howStarted2": "",
+    "howStarted3": "",
     "authorName": "Pasza Krugley",
     "authorRole": "autor · Brześć, Białoruś",
     "authorOpen": "otwarty na współpracę",
-    "authorQuote": "«Zaczął od jednego domku przy wejściu — teraz to projekt dla wszystkich.»",
+    "authorQuote": "«Zaczął od jednego domku na działce — teraz to projekt dla wszystkich.»",
     "authorContactSite": "Strona",
     "timelineHeading": "Kamienie milowe projektu",
     "timeline": [
@@ -395,7 +395,7 @@
   },
   "Products": {
     "cozy-shelter": {
-      "description": "Ciepłe schronienie z arkusza sklejki. Dwa wejścia, ochrona przed wiatrem, minimalny zestaw narzędzi.",
+      "description": "Schronienie dla 1–2 kotów. Podwójne ściany z przestrzenią na izolację, L-kształtny przedsionek, pochyły dach i miejsce na 2 miski z wodą lub karmą.",
       "subtitle": "Kompaktowy domek z ocieplanymi ścianami dla kilku kotów",
       "capacity": "1–2 koty",
       "specs": [
@@ -407,8 +407,8 @@
       "downloads": { "3mm": "Sklejka 3 mm", "6mm": "Sklejka 6 mm" },
       "tags": ["schronienie", "sklejka", "cięcie laserowe"],
       "whyChoose": [
-        { "title": "✓ W klatce schodowej / na balkonie", "desc": "Kompaktowy, mieści się za drzwiami." },
-        { "title": "✓ Pierwszy raz", "desc": "Prosty montaż, mało elementów." },
+        { "title": "✓ Pierwszy raz", "desc": "Ponumerowane elementy, plan cięcia DXF, montaż bez specjalnych umiejętności." },
+        { "title": "✓ Minimalne koszty", "desc": "Obecnie najtańsze rozwiązanie na zimę." },
         { "title": "✓ 1–2 koty w pobliżu", "desc": "Więcej? Weź Family." }
       ],
       "assemblySteps": [
@@ -465,11 +465,11 @@
       ]
     },
     "purrtap": {
-      "description": "Proste poidło z butelki. Instrukcja na 1 stronę. Można złożyć w 20 minut.",
+      "description": "Stacjonarne poidło z plastikową podstawą i butelką. Aby uzupełnić wodę, wystarczy odkręcić pustą butelkę i zamontować nową.",
       "subtitle": "Zewnętrzne poidło z podstawą drukowaną 3D i butelką",
       "capacity": "wiele kotów",
       "specs": [
-        { "label": "Czas montażu", "value": "10 minut" },
+        { "label": "Trudność montażu", "value": "Łatwy" },
         { "label": "Materiały", "value": "Plastik PETG/ABS" },
         { "label": "Narzędzie", "value": "Drukarka 3D" },
         { "label": "Koszt produkcji", "value": "~10 €" }
@@ -493,14 +493,14 @@
         { "q": "Jak często uzupełniać?", "a": "Raz na 2–3 dni latem, raz dziennie przy mrozie." }
       ],
       "materialCalc": [
-        { "label": "Plastik", "value": "PETG / ABS - 200 g" },
-        { "label": "Czas druku", "value": "2 godziny" },
+        { "label": "Materiał", "value": "PETG / ABS - 200 g" },
+        { "label": "Trudność montażu", "value": "Średnia" },
         { "label": "Butelka", "value": "PET 0,5–1 l" },
         { "label": "Mocowanie", "value": "Kołek rozporowy" }
       ]
     },
     "edc-feeder": {
-      "description": "Kompaktowy karmnik do jednorazowego wyłożenia karmy. Drukuje się na zwykłej drukarce FDM.",
+      "description": "Kompaktowy karmnik do porcjowego karmienia kotów ulicznych.",
       "subtitle": "Kieszonkowy karmnik-dozownik dla kotów",
       "capacity": "wiele kotów",
       "specs": [
@@ -510,7 +510,7 @@
         { "label": "Koszt produkcji", "value": "~10 €" }
       ],
       "downloads": {},
-      "tags": ["karmienie", "druk 3D", "wkrótce"],
+      "tags": ["karmienie", "druk 3D", "EDC"],
       "whyChoose": [
         { "title": "✓ Brak narzędzi", "desc": "Tylko nóż i wiertarka." },
         { "title": "✓ Potrzebna woda, nie schronienie", "desc": "Prosto i szybko — 20 minut." },

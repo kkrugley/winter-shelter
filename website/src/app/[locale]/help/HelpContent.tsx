@@ -33,7 +33,7 @@ const WAY_STRUCTURE: { slug: string; icon: React.ElementType; caps: Cap[]; href:
   { slug: "share",     icon: MegaphoneSimple,caps: ["voice"],            href: "/about#share",                   dashed: false },
   { slug: "donate",    icon: Heart,          caps: ["money"],            href: null,                             dashed: false },
   { slug: "community", icon: UsersThree,     caps: ["time", "voice"],   href: "https://t.me/safepaws_help",     dashed: false },
-  { slug: "partner",   icon: Handshake,      caps: ["money", "voice"],  href: "mailto:kkrugley@proton.me",      dashed: false },
+  { slug: "partner",   icon: Handshake,      caps: ["money", "voice"],  href: "mailto:safepaws.help@proton.me",      dashed: false },
   { slug: "translate", icon: Globe,          caps: ["time"],             href: "https://github.com/kkrugley/safepaws", dashed: false },
 ];
 

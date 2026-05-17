@@ -5,6 +5,10 @@ import { Check, DownloadSimple, Copy, CaretDown } from "@phosphor-icons/react";
 import type { Product } from "@/data/products";
 import type { LineItem, ProductMaterialsConfig } from "@/data/materials";
 
+// TODO(dev): i18n + multi-currency — сейчас все label/spec в products.ts (не через ru.json),
+// цены захардкожены в BYN. Нужно: 1) перенести label/spec позиций в messages/*.json,
+// 2) добавить базовую валюту BYN и пересчёт в валюту локали через публичный курс (напр. NBRBapi).
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 interface CalcState {
@@ -26,7 +30,6 @@ interface CalcResult {
   rows: CalcRow[];
   materialsCost: number;
   servicesCost: number;
-  totalTime: number;
 }
 
 // ─── Calc logic ───────────────────────────────────────────────────────────────
@@ -65,7 +68,6 @@ function runCalc(config: ProductMaterialsConfig, state: CalcState): CalcResult {
     rows,
     materialsCost: Math.round(materialsCost),
     servicesCost: Math.round(servicesCost),
-    totalTime: Math.round(config.timePerUnit * state.qty * 10) / 10,
   };
 }
 
@@ -77,10 +79,6 @@ function fmtQty(n: number, unit: string): string {
   return `${n} ${unit}`;
 }
 
-function fmtTime(h: number): string {
-  if (h < 1) return `${Math.round(h * 60)} мин`;
-  return `${h.toString().replace(".", ",")} ч`;
-}
 
 function fmtCost(n: number): string {
   return n === 0 ? "0" : n.toLocaleString("ru-RU");
@@ -115,7 +113,7 @@ function buildTextList(
   lines.push("", "─".repeat(40));
   lines.push(`Материалы: ${result.materialsCost} BYN`);
   if (result.servicesCost > 0) lines.push(`Услуги: ${result.servicesCost} BYN`);
-  lines.push(`Время сборки: ~${fmtTime(result.totalTime)}`, "", "Цены ориентировочные");
+  lines.push("", "Цены ориентировочные");
   return lines.join("\n");
 }
 
@@ -533,8 +531,6 @@ export function MaterialsCalculator({ product }: { product: Product }) {
           {hasServices && result.servicesCost > 0 && (
             <TotRow label="услуги" value={`${result.servicesCost} BYN`} />
           )}
-          <TotRow label="время сборки" value={`~ ${fmtTime(result.totalTime)}`} />
-
           {/* Grand total */}
           <div style={{ gridColumn: "1 / 5", display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 14, height: 56, marginTop: 4 }}>
             <span style={{ fontFamily: "var(--font-script)", fontSize: 22, color: "var(--ember)", transform: "rotate(-3deg)", lineHeight: 1 }}>
@@ -592,7 +588,7 @@ export function MaterialsCalculator({ product }: { product: Product }) {
               fontFamily: "var(--font-sans)", fontSize: 12, color: "var(--stone)",
               background: "none", border: "none", cursor: "pointer",
               display: "inline-flex", alignItems: "center", gap: 4,
-              opacity: 0.6, padding: "0 2px",
+              opacity: 0.6, padding: "0 2px", marginTop: 10,
             }}
           >
             <CaretDown size={12} style={{ transform: "rotate(180deg)" }} />
