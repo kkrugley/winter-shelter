@@ -25,6 +25,7 @@
 *.lnk
 *.m3~
 *.a3~
+_tmp_assets/
 
 # === Specific file to ignore globally ===
 00.99.m3d
@@ -42,3 +43,11 @@ cad-source/**/Manuals/
 
 # Ignore entire directory
 cad-source/visual/
+
+# Website rebuild — legacy parallel dev dir
+website-new/
+
+# Claude Code project settings
+.claude/
+CLAUDE.md
+AGENTS.md

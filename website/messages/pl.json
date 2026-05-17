@@ -1,0 +1,534 @@
+{
+  "Metadata": {
+    "title": "SafePaws — plany domków i poideł dla kotów ulicznych",
+    "description": "Otwarty projekt: bezpłatne plany ochronnych domków i poideł dla bezdomnych kotów. Pobierz DXF/PDF, zbuduj sam lub pomóż w inny sposób."
+  },
+  "Nav": {
+    "solutions": "Rozwiązania",
+    "help": "Jak pomóc",
+    "stories": "Historie",
+    "about": "O nas",
+    "download": "Pobierz",
+    "downloadFull": "Pobierz plany",
+    "menuOpen": "Otwórz menu",
+    "menuClose": "Zamknij menu"
+  },
+  "Footer": {
+    "tagline": "Rozwiązania dla pomocy zwierzętom ulicznym",
+    "ctaText": "Każdy domek to szansa na życie.",
+    "ctaButton": "Pobierz pierwszy plan →",
+    "colSolutions": "Rozwiązania",
+    "colParticipation": "Udział",
+    "colContact": "Kontakt",
+    "allSolutions": "Wszystkie rozwiązania →",
+    "build": "Zbuduj domek",
+    "install": "Zainstaluj poidło",
+    "share": "Opowiedz innym",
+    "allWays": "Wszystkie sposoby →",
+    "aboutProject": "O projekcie",
+    "githubProject": "Projekt na GitHub"
+  },
+  "LangSwitcher": {
+    "label": "Wybierz język",
+    "ru": "Русский",
+    "be": "Беларуская",
+    "pl": "Polski",
+    "en": "English"
+  },
+  "Common": {
+    "copiedLink": "Link skopiowany ✓",
+    "breadHome": "Strona główna",
+    "photoPlaceholder": "Zdjęcie"
+  },
+  "Home": {
+    "heroTitle": "Zima nadchodzi.",
+    "heroTitle2": "Nie mają gdzie się schronić.",
+    "heroSubtitle": "SafePaws — otwarte plany domków i poideł dla bezdomnych kotów.\nPobierz, zbuduj, zainstaluj — lub pomóż w inny sposób.",
+    "heroCta": "Zacznij pomagać →",
+    "heroCta2": "Zobacz katalog",
+    "heroImgAlt": "Bezdomne koty zimą",
+    "pathsHeading": "Jak chcesz pomóc?",
+    "paths": [
+      { "title": "Mam narzędzia", "desc": "Chcę zbudować domek lub jedno z innych urządzeń!", "chips": ["Frezarka CNC", "Drukarka 3D"], "cta": "Wybierz plan →" },
+      { "title": "Chcę wesprzeć", "desc": "Chcę opowiedzieć o projekcie lub wesprzeć finansowo.", "chips": ["Udostępnij", "Wesprzyj"], "cta": "Opcje →" },
+      { "title": "Jestem zainteresowany", "desc": "Chcę dowiedzieć się więcej o projekcie i jak mogę pomóc.", "chips": ["Historie", "O projekcie"], "cta": "Historie ludzi →" }
+    ],
+    "catalogHeading": "Katalog rozwiązań",
+    "catalogAll": "wszystkie rozwiązania →",
+    "catalogAllMobile": "Wszystkie rozwiązania →",
+    "statusComingSoon": "W przygotowaniu!",
+    "cardLearnMore": "Dowiedz się →",
+    "cardInstall": "Jak zainstalować →",
+    "cardDetails": "Szczegóły →",
+    "stepsHeading": "Jak to działa?",
+    "steps": [
+      { "title": "Pobierz", "desc": "Wybierz produkt i pobierz pliki: DXF — do cięcia laserowego, STL — do druku 3D." },
+      { "title": "Zbuduj", "desc": "Wykonaj części samodzielnie lub w najbliższej pracowni. Montaż jest bardzo prosty — da radę każdy!" },
+      { "title": "Zainstaluj", "desc": "Umieść domki w odpowiednim miejscu i podziel się swoją historią!" }
+    ],
+    "storiesHeading": "Historie",
+    "storiesAll": "wszystkie historie →",
+    "storiesAllMobile": "Wszystkie historie →",
+    "ctaHeading": "Gotowy zacząć?",
+    "ctaBody": "Wszystkie pliki są bezpłatne i otwarte.",
+    "ctaLink1": "Otwórz katalog",
+    "ctaLink2": "Jak pomóc bez narzędzi"
+  },
+  "About": {
+    "breadAbout": "O projekcie",
+    "heroTitle": "Dobro powinno być",
+    "heroTitle2": "proste.",
+    "heroDesc": "SafePaws to otwarty projekt: plany i rozwiązania, aby każdy mógł przy minimalnym wysiłku pomóc zwierzętom ulicznym przeżyć zimę.",
+    "heroImgAlt": "Zespół SafePaws",
+    "badgeDownloads": "pobrań",
+    "badgeInstalled": "zainstalowanych",
+    "badgeCountries": "krajów",
+    "badgeLanguages": "języki",
+    "howStartedHeading": "Jak to się zaczęło",
+    "howStarted1": "Historia projektu",
+    "howStarted2": "",
+    "howStarted3": "",
+    "authorName": "Pasza Krugley",
+    "authorRole": "autor · Brześć, Białoruś",
+    "authorOpen": "otwarty na współpracę",
+    "authorQuote": "«Zaczął od jednego domku na działce — teraz to projekt dla wszystkich.»",
+    "authorContactSite": "Strona",
+    "timelineHeading": "Kamienie milowe projektu",
+    "timeline": [
+      { "year": "2023 · jesień", "title": "Pierwszy domek", "desc": "Prototyp przy wejściu." },
+      { "year": "2024 · wiosna", "title": "Cozy v1", "desc": "Pierwszy publiczny plan." },
+      { "year": "2024 · zima", "title": "Family + strona", "desc": "4 języki, Vercel." },
+      { "year": "2026", "title": "PurrTap · redesign", "desc": "Nowa strona + katalog.", "future": true }
+    ],
+    "partnersHeading": "Kto pomaga",
+    "partners": ["Hackspace Brześć", "Schronisko «Dom»", "Wolontariusze Mińsk", "I 40+ innych"],
+    "contactHeading": "Skontaktuj się",
+    "contactDesc": "Pytanie, propozycja, partnerstwo — napisz w dowolny sposób."
+  },
+  "Help": {
+    "breadHelp": "Jak pomóc",
+    "heading": "Można pomagać na różne sposoby!",
+    "subheading": "Nie każdy ma narzędzia i umiejętności. Nie każdy ma czas lub pieniądze. Ale każdy ma coś.",
+    "filterLabel": "Mam:",
+    "filterAll": "Pokaż wszystko",
+    "filterHands": "Narzędzia",
+    "filterTime": "Czas",
+    "filterMoney": "Finanse",
+    "filterVoice": "Publiczność",
+    "noResults": "Brak sposobów dla tego filtra",
+    "ways": [
+      { "title": "Pobierz pliki", "desc": "Pobierz pliki dowolnego produktu i zbuduj go! Zbudowany przez ciebie domek lub zainstalowane poidło na pewno znajdzie potrzebującego!", "chips": ["Produkcja", "Narzędzia"], "cta": "Do katalogu →" },
+      { "title": "Zaproponuj pomysł", "desc": "Wymyśliłeś coś nowego do pomocy zwierzętom? Wypełnij formularz — na pewno to zrealizujemy!", "chips": ["Pomoc", "Pomysły"], "cta": "Wypełnij formularz →" },
+      { "title": "Udostępnij", "desc": "Opowiedz o projekcie w mediach społecznościowych, prześlij znajomym i rodzinie — zaproponuj wspólne budowanie domku w weekend!", "chips": ["Pomoc", "Social media"], "cta": "Udostępnij ↗" },
+      { "title": "Wesprzyj", "desc": "Pieniądze pójdą na materiały do prototypów nowych rozwiązań i produkcji istniejących.", "chips": ["Rozwój", "Wsparcie projektu"], "cta": "Wesprzyj →" },
+      { "title": "Społeczność Telegram", "desc": "Kanał Telegram, gdzie omawiamy instalacje i pomagamy nowicjuszom.", "chips": ["Telegram", "Chat"], "cta": "Dołącz →" },
+      { "title": "Partnerstwo", "desc": "Hackspace'y, schroniska, firmy prywatne — jesteśmy gotowi współpracować z każdym.", "chips": ["Wzajemna pomoc", "Współpraca"], "cta": "Napisz →" },
+      { "title": "Przetłumacz stronę", "desc": "Pomóż przetłumaczyć stronę na inne języki! Jeśli jesteś doświadczonym deweloperem lub inżynierem — pomóż ulepszyć stronę lub produkty. Wszystkie źródła są na GitHub.", "chips": ["Tłumaczenie", "Rozwój", "Dev"], "cta": "Otwórz GitHub →" }
+    ],
+    "ctaHeading": "Kiedy to czytasz, na zewnątrz jest –5°C.",
+    "ctaBody": "Każde działanie z tej strony to krok we właściwym kierunku.",
+    "ctaShare": "Najprostsze: udostępnij",
+    "ctaQuiz": "Zrób quiz"
+  },
+  "Solutions": {
+    "breadSolutions": "Rozwiązania",
+    "heading": "Katalog rozwiązań",
+    "subheading": "Wszystko, co można zbudować lub zainstalować. Filtruj według celu i materiału.",
+    "updatedLabel": "Zaktualizowano w kwietniu 2026",
+    "count": "{n, plural, one {# rozwiązanie} few {# rozwiązania} many {# rozwiązań} other {# rozwiązania}}",
+    "filterBtn": "Filtry",
+    "filterReset": "Resetuj",
+    "filterTypeLabel": "Typ",
+    "filterMaterialLabel": "Materiał",
+    "filterStatusLabel": "Status",
+    "typeShelter": "Schronienia",
+    "typeHydration": "Pojenie",
+    "typeFeeding": "Karmienie",
+    "materialWood": "Sklejka",
+    "materialPlastic": "Plastik",
+    "materialMetal": "Metal",
+    "materialRecycled": "Recykling",
+    "statusAvailable": "Gotowe",
+    "statusComingSoon": "Wkrótce",
+    "noResults": "Nic nie znaleziono dla tych filtrów",
+    "cardDetails": "Szczegóły →",
+    "cardDownload": "Pobierz",
+    "cardNotify": "Powiadom mnie",
+    "notifyModalTitle": "Wkrótce",
+    "notifyModalDesc": "Ten produkt jest w trakcie opracowywania. Zostaw email — napiszemy, gdy będzie gotowy do pobrania.",
+    "notifyEmailPlaceholder": "twój@email.com",
+    "notifyEmailBtn": "Powiadom mnie",
+    "notifyEmailSuccess": "Gotowe! Napiszemy, gdy wyjdzie.",
+    "notifyEmailError": "Coś poszło nie tak. Spróbuj ponownie.",
+    "notifyEmailInvalid": "Wprowadź poprawny email.",
+    "notifyTelegramBtn": "Powiadomienie przez Telegram",
+    "notifyTelegramTooltip": "Po kliknięciu otworzy się nasz bot Telegram, gdzie możesz zapisać się na newsletter.",
+    "ctaNotSure": "Nie wiesz, od czego zacząć?",
+    "ctaNotSureDesc": "Zrób krótki quiz — podpowiemy, które rozwiązanie pasuje do Twojej sytuacji.",
+    "ctaQuiz": "Zrób quiz"
+  },
+  "ProductSlug": {
+    "breadSolutions": "Rozwiązania",
+    "chooseVariant": "wybierz materiał:",
+    "recommended": " · zalecane",
+    "viewInstructions": "zobacz przykład instrukcji",
+    "comingSoon": "Wkrótce w katalogu",
+    "comingSoonDesc": "Śledź aktualizacje na Telegramie",
+    "telegramChannel": "Przejdź do kanału Telegram",
+    "subscribeUpdates": "Subskrybuj aktualizacje",
+    "compareTo": "Porównaj z",
+    "share": "Udostępnij",
+    "whenToChooseHeading": "Kiedy wybrać",
+    "assemblyHeading": "Złóż w 4 krokach",
+    "materialCalcLabel": "kalkulator materiałów",
+    "storiesWithHeading": "Kto już zbudował",
+    "storiesAll": "wszystkie historie →",
+    "faqHeading": "Często zadawane pytania",
+    "statusAvailable": "Gotowe",
+    "statusComingSoon": "Wkrótce",
+    "cardAriaLearnAbout": "Dowiedz się o",
+    "cardAriaInstall": "Jak zainstalować",
+    "cardAriaDetails": "Szczegóły o",
+    "downloadBtn": "Pobierz DXF + PDF"
+  },
+  "Download": {
+    "breadDownload": "Pobierz",
+    "heading": "Pobierz plany",
+    "subheading": "Trzy kroki: wybierz model, materiał, pobierz plik. Wszystko za darmo.",
+    "stepModel": "Model",
+    "stepMaterial": "Materiał",
+    "stepFile": "Plik",
+    "step1Header": "Krok 1 / 3",
+    "step1Title": "Wybierz model",
+    "step2Header": "Krok 2 / 3",
+    "step2Title": "Wybierz materiał",
+    "step2ModelLabel": "Model:",
+    "step3Header": "Krok 3 / 3 · Twój plik",
+    "step3Inside": "W środku: DXF (plan cięcia) + PDF (instrukcja)",
+    "btnNext": "Dalej →",
+    "btnBack": "← Wstecz",
+    "btnDownload": "Pobierz",
+    "sizeLabel": "Rozmiar:",
+    "selected": "wybrane",
+    "recommended": "zalecane",
+    "nextStepsHeading": "Następne kroki",
+    "nextSteps": [
+      { "label": "Przed montażem", "title": "Przeczytaj instrukcję", "desc": "5 minut — zaoszczędzi godziny.", "linkLabel": "Przejdź →" },
+      { "label": "Masz problemy?", "title": "Dołącz do kanału TG", "desc": "To pytanie było już prawdopodobnie omówione i rozwiązanie tam jest!", "linkLabel": "Przejdź →" },
+      { "label": "Gdy skończysz", "title": "Dodaj historię", "desc": "Zdjęcie, kilka słów + punkt na mapie!", "linkLabel": "Przejdź →" }
+    ],
+    "doneTitle": "Pobieranie rozpoczęte!",
+    "doneDesc": "Jeśli plik się nie pobrał — naciśnij przycisk jeszcze raz. Dziękujemy za pomoc zwierzętom!",
+    "doneShare": "Opowiedz, gdy zbudujesz →",
+    "doneMore": "Więcej rozwiązań"
+  },
+  "Stories": {
+    "breadStories": "Historie",
+    "heading": "Gdzie już stoją domki",
+    "subheading": "Każdy punkt to prawdziwy zbudowany i zainstalowany domek lub poidło.",
+    "addStory": "+ Dodaj historię",
+    "filterAll": "Wszystkie",
+    "viewMap": "Mapa",
+    "viewMapGrid": "Mapa + lista",
+    "loading": "Ładowanie…",
+    "noStoriesFilter": "Brak historii dla tych filtrów",
+    "allStoriesHeading": "Wszystkie historie",
+    "noStoriesYet": "Brak historii",
+    "showAll": "pokaż wszystkie ({count})",
+    "hide": "ukryj",
+    "closePopup": "Zamknij",
+    "ctaHeading": "Zbudowałeś domek? Opowiedz!",
+    "ctaBody": "Zdjęcie + kilka linijek — i punkt pojawi się na mapie.",
+    "ctaLink": "Dodaj historię →"
+  },
+  "StoriesAdd": {
+    "breadStories": "Historie",
+    "breadAdd": "Dodaj nową",
+    "heading": "Podziel się historią",
+    "subheading": "Opowiedz, które z naszych rozwiązań wcieliłeś w życie?\nPo weryfikacji historia pojawi się na mapie.",
+    "fieldProduct": "O czym chcesz opowiedzieć?",
+    "fieldAuthor": "Twoje imię",
+    "fieldAuthorHint": "Jak podpisać historię",
+    "fieldAuthorPlaceholder": "Wystarczy imię lub abstrakcyjne «wolontariusze»",
+    "fieldQuote": "Cytat — jedna fraza o rezultacie",
+    "fieldQuoteHint": "Krótka fraza, która pojawi się na karcie. Na przykład: «Stworzyliśmy schronisko dla 4 kotów na podwórku»",
+    "fieldQuotePlaceholder": "5 kociąt przeżyło zimę",
+    "fieldQuoteAriaLabel": "Cytat",
+    "fieldTelegram": "Telegram (opcjonalnie)",
+    "fieldTelegramHint": "Jeśli będziemy chcieli doprecyzować szczegóły lub podziękować",
+    "fieldPlace": "Miejsce",
+    "fieldPlaceHint": "Wystarczy nazwa miasta, ale jeśli chcesz podać dokładniej — proszę! Dla Twojej prywatności współrzędne zostaną przesunięte o 500 metrów w losowym kierunku.",
+    "fieldPlacePlaceholder": "Mińsk, Warszawa, Wilno…",
+    "fieldDate": "Kiedy zainstalowałeś?",
+    "fieldDateHint": "Mniej więcej — wystarczy miesiąc i rok",
+    "fieldDateMonthPlaceholder": "Miesiąc",
+    "fieldDateYearPlaceholder": "Rok",
+    "fieldPhoto": "Zdjęcie",
+    "fieldPhotoHint": "JPG, PNG, WEBP — do 10 MB",
+    "photoUploading": "Przesyłam…",
+    "photoUploaded": "Przesłane",
+    "photoRemoveLabel": "Usuń zdjęcie",
+    "photoDrop": "Przeciągnij zdjęcie lub",
+    "photoSelect": "wybierz plik",
+    "submit": "Wyślij historię →",
+    "submitting": "Wysyłam…",
+    "uploadingPhoto": "Przesyłam zdjęcie…",
+    "submitNote": "Sprawdzimy historię ręcznie — zwykle 1–2 dni — i dodamy punkt na mapę.",
+    "successTitle": "Dziękujemy!",
+    "successDesc": "Twoja historia została odebrana. Sprawdzimy ją i dodamy na mapę — zwykle trwa to 1–2 dni.",
+    "successLink": "Zobacz wszystkie historie →",
+    "backLink": "Wszystkie historie",
+    "errorName": "Wypełnij pole: imię",
+    "errorProduct": "Wypełnij pole: produkt",
+    "errorQuote": "Wypełnij pole: cytat",
+    "errorCity": "Wypełnij pole: miasto",
+    "products": [
+      { "slug": "cozy-shelter", "label": "Cozy Shelter — kompaktowy domek" },
+      { "slug": "family-shelter", "label": "Family Shelter — duży domek" },
+      { "slug": "purrtap", "label": "PurrTap — poidło" },
+      { "slug": "edc-feeder", "label": "EDC Feeder — karmnik" }
+    ],
+    "months": ["styczeń","luty","marzec","kwiecień","maj","czerwiec","lipiec","sierpień","wrzesień","październik","listopad","grudzień"]
+  },
+  "SolutionsAdd": {
+    "breadSolutions": "Rozwiązania",
+    "breadAdd": "Zaproponuj pomysł",
+    "heading": "Zaproponuj pomysł",
+    "subheading": "Wymyśliłeś coś nowego do pomocy zwierzętom?\nOpisz pomysł — na pewno go rozpatrzymy.",
+    "fieldCategory": "Kategoria pomysłu",
+    "categories": [
+      { "slug": "new-product", "label": "Nowy produkt" },
+      { "slug": "improvement", "label": "Ulepszenie istniejącego" },
+      { "slug": "other", "label": "Inne" }
+    ],
+    "fieldTitle": "Nazwa pomysłu",
+    "fieldTitleHint": "Krótko — jedna fraza",
+    "fieldTitlePlaceholder": "Składany karmnik na balkon",
+    "fieldDesc": "Opis",
+    "fieldDescHint": "Opowiedz więcej: po co, dla kogo, jak mogłoby działać",
+    "fieldDescPlaceholder": "Chcę karmnik, który można wygodnie mocować do balustrady balkonu — żeby nie zajmował miejsca na podłodze i nie mókł w deszczu.",
+    "fieldAuthor": "Twoje imię",
+    "fieldAuthorHint": "Jak podpisać pomysł",
+    "fieldAuthorPlaceholder": "Imię lub pseudonim",
+    "fieldTelegram": "Telegram (opcjonalnie)",
+    "fieldTelegramHint": "Jeśli będziemy chcieli doprecyzować szczegóły lub podziękować",
+    "fieldPhoto": "Zdjęcie lub szkic (opcjonalnie)",
+    "fieldPhotoHint": "JPG, PNG, WEBP — do 10 MB. Możesz dołączyć rysunek odręczny lub referencję.",
+    "photoUploading": "Przesyłam…",
+    "photoUploaded": "Przesłane",
+    "photoRemoveLabel": "Usuń zdjęcie",
+    "photoDrop": "Przeciągnij zdjęcie lub",
+    "photoSelect": "wybierz plik",
+    "submit": "Wyślij pomysł →",
+    "submitting": "Wysyłam…",
+    "uploadingPhoto": "Przesyłam zdjęcie…",
+    "submitNote": "Rozpatrzymy każdy pomysł i skontaktujemy się z Tobą, jeśli nam odpowiada.",
+    "successTitle": "Dziękujemy!",
+    "successDesc": "Twój pomysł został odebrany. Na pewno go rozpatrzymy.",
+    "successLink": "Zobacz wszystkie rozwiązania →",
+    "backLink": "Wszystkie rozwiązania",
+    "errorName": "Wypełnij pole: imię",
+    "errorTitle": "Wypełnij pole: nazwa pomysłu",
+    "errorDesc": "Wypełnij pole: opis"
+  },
+  "NotFound": {
+    "desc": "Wygląda na to, że taka strona nie istnieje",
+    "goHome": "Strona główna"
+  },
+  "Quiz": {
+    "heading": "Nie jesteś pewien, która droga jest Twoja?",
+    "subheading": "3 krótkie pytania — podpowiemy, które rozwiązanie jest bliższe właśnie Tobie.",
+    "startBtn": "Sprawdź w 30 sek",
+    "laterBtn": "później",
+    "closeBtn": "← zamknij",
+    "restartBtn": "Zrób jeszcze raz",
+    "resultLabel": "Twoja droga",
+    "done": "Gotowe",
+    "questionOf": "Pytanie {step} z {total}",
+    "copiedLink": "Link skopiowany ✓",
+    "steps": [
+      {
+        "q": "Co masz?",
+        "opts": [
+          { "label": "Ręce i narzędzia", "path": "hands" },
+          { "label": "Trochę czasu", "path": "time" },
+          { "label": "Gotowy wesprzeć finansowo", "path": "money" },
+          { "label": "Głos w mediach społecznościowych", "path": "voice" }
+        ]
+      },
+      {
+        "q": "Ile zwierząt jest w pobliżu?",
+        "opts": [
+          { "label": "1–2 koty", "path": "cozy" },
+          { "label": "4–5 kotów", "path": "family" },
+          { "label": "Cała kolonia", "path": "purrtap" },
+          { "label": "Nie wiem dokładnie", "path": "unknown" }
+        ]
+      },
+      {
+        "q": "Kiedy chcesz zacząć?",
+        "opts": [
+          { "label": "W ten weekend", "path": "now" },
+          { "label": "W ciągu 1–2 tygodni", "path": "soon" },
+          { "label": "Na razie tylko oglądam", "path": "later" }
+        ]
+      }
+    ],
+    "results": {
+      "hands_cozy":    { "title": "Cozy Shelter · sklejka 6 mm", "body": "Dla 1–2 kotów. Montaż na jeden wieczór. DXF + PDF z rozplanowaniem.", "cta": [{ "label": "Pobierz plan" }, { "label": "Znajdź CNC w pobliżu" }] },
+      "hands_family":  { "title": "Family Shelter · sklejka 6 mm", "body": "Dla małej grupy. Dwusekcyjny domek ze wspólnym dachem.", "cta": [{ "label": "Pobierz plan" }, { "label": "Znajdź CNC w pobliżu" }] },
+      "hands_purrtap": { "title": "PurrTap · poidło na podwórko", "body": "Minimum narzędzi, maksimum pomocy. Instalacja w godzinę.", "cta": [{ "label": "Otwórz instrukcję" }, { "label": "Zamów zestaw" }] },
+      "hands_unknown": { "title": "Cozy Shelter · uniwersalny", "body": "Najłatwiejszy start. Pasuje do większości podwórek.", "cta": [{ "label": "Pobierz plan" }, { "label": "Jak wybrać miejsce" }] },
+      "time_cozy":     { "title": "Zbuduj w hackspace", "body": "Przynieś sklejkę — CNC zrobi części w godzinę. Sam składasz.", "cta": [{ "label": "Znajdź hackspace" }, { "label": "Otwórz Cozy" }] },
+      "time_family":   { "title": "Family Shelter w hackspace", "body": "Poproś o CNC, potem wyrzynarka i wkrętarka.", "cta": [{ "label": "Znajdź hackspace" }, { "label": "Otwórz Family" }] },
+      "time_purrtap":  { "title": "PurrTap podczas jednego spaceru", "body": "Przynieść wodę, postawić — 30 minut czasu.", "cta": [{ "label": "Instrukcja" }, { "label": "Znajdź podwórko" }] },
+      "time_unknown":  { "title": "Pomóż wolontariuszowi", "body": "Dołącz do budowy cudzego domku — zespoły szukają rąk do pracy.", "cta": [{ "label": "Znajdź budowę" }, { "label": "Historie" }] },
+      "money_cozy":    { "title": "Opłać jeden Cozy Shelter", "body": "Sklejka + mocowania = ~35 €. Wolontariusz złoży i zainstaluje.", "cta": [{ "label": "Wesprzyj" }, { "label": "Historie" }] },
+      "money_family":  { "title": "Opłać Family Shelter", "body": "Materiały ~70 €. Nakarmimmy gromadę zimą.", "cta": [{ "label": "Wesprzyj" }, { "label": "Historie" }] },
+      "money_purrtap": { "title": "Zestaw PurrTap", "body": "Poidło + materiały eksploatacyjne ~20 €. Instaluj z wolontariuszami.", "cta": [{ "label": "Wesprzyj" }, { "label": "Historie" }] },
+      "money_unknown": { "title": "Otwarty datek", "body": "Skierujemy tam, gdzie jest najbardziej potrzebne: materiały lub logistyka.", "cta": [{ "label": "Wesprzyj" }, { "label": "Raport wydatków" }] },
+      "voice_cozy":    { "title": "Udostępnij Cozy", "body": "Gotowy post z planem. 1 klik — sąsiad się dowie.", "cta": [{ "label": "Skopiuj link" }, { "label": "Otwórz stronę" }] },
+      "voice_family":  { "title": "Opowiedz o Family", "body": "Link + historia «5 kotów przeżyło zimę».", "cta": [{ "label": "Skopiuj link" }, { "label": "Przeczytaj historię" }] },
+      "voice_purrtap": { "title": "PurrTap — najprostsze", "body": "Film «jak zainstalować w 30 minut».", "cta": [{ "label": "Otwórz stronę" }, { "label": "Skopiuj link" }] },
+      "voice_unknown": { "title": "Opowiedz o SafePaws", "body": "Ogólny opis + 3 historie. Udostępnij jednej osobie.", "cta": [{ "label": "Otwórz stronę" }, { "label": "Skopiuj link" }] }
+    }
+  },
+  "Products": {
+    "cozy-shelter": {
+      "description": "Schronienie dla 1–2 kotów. Podwójne ściany z przestrzenią na izolację, L-kształtny przedsionek, pochyły dach i miejsce na 2 miski z wodą lub karmą.",
+      "subtitle": "Kompaktowy domek z ocieplanymi ścianami dla kilku kotów",
+      "capacity": "1–2 koty",
+      "specs": [
+        { "label": "Rozmiar", "value": "40 × 40 × 30 cm" },
+        { "label": "Materiał", "value": "Sklejka / Plexi" },
+        { "label": "Czas montażu", "value": "~ 2 godziny" },
+        { "label": "Koszt produkcji", "value": "~25 €" }
+      ],
+      "downloads": { "3mm": "Sklejka 3 mm", "6mm": "Sklejka 6 mm" },
+      "tags": ["schronienie", "sklejka", "cięcie laserowe"],
+      "whyChoose": [
+        { "title": "✓ Pierwszy raz", "desc": "Ponumerowane elementy, plan cięcia DXF, montaż bez specjalnych umiejętności." },
+        { "title": "✓ Minimalne koszty", "desc": "Obecnie najtańsze rozwiązanie na zimę." },
+        { "title": "✓ 1–2 koty w pobliżu", "desc": "Więcej? Weź Family." }
+      ],
+      "assemblySteps": [
+        { "n": 1, "title": "Pobierz archiwum", "desc": "Plan cięcia DXF + instrukcja PDF." },
+        { "n": 2, "title": "Wytnij elementy", "desc": "Wyrzynarką lub na słabym laserze." },
+        { "n": 3, "title": "Złóż w pudełko", "desc": "Wkręty + klej PVA. Bez specjalnych umiejętności." },
+        { "n": 4, "title": "Zainstaluj i podziel się", "desc": "Umieść w klatce schodowej lub na podwórku. Podziel się rezultatem." }
+      ],
+      "faqs": [
+        { "q": "Jaką sklejkę lepiej wziąć — 3 czy 6 mm?", "a": "6 mm jest mocniejsza i cieplejsza. 3 mm — jeśli tniesz na słabym laserze." },
+        { "q": "Czy potrzebna jest impregnacja?", "a": "Tak, dowolna hydrofobowa. Szczegóły w instrukcji PDF." },
+        { "q": "Czy koty naprawdę wchodzą?", "a": "Tak, patrz powyższe historie. Ważne jest umieszczenie tam, gdzie już się przyzwyczaiły." }
+      ],
+      "materialCalc": [
+        { "label": "Arkusz sklejki", "value": "1,5 arkusza 1525×1525" },
+        { "label": "Ocieplenie", "value": "Gazety / szmaty" },
+        { "label": "Impregnacja", "value": "Hydrofobowa impregnacja do drewna" },
+        { "label": "Klej", "value": "Klej stolarski PVA" }
+      ]
+    },
+    "family-shelter": {
+      "description": "Duże schronienie dla całej kolonii. Osobne przegródki, ocieplane ściany, łatwy dostęp do czyszczenia.",
+      "subtitle": "Przestronny domek dla kociej rodziny z ochroną przed wiatrem i zimnem",
+      "capacity": "3–5 kotów",
+      "specs": [
+        { "label": "Rozmiar", "value": "80 × 50 × 45 cm" },
+        { "label": "Materiał", "value": "Sklejka / Plexi" },
+        { "label": "Czas montażu", "value": "~ 2 godziny" },
+        { "label": "Koszt produkcji", "value": "~40 €" }
+      ],
+      "downloads": { "3mm": "Sklejka 3 mm", "6mm": "Sklejka 6 mm" },
+      "tags": ["schronienie", "sklejka", "cięcie laserowe"],
+      "whyChoose": [
+        { "title": "✓ Kolonia 4–5 kotów", "desc": "Osobne przegródki dla każdego." },
+        { "title": "✓ Na podwórku / przy wejściu", "desc": "Przestronny, łatwy do czyszczenia." },
+        { "title": "✓ Dostęp do CNC", "desc": "Polecamy CNC do precyzyjnych elementów." }
+      ],
+      "assemblySteps": [
+        { "n": 1, "title": "Pobierz archiwum", "desc": "Plan cięcia DXF + instrukcja PDF." },
+        { "n": 2, "title": "Wytnij elementy", "desc": "Polecamy CNC — dużo elementów." },
+        { "n": 3, "title": "Złóż korpus", "desc": "Klej stolarski + wkręty. Są przegródki — pilnuj schematu." },
+        { "n": 4, "title": "Zainstaluj i zasiedlaj", "desc": "Umieść na zewnątrz, dodaj ocieplenie zimą." }
+      ],
+      "faqs": [
+        { "q": "Można bez CNC?", "a": "Tak, ale CNC znacznie ułatwi cięcie skomplikowanych elementów." },
+        { "q": "Ile kotów się mieści?", "a": "4–5 komfortowo. Do 6–7 — możliwe przy mrozie." },
+        { "q": "Czy potrzebna jest impregnacja?", "a": "Obowiązkowo — sklejka 6 mm wchłania wilgoć. Dowolny lakier hydrofobowy." }
+      ],
+      "materialCalc": [
+        { "label": "Arkusz sklejki", "value": "3 arkusze 1525×1525" },
+        { "label": "Ocieplenie", "value": "Gazety / szmaty" },
+        { "label": "Impregnacja", "value": "Hydrofobowa impregnacja do drewna" },
+        { "label": "Klej", "value": "Klej stolarski PVA" }
+      ]
+    },
+    "purrtap": {
+      "description": "Stacjonarne poidło z plastikową podstawą i butelką. Aby uzupełnić wodę, wystarczy odkręcić pustą butelkę i zamontować nową.",
+      "subtitle": "Zewnętrzne poidło z podstawą drukowaną 3D i butelką",
+      "capacity": "wiele kotów",
+      "specs": [
+        { "label": "Trudność montażu", "value": "Łatwy" },
+        { "label": "Materiały", "value": "Plastik PETG/ABS" },
+        { "label": "Narzędzie", "value": "Drukarka 3D" },
+        { "label": "Koszt produkcji", "value": "~10 €" }
+      ],
+      "downloads": { "pdf": "Instrukcja PDF" },
+      "tags": ["poidło", "butelka", "druk 3D"],
+      "whyChoose": [
+        { "title": "✓ Brak narzędzi", "desc": "Tylko nóż i wiertarka." },
+        { "title": "✓ Potrzebna woda, nie schronienie", "desc": "Prosto i szybko — 20 minut." },
+        { "title": "✓ Mały budżet", "desc": "Z dostępnych materiałów." }
+      ],
+      "assemblySteps": [
+        { "n": 1, "title": "Pobierz STL", "desc": "Gotowy model do druku 3D." },
+        { "n": 2, "title": "Wydrukuj podstawę", "desc": "PETG lub ABS, 20% wypełnienie, ~2 godziny." },
+        { "n": 3, "title": "Złóż poidło", "desc": "Włóż butelkę w podstawę, zamocuj." },
+        { "n": 4, "title": "Zainstaluj przy wejściu", "desc": "Kołek rozporowy lub połóż na powierzchni." }
+      ],
+      "faqs": [
+        { "q": "Czy zamarza zimą?", "a": "Zależy od temperatury. Do −15°C działa, poniżej — potrzebne ogrzewanie." },
+        { "q": "Jakiej butelki użyć?", "a": "PET 1,5–2 l. Ciemna jest lepsza — mniej glonów." },
+        { "q": "Jak często uzupełniać?", "a": "Raz na 2–3 dni latem, raz dziennie przy mrozie." }
+      ],
+      "materialCalc": [
+        { "label": "Materiał", "value": "PETG / ABS - 200 g" },
+        { "label": "Trudność montażu", "value": "Średnia" },
+        { "label": "Butelka", "value": "PET 0,5–1 l" },
+        { "label": "Mocowanie", "value": "Kołek rozporowy" }
+      ]
+    },
+    "edc-feeder": {
+      "description": "Kompaktowy karmnik do porcjowego karmienia kotów ulicznych.",
+      "subtitle": "Kieszonkowy karmnik-dozownik dla kotów",
+      "capacity": "wiele kotów",
+      "specs": [
+        { "label": "Materiał", "value": "PETG / ABS" },
+        { "label": "Czas druku", "value": "~ 3 godziny" },
+        { "label": "Narzędzie", "value": "Drukarka 3D" },
+        { "label": "Koszt produkcji", "value": "~10 €" }
+      ],
+      "downloads": {},
+      "tags": ["karmienie", "druk 3D", "EDC"],
+      "whyChoose": [
+        { "title": "✓ Brak narzędzi", "desc": "Tylko nóż i wiertarka." },
+        { "title": "✓ Potrzebna woda, nie schronienie", "desc": "Prosto i szybko — 20 minut." },
+        { "title": "✓ Mały budżet", "desc": "Z dostępnych materiałów." }
+      ],
+      "assemblySteps": [
+        { "n": 1, "title": "Pobierz STL", "desc": "Gotowy model do druku 3D." },
+        { "n": 2, "title": "Wydrukuj korpus", "desc": "PETG lub ABS, ~3 godziny druku." },
+        { "n": 3, "title": "Złóż karmnik", "desc": "Sprężyna ściskana + mocowania wg schematu." },
+        { "n": 4, "title": "Weź ze sobą", "desc": "Wsyp karmę, połóż przed kotem. Kompaktowy." }
+      ],
+      "faqs": [],
+      "materialCalc": [
+        { "label": "Plastik", "value": "PETG / ABS - 200 g" },
+        { "label": "Czas druku", "value": "2 godziny" },
+        { "label": "Mocowania", "value": "Nakrętki, śruby" },
+        { "label": "Dodatkowo", "value": "Sprężyna ściskana" }
+      ]
+    }
+  }
+}

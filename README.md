@@ -1,5 +1,5 @@
-[![Static Badge](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-blue)](https://github.com/kkrugley/winter-shelter/blob/main/LICENSE)
-[![Static Badge](https://img.shields.io/badge/Latest-Release-brightgreen)](https://github.com/kkrugley/winter-shelter/releases)
+[![Static Badge](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-blue)](https://github.com/kkrugley/safepaws/blob/main/LICENSE)
+[![Static Badge](https://img.shields.io/badge/Latest-Release-brightgreen)](https://github.com/kkrugley/safepaws/releases)
 [![Static Badge](https://img.shields.io/badge/OpenCollective-SafePaws-blue?logo=opencollective&logoColor=white)](https://opencollective.com/safepawsorganization)
 
 ## 💛 What is SafePaws?
@@ -10,7 +10,7 @@ The idea is simple: we share the designs, you build the shelter, and together we
 You don’t need to be an engineer or a maker. If you can order a laser-cut plywood sheet and follow a step-by-step guide, you can build a SafePaws shelter.
 
 Project website: **https://safepaws.vercel.app**  
-GitHub repo (files & docs): **https://github.com/kkrugley/winter-shelter**
+GitHub repo (files & docs): **https://github.com/kkrugley/safepaws**
 
 ---
 
@@ -64,7 +64,7 @@ This repo contains everything you need to start:
 - **Project and community links** (website, Open Collective, social media)
 
 For ready-to-use packages, check the **Releases** section:  
-https://github.com/kkrugley/winter-shelter/releases
+https://github.com/kkrugley/safepaws/releases
 
 ---
 
@@ -122,7 +122,7 @@ For full instructions and diagrams, see the assembly manual in this repo and on 
 You can help even if you never touch a laser cutter:
 
 - **Build a shelter** for cats in your yard, neighbourhood, or near a known feeding spot.
-- **Share your results** – post photos, write about your experience, and tag the project on social media (for example, Instagram [`@safepaws.home`](https://www.instagram.com/safepaws.home/)).
+- **Share your results** – post photos, write about your experience, and tag the project on social media: Instagram [`@safepaws.help`](https://www.instagram.com/safepaws.help/) or Telegram Channel [`@safepaws_help`](https://t.me/safepaws_help).
 - **Contribute to the project**:
   - Improve documentation or translations
   - Help with new layouts or formats for other sheet sizes
@@ -137,7 +137,7 @@ Every shelter built is a real, practical difference for animals that have nowher
 Cloning the repo with all its history results in a download of hundreds of megabytes. If you don't need the whole history you can use the `depth` parameter to significantly reduce download size.
 
 ```sh
-git clone --depth=1 https://github.com/kkrugley/winter-shelter.git
+git clone --depth=1 https://github.com/kkrugley/safepaws.git
 ```
 
 ---
