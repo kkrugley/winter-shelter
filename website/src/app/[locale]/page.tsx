@@ -1,5 +1,7 @@
+import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import React from "react";
+import { pageAlternates } from "@/lib/metadata";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { Hammer, Heart, BookOpenText, ArrowLineDown, PencilSimple, HouseLine } from "@phosphor-icons/react/dist/ssr";
@@ -19,6 +21,15 @@ const previewProducts = products.slice(0, 4);
 const HERO_RING_GAP = 3;
 const HERO_RING_WIDTH = 3;
 const HERO_TILT = 2;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return { alternates: pageAlternates("/", locale) };
+}
 
 export default async function HomePage({
   params,

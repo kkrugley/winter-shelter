@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
+import { pageAlternates } from "@/lib/metadata";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { getStats } from "@/lib/stats";
@@ -17,6 +19,15 @@ const BADGE_TILTS = [-1.1, 0.8, -0.6, 1.3];
 const ABOUT_RING_GAP = 3;
 const ABOUT_RING_WIDTH = 3;
 const ABOUT_TILT = -2;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return { alternates: pageAlternates("/about", locale) };
+}
 
 export default async function AboutPage({
   params,
@@ -197,8 +208,8 @@ export default async function AboutPage({
               <a href="https://t.me/safepaws_help" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center px-5 py-2.5 rounded-full border text-sm text-ink hover:border-[var(--ember)] hover:text-[var(--ember)] transition-colors" style={{ borderColor: "var(--sand-2)" }}>
                 Telegram · @safepaws_help
               </a>
-              <a href="mailto:kkrugley@proton.me" className="flex items-center justify-center px-5 py-2.5 rounded-full border text-sm text-ink hover:border-[var(--ember)] hover:text-[var(--ember)] transition-colors" style={{ borderColor: "var(--sand-2)" }}>
-                Email · kkrugley@proton.me
+              <a href="mailto:safepaws.help@proton.me" className="flex items-center justify-center px-5 py-2.5 rounded-full border text-sm text-ink hover:border-[var(--ember)] hover:text-[var(--ember)] transition-colors" style={{ borderColor: "var(--sand-2)" }}>
+                Email · safepaws.help@proton.me
               </a>
               <a href="https://github.com/kkrugley/safepaws" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center px-5 py-2.5 rounded-full border text-sm text-ink hover:border-[var(--ember)] hover:text-[var(--ember)] transition-colors" style={{ borderColor: "var(--sand-2)" }}>
                 GitHub · kkrugley/safepaws

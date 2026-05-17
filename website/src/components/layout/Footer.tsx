@@ -27,7 +27,7 @@ export function Footer() {
     {
       title: t("colContact"),
       links: [
-        { href: "mailto:kkrugley@proton.me", label: "Email" },
+        { href: "mailto:safepaws.help@proton.me", label: "Email" },
         { href: "https://t.me/safepaws_help", label: "Telegram" },
         { href: "/about", label: t("aboutProject") },
         { href: "https://github.com/kkrugley/safepaws", label: t("githubProject") },

@@ -85,13 +85,13 @@
     "badgeCountries": "countries",
     "badgeLanguages": "languages",
     "howStartedHeading": "How it started",
-    "howStarted1": "In 2023, Pasha built one cat shelter near his apartment entrance. Then a second one. Then the neighbours asked for the blueprint.",
-    "howStarted2": "That's how SafePaws was born — so that a blueprint that already exists can be downloaded and built by anyone.",
-    "howStarted3": "Today the project has 2 shelter models, the PurrTap water station, and the EDC feeder in the pipeline.",
+    "howStarted1": "Project history",
+    "howStarted2": "",
+    "howStarted3": "",
     "authorName": "Pasha Krugley",
     "authorRole": "founder · Brest, Belarus",
     "authorOpen": "open to collaboration",
-    "authorQuote": "\"Started with one shelter by the entrance — now it's a project for everyone.\"",
+    "authorQuote": "\"Started with one shelter at the dacha — now it's a project for everyone.\"",
     "authorContactSite": "Website",
     "timelineHeading": "Project milestones",
     "timeline": [
@@ -395,7 +395,7 @@
   },
   "Products": {
     "cozy-shelter": {
-      "description": "A warm shelter from a sheet of plywood. Two entrances, wind protection, minimal tools needed.",
+      "description": "Shelter for 1–2 cats. Double walls with insulation gap, L-shaped vestibule, sloped roof, and space for 2 food or water bowls.",
       "subtitle": "Compact shelter with insulated walls for a couple of cats",
       "capacity": "1–2 cats",
       "specs": [
@@ -407,8 +407,8 @@
       "downloads": { "3mm": "3mm plywood", "6mm": "6mm plywood" },
       "tags": ["shelter", "plywood", "laser cut"],
       "whyChoose": [
-        { "title": "✓ In a stairwell / on a balcony", "desc": "Compact, fits behind a door." },
-        { "title": "✓ First time building", "desc": "Simple assembly, few parts." },
+        { "title": "✓ First time building", "desc": "Numbered parts, DXF cutting layout, assembly without special skills." },
+        { "title": "✓ Minimal cost", "desc": "Currently the most budget-friendly winter solution." },
         { "title": "✓ 1–2 cats nearby", "desc": "More cats? Go for Family." }
       ],
       "assemblySteps": [
@@ -465,11 +465,11 @@
       ]
     },
     "purrtap": {
-      "description": "A simple water station made from a bottle. One-page instructions. Can be assembled in 20 minutes.",
+      "description": "A stationary water station with a plastic base and bottle. To refill, simply unscrew the empty bottle and install a new one.",
       "subtitle": "Outdoor water station with a 3D-printed base and a bottle",
       "capacity": "many cats",
       "specs": [
-        { "label": "Assembly time", "value": "10 minutes" },
+        { "label": "Assembly difficulty", "value": "Easy" },
         { "label": "Materials", "value": "PETG/ABS plastic" },
         { "label": "Tool", "value": "3D printer" },
         { "label": "Build cost", "value": "~€10" }
@@ -493,14 +493,14 @@
         { "q": "How often to refill?", "a": "Every 2–3 days in summer, daily in freezing weather." }
       ],
       "materialCalc": [
-        { "label": "Plastic", "value": "PETG / ABS - 200g" },
-        { "label": "Print time", "value": "2 hours" },
+        { "label": "Material", "value": "PETG / ABS - 200g" },
+        { "label": "Assembly difficulty", "value": "Medium" },
         { "label": "Bottle", "value": "PET 0.5–1L" },
         { "label": "Fastener", "value": "Anchor bolt" }
       ]
     },
     "edc-feeder": {
-      "description": "A compact feeder for single-serve food placement. Prints on a standard FDM printer.",
+      "description": "A compact feeder for portion feeding of street cats.",
       "subtitle": "Pocket-sized dispenser feeder for cats",
       "capacity": "many cats",
       "specs": [
@@ -510,7 +510,7 @@
         { "label": "Build cost", "value": "~€10" }
       ],
       "downloads": {},
-      "tags": ["feeding", "3D printing", "coming soon"],
+      "tags": ["feeding", "3D printing", "EDC"],
       "whyChoose": [
         { "title": "✓ No tools needed", "desc": "Just a knife and a drill." },
         { "title": "✓ Need water, not shelter", "desc": "Simple and fast — 20 minutes." },
