@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 
-const MAILERLITE_API_KEY = process.env.MAILERLITE_API_KEY ?? "";
+const MAILERLITE_API_KEY = process.env.MAILERLITE_API ?? "";
 const MAILERLITE_GROUP_ID = process.env.MAILERLITE_GROUP_ID ?? "";
 
 export async function POST(req: NextRequest) {
@@ -15,6 +16,11 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     email = (body.email ?? "").trim().toLowerCase();
     productSlug = body.productSlug ?? undefined;
+    const token = body["cf-turnstile-response"] ?? "";
+    const verification = await verifyTurnstileToken(token);
+    if (!verification.success) {
+      return NextResponse.json({ error: "Bot verification failed" }, { status: 403 });
+    }
   } catch {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }

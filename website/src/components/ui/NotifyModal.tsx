@@ -5,11 +5,22 @@ import { useTranslations } from "next-intl";
 import { X, TelegramLogo, Info } from "@phosphor-icons/react";
 
 const TELEGRAM_BOT_URL = "https://t.me/safepaws_help_bot";
+const SITEKEY = "0x4AAAAAADs9TzE7UAMqNZVI";
 
 interface NotifyModalProps {
   productName: string;
   productSlug: string;
   onClose: () => void;
+}
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (container: HTMLElement, options: Record<string, string>) => string;
+      remove: (widgetId: string) => void;
+      getResponse: (widgetId?: string) => string;
+    };
+  }
 }
 
 export function NotifyModal({ productName, productSlug, onClose }: NotifyModalProps) {
@@ -19,12 +30,34 @@ export function NotifyModal({ productName, productSlug, onClose }: NotifyModalPr
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
+  const turnstileRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef<string | null>(null);
 
   useEffect(() => {
     inputRef.current?.focus();
     const handleKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     document.addEventListener("keydown", handleKey);
-    return () => document.removeEventListener("keydown", handleKey);
+
+    const script = document.createElement("script");
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    script.async = true;
+    script.defer = true;
+    script.onload = () => {
+      if (turnstileRef.current && window.turnstile && !widgetIdRef.current) {
+        widgetIdRef.current = window.turnstile.render(turnstileRef.current, {
+          sitekey: SITEKEY,
+          "data-action": "turnstile-spin-v1",
+        });
+      }
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      document.removeEventListener("keydown", handleKey);
+      if (widgetIdRef.current && window.turnstile) {
+        window.turnstile.remove(widgetIdRef.current);
+      }
+    };
   }, [onClose]);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -34,12 +67,19 @@ export function NotifyModal({ productName, productSlug, onClose }: NotifyModalPr
       setState("invalid");
       return;
     }
+
+    const token = window.turnstile?.getResponse(widgetIdRef.current ?? undefined);
+    if (!token) {
+      setState("error");
+      return;
+    }
+
     setState("loading");
     try {
       const res = await fetch("/api/notify-subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: trimmed, productSlug }),
+        body: JSON.stringify({ email: trimmed, productSlug, "cf-turnstile-response": token }),
       });
       setState(res.ok ? "success" : "error");
     } catch {
@@ -84,7 +124,6 @@ export function NotifyModal({ productName, productSlug, onClose }: NotifyModalPr
           <X size={18} />
         </button>
 
-        {/* Header */}
         <div className="flex flex-col gap-1 pr-6">
           <span
             className="font-mono text-xs px-2 py-0.5 rounded-full border self-start"
@@ -102,7 +141,6 @@ export function NotifyModal({ productName, productSlug, onClose }: NotifyModalPr
 
         <div className="h-px" style={{ background: "var(--sand)" }} />
 
-        {/* Email form */}
         {state === "success" ? (
           <p
             className="text-sm font-medium text-center py-4 rounded-xl"
@@ -128,14 +166,13 @@ export function NotifyModal({ productName, productSlug, onClose }: NotifyModalPr
                 aria-invalid={state === "invalid"}
               />
               {statusMessage && (
-                <p
-                  className="text-xs px-1"
-                  style={{ color: state === "invalid" || state === "error" ? "var(--ember)" : "var(--forest)" }}
-                >
+                <p className="text-xs px-1" style={{ color: state === "invalid" || state === "error" ? "var(--ember)" : "var(--forest)" }}>
                   {statusMessage}
                 </p>
               )}
             </div>
+
+            <div ref={turnstileRef} data-action="turnstile-spin-v1" />
 
             <button
               type="submit"
@@ -148,7 +185,6 @@ export function NotifyModal({ productName, productSlug, onClose }: NotifyModalPr
           </form>
         )}
 
-        {/* Telegram */}
         <div className="flex items-center gap-2">
           <a
             href={TELEGRAM_BOT_URL}

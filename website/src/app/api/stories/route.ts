@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { filterStories, submitStory } from "@/lib/stories";
 import { getClientIp, createRateLimiter } from "@/lib/rate-limit";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 
 const rateLimiter = createRateLimiter(5, 60_000);
 
@@ -43,6 +44,12 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json();
+
+  const token = body["cf-turnstile-response"] ?? "";
+  const verification = await verifyTurnstileToken(token);
+  if (!verification.success) {
+    return NextResponse.json({ error: "Bot verification failed" }, { status: 403 });
+  }
 
   const required = ["author_name", "quote", "body", "product_slug", "city", "country"];
   for (const field of required) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import {
@@ -13,6 +13,12 @@ import {
 } from "@/components/ui/breadcrumb";
 import Image from "next/image";
 import { ArrowLeft, CheckCircle, Spinner, X, UploadSimple } from "@phosphor-icons/react";
+
+declare global {
+  interface Window { turnstile?: { render: (c: HTMLElement, o: Record<string, string>) => string; remove: (id: string) => void; getResponse: (id?: string) => string } }
+}
+
+const SITEKEY = "0x4AAAAAADs9TzE7UAMqNZVI";
 
 interface TranslatedCategory { slug: string; label: string }
 
@@ -58,6 +64,8 @@ export default function AddIdeaPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const turnstileRef = useRef<HTMLDivElement>(null);
+  const turnstileId = useRef<string | null>(null);
 
   async function uploadPhoto(file: File) {
     setPhotoError("");
@@ -104,6 +112,23 @@ export default function AddIdeaPage() {
     setForm((f) => ({ ...f, [field]: value }));
   }
 
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    script.async = true;
+    script.defer = true;
+    script.onload = () => {
+      if (turnstileRef.current && window.turnstile && !turnstileId.current) {
+        turnstileId.current = window.turnstile.render(turnstileRef.current, {
+          sitekey: SITEKEY,
+          "data-action": "turnstile-spin-v1",
+        });
+      }
+    };
+    document.body.appendChild(script);
+    return () => { if (turnstileId.current && window.turnstile) window.turnstile.remove(turnstileId.current); };
+  }, []);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
@@ -113,6 +138,10 @@ export default function AddIdeaPage() {
     if (!form.description)  { setError(t("errorDesc"));  return; }
 
     setSubmitting(true);
+
+    const token = window.turnstile?.getResponse(turnstileId.current ?? undefined);
+    if (!token) { setError("Подтвердите, что вы не робот"); setSubmitting(false); return; }
+
     try {
       const res = await fetch("/api/ideas", {
         method: "POST",
@@ -124,6 +153,7 @@ export default function AddIdeaPage() {
           description: form.description,
           category:    form.category || undefined,
           photo_url:   photoUrl ?? undefined,
+          "cf-turnstile-response": token,
         }),
       });
 
@@ -320,6 +350,8 @@ export default function AddIdeaPage() {
             {error}
           </p>
         )}
+
+        <div ref={turnstileRef} data-action="turnstile-spin-v1" className="flex justify-center" />
 
         <button
           type="submit"

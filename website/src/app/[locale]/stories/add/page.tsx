@@ -14,6 +14,12 @@ import {
 import Image from "next/image";
 import { ArrowLeft, CheckCircle, MapPin, Spinner, X, UploadSimple } from "@phosphor-icons/react";
 
+declare global {
+  interface Window { turnstile?: { render: (c: HTMLElement, o: Record<string, string>) => string; remove: (id: string) => void; getResponse: (id?: string) => string } }
+}
+
+const SITEKEY = "0x4AAAAAADs9TzE7UAMqNZVI";
+
 interface GeoResult {
   display_name: string;
   lat: string;
@@ -79,6 +85,8 @@ export default function AddStoryPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const turnstileRef = useRef<HTMLDivElement>(null);
+  const turnstileId = useRef<string | null>(null);
 
   async function uploadPhoto(file: File) {
     setPhotoError("");
@@ -126,7 +134,6 @@ export default function AddStoryPage() {
 
   useEffect(() => {
     if (geoSelected || cityQuery.length < 3) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: clear suggestions on early bail-out
       setGeoResults([]);
       return;
     }
@@ -144,6 +151,23 @@ export default function AddStoryPage() {
       }
     }, 400);
   }, [cityQuery, geoSelected]);
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    script.async = true;
+    script.defer = true;
+    script.onload = () => {
+      if (turnstileRef.current && window.turnstile && !turnstileId.current) {
+        turnstileId.current = window.turnstile.render(turnstileRef.current, {
+          sitekey: SITEKEY,
+          "data-action": "turnstile-spin-v1",
+        });
+      }
+    };
+    document.body.appendChild(script);
+    return () => { if (turnstileId.current && window.turnstile) window.turnstile.remove(turnstileId.current); };
+  }, []);
 
   function selectCity(result: GeoResult) {
     const cityName =
@@ -179,6 +203,10 @@ export default function AddStoryPage() {
     }
 
     setSubmitting(true);
+
+    const token = window.turnstile?.getResponse(turnstileId.current ?? undefined);
+    if (!token) { setError("Подтвердите, что вы не робот"); setSubmitting(false); return; }
+
     try {
       const res = await fetch("/api/stories", {
         method: "POST",
@@ -195,6 +223,7 @@ export default function AddStoryPage() {
           lng:          form.lng ? parseFloat(form.lng) : undefined,
           photo_url:    photoUrl ?? undefined,
           installed_date,
+          "cf-turnstile-response": token,
         }),
       });
 
@@ -474,6 +503,8 @@ export default function AddStoryPage() {
             {error}
           </p>
         )}
+
+        <div ref={turnstileRef} data-action="turnstile-spin-v1" className="flex justify-center" />
 
         <button
           type="submit"
