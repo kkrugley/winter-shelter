@@ -1,108 +1,109 @@
 # SafePaws Website
 
-Сайт проекта SafePaws — открытые чертежи домиков и поилок для бездомных кошек.
+The SafePaws project website — open-source blueprints for outdoor cat shelters and water stations.
 
-## Структура проекта
+## Project Structure
 
 ```
 src/
 ├── app/                    # Next.js App Router
-│   ├── page.tsx           # Главная страница
-│   ├── layout.tsx         # Корневой layout (шрифты, мета-теги)
-│   ├── globals.css        # Глобальные стили + CSS-переменные
-│   ├── solutions/         # Каталог решений
-│   │   ├── page.tsx       # Список всех продуктов
-│   │   └── [slug]/        # Детальная страница продукта
-│   ├── download/          # Страница загрузки файлов
-│   ├── help/              # Как помочь проекту
-│   ├── stories/           # Истории пользователей
-│   │   └── add/           # Форма добавления истории
-│   └── about/             # О проекте
+│   ├── page.tsx           # Home page
+│   ├── layout.tsx         # Root layout (fonts, meta tags)
+│   ├── globals.css        # Global styles + CSS variables
+│   ├── solutions/         # Solutions catalog
+│   │   ├── page.tsx       # All products listing
+│   │   └── [slug]/        # Product detail page
+│   ├── download/          # File download page
+│   ├── help/              # How to help the project
+│   ├── stories/           # User stories
+│   │   └── add/           # Story submission form
+│   └── about/             # About the project
 ├── components/
-│   ├── ui/                # shadcn/ui компоненты
+│   ├── ui/                # shadcn/ui components
 │   │   ├── button.tsx
 │   │   ├── card.tsx
 │   │   ├── badge.tsx
 │   │   └── separator.tsx
-│   └── layout/            # Layout-компоненты
-│       ├── Header.tsx     # Навигация (sticky, mobile-friendly)
-│       └── Footer.tsx     # Подвал
+│   └── layout/            # Layout components
+│       ├── Header.tsx     # Navigation (sticky, mobile-friendly)
+│       └── Footer.tsx     # Footer
 ├── data/
-│   └── products.ts        # Данные продуктов (shelters, hydration, feeding)
+│   └── products.ts        # Product data (shelters, hydration, feeding)
 └── lib/
-    └── utils.ts           # Утилиты (cn для tailwind-merge)
+    └── utils.ts           # Utilities (cn for tailwind-merge)
 ```
 
-## Страницы сайта
+## Site Pages
 
-| Маршрут | Описание |
-|---------|----------|
-| `/` | Главная — Hero, 3 пути помощи, превью каталога, как это работает, истории |
-| `/solutions` | Каталог всех решений (фильтры по категориям) |
-| `/solutions/[slug]` | Детальная страница продукта с характеристиками и файлами |
-| `/download` | Центральная страница загрузки всех чертежей |
-| `/help` | Варианты помощи: собрать, поделиться, задонатить |
-| `/stories` | Истории людей, собравших домики |
-| `/stories/add` | Форма отправки своей истории |
-| `/about` | О проекте, миссия, контакты |
+| Route | Description |
+|-------|-------------|
+| `/` | Home — Hero, 3 ways to help, catalog preview, how it works, stories |
+| `/solutions` | Solutions catalog (category filters) |
+| `/solutions/[slug]` | Product detail page with specs and files |
+| `/download` | Central page for downloading all blueprints |
+| `/help` | Ways to help: build, share, donate |
+| `/stories` | Stories from people who built shelters |
+| `/stories/add` | Story submission form |
+| `/about` | About the project, mission, contacts |
 
-## Архитектура данных
+## Data Architecture
 
-### Продукты (`src/data/products.ts`)
+### Products (`src/data/products.ts`)
 
-Каждый продукт содержит:
-- **slug** — уникальный идентификатор для URL
-- **name/tagline** — название и слоган
+Each product contains:
+- **slug** — unique identifier for URL
+- **name/tagline** — name and tagline
 - **category** — `shelter` | `hydration` | `feeding`
 - **status** — `available` | `new` | `coming-soon` | `prototype`
-- **specs** — массив характеристик (размер, материал, время сборки)
-- **downloads** — файлы для скачивания (варианты материалов)
-- **tags** — для фильтрации и SEO
+- **specs** — array of specifications (size, material, assembly time)
+- **downloads** — downloadable files (material variants)
+- **tags** — filtering and SEO
 
-## Дизайн-система
+## Design System
 
-### Цвета (CSS-переменные)
+### Colors (CSS Variables)
 
 ```css
---sp-bg: #FDFBF7        /* paper — фон страницы */
---sp-fg: #1A1917        /* ink — основной текст */
---sp-muted: #6B6862     /* ink-muted — вторичный текст */
---sp-accent: #D97757      /* accent — кнопки, ссылки */
---sp-accent-soft: #FBE8DE /* accent-soft — фоны карточек */
---sp-border: #E8E4DF     /* border-soft — границы */
+--sp-bg: #FDFBF7        /* paper — page background */
+--sp-fg: #1A1917        /* ink — main text */
+--sp-muted: #6B6862     /* ink-muted — secondary text */
+--sp-accent: #D97757      /* accent — buttons, links */
+--sp-accent-soft: #FBE8DE /* accent-soft — card backgrounds */
+--sp-border: #E8E4DF     /* border-soft — borders */
 ```
 
-### Типографика
+### Typography
 
-- **Inter** (`--font-inter`) — основной текст, интерфейс
-- **Caveat** (`--font-caveat`) — рукописные заголовки (`font-hand`)
-- Оба шрифта подключаются с кириллическими подмножествами
+- **Lora** (`--font-lora`) — heading font
+- **Inter** (`--font-inter`) — body text, interface
+- **Caveat** (`--font-caveat`) — handwritten headings (`font-hand`)
+- Fonts include Cyrillic subsets
 
-### CSS-классы
+### CSS Classes
 
-- `bg-paper` / `text-ink` — базовые цвета
-- `font-hand` — рукописный шрифт для заголовков
-- `ph` — placeholder для изображений (lo-fi wireframe стиль)
+- `bg-paper` / `text-ink` — base colors
+- `font-hand` — handwritten heading font
+- `ph` — image placeholder (lo-fi wireframe style)
 
-## Команды разработки
+## Development Commands
 
 ```bash
-npm install              # Установка зависимостей
-npm run dev              # Dev-сервер localhost:3000
-npm run build            # Статический экспорт в dist/
+npm install              # Install dependencies
+npm run dev              # Dev server localhost:3000
+npm run build            # Static export to dist/
 ```
 
-## Стек
+## Stack
 
 - **Next.js 16.2.4** + **React 19.2.4** — App Router
-- **Tailwind CSS v4** — `@tailwindcss/postcss`, без `tailwind.config`
-- **shadcn/ui** — стиль `base-nova`, иконки `lucide`
+- **Tailwind CSS v4** — `@tailwindcss/postcss`, no `tailwind.config`
+- **shadcn/ui** — `base-nova` style, `lucide` icons
 - **Phosphor Icons** — `@phosphor-icons/react`
-- **TypeScript** — пути `@/*` → `./src/*`
+- **TypeScript** — paths `@/*` → `./src/*`
 
-## Особенности
+## Notes
 
-- **Язык**: весь контент на русском (`lang="ru"`)
-- **Статический экспорт**: `output: 'export'` только в production
-- **Изображения**: `unoptimized: true` (требуется для static export)
-- **Деплой**: Vercel, выходная директория `dist/`
+- **Language**: all text-based content is defined via dictionaries in `messages/[language-code].json`
+- **Static export**: `output: 'export'` in production only
+- **Images**: `unoptimized: true` (required for static export)
+- **Deploy**: Vercel, output directory `dist/`

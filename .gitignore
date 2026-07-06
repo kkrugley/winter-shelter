@@ -39,6 +39,7 @@ cad-source/**/*.png
 cad-source/**/*.pdf
 cad-source/**/*.jpg
 cad-source/**/*.md
+!cad-source/**/README.md
 cad-source/**/Manuals/
 
 # Ignore entire directory
@@ -49,5 +50,6 @@ website-new/
 
 # Claude Code project settings
 .claude/
+opencode.json
 CLAUDE.md
 AGENTS.md
