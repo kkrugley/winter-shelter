@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { setRequestLocale, getTranslations } from "next-intl/server";
 import { pageAlternates } from "@/lib/metadata";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import { products, getProduct } from "@/data/products";
+import { getProductContent } from "@/data/productContent";
 import { filterStories } from "@/lib/stories";
 import { StoryCard } from "@/components/ui/StoryCard";
 import { ProductGallery } from "@/components/ProductGallery";
@@ -26,44 +26,23 @@ export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale, slug } = await params;
-  return { alternates: pageAlternates(`/solutions/${slug}`, locale) };
-}
-
 interface Props {
-  params: Promise<{ locale: string; slug: string }>;
+  params: Promise<{ slug: string }>;
 }
 
-interface TranslatedWhyItem { title: string; desc: string }
-interface TranslatedStep { n: number; title: string; desc: string }
-interface TranslatedFaq { q: string; a: string }
-interface TranslatedCalcItem { label: string; value: string }
-interface TranslatedSpec { label: string; value: string }
-interface TranslatedProduct {
-  description: string;
-  subtitle: string;
-  capacity: string;
-  specs: TranslatedSpec[];
-  downloads: Record<string, string>;
-  whyChoose: TranslatedWhyItem[];
-  assemblySteps: TranslatedStep[];
-  faqs: TranslatedFaq[];
-  materialCalc: TranslatedCalcItem[];
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  return { alternates: pageAlternates(`/solutions/${slug}`) };
 }
 
 export default async function ProductPage({ params }: Props) {
-  const { locale, slug } = await params;
-  setRequestLocale(locale);
-
-  const t = await getTranslations({ locale, namespace: "ProductSlug" });
-  const tProducts = await getTranslations({ locale, namespace: "Products" });
-  const tCommon = await getTranslations({ locale, namespace: "Common" });
+  const { slug } = await params;
 
   const product = getProduct(slug);
   if (!product) notFound();
 
-  const pT = tProducts.raw(slug) as TranslatedProduct;
+  const pT = getProductContent(slug);
+  if (!pT) notFound();
 
   const currentIndex = products.findIndex((p) => p.slug === slug);
   const prevProduct = currentIndex > 0 ? products[currentIndex - 1] : null;
@@ -72,7 +51,6 @@ export default async function ProductPage({ params }: Props) {
   const stories = await filterStories({ product_slug: slug, limit: 3 });
   const why = pT.whyChoose ?? [];
   const faq = pT.faqs ?? [];
-  const calc = pT.materialCalc ?? pT.specs ?? [];
   const steps = pT.assemblySteps ?? [];
 
   const isComingSoon = product.status === "coming-soon";
@@ -86,7 +64,7 @@ export default async function ProductPage({ params }: Props) {
       ? `${BASE_URL}${product.images[0]}`
       : undefined,
     brand: { "@type": "Brand", name: "SafePaws" },
-    url: siteUrl(`/solutions/${product.slug}`, locale),
+    url: siteUrl(`/solutions/${product.slug}`),
     offers: {
       "@type": "Offer",
       price: "0",
@@ -94,7 +72,7 @@ export default async function ProductPage({ params }: Props) {
       availability: isComingSoon
         ? "https://schema.org/PreOrder"
         : "https://schema.org/InStock",
-      url: siteUrl(`/solutions/${product.slug}`, locale),
+      url: siteUrl(`/solutions/${product.slug}`),
     },
   };
 
@@ -104,11 +82,11 @@ export default async function ProductPage({ params }: Props) {
       <Breadcrumb className="mb-8">
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/">{tCommon("breadHome")}</BreadcrumbLink>
+            <BreadcrumbLink href="/">Главная</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/solutions">{t("breadSolutions")}</BreadcrumbLink>
+            <BreadcrumbLink href="/solutions">Решения</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
@@ -142,8 +120,8 @@ export default async function ProductPage({ params }: Props) {
                   downloads={product.downloads}
                   labels={pT.downloads ?? {}}
                   slug={slug}
-                  chooseVariantLabel={t("chooseVariant")}
-                  recommendedLabel={t("recommended")}
+                  chooseVariantLabel="выбери материал:"
+                  recommendedLabel=" · рекомендовано"
                   sizeAndLicense="CC BY 4.0"
                 />
               )}
@@ -158,7 +136,7 @@ export default async function ProductPage({ params }: Props) {
         <>
           {why.length > 0 && (
             <div className="mb-14">
-              <h2 className="heading-sub mb-6">{t("whenToChooseHeading")} {product.name}</h2>
+              <h2 className="heading-sub mb-6">Когда выбрать {product.name}</h2>
               <div className="grid md:grid-cols-3 gap-5">
                 {why.map(({ title, desc }) => (
                   <div key={title} className="border border-border-soft rounded-xl p-5">
@@ -172,7 +150,7 @@ export default async function ProductPage({ params }: Props) {
 
           {steps.length > 0 && (
             <div className="mb-14">
-              <h2 className="heading-sub mb-6">{t("assemblyHeading")}</h2>
+              <h2 className="heading-sub mb-6">Собери за 4 шага</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
                 {steps.map(({ n, title, desc }) => (
                   <StepCard key={n} n={n} title={title} desc={desc} image={`/images/products/${slug}/steps/step-${n}.jpg`} slug={slug} />
@@ -191,9 +169,9 @@ export default async function ProductPage({ params }: Props) {
           {stories.length > 0 && (
             <div className="mb-14">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="heading-sub">{t("storiesWithHeading")} {product.name}</h2>
+                <h2 className="heading-sub">Кто уже собрал {product.name}</h2>
                 <Link href="/stories" className="link-script hidden sm:block hover:underline">
-                  {t("storiesAll")}
+                  все истории →
                 </Link>
               </div>
               <div className="grid md:grid-cols-3 gap-5">
@@ -206,7 +184,7 @@ export default async function ProductPage({ params }: Props) {
 
           {faq.length > 0 && (
             <div className="mb-14">
-              <h2 className="heading-sub mb-6">{t("faqHeading")}</h2>
+              <h2 className="heading-sub mb-6">Частые вопросы</h2>
               <div className="space-y-3">
                 {faq.map(({ q, a }) => (
                   <div key={q} className="border border-border-soft rounded-xl p-5">

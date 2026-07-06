@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useTranslations } from "next-intl";
 import { X, TelegramLogo, Info } from "@phosphor-icons/react";
 
 const TELEGRAM_BOT_URL = "https://t.me/safepaws_help_bot";
@@ -24,7 +23,6 @@ declare global {
 }
 
 export function NotifyModal({ productName, productSlug, onClose }: NotifyModalProps) {
-  const t = useTranslations("Solutions");
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "loading" | "success" | "error" | "invalid">("idle");
   const [tooltipVisible, setTooltipVisible] = useState(false);
@@ -92,9 +90,9 @@ export function NotifyModal({ productName, productSlug, onClose }: NotifyModalPr
   }
 
   const statusMessage =
-    state === "success" ? t("notifyEmailSuccess") :
-    state === "error"   ? t("notifyEmailError") :
-    state === "invalid" ? t("notifyEmailInvalid") :
+    state === "success" ? "Готово! Напишем, как только выйдет." :
+    state === "error"   ? "Что-то пошло не так. Попробуй ещё раз." :
+    state === "invalid" ? "Введи корректный email." :
     null;
 
   return (
@@ -132,10 +130,10 @@ export function NotifyModal({ productName, productSlug, onClose }: NotifyModalPr
             {productName}
           </span>
           <h2 id="notify-modal-title" className="heading-sub text-xl mt-1">
-            {t("notifyModalTitle")}
+            Скоро появится
           </h2>
           <p className="text-sm" style={{ color: "var(--stone)" }}>
-            {t("notifyModalDesc")}
+            Этот продукт сейчас в разработке. Оставь email — напишем, как только он будет готов к скачиванию.
           </p>
         </div>
 
@@ -156,7 +154,7 @@ export function NotifyModal({ productName, productSlug, onClose }: NotifyModalPr
                 type="email"
                 value={email}
                 onChange={(e) => { setEmail(e.target.value); if (state === "invalid") setState("idle"); }}
-                placeholder={t("notifyEmailPlaceholder")}
+                placeholder="твой@email.com"
                 disabled={state === "loading"}
                 className="w-full px-4 py-2.5 rounded-xl border text-sm bg-transparent outline-none transition-colors focus:border-[var(--ember)]"
                 style={{
@@ -180,7 +178,7 @@ export function NotifyModal({ productName, productSlug, onClose }: NotifyModalPr
               className="w-full py-2.5 rounded-full text-sm font-medium transition-all hover:opacity-90 disabled:opacity-50"
               style={{ background: "var(--ember)", color: "white" }}
             >
-              {state === "loading" ? "..." : t("notifyEmailBtn")}
+              {state === "loading" ? "..." : "Получить уведомление"}
             </button>
           </form>
         )}
@@ -194,7 +192,7 @@ export function NotifyModal({ productName, productSlug, onClose }: NotifyModalPr
             style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}
           >
             <TelegramLogo size={16} />
-            {t("notifyTelegramBtn")}
+            Хочу уведомление в Telegram
           </a>
 
           <div className="relative">
@@ -204,7 +202,7 @@ export function NotifyModal({ productName, productSlug, onClose }: NotifyModalPr
               onMouseLeave={() => setTooltipVisible(false)}
               onFocus={() => setTooltipVisible(true)}
               onBlur={() => setTooltipVisible(false)}
-              aria-label={t("notifyTelegramTooltip")}
+              aria-label="После нажатия откроется наш бот в Telegram, в котором вы сможете оформить подписку на новости."
               className="p-1.5 rounded-full transition-colors hover:bg-[var(--sand)]"
               style={{ color: "var(--stone)" }}
             >
@@ -220,7 +218,7 @@ export function NotifyModal({ productName, productSlug, onClose }: NotifyModalPr
                 }}
                 role="tooltip"
               >
-                {t("notifyTelegramTooltip")}
+                После нажатия откроется наш бот в Telegram, в котором вы сможете оформить подписку на новости.
                 <div
                   className="absolute right-3 top-full w-0 h-0"
                   style={{

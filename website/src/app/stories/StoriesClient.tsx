@@ -2,8 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
-import { useTranslations, useLocale } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -15,7 +14,7 @@ import {
 import { CtaBlock } from "@/components/ui/CtaBlock";
 import { StoryCard } from "@/components/ui/StoryCard";
 import { slugToKind, illustrations } from "@/components/ui/ProductIllustration";
-import { Map, MapClusterLayer, MapPopup } from "@/components/ui/map";
+import { Map, MapClusterLayer, MapPopup, useMap } from "@/components/ui/map";
 import type { Story } from "@/lib/stories";
 import { formatInstalledDate, formatInstalledDateLong } from "@/lib/utils";
 
@@ -29,11 +28,43 @@ const PRODUCT_LABELS: Record<string, string> = {
   "edc-feeder":     "EDC Feeder",
 };
 
-export function StoriesClient() {
-  const t = useTranslations("Stories");
-  const tCommon = useTranslations("Common");
-  const locale = useLocale();
+// Recolors the CARTO Positron basemap to match the site's palette instead of
+// its default cool blue-grey: warm cream/sand land + borders/labels, water in
+// the logo's blue.
+const MAP_LOGO_BLUE = "#63A3D7";
 
+const MAP_LAYER_PAINT: Record<string, Record<string, string>> = {
+  background: { "background-color": "#F9F5EE" },
+  water: { "fill-color": MAP_LOGO_BLUE },
+  landcover: { "fill-color": "rgba(237, 227, 209, 0.55)" },
+  boundary_country_outline: { "line-color": "#F7F1E5" },
+  boundary_country_inner: { "line-color": "#E3D6BE" },
+  boundary_state: { "line-color": "#E3D6BE" },
+  boundary_county: { "line-color": "#E3D6BE" },
+  place_continent: { "text-color": "#756A5E", "text-halo-color": "#F9F5EE" },
+  place_country_1: { "text-color": "#756A5E", "text-halo-color": "#F9F5EE" },
+  place_country_2: { "text-color": "#756A5E", "text-halo-color": "#F9F5EE" },
+  place_state: { "text-color": "#8F8477", "text-halo-color": "#F9F5EE" },
+  watername_ocean: { "text-color": "#F9F5EE", "text-halo-color": MAP_LOGO_BLUE },
+  watername_sea: { "text-color": "#F9F5EE", "text-halo-color": MAP_LOGO_BLUE },
+  watername_lake: { "text-color": "#F9F5EE", "text-halo-color": MAP_LOGO_BLUE },
+};
+
+function MapWarmTheme() {
+  const { map, isLoaded } = useMap();
+  useEffect(() => {
+    if (!isLoaded || !map) return;
+    for (const [layerId, props] of Object.entries(MAP_LAYER_PAINT)) {
+      if (!map.getLayer(layerId)) continue;
+      for (const [prop, value] of Object.entries(props)) {
+        map.setPaintProperty(layerId, prop as never, value as never);
+      }
+    }
+  }, [map, isLoaded]);
+  return null;
+}
+
+export function StoriesClient() {
   const [viewMode, setViewMode] = useState<ViewMode>("map");
   const [productF, setProductF] = useState<ProductFilter>("all");
   const [stories, setStories] = useState<Story[]>([]);
@@ -93,7 +124,7 @@ export function StoriesClient() {
   const visibleAllStories = showAllStories ? allStories : allStories.slice(0, 6);
 
   const productFilters: { key: ProductFilter; label: string }[] = [
-    { key: "all",            label: t("filterAll") },
+    { key: "all",            label: "Все" },
     { key: "cozy-shelter",   label: "Cozy Shelter" },
     { key: "family-shelter", label: "Family Shelter" },
     { key: "purrtap",        label: "PurrTap" },
@@ -105,25 +136,25 @@ export function StoriesClient() {
         <Breadcrumb className="mb-6">
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">{tCommon("breadHome")}</BreadcrumbLink>
+              <BreadcrumbLink href="/">Главная</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>{t("breadStories")}</BreadcrumbPage>
+              <BreadcrumbPage>Истории</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
 
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
           <div>
-            <h1 className="heading-display">{t("heading")}</h1>
-            <p className="text-sm text-ink-muted mt-2">{t("subheading")}</p>
+            <h1 className="heading-display">Где уже стоят домики</h1>
+            <p className="text-sm text-ink-muted mt-2">Каждая точка — реальный собранный и установленный домик или поилка.</p>
           </div>
           <Link
             href="/stories/add"
             className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-[#c4673d] transition-colors whitespace-nowrap"
           >
-            {t("addStory")}
+            + Добавить историю
           </Link>
         </div>
 
@@ -151,7 +182,7 @@ export function StoriesClient() {
                   : "border-border-soft text-ink-muted hover:border-accent/40"
               }`}
             >
-              {t("viewMap")}
+              Карта
             </button>
             <button
               onClick={() => handleSetViewMode("map-grid")}
@@ -162,7 +193,7 @@ export function StoriesClient() {
                   : "border-border-soft text-ink-muted hover:border-accent/40"
               }`}
             >
-              {t("viewMapGrid")}
+              Карта + список
             </button>
           </span>
         </div>
@@ -172,7 +203,7 @@ export function StoriesClient() {
             className="rounded-[16px] overflow-hidden mb-14"
             style={{ height: 440, border: "1px solid var(--sand-2)", boxShadow: "var(--shadow-card)" }}
           >
-            <MapContent geoJson={geoJson} popup={popup} setPopup={setPopup} closeLabel={t("closePopup")} />
+            <MapContent geoJson={geoJson} popup={popup} setPopup={setPopup} closeLabel="Закрыть" />
           </div>
         ) : (
           <div className="grid lg:grid-cols-[1.3fr_1fr] gap-6 mb-14">
@@ -180,14 +211,14 @@ export function StoriesClient() {
               className="rounded-[16px] overflow-hidden"
               style={{ height: 440, border: "1px solid var(--sand-2)", boxShadow: "var(--shadow-card)" }}
             >
-              <MapContent geoJson={geoJson} popup={popup} setPopup={setPopup} closeLabel={t("closePopup")} />
+              <MapContent geoJson={geoJson} popup={popup} setPopup={setPopup} closeLabel="Закрыть" />
             </div>
             <div
               className="rounded-[16px] overflow-y-auto flex flex-col gap-3 p-3"
               style={{ height: 440, border: "1px solid var(--sand-2)", boxShadow: "var(--shadow-card)" }}
             >
               {loading && (
-                <div className="heading-card text-xl text-ink-muted text-center py-10">{t("loading")}</div>
+                <div className="heading-card text-xl text-ink-muted text-center py-10">Загрузка…</div>
               )}
               {!loading && stories.map((s) => (
                 <div
@@ -217,20 +248,20 @@ export function StoriesClient() {
                     </div>
                     <p className="text-sm font-medium text-ink">{s.quote}</p>
                     <p className="text-xs text-ink-muted">
-                      {s.author_name}{s.installed_date ? ` · ${formatInstalledDateLong(s.installed_date, locale)}` : ""}
+                      {s.author_name}{s.installed_date ? ` · ${formatInstalledDateLong(s.installed_date)}` : ""}
                     </p>
                   </div>
                 </div>
               ))}
               {!loading && stories.length === 0 && (
-                <div className="heading-card text-xl text-ink-muted text-center py-10">{t("noStoriesFilter")}</div>
+                <div className="heading-card text-xl text-ink-muted text-center py-10">Нет историй по этим фильтрам</div>
               )}
             </div>
           </div>
         )}
 
         <div>
-          <h2 className="heading-section mb-6">{t("allStoriesHeading")}</h2>
+          <h2 className="heading-section mb-6">Все истории</h2>
           {allStoriesLoading ? (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3].map((i) => (
@@ -238,7 +269,7 @@ export function StoriesClient() {
               ))}
             </div>
           ) : allStories.length === 0 ? (
-            <p className="heading-card text-xl text-ink-muted text-center py-10">{t("noStoriesYet")}</p>
+            <p className="heading-card text-xl text-ink-muted text-center py-10">Историй пока нет</p>
           ) : (
             <>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -252,7 +283,7 @@ export function StoriesClient() {
                     onClick={() => setShowAllStories((v) => !v)}
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-border-soft text-sm text-ink-muted hover:border-accent/40 hover:text-ink transition-colors"
                   >
-                    {showAllStories ? t("hide") : t("showAll", { count: allStories.length })}
+                    {showAllStories ? "скрыть" : `показать все (${allStories.length})`}
                     <svg
                       width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden
                       className={`transition-transform ${showAllStories ? "rotate-180" : ""}`}
@@ -268,10 +299,10 @@ export function StoriesClient() {
       </div>
 
       <CtaBlock
-        heading={t("ctaHeading")}
-        body={t("ctaBody")}
+        heading="Собрали домик? Расскажите!"
+        body="Фото + пара строк — и точка появится на карте."
         links={[
-          { label: t("ctaLink"), href: "/stories/add", primary: true },
+          { label: "Добавить историю →", href: "/stories/add", primary: true },
         ]}
       />
     </>
@@ -298,7 +329,8 @@ function MapContent({
   closeLabel: string;
 }) {
   return (
-    <Map center={[27.5, 53]} zoom={0}>
+    <Map center={[27.5, 53]} zoom={0} theme="light">
+      <MapWarmTheme />
       <MapClusterLayer
         data={geoJson}
         clusterRadius={40}

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
 interface CtaLink {
@@ -24,7 +23,6 @@ const ghostCls   = "px-6 py-3 rounded-full border text-ink text-sm font-medium h
 const ghostStyle = { background: "#FFFDF7", borderColor: "var(--sand-2)" };
 
 export function CtaBlock({ heading, body, links }: CtaBlockProps) {
-  const t = useTranslations("Common");
   const [copiedHref, setCopiedHref] = useState<string | null>(null);
 
   function handleCopy(href: string) {
@@ -79,7 +77,7 @@ export function CtaBlock({ heading, body, links }: CtaBlockProps) {
                 const copied = copiedHref === href;
                 return (
                   <button key={href} onClick={() => handleCopy(href)} className={cls} style={style}>
-                    {copied ? t('copiedLink') : label}
+                    {copied ? 'Ссылка скопирована ✓' : label}
                   </button>
                 );
               }

@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { useTranslations } from 'next-intl'
 import { STEPS, RESULTS } from '@/data/quiz'
 import type { QuizAction } from '@/data/quiz'
 
@@ -66,10 +65,57 @@ function scrollToId(id: string) {
   window.scrollTo({ top, behavior: 'smooth' })
 }
 
+const QUIZ_STEPS: TranslatedStep[] = [
+  {
+    q: 'Что у тебя есть?',
+    opts: [
+      { label: 'Руки и инструмент', path: 'hands' },
+      { label: 'Немного времени', path: 'time' },
+      { label: 'Готов поддержать финансово', path: 'money' },
+      { label: 'Голос в соцсетях', path: 'voice' },
+    ],
+  },
+  {
+    q: 'Сколько животных рядом с тобой?',
+    opts: [
+      { label: '1–2 кошки', path: 'cozy' },
+      { label: '4–5 кошек', path: 'family' },
+      { label: 'Целая колония', path: 'purrtap' },
+      { label: 'Не знаю точно', path: 'unknown' },
+    ],
+  },
+  {
+    q: 'Когда хочешь начать?',
+    opts: [
+      { label: 'Уже на этих выходных', path: 'now' },
+      { label: 'В течение 1–2 недель', path: 'soon' },
+      { label: 'Пока просто смотрю', path: 'later' },
+    ],
+  },
+]
+
+const QUIZ_RESULTS: Record<string, TranslatedResult> = {
+  hands_cozy:    { title: 'Cozy Shelter · фанера 6 мм', body: 'Для 1–2 кошек. Сборка за вечер. DXF + PDF с разметкой.', cta: [{ label: 'Скачать чертёж' }, { label: 'Найти ЧПУ рядом' }] },
+  hands_family:  { title: 'Family Shelter · фанера 6 мм', body: 'Для небольшой стаи. Двухсекционный домик с общей крышей.', cta: [{ label: 'Скачать чертёж' }, { label: 'Найти ЧПУ рядом' }] },
+  hands_purrtap: { title: 'PurrTap · поилка для двора', body: 'Минимум инструмента, максимум помощи. Ставится за час.', cta: [{ label: 'Открыть инструкцию' }, { label: 'Заказать набор' }] },
+  hands_unknown: { title: 'Cozy Shelter · универсальный', body: 'Самый простой вход. Подойдёт под большинство дворов.', cta: [{ label: 'Скачать чертёж' }, { label: 'Как выбрать место' }] },
+  time_cozy:     { title: 'Собери на хакспейсе', body: 'Принеси фанеру — ЧПУ сделает детали за час. Соберёшь сам.', cta: [{ label: 'Найти хакспейс' }, { label: 'Открыть Cozy' }] },
+  time_family:   { title: 'Family Shelter на хакспейсе', body: 'Попроси ЧПУ, дальше — лобзик и шуруповёрт.', cta: [{ label: 'Найти хакспейс' }, { label: 'Открыть Family' }] },
+  time_purrtap:  { title: 'PurrTap за одну прогулку', body: 'Принести воду, поставить — 30 минут времени.', cta: [{ label: 'Инструкция' }, { label: 'Найти двор' }] },
+  time_unknown:  { title: 'Помочь волонтёру', body: 'Подключись к сборке чужого домика — команды ищут руки.', cta: [{ label: 'Найти сборку' }, { label: 'Истории' }] },
+  money_cozy:    { title: 'Оплати один Cozy Shelter', body: 'Фанера + крепёж = ~35 €. Волонтёр соберёт и установит.', cta: [{ label: 'Поддержать' }, { label: 'Истории' }] },
+  money_family:  { title: 'Оплати Family Shelter', body: 'Материалы ~70 €. Накормим стаю зимой.', cta: [{ label: 'Поддержать' }, { label: 'Истории' }] },
+  money_purrtap: { title: 'Набор PurrTap', body: 'Поилка + расходники ~20 €. Ставь с волонтёрами.', cta: [{ label: 'Поддержать' }, { label: 'Истории' }] },
+  money_unknown: { title: 'Открытый донат', body: 'Направим туда, где острее: материалы или логистика.', cta: [{ label: 'Поддержать' }, { label: 'Отчёт расходов' }] },
+  voice_cozy:    { title: 'Поделиться Cozy', body: 'Готовый пост с чертежом. 1 клик — сосед узнает.', cta: [{ label: 'Скопировать ссылку' }, { label: 'Открыть страницу' }] },
+  voice_family:  { title: 'Рассказать про Family', body: 'Ссылка + история «5 кошек пережили зиму».', cta: [{ label: 'Скопировать ссылку' }, { label: 'Прочитать историю' }] },
+  voice_purrtap: { title: 'PurrTap — самое простое', body: 'Ролик «как поставить за 30 минут».', cta: [{ label: 'Открыть страницу' }, { label: 'Скопировать ссылку' }] },
+  voice_unknown: { title: 'Рассказать о SafePaws', body: 'Общее описание + 3 истории. Расшарь одному человеку.', cta: [{ label: 'Открыть сайт' }, { label: 'Скопировать ссылку' }] },
+}
+
 export function QuizSection() {
-  const t = useTranslations('Quiz')
-  const tSteps = t.raw('steps') as TranslatedStep[]
-  const tResults = t.raw('results') as Record<string, TranslatedResult>
+  const tSteps = QUIZ_STEPS
+  const tResults = QUIZ_RESULTS
 
   const [state, setState] = useState<QuizState>('collapsed')
   const [step, setStep] = useState(0)
@@ -163,10 +209,10 @@ export function QuizSection() {
       <div className="flex items-center gap-7 flex-wrap justify-between">
         <div className="flex-1 min-w-[280px]">
           <h3 className="heading-card" style={{ fontSize: 28, marginTop: 4 }}>
-            {t('heading')}
+            Не уверен, какой путь твой?
           </h3>
           <p className="text-sm mt-1.5" style={{ color: 'var(--stone)' }}>
-            {t('subheading')}
+            3 коротких вопроса — подскажем, какое решение ближе именно тебе.
           </p>
         </div>
         <div className="flex gap-2.5 items-center">
@@ -176,7 +222,7 @@ export function QuizSection() {
             className="inline-flex items-center gap-2 rounded-full bg-[var(--ember)] text-white text-sm font-medium quiz-start-btn"
             style={{ boxShadow: 'var(--shadow-btn)' }}
           >
-            {t('startBtn')}
+            Подобрать за 30 сек
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M1 7h12m0 0L8 2m5 5l-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -186,7 +232,7 @@ export function QuizSection() {
             className={ghostClass}
             style={ghostStyle}
           >
-            {t('laterBtn')}
+            позже
           </button>
         </div>
       </div>
@@ -225,12 +271,12 @@ export function QuizSection() {
                   style={{ fontFamily: 'var(--font-mono)', color: 'var(--stone)' }}
                 >
                   {state === 'result'
-                    ? t('done')
-                    : t('questionOf', { step: step + 1, total: STEPS.length })}
+                    ? 'Готово'
+                    : `Вопрос ${step + 1} из ${STEPS.length}`}
                 </span>
               </div>
               <button onClick={handleClose} className={ghostClass} style={ghostStyle}>
-                {t('closeBtn')}
+                ← закрыть
               </button>
             </div>
 
@@ -285,7 +331,7 @@ export function QuizSection() {
                     className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium mb-2.5"
                     style={{ background: 'var(--ember-pale)', color: 'var(--ember-accessible)' }}
                   >
-                    {t('resultLabel')}
+                    твой путь
                   </span>
                   <div
                     style={{
@@ -309,18 +355,18 @@ export function QuizSection() {
                       action={resultActions.cta[0].action}
                       primary
                       copiedHref={copiedHref}
-                      copiedLabel={t('copiedLink')}
+                      copiedLabel="Ссылка скопирована ✓"
                       onCopy={handleCopy}
                     />
                     <CtaButton
                       label={resultText.cta[1].label}
                       action={resultActions.cta[1].action}
                       copiedHref={copiedHref}
-                      copiedLabel={t('copiedLink')}
+                      copiedLabel="Ссылка скопирована ✓"
                       onCopy={handleCopy}
                     />
                     <button onClick={handleRestart} className={ghostClass} style={ghostStyle}>
-                      {t('restartBtn')}
+                      Пройти ещё раз
                     </button>
                   </div>
                 </div>

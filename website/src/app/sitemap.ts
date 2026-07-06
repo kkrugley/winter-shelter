@@ -1,17 +1,6 @@
 import type { MetadataRoute } from "next";
 import { products } from "@/data/products";
-import { BASE_URL, siteUrl } from "@/lib/site";
-
-const LOCALES = ["ru", "be", "pl", "en"] as const;
-
-function alternates(path: string) {
-  return {
-    languages: {
-      ...Object.fromEntries(LOCALES.map((l) => [l, siteUrl(path, l)])),
-      "x-default": siteUrl(path, "ru"),
-    },
-  };
-}
+import { siteUrl } from "@/lib/site";
 
 const STATIC_PAGES: {
   path: string;
@@ -29,24 +18,20 @@ const STATIC_PAGES: {
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
 
-  for (const locale of LOCALES) {
-    for (const page of STATIC_PAGES) {
-      entries.push({
-        url: siteUrl(page.path, locale),
-        changeFrequency: page.changeFrequency,
-        priority: page.priority,
-        alternates: alternates(page.path),
-      });
-    }
+  for (const page of STATIC_PAGES) {
+    entries.push({
+      url: siteUrl(page.path),
+      changeFrequency: page.changeFrequency,
+      priority: page.priority,
+    });
+  }
 
-    for (const product of products) {
-      entries.push({
-        url: siteUrl(`/solutions/${product.slug}`, locale),
-        changeFrequency: "monthly",
-        priority: product.status === "available" ? 0.8 : 0.4,
-        alternates: alternates(`/solutions/${product.slug}`),
-      });
-    }
+  for (const product of products) {
+    entries.push({
+      url: siteUrl(`/solutions/${product.slug}`),
+      changeFrequency: "monthly",
+      priority: product.status === "available" ? 0.8 : 0.4,
+    });
   }
 
   return entries;

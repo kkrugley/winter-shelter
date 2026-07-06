@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
 import { formatInstalledDateLong } from "@/lib/utils";
 
 const PRODUCT_LABELS: Record<string, string> = {
@@ -41,10 +40,8 @@ export interface StoryCardData {
 
 export function StoryCard({ city, product_slug, quote, author_name, installed_date, photo_url }: StoryCardData) {
   const [imgError, setImgError] = useState(false);
-  const locale = useLocale();
-  const tCommon = useTranslations("Common");
   const productLabel = PRODUCT_LABELS[product_slug] ?? product_slug;
-  const dateLabel = formatInstalledDateLong(installed_date, locale);
+  const dateLabel = formatInstalledDateLong(installed_date);
   const showPhoto = photo_url && !imgError;
 
   return (
@@ -71,7 +68,7 @@ export function StoryCard({ city, product_slug, quote, author_name, installed_da
             onError={() => setImgError(true)}
           />
         ) : (
-          <PhotoPlaceholder label={tCommon("photoPlaceholder")} />
+          <PhotoPlaceholder label="Фото" />
         )}
 
         {/* Badges: product + city — top-left row */}

@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -20,7 +19,11 @@ declare global {
 
 const SITEKEY = "0x4AAAAAADs9TzE7UAMqNZVI";
 
-interface TranslatedCategory { slug: string; label: string }
+const CATEGORIES = [
+  { slug: "new-product", label: "Новый продукт" },
+  { slug: "improvement", label: "Улучшение существующего" },
+  { slug: "other", label: "Другое" },
+];
 
 const inputCls = "w-full px-3 py-2.5 border rounded-xl text-sm bg-[var(--cream)] text-ink placeholder:text-[var(--stone)] focus:outline-none transition-colors";
 const inputStyle = { borderColor: "var(--sand-2)" };
@@ -41,11 +44,6 @@ function Field({ label, required, hint, children }: {
 }
 
 export default function AddIdeaPage() {
-  const t = useTranslations("SolutionsAdd");
-  const tCommon = useTranslations("Common");
-
-  const CATEGORIES = t.raw("categories") as TranslatedCategory[];
-
   const [form, setForm] = useState({
     author_name: "",
     telegram: "",
@@ -133,9 +131,9 @@ export default function AddIdeaPage() {
     e.preventDefault();
     setError("");
 
-    if (!form.author_name)  { setError(t("errorName"));  return; }
-    if (!form.title)        { setError(t("errorTitle")); return; }
-    if (!form.description)  { setError(t("errorDesc"));  return; }
+    if (!form.author_name)  { setError("Заполни поле: имя");  return; }
+    if (!form.title)        { setError("Заполни поле: название идеи"); return; }
+    if (!form.description)  { setError("Заполни поле: описание");  return; }
 
     setSubmitting(true);
 
@@ -173,14 +171,14 @@ export default function AddIdeaPage() {
     return (
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-20 text-center">
         <CheckCircle size={52} weight="duotone" style={{ color: "var(--ember)", margin: "0 auto 16px" }} />
-        <h1 className="heading-section mb-3">{t("successTitle")}</h1>
-        <p className="text-sm mb-8" style={{ color: "var(--stone)" }}>{t("successDesc")}</p>
+        <h1 className="heading-section mb-3">Спасибо!</h1>
+        <p className="text-sm mb-8" style={{ color: "var(--stone)" }}>Твоя идея получена. Мы обязательно её рассмотрим.</p>
         <Link
           href="/solutions"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium text-white transition-opacity hover:opacity-90"
           style={{ background: "var(--ember)" }}
         >
-          {t("successLink")}
+          Смотреть все решения →
         </Link>
       </div>
     );
@@ -191,27 +189,27 @@ export default function AddIdeaPage() {
       <Breadcrumb className="mb-8">
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/">{tCommon("breadHome")}</BreadcrumbLink>
+            <BreadcrumbLink href="/">Главная</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/solutions">{t("breadSolutions")}</BreadcrumbLink>
+            <BreadcrumbLink href="/solutions">Решения</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>{t("breadAdd")}</BreadcrumbPage>
+            <BreadcrumbPage>Предложить идею</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
 
-      <h1 className="heading-display mb-2">{t("heading")}</h1>
+      <h1 className="heading-display mb-2">Предложить идею</h1>
       <p className="text-sm mb-10" style={{ color: "var(--stone)" }}>
-        {t("subheading").split("\n").map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}
+        {"Придумали что-то новое для помощи хвостатым?\nОпишите идею — мы обязательно её рассмотрим.".split("\n").map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}
       </p>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
 
-        <Field label={t("fieldCategory")}>
+        <Field label="Категория идеи">
           <div className="grid sm:grid-cols-3 gap-2">
             {CATEGORIES.map((c) => (
               <button
@@ -238,23 +236,23 @@ export default function AddIdeaPage() {
 
         <div className="h-px" style={{ background: "var(--sand-2)" }} />
 
-        <Field label={t("fieldTitle")} required hint={t("fieldTitleHint")}>
+        <Field label="Название идеи" required hint="Кратко — одна фраза">
           <input
             type="text"
             value={form.title}
             onChange={(e) => set("title", e.target.value)}
-            placeholder={t("fieldTitlePlaceholder")}
+            placeholder="Складная кормушка для балкона"
             className={`${inputCls} ${inputFocusStyle}`}
             style={inputStyle}
           />
         </Field>
 
-        <Field label={t("fieldDesc")} required hint={t("fieldDescHint")}>
+        <Field label="Описание" required hint="Расскажи подробнее: зачем, для кого, как могло бы работать">
           <textarea
             rows={5}
             value={form.description}
             onChange={(e) => set("description", e.target.value)}
-            placeholder={t("fieldDescPlaceholder")}
+            placeholder="Хочу кормушку, которую удобно крепить на балконные перила — чтобы не занимала место на полу и не намокала под дождём."
             className={`${inputCls} ${inputFocusStyle} resize-none`}
             style={inputStyle}
           />
@@ -262,18 +260,18 @@ export default function AddIdeaPage() {
 
         <div className="h-px" style={{ background: "var(--sand-2)" }} />
 
-        <Field label={t("fieldAuthor")} required hint={t("fieldAuthorHint")}>
+        <Field label="Твоё имя" required hint="Как подписать идею">
           <input
             type="text"
             value={form.author_name}
             onChange={(e) => set("author_name", e.target.value)}
-            placeholder={t("fieldAuthorPlaceholder")}
+            placeholder="Имя или никнейм"
             className={`${inputCls} ${inputFocusStyle}`}
             style={inputStyle}
           />
         </Field>
 
-        <Field label={t("fieldTelegram")} hint={t("fieldTelegramHint")}>
+        <Field label="Telegram (необязательно)" hint="Если захотим уточнить детали или поблагодарить">
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm select-none" style={{ color: "var(--stone)" }}>@</span>
             <input
@@ -289,7 +287,7 @@ export default function AddIdeaPage() {
 
         <div className="h-px" style={{ background: "var(--sand-2)" }} />
 
-        <Field label={t("fieldPhoto")} hint={t("fieldPhotoHint")}>
+        <Field label="Фото или скетч (необязательно)" hint="JPG, PNG, WEBP — до 10 МБ. Можно приложить рисунок от руки или референс.">
           <input
             ref={fileInputRef}
             type="file"
@@ -303,13 +301,13 @@ export default function AddIdeaPage() {
               {photoUploading && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2" style={{ background: "rgba(44,42,39,0.55)" }}>
                   <Spinner size={28} className="animate-spin" style={{ color: "#fff" }} />
-                  <span className="text-xs text-white font-medium">{t("photoUploading")}</span>
+                  <span className="text-xs text-white font-medium">Загружаю…</span>
                 </div>
               )}
               {photoUrl && !photoUploading && (
                 <div className="absolute bottom-2.5 left-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium" style={{ background: "rgba(44,42,39,0.6)", color: "#fff" }}>
                   <CheckCircle size={13} weight="fill" style={{ color: "#7EC86E" }} />
-                  {t("photoUploaded")}
+                  Загружено
                 </div>
               )}
               <button
@@ -317,7 +315,7 @@ export default function AddIdeaPage() {
                 onClick={removePhoto}
                 className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full flex items-center justify-center transition-opacity hover:opacity-80"
                 style={{ background: "rgba(44,42,39,0.6)" }}
-                aria-label={t("photoRemoveLabel")}
+                aria-label="Удалить фото"
               >
                 <X size={14} style={{ color: "#fff" }} />
               </button>
@@ -334,7 +332,7 @@ export default function AddIdeaPage() {
             >
               <UploadSimple size={24} style={{ color: dragOver ? "var(--ember)" : "var(--stone)", opacity: dragOver ? 1 : 0.5 }} />
               <span className="text-sm" style={{ color: "var(--stone)" }}>
-                {t("photoDrop")} <span style={{ color: "var(--ember)" }}>{t("photoSelect")}</span>
+                Перетащи фото или <span style={{ color: "var(--ember)" }}>выбери файл</span>
               </span>
             </button>
           )}
@@ -360,20 +358,20 @@ export default function AddIdeaPage() {
           style={{ background: "var(--ember)", boxShadow: "var(--shadow-btn)" }}
         >
           {submitting
-            ? <><Spinner size={16} className="animate-spin" /> {t("submitting")}</>
+            ? <><Spinner size={16} className="animate-spin" /> Отправляю…</>
             : photoUploading
-            ? <><Spinner size={16} className="animate-spin" /> {t("uploadingPhoto")}</>
-            : t("submit")
+            ? <><Spinner size={16} className="animate-spin" /> Загружаю фото…</>
+            : "Отправить идею →"
           }
         </button>
 
-        <p className="text-xs text-center" style={{ color: "var(--stone)", opacity: 0.7 }}>{t("submitNote")}</p>
+        <p className="text-xs text-center" style={{ color: "var(--stone)", opacity: 0.7 }}>Мы рассмотрим каждую идею и свяжемся с тобой, если она нам подойдёт.</p>
       </form>
 
       <div className="mt-8">
         <Link href="/solutions" className="inline-flex items-center gap-2 text-sm hover:underline transition-colors" style={{ color: "var(--stone)" }}>
           <ArrowLeft size={14} />
-          {t("backLink")}
+          Все решения
         </Link>
       </div>
     </div>

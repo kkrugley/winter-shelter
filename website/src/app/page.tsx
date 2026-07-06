@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { setRequestLocale, getTranslations } from "next-intl/server";
 import React from "react";
 import { pageAlternates } from "@/lib/metadata";
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
 import { Hammer, Heart, BookOpenText, ArrowLineDown, PencilSimple, HouseLine } from "@phosphor-icons/react/dist/ssr";
 import { products } from "@/data/products";
+import { getProductContent } from "@/data/productContent";
 import { ProductIllustration } from "@/components/ui/ProductIllustration";
 import { StoryCard } from "@/components/ui/StoryCard";
 import { getPublishedStories } from "@/lib/stories";
@@ -22,32 +22,26 @@ const HERO_RING_GAP = 3;
 const HERO_RING_WIDTH = 3;
 const HERO_TILT = 2;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  return { alternates: pageAlternates("/", locale) };
-}
+const PATHS = [
+  { title: "У меня есть инструмент", desc: "Хочу собрать домик или одно из других устройств!", chips: ["ЧПУ-станок", "3Д принтер"], cta: "Выбрать чертёж →" },
+  { title: "Хочу поддержать", desc: "Хочу рассказать о проекте или поддержать финансово.", chips: ["Поделиться", "Поддержать"], cta: "Варианты →" },
+  { title: "Заинтересовался", desc: "Хочу узнать о проекте больше и как я могу помочь.", chips: ["Истории", "О Проекте"], cta: "Истории людей →" },
+];
 
-export default async function HomePage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+const STEPS = [
+  { title: "Скачай", desc: "Выберите нужный продукт и загрузите соответствующие файлы: DXF — для лазерной резки, STL — для 3Д-печати" },
+  { title: "Собери", desc: "Изготовьте детали своими силами или в ближайшей мастерской. Сборка максимально проста — справится каждый!" },
+  { title: "Установи", desc: "Установите домики в подходящем месте и поделитесь своей историей!" },
+];
 
-  const t = await getTranslations({ locale, namespace: "Home" });
-  const tProducts = await getTranslations({ locale, namespace: "Products" });
+export const metadata: Metadata = {
+  alternates: pageAlternates("/"),
+};
 
+export default async function HomePage() {
   const allStories = await getPublishedStories().catch(() => []);
   // eslint-disable-next-line react-hooks/purity -- Server Component: runs once on server, Math.random is safe here
   const miniStories = allStories.filter((s) => s.photo_url).sort(() => Math.random() - 0.5).slice(0, 3);
-
-  const paths = t.raw("paths") as { title: string; desc: string; chips: string[]; cta: string }[];
-  const steps = t.raw("steps") as { title: string; desc: string }[];
 
   return (
     <>
@@ -56,13 +50,13 @@ export default async function HomePage({
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
             <h1 className="heading-display md:text-6xl mb-5">
-              {t("heroTitle")}{" "}
+              Зима приходит.{" "}
               <span className="scribble-underline">
-                {t("heroTitle2")}
+                Им некуда спрятаться.
               </span>
             </h1>
             <p className="text-base md:text-lg mb-8 max-w-[440px] leading-relaxed" style={{ color: "var(--stone)" }}>
-              {t("heroSubtitle").split("\n").map((line, i) => (
+              {"SafePaws — открытые чертежи домиков и поилок для бездомных кошек.\nСкачай, собери, установи — или помоги иначе.".split("\n").map((line, i) => (
                 <span key={i}>{line}{i === 0 && <br />}</span>
               ))}
             </p>
@@ -72,13 +66,13 @@ export default async function HomePage({
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--ember)] text-white text-sm font-medium transition-all hover:opacity-90 hover:-translate-y-px"
                 style={{ boxShadow: "var(--shadow-btn)" }}
               >
-                {t("heroCta")}
+                Начать помогать →
               </Link>
               <Link
                 href="/solutions"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[var(--sand-2)] text-ink text-sm font-medium hover:border-[var(--stone)] transition-colors"
               >
-                {t("heroCta2")}
+                Посмотреть каталог
               </Link>
             </div>
           </div>
@@ -93,7 +87,7 @@ export default async function HomePage({
           >
             <Image
               src="/images/general/hero-1.jpg"
-              alt={t("heroImgAlt")}
+              alt="Бездомные кошки зимой"
               width={1376}
               height={768}
               className="w-full h-auto"
@@ -106,9 +100,9 @@ export default async function HomePage({
       {/* 3-PATH FORK + QUIZ */}
       <section className="py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <h2 className="heading-section mb-8">{t("pathsHeading")}</h2>
+          <h2 className="heading-section mb-8">Как ты хочешь помочь?</h2>
           <div className="grid md:grid-cols-3 gap-5">
-            {paths.map(({ title, desc, chips, cta }, i) => {
+            {PATHS.map(({ title, desc, chips, cta }, i) => {
               const Icon = PATH_ICONS[i];
               const href = PATH_HREFS[i];
               return (
@@ -160,15 +154,15 @@ export default async function HomePage({
       <section id="catalog" className="py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="heading-section">{t("catalogHeading")}</h2>
+            <h2 className="heading-section">Каталог решений</h2>
             <Link href="/solutions" className="link-script hidden sm:block hover:underline">
-              {t("catalogAll")}
+              все решения →
             </Link>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {previewProducts.map((p) => {
-              const pT = tProducts.raw(p.slug) as { capacity: string; subtitle: string };
-              const badge = p.status === "available" ? pT.capacity : (t("statusComingSoon"));
+              const pT = getProductContent(p.slug)!;
+              const badge = p.status === "available" ? pT.capacity : "В разработке!";
               return (
                 <div
                   key={p.slug}
@@ -187,15 +181,15 @@ export default async function HomePage({
                     <div className="mt-auto pt-2">
                       <Link
                         href={`/solutions/${p.slug}`}
-                        aria-label={`${p.status === "coming-soon" ? t("cardLearnMore") : p.category === "hydration" ? t("cardInstall") : t("cardDetails")} ${p.name}`}
+                        aria-label={`${p.status === "coming-soon" ? "Узнать →" : p.category === "hydration" ? "Как установить →" : "Детали →"} ${p.name}`}
                         className="inline-flex items-center gap-1 text-xs font-medium transition-colors hover:underline"
                         style={{ color: "var(--ember)" }}
                       >
                         {p.status === "coming-soon"
-                          ? t("cardLearnMore")
+                          ? "Узнать →"
                           : p.category === "hydration"
-                          ? t("cardInstall")
-                          : t("cardDetails")}
+                          ? "Как установить →"
+                          : "Детали →"}
                       </Link>
                     </div>
                   </div>
@@ -204,7 +198,7 @@ export default async function HomePage({
             })}
           </div>
           <div className="mt-4 sm:hidden text-center">
-            <Link href="/solutions" className="link-script text-xl hover:underline">{t("catalogAllMobile")}</Link>
+            <Link href="/solutions" className="link-script text-xl hover:underline">Все решения →</Link>
           </div>
         </div>
       </section>
@@ -212,13 +206,13 @@ export default async function HomePage({
       {/* HOW IT WORKS */}
       <section className="py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <h2 className="heading-section mb-8">{t("stepsHeading")}</h2>
+          <h2 className="heading-section mb-8">Как это работает?</h2>
 
           <div
             className="hidden md:grid items-stretch mt-2"
             style={{ gridTemplateColumns: "1fr 44px 1fr 44px 1fr", gap: 0 }}
           >
-            {steps.map(({ title, desc }, i) => {
+            {STEPS.map(({ title, desc }, i) => {
               const Icon = STEP_ICONS[i];
               const n = i + 1;
               return (
@@ -241,7 +235,7 @@ export default async function HomePage({
                       <Icon size={40} weight="light" />
                     </div>
                   </div>
-                  {i < steps.length - 1 && (
+                  {i < STEPS.length - 1 && (
                     <div
                       key={`conn-${n}`}
                       style={{
@@ -259,7 +253,7 @@ export default async function HomePage({
           </div>
 
           <div className="flex flex-col gap-4 md:hidden">
-            {steps.map(({ title, desc }, i) => {
+            {STEPS.map(({ title, desc }, i) => {
               const Icon = STEP_ICONS[i];
               const n = i + 1;
               return (
@@ -292,9 +286,9 @@ export default async function HomePage({
       <section className="py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="heading-section">{t("storiesHeading")}</h2>
+            <h2 className="heading-section">Истории</h2>
             <Link href="/stories" className="link-script hidden sm:block hover:underline">
-              {t("storiesAll")}
+              все истории →
             </Link>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -303,18 +297,18 @@ export default async function HomePage({
             ))}
           </div>
           <div className="mt-4 sm:hidden text-center">
-            <Link href="/stories" className="link-script text-xl hover:underline">{t("storiesAllMobile")}</Link>
+            <Link href="/stories" className="link-script text-xl hover:underline">Все истории →</Link>
           </div>
         </div>
       </section>
 
       {/* BOTTOM CTA */}
       <CtaBlock
-        heading={t("ctaHeading")}
-        body={t("ctaBody")}
+        heading="Готов начать?"
+        body="Все файлы бесплатные и открытые."
         links={[
-          { label: t("ctaLink1"), href: "/solutions", primary: true },
-          { label: t("ctaLink2"), href: "/help" },
+          { label: "Открыть каталог", href: "/solutions", primary: true },
+          { label: "Как помочь без инструментов", href: "/help" },
         ]}
       />
     </>

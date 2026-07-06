@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { setRequestLocale, getTranslations } from "next-intl/server";
 import { pageAlternates } from "@/lib/metadata";
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
 import { getStats } from "@/lib/stats";
 import { RoadmapZigzag, type TimelineItem } from "@/components/RoadmapZigzag";
 import {
@@ -20,36 +18,25 @@ const ABOUT_RING_GAP = 3;
 const ABOUT_RING_WIDTH = 3;
 const ABOUT_TILT = -2;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  return { alternates: pageAlternates("/about", locale) };
-}
+const TIMELINE: TimelineItem[] = [
+  { year: "декабрь 2024", title: "Идея", desc: "Первая версия 'Cozy' из 6мм фанеры" },
+  { year: "март 2025", title: "Публичный релиз", desc: "Опубликованы чертежи домиков 'Cozy' и 'Family', а так же исходные CAD файлы" },
+  { year: "январь 2026", title: "Обновление", desc: "Добавлена 3мм версия. Проведен редизайн веб-сайта" },
+  { year: "2026-2027", title: "Roadmap", desc: "Расширение продуктовой линейки", future: false },
+];
 
-export default async function AboutPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+export const metadata: Metadata = {
+  alternates: pageAlternates("/about"),
+};
 
-  const t = await getTranslations({ locale, namespace: "About" });
-  const tCommon = await getTranslations({ locale, namespace: "Common" });
-
+export default async function AboutPage() {
   const stats = await getStats();
 
-  const timeline = t.raw("timeline") as TimelineItem[];
-  const partners = t.raw("partners") as string[];
-
   const badgeItems = [
-    { value: stats.downloads > 0 ? `${Math.floor(stats.downloads / 10) * 10}+` : "150+", label: t("badgeDownloads") },
-    { value: String(stats.installations || "47"),  label: t("badgeInstalled") },
-    { value: String(stats.countries || "4"),       label: t("badgeCountries") },
-    { value: String(stats.languages),              label: t("badgeLanguages") },
+    { value: stats.downloads > 0 ? `${Math.floor(stats.downloads / 10) * 10}+` : "150+", label: "скачиваний" },
+    { value: String(stats.installations || "47"),  label: "установленных" },
+    { value: String(stats.countries || "4"),       label: "стран" },
+    { value: String(stats.languages),              label: "языка" },
   ];
 
   return (
@@ -58,11 +45,11 @@ export default async function AboutPage({
         <Breadcrumb className="mb-8">
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">{tCommon("breadHome")}</BreadcrumbLink>
+              <BreadcrumbLink href="/">Главная</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>{t("breadAbout")}</BreadcrumbPage>
+              <BreadcrumbPage>О проекте</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -70,10 +57,10 @@ export default async function AboutPage({
         <div className="grid md:grid-cols-2 gap-10 items-center mb-14">
           <div>
             <h1 className="heading-display md:text-6xl mb-5">
-              {t("heroTitle")}{" "}
-              <span className="scribble-underline">{t("heroTitle2")}</span>
+              Добро должно быть{" "}
+              <span className="scribble-underline">простым.</span>
             </h1>
-            <p className="text-base text-ink-muted leading-relaxed mb-6 max-w-[520px]">{t("heroDesc")}</p>
+            <p className="text-base text-ink-muted leading-relaxed mb-6 max-w-[520px]">SafePaws — открытый проект: чертежи и решения, чтобы любой человек мог с минимальным усилием помочь уличным животным пережить зиму.</p>
             <div className="flex flex-wrap gap-3">
               {badgeItems.map(({ value, label }, i) => (
                 <div
@@ -108,7 +95,7 @@ export default async function AboutPage({
           >
             <Image
               src="/images/general/about-1.jpeg"
-              alt={t("heroImgAlt")}
+              alt="Команда SafePaws"
               width={1376}
               height={768}
               className="w-full h-auto"
@@ -117,12 +104,12 @@ export default async function AboutPage({
         </div>
 
         <div className="mb-14">
-          <h2 className="heading-section mb-8">{t("howStartedHeading")}</h2>
+          <h2 className="heading-section mb-8">Как это началось</h2>
           <div className="grid md:grid-cols-2 gap-10 items-start">
             <div className="space-y-4 text-sm text-ink-muted leading-relaxed">
-              <p>{t("howStarted1")}</p>
-              <p>{t("howStarted2")}</p>
-              <p>{t("howStarted3")}</p>
+              <p>История проекта</p>
+              <p></p>
+              <p></p>
             </div>
             <div className="max-w-xs mx-auto md:ml-auto md:mr-20 md:mx-0" style={{ transform: "rotate(1.2deg)" }}>
               <div
@@ -137,20 +124,20 @@ export default async function AboutPage({
                     className="relative shrink-0 overflow-hidden"
                     style={{ width: "56px", height: "72px", borderRadius: "2px", border: "3px solid #fff", transform: "rotate(-1.5deg)", boxShadow: "2px 4px 0 var(--sand-2), 0 6px 14px rgba(44,42,39,.14)" }}
                   >
-                    <Image src="/images/general/author-1.jpg" alt={t("authorName")} fill className="object-cover object-top" sizes="56px" />
+                    <Image src="/images/general/author-1.jpg" alt="Паша Круглей" fill className="object-cover object-top" sizes="56px" />
                   </div>
                   <div style={{ lineHeight: "24px" }}>
-                    <strong className="block" style={{ fontFamily: "var(--font-caveat)", fontSize: "1.375rem", fontWeight: 700, color: "var(--charcoal)", lineHeight: "24px" }}>{t("authorName")}</strong>
-                    <p style={{ fontSize: "0.75rem", color: "var(--stone)", lineHeight: "24px" }}>{t("authorRole")}</p>
+                    <strong className="block" style={{ fontFamily: "var(--font-caveat)", fontSize: "1.375rem", fontWeight: 700, color: "var(--charcoal)", lineHeight: "24px" }}>Паша Круглей</strong>
+                    <p style={{ fontSize: "0.75rem", color: "var(--stone)", lineHeight: "24px" }}>автор · Брест, Беларусь</p>
                     <div className="flex items-center gap-1.5" style={{ lineHeight: "24px" }}>
                       <span className="shrink-0 rounded-full" style={{ width: "6px", height: "6px", background: "var(--forest)", display: "inline-block" }} />
-                      <span className="font-mono" style={{ fontSize: "0.625rem", color: "var(--forest-mid)" }}>{t("authorOpen")}</span>
+                      <span className="font-mono" style={{ fontSize: "0.625rem", color: "var(--forest-mid)" }}>открыт для сотрудничества</span>
                     </div>
                   </div>
                 </div>
                 <div style={{ borderTop: "1px dashed var(--sand-2)", marginBottom: "24px" }} />
                 <blockquote style={{ fontFamily: "var(--font-caveat)", fontSize: "1.2rem", fontWeight: 600, color: "var(--charcoal)", lineHeight: "24px", marginBottom: "24px" }}>
-                  {t("authorQuote")}
+                  «Начал с одного домика на даче — теперь это проект для всех.»
                 </blockquote>
                 <div className="flex flex-wrap gap-x-3" style={{ lineHeight: "24px", marginBottom: "24px" }}>
                   {["Industrial design", "Open source", "DIY / maker"].map((tag) => (
@@ -162,7 +149,7 @@ export default async function AboutPage({
                 <div style={{ borderTop: "1px dashed var(--sand-2)", marginBottom: "24px" }} />
                 {[
                   { label: "Telegram", value: "@krutoj_perec", href: "https://t.me/krutoj_perec" },
-                  { label: t("authorContactSite"), value: "pasza.ru", href: "https://pasza.ru/" },
+                  { label: "Сайт", value: "pasza.ru", href: "https://pasza.ru/" },
                 ].map(({ label, value, href }) => (
                   <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 group" style={{ lineHeight: "24px" }}>
                     <span className="font-mono shrink-0" style={{ fontSize: "0.6875rem", color: "var(--stone)" }}>{label} →</span>
@@ -177,13 +164,13 @@ export default async function AboutPage({
         </div>
 
         <div className="mb-14">
-          <h2 className="heading-section mb-8">{t("timelineHeading")}</h2>
-          <RoadmapZigzag items={timeline} />
+          <h2 className="heading-section mb-8">Развитие проекта</h2>
+          <RoadmapZigzag items={TIMELINE} />
         </div>
 
         {/* TODO(Pavel): переработать блок "кто помогает" — временно скрыт
         <div className="mb-14">
-          <h2 className="heading-section mb-8">{t("partnersHeading")}</h2>
+          <h2 className="heading-section mb-8">Кто помогает</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
             {partners.map((name) => (
               <div key={name} className="border border-border-soft rounded-xl p-5 text-center">
@@ -201,8 +188,8 @@ export default async function AboutPage({
         >
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="heading-section mb-3">{t("contactHeading")}</h2>
-              <p className="text-sm text-ink-muted">{t("contactDesc")}</p>
+              <h2 className="heading-section mb-3">Связаться</h2>
+              <p className="text-sm text-ink-muted">Вопрос, предложение, партнёрство — пиши любым способом.</p>
             </div>
             <div className="flex flex-col gap-3">
               <a href="https://t.me/safepaws_help" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center px-5 py-2.5 rounded-full border text-sm text-ink hover:border-[var(--ember)] hover:text-[var(--ember)] transition-colors" style={{ borderColor: "var(--sand-2)" }}>
