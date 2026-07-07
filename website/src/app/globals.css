@@ -350,6 +350,36 @@
     font-size: 1.5rem;
     color: var(--ember);
   }
+}
+
+/* ── Font swap smoothing ─────────────────────────────────────────────────
+   Lora/Caveat (--font-hand/--font-script) look noticeably different from
+   their fallback, so a hard font-display:swap flip reads as "wrong font
+   flashed". Dim these elements slightly until the Font Loading API confirms
+   the real font is ready (see the inline script in layout.tsx that adds
+   `fonts-loaded` to <html>), then fade to full opacity — text stays visible
+   the whole time (no FOIT), the mismatch is just less eye-catching.
+   Inter/body text is left alone: its fallback is close enough to not need this. */
+h1, h2, h3, h4,
+.heading-display, .heading-section, .heading-sub, .heading-card, .heading-quote, .heading-logo,
+.link-script {
+  transition: opacity 220ms ease;
+}
+html:not(.fonts-loaded) h1,
+html:not(.fonts-loaded) h2,
+html:not(.fonts-loaded) h3,
+html:not(.fonts-loaded) h4,
+html:not(.fonts-loaded) .heading-display,
+html:not(.fonts-loaded) .heading-section,
+html:not(.fonts-loaded) .heading-sub,
+html:not(.fonts-loaded) .heading-card,
+html:not(.fonts-loaded) .heading-quote,
+html:not(.fonts-loaded) .heading-logo,
+html:not(.fonts-loaded) .link-script {
+  opacity: 0.82;
+}
+
+@layer components {
 
   /* Hero image card — base tilt from HERO_TILT constant (page.tsx) via --hero-tilt-base */
   .hero-card {

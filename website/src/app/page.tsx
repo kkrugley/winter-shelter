@@ -56,7 +56,7 @@ export default async function HomePage() {
               </span>
             </h1>
             <p className="text-base md:text-lg mb-8 max-w-[440px] leading-relaxed" style={{ color: "var(--stone)" }}>
-              {"SafePaws — открытые чертежи домиков и поилок для бездомных кошек.\nСкачай, собери, установи — или помоги иначе.".split("\n").map((line, i) => (
+              {"SafePaws — бесплатные чертежи домиков и поилок для бездомных кошек.\nСкачай, собери, установи — или помоги иначе.".split("\n").map((line, i) => (
                 <span key={i}>{line}{i === 0 && <br />}</span>
               ))}
             </p>

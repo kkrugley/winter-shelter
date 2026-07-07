@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import { Suspense } from "react";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -12,8 +13,8 @@ import { BASE_URL, siteUrl } from "@/lib/site";
 
 const inter = localFont({
   src: [
-    { path: "../../public/fonts/Inter/Inter-VariableFont_opsz,wght.woff2", style: "normal" },
-    { path: "../../public/fonts/Inter/Inter-Italic-VariableFont_opsz,wght.woff2", style: "italic" },
+    { path: "../../public/fonts/Inter/Inter-VariableFont_wght.woff2", style: "normal" },
+    { path: "../../public/fonts/Inter/Inter-Italic-VariableFont_wght.woff2", style: "italic" },
   ],
   variable: "--font-inter",
   display: "swap",
@@ -34,9 +35,8 @@ const caveat = localFont({
   display: "swap",
 });
 
-const METADATA_TITLE = "SafePaws — чертежи домиков и поилок для уличных кошек";
-const METADATA_DESCRIPTION =
-  "Открытый проект: бесплатные чертежи защитных домиков и поилок для бездомных кошек. Скачай DXF/PDF, собери сам или помоги иначе.";
+const METADATA_TITLE = "SafePaws — бесплатные чертежи домиков для бездомных кошек";
+const METADATA_DESCRIPTION = "Открытый проект: бесплатные чертежи защитных домиков и поилок для бездомных кошек. Скачай DXF/PDF, собери сам или помоги иначе.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://safepaws.ru"),
@@ -48,11 +48,14 @@ export const metadata: Metadata = {
   keywords: [
     "бездомные кошки",
     "домик для кошки",
+    "чертежи домика для кошки",
+    "бесплатные чертежи домиков",
+    "бесплатные чертежи будок",
+    "укрытие для бездомных кошек",
     "чертежи",
     "DXF",
     "волонтёрство",
     "SafePaws",
-    "уличные кошки",
     "поилка для кошек",
     "открытый проект",
   ],
@@ -115,6 +118,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-paper text-ink" suppressHydrationWarning>
+        <Script id="font-loading-detector" strategy="afterInteractive">
+          {`
+            if (!('fonts' in document)) {
+              document.documentElement.classList.add('fonts-loaded');
+            } else {
+              document.fonts.ready
+                .then(function () { document.documentElement.classList.add('fonts-loaded'); })
+                .catch(function () { document.documentElement.classList.add('fonts-loaded'); });
+            }
+          `}
+        </Script>
         <JsonLd data={organizationSchema} />
         <Header />
         <main className="flex-1">{children}</main>
