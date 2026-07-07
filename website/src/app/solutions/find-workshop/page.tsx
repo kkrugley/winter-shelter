@@ -9,7 +9,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { MapPin, Scissors, Cube, Wrench, Plus, ArrowSquareOut } from "@phosphor-icons/react/dist/ssr";
+import { MapPin, Scissors, Cube, Wrench, Plus } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
   title: "Мастерские рядом",
@@ -17,13 +17,13 @@ export const metadata: Metadata = {
 };
 
 const CAPABILITIES = [
-  { icon: Scissors, label: "Лазерная резка", desc: "Точный рез фанеры 3–6 мм для домиков" },
-  { icon: Wrench,   label: "ЧПУ-фрезеровка", desc: "Для более сложных деталей и партий" },
-  { icon: Cube,     label: "3D-печать",      desc: "Корпуса PurrTap и мелкие детали" },
+  { icon: Scissors, label: "Лазерная резка", desc: "Идеально для наших домиков" },
+  { icon: Wrench,   label: "ЧПУ-фрезеровка", desc: "На будущее" },
+  { icon: Cube,     label: "3D-печать",      desc: "Корпуса PurrTap" },
 ];
 
 const STEPS = [
-  { title: "Найди мастерскую", desc: "В каталоге ниже или на hackerspaces.ru — там собраны хакспейсы разных городов." },
+  { title: "Найди мастерскую", desc: "Мы наполняем наш каталог мастерскими из разных городов." },
   { title: "Договорись о времени", desc: "Большинство мастерских рады разовым проектам для доброго дела — просто напиши им." },
   { title: "Приходи с чертежом", desc: "Скачай DXF нужного решения из каталога SafePaws и принеси свой материал." },
 ];
@@ -50,7 +50,7 @@ export default function FindWorkshopPage() {
       <h1 className="heading-display mb-3">Нет инструментов — не беда</h1>
       <p className="text-base max-w-[560px] mb-10" style={{ color: "var(--stone)" }}>
         Лазерный резак или ЧПУ-станок не нужен дома — они есть в хакспейсах и мастерских по соседству.
-        Приходишь со своим чертежом и материалом, платишь за час аренды или бартером — уходишь с готовыми деталями.
+        Приходишь со своим чертежом и материалом, оплачиваешь — уходишь с готовыми деталями.
       </p>
 
       <div className="grid sm:grid-cols-3 gap-4 mb-12">
@@ -85,16 +85,6 @@ export default function FindWorkshopPage() {
             <Plus size={16} weight="bold" />
             Добавить мастерскую
           </Link>
-          <a
-            href="https://hackerspaces.ru"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border text-sm transition-colors hover:border-[var(--ember)] hover:text-[var(--ember)]"
-            style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}
-          >
-            hackerspaces.ru
-            <ArrowSquareOut size={15} />
-          </a>
         </div>
       </div>
 
