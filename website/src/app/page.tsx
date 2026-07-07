@@ -166,9 +166,14 @@ export default async function HomePage() {
               return (
                 <div
                   key={p.slug}
-                  className={`border rounded-[16px] overflow-hidden flex flex-col transition-all hover:-translate-y-0.5 ${p.status === "coming-soon" ? "opacity-70" : ""}`}
+                  className={`relative border rounded-[16px] overflow-hidden flex flex-col transition-all hover:-translate-y-0.5 ${p.status === "coming-soon" ? "opacity-70" : ""}`}
                   style={{ borderColor: "var(--sand)", background: "var(--cream)", boxShadow: "var(--shadow-pale)" }}
                 >
+                  <Link
+                    href={`/solutions/${p.slug}`}
+                    aria-label={p.name}
+                    className="absolute inset-0 z-[1]"
+                  />
                   <ProductCardImage
                     slug={p.slug}
                     image={p.images[0]}
@@ -178,9 +183,11 @@ export default async function HomePage() {
                     style={{ borderColor: "var(--sand-2)" }}
                   />
                   <div className="p-4 flex flex-col flex-1 gap-2">
-                    <strong className="heading-card text-lg">{p.name}</strong>
-                    <p className="text-xs" style={{ color: "var(--stone)" }}>{pT.subtitle}</p>
-                    <div className="mt-auto pt-2">
+                    <div className="relative z-[2] flex flex-col gap-2">
+                      <strong className="heading-card text-lg">{p.name}</strong>
+                      <p className="text-xs" style={{ color: "var(--stone)" }}>{pT.subtitle}</p>
+                    </div>
+                    <div className="relative z-[2] mt-auto pt-2">
                       <Link
                         href={`/solutions/${p.slug}`}
                         aria-label={`${p.status === "coming-soon" ? "Узнать →" : p.category === "hydration" ? "Как установить →" : "Детали →"} ${p.name}`}

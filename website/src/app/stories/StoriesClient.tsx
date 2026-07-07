@@ -31,7 +31,7 @@ const PRODUCT_LABELS: Record<string, string> = {
 // Recolors the CARTO Positron basemap to match the site's palette instead of
 // its default cool blue-grey: warm cream/sand land + borders/labels, water in
 // the logo's blue.
-const MAP_LOGO_BLUE = "#63A3D7";
+const MAP_LOGO_BLUE = "#95BDDE";
 
 const MAP_LAYER_PAINT: Record<string, Record<string, string>> = {
   background: { "background-color": "#F9F5EE" },
