@@ -138,7 +138,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
       <DialogContent>
         {/* Контейнер фиксированного размера */}
         <div
-          className="relative w-full max-w-[680px] h-[440px] rounded-xl overflow-hidden shadow-[var(--shadow-lift)]"
+          className="relative w-[min(680px,calc(100vw-2rem))] h-[440px] rounded-xl overflow-hidden shadow-[var(--shadow-lift)]"
           style={{ background: "var(--card-bg)" }}
         >
           <DialogClose />
@@ -171,14 +171,14 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                 </TabsTrigger>
                 <TabsTrigger value="bmc" className="w-full justify-start data-[active]:rounded-r-none">
                   <BuyMeCoffeeIcon size={18} />
-                  Buy Me a CoffeeIcon
+                  Buy Me a Coffee
                 </TabsTrigger>
                 <TabsTrigger value="kofi" className="w-full justify-start data-[active]:rounded-r-none">
                   <KofiIcon size={18} />
                   Ko-fi
                 </TabsTrigger>
                 <TabsTrigger value="boosty" className="w-full justify-start data-[active]:rounded-r-none">
-                  <KofiIcon size={18} />
+                  <CoffeeIcon size={18} weight="bold" />
                   Boosty
                 </TabsTrigger>
               </TabsList>
@@ -249,13 +249,13 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                 </div>
               </TabsContent>
 
-              {/* Buy Me a CoffeeIcon */}
+              {/* Buy Me a Coffee */}
               <TabsContent value="bmc" className="h-full flex flex-col items-center justify-center px-8 py-8">
                 <div className="flex flex-col items-center w-full">
                   <div className="w-40 h-40 rounded-xl overflow-hidden border border-border-soft bg-paper flex items-center justify-center shrink-0">
                     <img
                       src="/images/general/qr/buymeacoffee-qr-code.avif"
-                      alt="Buy Me a CoffeeIcon QR"
+                      alt="Buy Me a Coffee QR"
                       className="w-full h-full object-cover block"
                       onError={(e) => {
                         e.currentTarget.style.display = "none"
@@ -263,11 +263,11 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                       }}
                     />
                     <span className="font-mono text-[10px] text-ink-muted text-center px-3" style={{ display: "none" }}>
-                      QR-код<br />Buy Me<br />a CoffeeIcon
+                      QR-код<br />Buy Me<br />a Coffee
                     </span>
                   </div>
                   <div className="text-center space-y-1 max-w-[260px] mt-4">
-                    <p className="text-sm font-medium text-ink">Buy Me a CoffeeIcon</p>
+                    <p className="text-sm font-medium text-ink">Buy Me a Coffee</p>
                     <p className="text-xs text-ink-muted">
                       Удобный способ поддержать проект картой или через PayPal.<br />Минимальная сумма — 1$.
                     </p>
