@@ -15,7 +15,7 @@ const CSP = [
   "frame-src https://challenges.cloudflare.com",
   "img-src 'self' data: blob: https://i.vgy.me https://*.basemaps.cartocdn.com",
   "worker-src blob:",
-  "connect-src 'self' ws: wss: https://basemaps.cartocdn.com https://*.basemaps.cartocdn.com https://fonts.openmaptiles.org https://va.vercel-scripts.com https://challenges.cloudflare.com https://turnstile-siteverify-safepaws.pkrugley.workers.dev",
+  "connect-src 'self' ws: wss: https://basemaps.cartocdn.com https://*.basemaps.cartocdn.com https://fonts.openmaptiles.org https://va.vercel-scripts.com https://challenges.cloudflare.com https://turnstile-siteverify-safepaws.pkrugley.workers.dev https://api.web3forms.com",
 ].join("; ");
 
 const nextConfig: NextConfig = {
