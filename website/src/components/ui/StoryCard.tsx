@@ -50,6 +50,7 @@ export function StoryCard({ city, product_slug, quote, author_name, installed_da
       <div
         className="relative rounded-[14px] overflow-hidden"
         style={{
+          position: "relative",
           aspectRatio: "4 / 3",
           background: "var(--sand)",
           border: "1px solid var(--sand-2)",

@@ -15,6 +15,7 @@ import {
 import { DownloadSimple, CheckCircle } from "@phosphor-icons/react";
 import { products, getAvailableProducts } from "@/data/products";
 import { getProductContent } from "@/data/productContent";
+import posthog from "posthog-js";
 
 type Step = 1 | 2 | 3;
 
@@ -129,7 +130,7 @@ export function DownloadContent() {
                     selectedSlug === p.slug ? "border-accent" : "border-border-soft hover:border-accent/40"
                   }`}
                 >
-                  <div className="relative h-[120px] w-full overflow-hidden">
+                  <div className="relative h-[120px] w-full overflow-hidden" style={{ position: "relative" }}>
                     <Image
                       src={p.images[0]}
                       alt={p.name}
@@ -226,6 +227,12 @@ export function DownloadContent() {
               href={selectedDownload.file}
               download
               onClick={() => {
+                posthog.capture("blueprint_download_clicked", {
+                  product_slug: selectedSlug,
+                  product_name: selectedProduct.name,
+                  variant: selectedDownload.variant,
+                  file_size: selectedDownload.size,
+                });
                 fetch("/api/downloads", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyTurnstileToken } from "@/lib/turnstile";
+import { getPostHogClient } from "@/lib/posthog-server";
 
 const MAILERLITE_API_KEY = process.env.MAILERLITE_API ?? "";
 const MAILERLITE_GROUP_ID = process.env.MAILERLITE_GROUP_ID ?? "";
@@ -50,6 +51,13 @@ export async function POST(req: NextRequest) {
     console.error("[notify-subscribe] MailerLite error", res.status, text);
     return NextResponse.json({ error: "Subscription failed" }, { status: 502 });
   }
+
+  const posthog = getPostHogClient();
+  posthog.capture({
+    distinctId: "anonymous",
+    event: "notification_subscribed",
+    properties: { product_slug: productSlug ?? null },
+  });
 
   return NextResponse.json({ ok: true });
 }

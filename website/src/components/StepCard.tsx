@@ -36,6 +36,7 @@ export function StepCard({ n, title, desc, image, slug }: StepCardProps) {
           tabIndex={0}
           onKeyDown={(e) => e.key === "Enter" && setExpanded(false)}
           className="relative w-full aspect-[4/3] cursor-zoom-out"
+          style={{ position: "relative" }}
           aria-label="Свернуть изображение"
         >
           {failed ? (
@@ -64,7 +65,7 @@ export function StepCard({ n, title, desc, image, slug }: StepCardProps) {
               onClick={() => setExpanded(true)}
               className="relative w-full mb-3 rounded-lg overflow-hidden cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               aria-label="Развернуть изображение"
-              style={{ minHeight: "70px" }}
+              style={{ position: "relative", minHeight: "70px" }}
             >
               {failed ? (
                 <IllustrationFallback slug={slug} />

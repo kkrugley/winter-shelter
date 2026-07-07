@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { X, TelegramLogo, Info } from "@phosphor-icons/react";
+import posthog from "posthog-js";
 
 const TELEGRAM_BOT_URL = "https://t.me/safepaws_help_bot";
 const SITEKEY = "0x4AAAAAADs9TzE7UAMqNZVI";
@@ -79,7 +80,12 @@ export function NotifyModal({ productName, productSlug, onClose }: NotifyModalPr
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: trimmed, productSlug, "cf-turnstile-response": token }),
       });
-      setState(res.ok ? "success" : "error");
+      if (res.ok) {
+        posthog.capture("notify_subscription_submitted", { product_slug: productSlug });
+        setState("success");
+      } else {
+        setState("error");
+      }
     } catch {
       setState("error");
     }

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import posthog from "posthog-js";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -159,8 +160,13 @@ export default function AddIdeaPage() {
         const data = await res.json();
         throw new Error(data.error ?? "Ошибка отправки");
       }
+      posthog.capture("idea_form_submitted", {
+        category: form.category || undefined,
+        has_photo: Boolean(photoUrl),
+      });
       setSubmitted(true);
     } catch (err) {
+      posthog.captureException(err);
       setError(err instanceof Error ? err.message : "Что-то пошло не так");
     } finally {
       setSubmitting(false);
@@ -296,7 +302,7 @@ export default function AddIdeaPage() {
             onChange={handleFileInput}
           />
           {photoPreview ? (
-            <div className="relative rounded-xl overflow-hidden" style={{ aspectRatio: "4/3" }}>
+            <div className="relative rounded-xl overflow-hidden" style={{ position: "relative", aspectRatio: "4/3" }}>
               <Image src={photoPreview} alt="превью" fill className="object-cover" unoptimized />
               {photoUploading && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2" style={{ background: "rgba(44,42,39,0.55)" }}>

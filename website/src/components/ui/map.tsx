@@ -226,10 +226,24 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
       style: initialStyle,
       renderWorldCopies: false,
       attributionControl: false,
-      // Carto moved their glyph hosting — redirect dead tiles.basemaps.cartocdn.com/fonts/ to openmaptiles.org
+      // Carto moved their glyph hosting — dead tiles.basemaps.cartocdn.com/fonts/ needs
+      // to be redirected to openmaptiles.org, which only serves a plain "Open Sans"
+      // family (Regular/Bold/Italic) and 404s (as an HTML page, not a .pbf) on any of
+      // the style's real multi-font comma-separated fallback stacks — so we also
+      // collapse the requested stack down to whichever Open Sans variant it implies.
       transformRequest: (url) => {
-        if (url.startsWith("https://tiles.basemaps.cartocdn.com/fonts/")) {
-          return { url: url.replace("https://tiles.basemaps.cartocdn.com/fonts/", "https://fonts.openmaptiles.org/") };
+        const cartoFontsPrefix = "https://tiles.basemaps.cartocdn.com/fonts/";
+        if (url.startsWith(cartoFontsPrefix)) {
+          const rest = url.slice(cartoFontsPrefix.length);
+          const slashIndex = rest.lastIndexOf("/");
+          const fontstack = decodeURIComponent(rest.slice(0, slashIndex));
+          const range = rest.slice(slashIndex + 1);
+          const variant = /italic/i.test(fontstack)
+            ? "Open Sans Italic"
+            : /bold|medium/i.test(fontstack)
+              ? "Open Sans Bold"
+              : "Open Sans Regular";
+          return { url: `https://fonts.openmaptiles.org/${encodeURIComponent(variant)}/${range}` };
         }
         return { url };
       },

@@ -23,7 +23,7 @@ const cols = [
   {
     title: "Связь",
     links: [
-      { href: "mailto:safepaws.help@proton.me", label: "Email" },
+      { href: "?mail-form=open", label: "Email" },
       { href: "https://t.me/safepaws_help", label: "Telegram" },
       { href: "/about", label: "О проекте" },
       { href: "https://github.com/kkrugley/safepaws", label: "Проект на GitHub" },

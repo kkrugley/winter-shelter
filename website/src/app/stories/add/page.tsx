@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import posthog from "posthog-js";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -231,8 +232,15 @@ export default function AddStoryPage() {
         const data = await res.json();
         throw new Error(data.error ?? "Ошибка отправки");
       }
+      posthog.capture("story_form_submitted", {
+        product_slug: form.product_slug,
+        has_photo: Boolean(photoUrl),
+        has_location: Boolean(form.lat),
+        country: form.country || undefined,
+      });
       setSubmitted(true);
     } catch (err) {
+      posthog.captureException(err);
       setError(err instanceof Error ? err.message : "Что-то пошло не так");
     } finally {
       setSubmitting(false);
@@ -451,7 +459,7 @@ export default function AddStoryPage() {
             onChange={handleFileInput}
           />
           {photoPreview ? (
-            <div className="relative rounded-xl overflow-hidden" style={{ aspectRatio: "4/3" }}>
+            <div className="relative rounded-xl overflow-hidden" style={{ position: "relative", aspectRatio: "4/3" }}>
               <Image src={photoPreview} alt="превью" fill className="object-cover" unoptimized />
               {photoUploading && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2" style={{ background: "rgba(44,42,39,0.55)" }}>

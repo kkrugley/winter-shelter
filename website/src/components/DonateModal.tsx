@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Copy, Check, CurrencyEth, Coffee } from "@phosphor-icons/react"
 import { DialogRoot, DialogContent, DialogClose } from "@/components/ui/dialog"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import posthog from "posthog-js"
 
 // ── Inline SVG иконки платёжных систем ────────────────────────────────────
 
@@ -200,6 +201,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                   </div>
                   <a
                     href={TON_TRANSFER_URL}
+                    onClick={() => posthog.capture("donate_platform_clicked", { platform: "ton" })}
                     className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 mt-3"
                     style={{ background: "#0098EA" }}
                   >
@@ -271,6 +273,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                     href={BUYMEACOFFEE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => posthog.capture("donate_platform_clicked", { platform: "buymeacoffee" })}
                     className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 mt-3"
                     style={{ background: "#FF813F" }}
                   >
@@ -307,6 +310,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                     href={KOFI_URL}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => posthog.capture("donate_platform_clicked", { platform: "kofi" })}
                     className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 mt-3"
                     style={{ background: "#29ABE0" }}
                   >
@@ -342,6 +346,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                     href={BOOSTY_URL}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => posthog.capture("donate_platform_clicked", { platform: "boosty" })}
                     className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 mt-3"
                     style={{ background: "#FF813F" }}
                   >

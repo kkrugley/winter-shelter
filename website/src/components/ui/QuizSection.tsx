@@ -2,15 +2,11 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { STEPS, RESULTS } from '@/data/quiz'
+import { STEP1, BRANCHES } from '@/data/quiz'
 import type { QuizAction } from '@/data/quiz'
+import posthog from 'posthog-js'
 
 type QuizState = 'collapsed' | 'active' | 'result'
-
-interface TranslatedOpt  { label: string; path: string }
-interface TranslatedStep { q: string; opts: TranslatedOpt[] }
-interface TranslatedCta  { label: string }
-interface TranslatedResult { title: string; body: string; cta: [TranslatedCta, TranslatedCta] }
 
 const ghostStyle = { borderColor: 'var(--sand-2)', color: 'var(--stone)', background: 'transparent' }
 const ghostClass = 'px-4 py-2 rounded-full border text-sm font-medium transition-colors hover:border-[var(--stone)]'
@@ -65,58 +61,9 @@ function scrollToId(id: string) {
   window.scrollTo({ top, behavior: 'smooth' })
 }
 
-const QUIZ_STEPS: TranslatedStep[] = [
-  {
-    q: 'Что у тебя есть?',
-    opts: [
-      { label: 'Руки и инструмент', path: 'hands' },
-      { label: 'Немного времени', path: 'time' },
-      { label: 'Готов поддержать финансово', path: 'money' },
-      { label: 'Голос в соцсетях', path: 'voice' },
-    ],
-  },
-  {
-    q: 'Сколько животных рядом с тобой?',
-    opts: [
-      { label: '1–2 кошки', path: 'cozy' },
-      { label: '4–5 кошек', path: 'family' },
-      { label: 'Целая колония', path: 'purrtap' },
-      { label: 'Не знаю точно', path: 'unknown' },
-    ],
-  },
-  {
-    q: 'Когда хочешь начать?',
-    opts: [
-      { label: 'Уже на этих выходных', path: 'now' },
-      { label: 'В течение 1–2 недель', path: 'soon' },
-      { label: 'Пока просто смотрю', path: 'later' },
-    ],
-  },
-]
-
-const QUIZ_RESULTS: Record<string, TranslatedResult> = {
-  hands_cozy:    { title: 'Cozy Shelter · фанера 6 мм', body: 'Для 1–2 кошек. Сборка за вечер. DXF + PDF с разметкой.', cta: [{ label: 'Скачать чертёж' }, { label: 'Найти ЧПУ рядом' }] },
-  hands_family:  { title: 'Family Shelter · фанера 6 мм', body: 'Для небольшой стаи. Двухсекционный домик с общей крышей.', cta: [{ label: 'Скачать чертёж' }, { label: 'Найти ЧПУ рядом' }] },
-  hands_purrtap: { title: 'PurrTap · поилка для двора', body: 'Минимум инструмента, максимум помощи. Ставится за час.', cta: [{ label: 'Открыть инструкцию' }, { label: 'Заказать набор' }] },
-  hands_unknown: { title: 'Cozy Shelter · универсальный', body: 'Самый простой вход. Подойдёт под большинство дворов.', cta: [{ label: 'Скачать чертёж' }, { label: 'Как выбрать место' }] },
-  time_cozy:     { title: 'Собери на хакспейсе', body: 'Принеси фанеру — ЧПУ сделает детали за час. Соберёшь сам.', cta: [{ label: 'Найти хакспейс' }, { label: 'Открыть Cozy' }] },
-  time_family:   { title: 'Family Shelter на хакспейсе', body: 'Попроси ЧПУ, дальше — лобзик и шуруповёрт.', cta: [{ label: 'Найти хакспейс' }, { label: 'Открыть Family' }] },
-  time_purrtap:  { title: 'PurrTap за одну прогулку', body: 'Принести воду, поставить — 30 минут времени.', cta: [{ label: 'Инструкция' }, { label: 'Найти двор' }] },
-  time_unknown:  { title: 'Помочь волонтёру', body: 'Подключись к сборке чужого домика — команды ищут руки.', cta: [{ label: 'Найти сборку' }, { label: 'Истории' }] },
-  money_cozy:    { title: 'Оплати один Cozy Shelter', body: 'Фанера + крепёж = ~35 €. Волонтёр соберёт и установит.', cta: [{ label: 'Поддержать' }, { label: 'Истории' }] },
-  money_family:  { title: 'Оплати Family Shelter', body: 'Материалы ~70 €. Накормим стаю зимой.', cta: [{ label: 'Поддержать' }, { label: 'Истории' }] },
-  money_purrtap: { title: 'Набор PurrTap', body: 'Поилка + расходники ~20 €. Ставь с волонтёрами.', cta: [{ label: 'Поддержать' }, { label: 'Истории' }] },
-  money_unknown: { title: 'Открытый донат', body: 'Направим туда, где острее: материалы или логистика.', cta: [{ label: 'Поддержать' }, { label: 'Отчёт расходов' }] },
-  voice_cozy:    { title: 'Поделиться Cozy', body: 'Готовый пост с чертежом. 1 клик — сосед узнает.', cta: [{ label: 'Скопировать ссылку' }, { label: 'Открыть страницу' }] },
-  voice_family:  { title: 'Рассказать про Family', body: 'Ссылка + история «5 кошек пережили зиму».', cta: [{ label: 'Скопировать ссылку' }, { label: 'Прочитать историю' }] },
-  voice_purrtap: { title: 'PurrTap — самое простое', body: 'Ролик «как поставить за 30 минут».', cta: [{ label: 'Открыть страницу' }, { label: 'Скопировать ссылку' }] },
-  voice_unknown: { title: 'Рассказать о SafePaws', body: 'Общее описание + 3 истории. Расшарь одному человеку.', cta: [{ label: 'Открыть сайт' }, { label: 'Скопировать ссылку' }] },
-}
+const FIRST_BRANCH_KEY = Object.keys(BRANCHES)[0]
 
 export function QuizSection() {
-  const tSteps = QUIZ_STEPS
-  const tResults = QUIZ_RESULTS
-
   const [state, setState] = useState<QuizState>('collapsed')
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState<string[]>([])
@@ -124,8 +71,10 @@ export function QuizSection() {
   const [copiedHref, setCopiedHref] = useState<string | null>(null)
 
   const isExpanded = state !== 'collapsed'
+  const TOTAL_STEPS = 2
 
   function handleStart() {
+    posthog.capture('quiz_started')
     setState('active')
     setStep(0)
     setAnswers([])
@@ -148,7 +97,7 @@ export function QuizSection() {
     setSelectedPath(path)
     const next = [...answers, path]
     setTimeout(() => {
-      if (step < STEPS.length - 1) {
+      if (step < TOTAL_STEPS - 1) {
         setAnswers(next)
         setStep(step + 1)
         setSelectedPath(null)
@@ -156,6 +105,15 @@ export function QuizSection() {
         setAnswers(next)
         setState('result')
         setSelectedPath(null)
+        const branchK = next[0] ?? FIRST_BRANCH_KEY
+        const br = BRANCHES[branchK] ?? BRANCHES[FIRST_BRANCH_KEY]
+        const resultK = next[1] ?? br.opts[0]?.path
+        const res = br.results[resultK] ?? Object.values(br.results)[0]
+        posthog.capture('quiz_completed', {
+          answer_step1: next[0],
+          answer_step2: next[1],
+          result_title: res?.title,
+        })
       }
     }, 280)
   }
@@ -176,24 +134,21 @@ export function QuizSection() {
     })
   }
 
-  const dotStatus = [0, 1, 2].map((i) => {
+  const dotStatus = Array.from({ length: TOTAL_STEPS }, (_, i) => {
     if (state === 'result') return 'done'
     if (state === 'active' && i === step) return 'active'
     if (state === 'active' && i < step) return 'done'
     return 'idle'
   })
 
-  const resultKey = (answers[0] ?? 'hands') + '_' + (answers[1] ?? 'unknown')
-  const resultActions =
-    RESULTS[resultKey] ??
-    RESULTS[(answers[0] ?? 'hands') + '_unknown'] ??
-    RESULTS['hands_unknown']
-  const resultText =
-    tResults[resultKey] ??
-    tResults[(answers[0] ?? 'hands') + '_unknown'] ??
-    tResults['hands_unknown']
+  const branchKey = answers[0] ?? FIRST_BRANCH_KEY
+  const branch = BRANCHES[branchKey] ?? BRANCHES[FIRST_BRANCH_KEY]
 
-  const currentStepOpts = tSteps[step]?.opts ?? STEPS[step].opts
+  const currentQuestion = step === 0 ? STEP1.q : branch.q
+  const currentStepOpts = step === 0 ? STEP1.opts : branch.opts
+
+  const resultKey = answers[1] ?? branch.opts[0]?.path
+  const result = branch.results[resultKey] ?? Object.values(branch.results)[0]
 
   return (
     <div
@@ -212,7 +167,7 @@ export function QuizSection() {
             Не уверен, какой путь твой?
           </h3>
           <p className="text-sm mt-1.5" style={{ color: 'var(--stone)' }}>
-            3 коротких вопроса — подскажем, какое решение ближе именно тебе.
+            2 коротких вопроса — подскажем, какое решение ближе именно тебе.
           </p>
         </div>
         <div className="flex gap-2.5 items-center">
@@ -272,7 +227,7 @@ export function QuizSection() {
                 >
                   {state === 'result'
                     ? 'Готово'
-                    : `Вопрос ${step + 1} из ${STEPS.length}`}
+                    : `Вопрос ${step + 1} из ${TOTAL_STEPS}`}
                 </span>
               </div>
               <button onClick={handleClose} className={ghostClass} style={ghostStyle}>
@@ -294,28 +249,25 @@ export function QuizSection() {
                     lineHeight: 1.2,
                   }}
                 >
-                  {tSteps[step]?.q ?? STEPS[step].q}
+                  {currentQuestion}
                 </div>
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
-                  {currentStepOpts.map((opt, i) => {
-                    const path = STEPS[step].opts[i]?.path ?? opt.path
-                    return (
-                      <button
-                        key={path}
-                        onClick={() => handleAnswer(path)}
-                        disabled={selectedPath !== null}
-                        className={`quiz-answer-btn${selectedPath === path ? ' selected' : ''}`}
-                      >
-                        {opt.label}
-                      </button>
-                    )
-                  })}
+                  {currentStepOpts.map((opt) => (
+                    <button
+                      key={opt.path}
+                      onClick={() => handleAnswer(opt.path)}
+                      disabled={selectedPath !== null}
+                      className={`quiz-answer-btn${selectedPath === opt.path ? ' selected' : ''}`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
                 </div>
               </div>
             )}
 
             {/* Result */}
-            {state === 'result' && resultText && (
+            {state === 'result' && result && (
               <div key="result" className="quiz-result-in flex gap-6 items-center p-1 flex-wrap sm:flex-nowrap">
                 <div
                   className="w-16 h-16 rounded-[14px] flex items-center justify-center shrink-0"
@@ -344,27 +296,23 @@ export function QuizSection() {
                       marginBottom: 4,
                     }}
                   >
-                    {resultText.title}
+                    {result.title}
                   </div>
                   <p className="text-sm mt-1.5" style={{ color: 'var(--stone)' }}>
-                    {resultText.body}
+                    {result.body}
                   </p>
                   <div className="flex gap-2.5 mt-3.5 flex-wrap">
-                    <CtaButton
-                      label={resultText.cta[0].label}
-                      action={resultActions.cta[0].action}
-                      primary
-                      copiedHref={copiedHref}
-                      copiedLabel="Ссылка скопирована ✓"
-                      onCopy={handleCopy}
-                    />
-                    <CtaButton
-                      label={resultText.cta[1].label}
-                      action={resultActions.cta[1].action}
-                      copiedHref={copiedHref}
-                      copiedLabel="Ссылка скопирована ✓"
-                      onCopy={handleCopy}
-                    />
+                    {result.cta.map((cta, i) => (
+                      <CtaButton
+                        key={cta.label + i}
+                        label={cta.label}
+                        action={cta.action}
+                        primary={i === 0}
+                        copiedHref={copiedHref}
+                        copiedLabel="Ссылка скопирована ✓"
+                        onCopy={handleCopy}
+                      />
+                    ))}
                     <button onClick={handleRestart} className={ghostClass} style={ghostStyle}>
                       Пройти ещё раз
                     </button>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { pageAlternates } from "@/lib/metadata";
 import Image from "next/image";
+import Link from "next/link";
 import { getStats } from "@/lib/stats";
 import { RoadmapZigzag, type TimelineItem } from "@/components/RoadmapZigzag";
 import {
@@ -195,9 +196,9 @@ export default async function AboutPage() {
               <a href="https://t.me/safepaws_help" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center px-5 py-2.5 rounded-full border text-sm text-ink hover:border-[var(--ember)] hover:text-[var(--ember)] transition-colors" style={{ borderColor: "var(--sand-2)" }}>
                 Telegram · @safepaws_help
               </a>
-              <a href="mailto:safepaws.help@proton.me" className="flex items-center justify-center px-5 py-2.5 rounded-full border text-sm text-ink hover:border-[var(--ember)] hover:text-[var(--ember)] transition-colors" style={{ borderColor: "var(--sand-2)" }}>
+              <Link href="?mail-form=open" className="flex items-center justify-center px-5 py-2.5 rounded-full border text-sm text-ink hover:border-[var(--ember)] hover:text-[var(--ember)] transition-colors" style={{ borderColor: "var(--sand-2)" }}>
                 Email · safepaws.help@proton.me
-              </a>
+              </Link>
               <a href="https://github.com/kkrugley/safepaws" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center px-5 py-2.5 rounded-full border text-sm text-ink hover:border-[var(--ember)] hover:text-[var(--ember)] transition-colors" style={{ borderColor: "var(--sand-2)" }}>
                 GitHub · kkrugley/safepaws
               </a>

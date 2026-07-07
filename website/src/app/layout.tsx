@@ -6,6 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { DonateModalProvider } from "@/components/DonateModalProvider";
+import { MailFormModalProvider } from "@/components/MailFormModalProvider";
 import { JsonLd } from "@/components/JsonLd";
 import { BASE_URL, siteUrl } from "@/lib/site";
 
@@ -121,6 +122,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <Suspense>
           <DonateModalProvider />
+          <MailFormModalProvider />
         </Suspense>
         <SpeedInsights />
       </body>

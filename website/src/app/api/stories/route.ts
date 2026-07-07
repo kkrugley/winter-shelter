@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { filterStories, submitStory } from "@/lib/stories";
 import { getClientIp, createRateLimiter } from "@/lib/rate-limit";
 import { verifyTurnstileToken } from "@/lib/turnstile";
+import { getPostHogClient } from "@/lib/posthog-server";
 
 const rateLimiter = createRateLimiter(5, 60_000);
 
@@ -86,6 +87,17 @@ export async function POST(req: NextRequest) {
 
   try {
     const id = await submitStory(body);
+    const posthog = getPostHogClient();
+    posthog.capture({
+      distinctId: "anonymous",
+      event: "story_created",
+      properties: {
+        product_slug: body.product_slug,
+        country: body.country,
+        has_photo: Boolean(body.photo_url),
+        has_location: body.lat != null,
+      },
+    });
     return NextResponse.json({ id }, { status: 201 });
   } catch (err) {
     console.error("[/api/stories POST]", err);
