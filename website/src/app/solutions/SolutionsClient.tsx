@@ -13,7 +13,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { ProductIllustration } from "@/components/ui/ProductIllustration";
+import { ProductCardImage } from "@/components/ui/ProductCardImage";
 import { NotifyModal } from "@/components/ui/NotifyModal";
 
 function toggle<T>(set: Set<T>, value: T): Set<T> {
@@ -163,31 +163,40 @@ export function SolutionsClient() {
               return (
                 <div
                   key={p.slug}
-                  className={`border rounded-[16px] overflow-hidden flex flex-col transition-all hover:-translate-y-0.5 ${p.status === "coming-soon" ? "opacity-70" : ""}`}
+                  className={`relative border rounded-[16px] overflow-hidden flex flex-col transition-all hover:-translate-y-0.5 ${p.status === "coming-soon" ? "opacity-70" : ""}`}
                   style={{ borderColor: "var(--sand)", background: "var(--card-bg)", boxShadow: "var(--shadow-card)" }}
                 >
-                  <ProductIllustration
+                  <Link
+                    href={`/solutions/${p.slug}`}
+                    aria-label={p.name}
+                    className="absolute inset-0 z-[1]"
+                  />
+                  <ProductCardImage
                     slug={p.slug}
+                    image={p.images[0]}
+                    alt={p.name}
                     className="aspect-[5/4] border-b border-dashed"
                     style={{ borderColor: "var(--sand-2)" }}
                   />
                   <div className="p-4 flex flex-col flex-1 gap-2">
-                    <div className="flex items-center justify-between">
-                      <strong className="heading-card text-xl">{p.name}</strong>
-                      <span className={`px-2 py-0.5 rounded-full border text-xs ${statusColor[p.status] ?? statusColor["coming-soon"]}`}>
-                        {statusLabel[p.status] ?? p.status}
-                      </span>
-                    </div>
-                    <p className="text-xs" style={{ color: "var(--stone)" }}>{pT.capacity}</p>
-                    <p className="text-sm line-clamp-2" style={{ color: "var(--stone)" }}>{pT.subtitle}</p>
-                    <div className="flex flex-wrap gap-1 mt-1">
-                      {pT.tags.map((tag) => (
-                        <span key={tag} className="px-2 py-0.5 text-xs rounded-full border" style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}>
-                          {tag}
+                    <div className="relative z-[2] flex flex-col gap-2">
+                      <div className="flex items-center justify-between">
+                        <strong className="heading-card text-xl">{p.name}</strong>
+                        <span className={`px-2 py-0.5 rounded-full border text-xs ${statusColor[p.status] ?? statusColor["coming-soon"]}`}>
+                          {statusLabel[p.status] ?? p.status}
                         </span>
-                      ))}
+                      </div>
+                      <p className="text-xs" style={{ color: "var(--stone)" }}>{pT.capacity}</p>
+                      <p className="text-sm line-clamp-2" style={{ color: "var(--stone)" }}>{pT.subtitle}</p>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {pT.tags.map((tag) => (
+                          <span key={tag} className="px-2 py-0.5 text-xs rounded-full border" style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}>
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                    <div className="mt-auto pt-2 flex gap-2">
+                    <div className="relative z-[2] mt-auto pt-2 flex gap-2">
                       <Link
                         href={`/solutions/${p.slug}`}
                         className="flex-1 text-center px-3 py-1.5 rounded-full border text-xs transition-colors"

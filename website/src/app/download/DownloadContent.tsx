@@ -34,13 +34,26 @@ const downloadableProducts = getAvailableProducts().filter(
 export function DownloadContent() {
   const searchParams = useSearchParams();
   const paramSlug = searchParams?.get("product") ?? "";
-  const validSlug = downloadableProducts.some((p) => p.slug === paramSlug)
-    ? paramSlug
-    : "cozy-shelter";
+  const paramVariant = searchParams?.get("variant") ?? "";
 
-  const [step, setStep] = useState<Step>(1);
+  const productFromParam = downloadableProducts.find((p) => p.slug === paramSlug);
+  const validSlug = productFromParam ? productFromParam.slug : "cozy-shelter";
+
+  const defaultVariantFor = (p: (typeof downloadableProducts)[number]) =>
+    p.downloads.find((d) => d.recommended)?.variant ?? p.downloads[0]?.variant ?? "";
+
+  const variantFromParam = productFromParam?.downloads.find(
+    (d) => d.variant === paramVariant
+  )?.variant;
+
+  const initialStep: Step = productFromParam ? (variantFromParam ? 3 : 2) : 1;
+
+  const [step, setStep] = useState<Step>(initialStep);
   const [selectedSlug, setSelectedSlug] = useState<string>(validSlug);
-  const [selectedVariant, setSelectedVariant] = useState<string>("6mm");
+  const [selectedVariant, setSelectedVariant] = useState<string>(
+    variantFromParam ??
+      defaultVariantFor(productFromParam ?? downloadableProducts[0])
+  );
   const [done, setDone] = useState(false);
 
   const selectedProduct = products.find((p) => p.slug === selectedSlug);

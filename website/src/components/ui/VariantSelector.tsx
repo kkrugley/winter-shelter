@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { DownloadButton } from "@/components/DownloadButton";
+import Link from "next/link";
+import { DownloadSimple } from "@phosphor-icons/react";
 import type { ProductDownload } from "@/data/products";
 
 interface Props {
@@ -48,7 +49,13 @@ export function VariantSelector({
       </div>
       <div className="flex flex-wrap gap-3">
         {active && (
-          <DownloadButton href={active.file} productSlug={slug} />
+          <Link
+            href={`/download?product=${encodeURIComponent(slug)}&variant=${encodeURIComponent(active.variant)}`}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-accent text-white text-sm font-medium hover:bg-[#c4673d] transition-colors"
+          >
+            <DownloadSimple size={16} weight="bold" />
+            Скачать
+          </Link>
         )}
         <a
           href="/files/SafePawsManual.pdf"

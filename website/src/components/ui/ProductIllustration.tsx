@@ -130,6 +130,28 @@ export function slugToKind(slug: string): IllustrationKind {
   return "cozy";
 }
 
+export function ProductBadge({ label, color }: { label: string; color?: string }) {
+  return (
+    <span
+      style={{
+        position: "absolute",
+        top: 10,
+        right: 10,
+        padding: "2px 8px",
+        borderRadius: 999,
+        fontSize: 11,
+        fontWeight: 500,
+        lineHeight: 1.6,
+        background: color === "ember" ? "var(--ember-pale)" : "var(--cream)",
+        color: color === "ember" ? "#93430E" : "var(--stone)",
+        border: `1px solid ${color === "ember" ? "transparent" : "var(--sand-2)"}`,
+      }}
+    >
+      {label}
+    </span>
+  );
+}
+
 export function ProductIllustration({
   slug,
   badge,
@@ -159,25 +181,7 @@ export function ProductIllustration({
         ...style,
       }}
     >
-      {badge && (
-        <span
-          style={{
-            position: "absolute",
-            top: 10,
-            right: 10,
-            padding: "2px 8px",
-            borderRadius: 999,
-            fontSize: 11,
-            fontWeight: 500,
-            lineHeight: 1.6,
-            background: badgeColor === "ember" ? "var(--ember-pale)" : "var(--cream)",
-            color: badgeColor === "ember" ? "#93430E" : "var(--stone)",
-            border: `1px solid ${badgeColor === "ember" ? "transparent" : "var(--sand-2)"}`,
-          }}
-        >
-          {badge}
-        </span>
-      )}
+      {badge && <ProductBadge label={badge} color={badgeColor} />}
       <div style={{ width: "100%", maxWidth: 180 }}>
         <Illustration />
       </div>

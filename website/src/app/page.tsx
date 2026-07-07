@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Hammer, Heart, BookOpenText, ArrowLineDown, PencilSimple, HouseLine } from "@phosphor-icons/react/dist/ssr";
 import { products } from "@/data/products";
 import { getProductContent } from "@/data/productContent";
-import { ProductIllustration } from "@/components/ui/ProductIllustration";
+import { ProductCardImage } from "@/components/ui/ProductCardImage";
 import { StoryCard } from "@/components/ui/StoryCard";
 import { getPublishedStories } from "@/lib/stories";
 import { QuizSection } from "@/components/ui/QuizSection";
@@ -169,8 +169,10 @@ export default async function HomePage() {
                   className={`border rounded-[16px] overflow-hidden flex flex-col transition-all hover:-translate-y-0.5 ${p.status === "coming-soon" ? "opacity-70" : ""}`}
                   style={{ borderColor: "var(--sand)", background: "var(--cream)", boxShadow: "var(--shadow-pale)" }}
                 >
-                  <ProductIllustration
+                  <ProductCardImage
                     slug={p.slug}
+                    image={p.images[0]}
+                    alt={p.name}
                     badge={badge}
                     className="aspect-[5/4] border-b border-dashed"
                     style={{ borderColor: "var(--sand-2)" }}
