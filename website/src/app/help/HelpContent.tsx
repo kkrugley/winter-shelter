@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
+import { isExternalHref } from "@/lib/utils";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -13,25 +14,25 @@ import {
 } from "@/components/ui/breadcrumb";
 import { CtaBlock } from "@/components/ui/CtaBlock";
 import {
-  Hammer,
-  PencilSimple,
-  MegaphoneSimple,
-  Heart,
-  Globe,
-  Handshake,
-  UsersThree,
+  HammerIcon,
+  PencilSimpleIcon,
+  MegaphoneSimpleIcon,
+  HeartIcon,
+  GlobeIcon,
+  HandshakeIcon,
+  UsersThreeIcon,
 } from "@phosphor-icons/react";
 
 type Cap = "all" | "hands" | "time" | "money" | "voice";
 
 const WAY_STRUCTURE: { slug: string; icon: React.ElementType; caps: Cap[]; href: string | null; dashed: boolean; title: string; desc: string; chips: string[]; cta: string }[] = [
-  { slug: "build",     icon: Hammer,         caps: ["hands"],          href: "/solutions",                          dashed: false, title: "Скачайте файлы", desc: "Скачайте файлы любого из продуктов и изготовьте его! Построенный вами домик или установленная поилка непременно найдёт нуждающегося!", chips: ["Производство", "Инструменты"], cta: "К каталогу →" },
-  { slug: "story",     icon: PencilSimple,   caps: ["time", "voice"],  href: "/solutions/add",                      dashed: false, title: "Предложить идею", desc: "Придумали что-то новое для помощи хвостатым? Заполните форму — мы обязательно воплотим это в жизнь!", chips: ["Помощь", "Идеи"], cta: "Заполните форму →" },
-  { slug: "share",     icon: MegaphoneSimple,caps: ["voice"],          href: "/about#share",                        dashed: false, title: "Поделиться", desc: "Расскажите о проекте в соцсетях, перешлите друзьям и семье — предложите вместе построить домик на выходных!", chips: ["Помощь", "Соц сети"], cta: "Поделиться ↗" },
-  { slug: "donate",    icon: Heart,          caps: ["money"],          href: null,                                   dashed: false, title: "Поддержать", desc: "Деньги пойдут на материалы для прототипов новых решений и изготовление существующих.", chips: ["Развитие", "Поддержка проекта"], cta: "Поддержать →" },
-  { slug: "community", icon: UsersThree,     caps: ["time", "voice"],  href: "https://t.me/safepaws_help",          dashed: false, title: "Сообщество в Telegram", desc: "Канал в Telegram, где обсуждаем установки и помогаем новичкам.", chips: ["Telegram", "Чат"], cta: "Вступить →" },
-  { slug: "partner",   icon: Handshake,      caps: ["money", "voice"], href: "?mail-form=open",                     dashed: false, title: "Партнёрство", desc: "Хакспейсы, приюты, частная компания — готовы сотрудничать со всеми.", chips: ["Взаимопомощь", "Сотрудничество"], cta: "Написать →" },
-  { slug: "translate", icon: Globe,          caps: ["time"],           href: "https://github.com/kkrugley/safepaws", dashed: false, title: "Перевести сайт", desc: "Помогите перевести сайт на другие языки! Если вы опытный разработчик или инженер — помогите улучшить сайт или продукты. Все исходники хранятся на GitHub.", chips: ["Перевод", "Развитие", "Разработка"], cta: "Открыть GitHub →" },
+  { slug: "build",     icon: HammerIcon,         caps: ["hands"],          href: "/solutions",                          dashed: false, title: "Скачайте файлы", desc: "Скачайте файлы любого из продуктов и изготовьте его! Построенный вами домик или установленная поилка непременно найдёт нуждающегося!", chips: ["Производство", "Инструменты"], cta: "К каталогу →" },
+  { slug: "story",     icon: PencilSimpleIcon,   caps: ["time", "voice"],  href: "/solutions/add",                      dashed: false, title: "Предложить идею", desc: "Придумали что-то новое для помощи хвостатым? Заполните форму — мы обязательно воплотим это в жизнь!", chips: ["Помощь", "Идеи"], cta: "Заполните форму →" },
+  { slug: "share",     icon: MegaphoneSimpleIcon,caps: ["voice"],          href: "/about#share",                        dashed: false, title: "Поделиться", desc: "Расскажите о проекте в соцсетях, перешлите друзьям и семье — предложите вместе построить домик на выходных!", chips: ["Помощь", "Соц сети"], cta: "Поделиться ↗" },
+  { slug: "donate",    icon: HeartIcon,          caps: ["money"],          href: null,                                   dashed: false, title: "Поддержать", desc: "Деньги пойдут на материалы для прототипов новых решений и изготовление существующих.", chips: ["Развитие", "Поддержка проекта"], cta: "Поддержать →" },
+  { slug: "community", icon: UsersThreeIcon,     caps: ["time", "voice"],  href: "https://t.me/safepaws_help",          dashed: false, title: "Сообщество в Telegram", desc: "Канал в Telegram, где обсуждаем установки и помогаем новичкам.", chips: ["Telegram", "Чат"], cta: "Вступить →" },
+  { slug: "partner",   icon: HandshakeIcon,      caps: ["money", "voice"], href: "?mail-form=open",                     dashed: false, title: "Партнёрство", desc: "Хакспейсы, приюты, частная компания — готовы сотрудничать со всеми.", chips: ["Взаимопомощь", "Сотрудничество"], cta: "Написать →" },
+  { slug: "translate", icon: GlobeIcon,          caps: ["time"],           href: "https://github.com/kkrugley/safepaws", dashed: false, title: "Перевести сайт", desc: "Помогите перевести сайт на другие языки! Если вы опытный разработчик или инженер — помогите улучшить сайт или продукты. Все исходники хранятся на GitHub.", chips: ["Перевод", "Развитие", "Разработка"], cta: "Открыть GitHub →" },
 ];
 
 const CAP_FILTERS: { key: Cap; label: string; emoji: string }[] = [
@@ -139,6 +140,8 @@ export function HelpContent() {
                 ) : (
                   <Link
                     href={href}
+                    target={isExternalHref(href) ? "_blank" : undefined}
+                    rel={isExternalHref(href) ? "noopener noreferrer" : undefined}
                     className="inline-flex items-center text-sm font-medium hover:underline mt-1 text-ink"
                   >
                     {cta}

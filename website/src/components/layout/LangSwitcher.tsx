@@ -1,6 +1,6 @@
 "use client";
 
-import { GlobeSimple } from "@phosphor-icons/react";
+import { GlobeSimpleIcon } from "@phosphor-icons/react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +17,7 @@ export function LangSwitcher() {
         className="p-2 rounded-full text-[var(--stone)] hover:bg-[var(--ember-pale)] transition-colors outline-none"
         aria-label="Выбрать язык"
       >
-        <GlobeSimple size={20} />
+        <GlobeSimpleIcon size={20} />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" sideOffset={6}>
         <DropdownMenuRadioGroup value="ru" onValueChange={() => {}}>

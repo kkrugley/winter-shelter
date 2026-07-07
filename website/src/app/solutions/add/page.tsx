@@ -12,7 +12,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import Image from "next/image";
-import { ArrowLeft, CheckCircle, Spinner, X, UploadSimple } from "@phosphor-icons/react";
+import { ArrowLeftIcon, CheckCircleIcon, SpinnerIcon, XIcon, UploadSimpleIcon } from "@phosphor-icons/react";
 
 declare global {
   interface Window { turnstile?: { render: (c: HTMLElement, o: Record<string, string>) => string; remove: (id: string) => void; getResponse: (id?: string) => string } }
@@ -176,7 +176,7 @@ export default function AddIdeaPage() {
   if (submitted) {
     return (
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-20 text-center">
-        <CheckCircle size={52} weight="duotone" style={{ color: "var(--ember)", margin: "0 auto 16px" }} />
+        <CheckCircleIcon size={52} weight="duotone" style={{ color: "var(--ember)", margin: "0 auto 16px" }} />
         <h1 className="heading-section mb-3">Спасибо!</h1>
         <p className="text-sm mb-8" style={{ color: "var(--stone)" }}>Твоя идея получена. Мы обязательно её рассмотрим.</p>
         <Link
@@ -306,13 +306,13 @@ export default function AddIdeaPage() {
               <Image src={photoPreview} alt="превью" fill className="object-cover" unoptimized />
               {photoUploading && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2" style={{ background: "rgba(44,42,39,0.55)" }}>
-                  <Spinner size={28} className="animate-spin" style={{ color: "#fff" }} />
+                  <SpinnerIcon size={28} className="animate-spin" style={{ color: "#fff" }} />
                   <span className="text-xs text-white font-medium">Загружаю…</span>
                 </div>
               )}
               {photoUrl && !photoUploading && (
                 <div className="absolute bottom-2.5 left-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium" style={{ background: "rgba(44,42,39,0.6)", color: "#fff" }}>
-                  <CheckCircle size={13} weight="fill" style={{ color: "#7EC86E" }} />
+                  <CheckCircleIcon size={13} weight="fill" style={{ color: "#7EC86E" }} />
                   Загружено
                 </div>
               )}
@@ -323,7 +323,7 @@ export default function AddIdeaPage() {
                 style={{ background: "rgba(44,42,39,0.6)" }}
                 aria-label="Удалить фото"
               >
-                <X size={14} style={{ color: "#fff" }} />
+                <XIcon size={14} style={{ color: "#fff" }} />
               </button>
             </div>
           ) : (
@@ -336,7 +336,7 @@ export default function AddIdeaPage() {
               className="w-full flex flex-col items-center justify-center gap-2.5 rounded-xl border-2 border-dashed py-10 transition-colors"
               style={{ borderColor: dragOver ? "var(--ember)" : "var(--sand-2)", background: dragOver ? "var(--ember-pale)" : "var(--sand)" }}
             >
-              <UploadSimple size={24} style={{ color: dragOver ? "var(--ember)" : "var(--stone)", opacity: dragOver ? 1 : 0.5 }} />
+              <UploadSimpleIcon size={24} style={{ color: dragOver ? "var(--ember)" : "var(--stone)", opacity: dragOver ? 1 : 0.5 }} />
               <span className="text-sm" style={{ color: "var(--stone)" }}>
                 Перетащи фото или <span style={{ color: "var(--ember)" }}>выбери файл</span>
               </span>
@@ -364,9 +364,9 @@ export default function AddIdeaPage() {
           style={{ background: "var(--ember)", boxShadow: "var(--shadow-btn)" }}
         >
           {submitting
-            ? <><Spinner size={16} className="animate-spin" /> Отправляю…</>
+            ? <><SpinnerIcon size={16} className="animate-spin" /> Отправляю…</>
             : photoUploading
-            ? <><Spinner size={16} className="animate-spin" /> Загружаю фото…</>
+            ? <><SpinnerIcon size={16} className="animate-spin" /> Загружаю фото…</>
             : "Отправить идею →"
           }
         </button>
@@ -376,7 +376,7 @@ export default function AddIdeaPage() {
 
       <div className="mt-8">
         <Link href="/solutions" className="inline-flex items-center gap-2 text-sm hover:underline transition-colors" style={{ color: "var(--stone)" }}>
-          <ArrowLeft size={14} />
+          <ArrowLeftIcon size={14} />
           Все решения
         </Link>
       </div>

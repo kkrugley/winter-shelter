@@ -12,7 +12,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { DownloadSimple, CheckCircle } from "@phosphor-icons/react";
+import { DownloadSimpleIcon, CheckCircleIcon } from "@phosphor-icons/react";
 import { products, getAvailableProducts } from "@/data/products";
 import { getProductContent } from "@/data/productContent";
 import posthog from "posthog-js";
@@ -34,13 +34,26 @@ const downloadableProducts = getAvailableProducts().filter(
 export function DownloadContent() {
   const searchParams = useSearchParams();
   const paramSlug = searchParams?.get("product") ?? "";
-  const validSlug = downloadableProducts.some((p) => p.slug === paramSlug)
-    ? paramSlug
-    : "cozy-shelter";
+  const paramVariant = searchParams?.get("variant") ?? "";
 
-  const [step, setStep] = useState<Step>(1);
+  const productFromParam = downloadableProducts.find((p) => p.slug === paramSlug);
+  const validSlug = productFromParam ? productFromParam.slug : "cozy-shelter";
+
+  const defaultVariantFor = (p: (typeof downloadableProducts)[number]) =>
+    p.downloads.find((d) => d.recommended)?.variant ?? p.downloads[0]?.variant ?? "";
+
+  const variantFromParam = productFromParam?.downloads.find(
+    (d) => d.variant === paramVariant
+  )?.variant;
+
+  const initialStep: Step = productFromParam ? (variantFromParam ? 3 : 2) : 1;
+
+  const [step, setStep] = useState<Step>(initialStep);
   const [selectedSlug, setSelectedSlug] = useState<string>(validSlug);
-  const [selectedVariant, setSelectedVariant] = useState<string>("6mm");
+  const [selectedVariant, setSelectedVariant] = useState<string>(
+    variantFromParam ??
+      defaultVariantFor(productFromParam ?? downloadableProducts[0])
+  );
   const [done, setDone] = useState(false);
 
   const selectedProduct = products.find((p) => p.slug === selectedSlug);
@@ -55,7 +68,7 @@ export function DownloadContent() {
   if (done) {
     return (
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-20 text-center">
-        <CheckCircle size={56} weight="duotone" className="text-accent mx-auto mb-6" />
+        <CheckCircleIcon size={56} weight="duotone" className="text-accent mx-auto mb-6" />
         <h1 className="heading-display mb-4">Скачивание начато!</h1>
         <p className="text-sm text-ink-muted mb-8">Если файл не скачался — нажми кнопку ещё раз. Спасибо, что помогаешь животным!</p>
         <div className="flex flex-wrap gap-3 justify-center">
@@ -242,7 +255,7 @@ export function DownloadContent() {
               }}
               className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-accent text-white text-sm font-medium hover:bg-[#c4673d] transition-colors"
             >
-              <DownloadSimple size={18} weight="bold" />
+              <DownloadSimpleIcon size={18} weight="bold" />
               Скачать
             </a>
           </div>

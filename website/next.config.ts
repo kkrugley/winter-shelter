@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withSentryConfig } from "@sentry/nextjs";
 
 // 'unsafe-eval' is required in dev mode: Next.js webpack uses eval() for source maps and HMR.
 const isDev = process.env.NODE_ENV === "development";
@@ -14,7 +15,7 @@ const CSP = [
   "frame-src https://challenges.cloudflare.com",
   "img-src 'self' data: blob: https://i.vgy.me https://*.basemaps.cartocdn.com",
   "worker-src blob:",
-  "connect-src 'self' ws: wss: https://basemaps.cartocdn.com https://*.basemaps.cartocdn.com https://fonts.openmaptiles.org https://va.vercel-scripts.com https://challenges.cloudflare.com https://turnstile-siteverify-safepaws.pkrugley.workers.dev",
+  "connect-src 'self' ws: wss: https://basemaps.cartocdn.com https://*.basemaps.cartocdn.com https://fonts.openmaptiles.org https://va.vercel-scripts.com https://challenges.cloudflare.com https://turnstile-siteverify-safepaws.pkrugley.workers.dev https://api.web3forms.com",
 ].join("; ");
 
 const nextConfig: NextConfig = {
@@ -57,4 +58,11 @@ const nextConfig: NextConfig = {
   skipTrailingSlashRedirect: true,
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  widenClientFileUpload: true,
+  tunnelRoute: "/monitoring",
+  silent: !process.env.CI,
+});

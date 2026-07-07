@@ -1,7 +1,7 @@
 "use client"
 
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog"
-import { X } from "@phosphor-icons/react"
+import { XIcon } from "@phosphor-icons/react"
 import { cn } from "@/lib/utils"
 
 const DialogRoot = DialogPrimitive.Root
@@ -24,6 +24,7 @@ function DialogOverlay({
         "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
         className
       )}
+      style={{ transform: "translateZ(0)" }}
       {...props}
     />
   )
@@ -37,16 +38,16 @@ function DialogContent({
   return (
     <DialogPortal>
       <DialogOverlay />
-      <DialogPrimitive.Popup
-        data-slot="dialog-content"
-        className={cn(
-          "fixed inset-0 z-50 flex items-center justify-center p-4",
-          className
-        )}
-        {...props}
-      >
-        {children}
-      </DialogPrimitive.Popup>
+      {/* Обёртка вне Popup: клик здесь считается "снаружи" и закрывает диалог */}
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <DialogPrimitive.Popup
+          data-slot="dialog-content"
+          className={className}
+          {...props}
+        >
+          {children}
+        </DialogPrimitive.Popup>
+      </div>
     </DialogPortal>
   )
 }
@@ -65,7 +66,7 @@ function DialogClose({
       )}
       {...props}
     >
-      <X size={16} weight="bold" />
+      <XIcon size={16} weight="bold" />
     </DialogPrimitive.Close>
   )
 }

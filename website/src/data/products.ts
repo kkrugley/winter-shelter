@@ -55,10 +55,7 @@ export const products: Product[] = [
     tags: ["укрытие", "фанера", "лазерная резка"],
     materials: ["wood"],
     images: [
-      "/images/products/cozy-shelter/img1.jpg",
-      "/images/products/cozy-shelter/img2.jpg",
-      "/images/products/cozy-shelter/img3.jpg",
-      "/images/products/cozy-shelter/img4.jpg",
+      "/images/products/cozy-shelter/img1.avif",
     ],
     materialsConfig: {
       qtyMax: 10,
@@ -95,10 +92,7 @@ export const products: Product[] = [
     tags: ["укрытие", "фанера", "лазерная резка"],
     materials: ["wood"],
     images: [
-      "/images/products/family-shelter/img1.jpg",
-      "/images/products/family-shelter/img2.jpg",
-      "/images/products/family-shelter/img3.jpg",
-      "/images/products/family-shelter/img4.jpg",
+      "/images/products/family-shelter/img1.avif",
     ],
     materialsConfig: {
       qtyMax: 8,
@@ -134,10 +128,7 @@ export const products: Product[] = [
     tags: ["поилка", "бутылка", "3Д печать"],
     materials: ["plastic"],
     images: [
-      "/images/products/purrtap/img1.jpg",
-      "/images/products/purrtap/img2.jpg",
-      "/images/products/purrtap/img3.jpg",
-      "/images/products/purrtap/img4.jpg",
+      "/images/products/purrtap/img1.avif",
     ],
     materialsConfig: {
       qtyMax: 12,
@@ -169,12 +160,7 @@ export const products: Product[] = [
     downloads: [],
     tags: ["кормление", "3D-печать", "скоро"],
     materials: ["plastic"],
-    images: [
-      "/images/products/edc-feeder/img1.jpg",
-      "/images/products/edc-feeder/img2.jpg",
-      "/images/products/edc-feeder/img3.jpg",
-      "/images/products/edc-feeder/img4.jpg",
-    ],
+    images: [],
     materialsConfig: {
       qtyMax: 12,
       supportsThickness: false,

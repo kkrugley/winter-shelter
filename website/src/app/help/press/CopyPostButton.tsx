@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check } from "@phosphor-icons/react";
+import { CopyIcon, CheckIcon } from "@phosphor-icons/react";
 
 export function CopyPostButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
@@ -23,7 +23,7 @@ export function CopyPostButton({ text }: { text: string }) {
         background: copied ? "var(--forest-pale)" : "var(--cream)",
       }}
     >
-      {copied ? <Check size={13} weight="bold" /> : <Copy size={13} />}
+      {copied ? <CheckIcon size={13} weight="bold" /> : <CopyIcon size={13} />}
       {copied ? "Скопировано" : "Копировать"}
     </button>
   );

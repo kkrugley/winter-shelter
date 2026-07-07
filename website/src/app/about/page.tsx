@@ -37,7 +37,7 @@ export default async function AboutPage() {
     { value: stats.downloads > 0 ? `${Math.floor(stats.downloads / 10) * 10}+` : "150+", label: "скачиваний" },
     { value: String(stats.installations || "47"),  label: "установленных" },
     { value: String(stats.countries || "4"),       label: "стран" },
-    { value: String(stats.languages),              label: "языка" },
+    { value: String(stats.languages),              label: "языков" },
   ];
 
   return (
@@ -95,7 +95,7 @@ export default async function AboutPage() {
             }}
           >
             <Image
-              src="/images/general/about-1.jpeg"
+              src="/images/general/about-1.avif"
               alt="Команда SafePaws"
               width={1376}
               height={768}
@@ -108,9 +108,11 @@ export default async function AboutPage() {
           <h2 className="heading-section mb-8">Как это началось</h2>
           <div className="grid md:grid-cols-2 gap-10 items-start">
             <div className="space-y-4 text-sm text-ink-muted leading-relaxed">
-              <p>История проекта</p>
-              <p></p>
-              <p></p>
+              <p>Осенью 2024 года на веранде нашей дачи появились 2 котёнка, и мне пришла идея спроектировать утеплённый домик для них. Так, по мере работы над проектом, я развил идею и пришёл к тому, что нужно разработать каталог воспроизводимых решений: утеплённых укрытий, стационарных автономных поилок, карманных дозаторов корма и прочего.</p>
+              <p>Первым полноценным изделием стал компактный домик из листовой фанеры, рассчитанный на 1–2 кошек, — Cozy Shelter.</p>
+              <p>К марту 2025-го линейка пополнилась увеличенным домиком — Family, рассчитанным на 4–5 кошек. Обе версии вместе с исходными CAD-файлами были выложены в открытый доступ — бесплатно, под <a href="https://github.com/kkrugley/safepaws/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">лицензией <i>CC BY 4.0</i></a>. С этого момента SafePaws перестал быть личным проектом одного человека: домики начали собирать и ставить другие люди.</p>
+              <p>В январе 2026-го вышла облегчённая версия из фанеры 3 мм, сайт обновили, а в планах — новые устройства: уличная автономная поилка PurrTap и карманная кормушка EDC Feeder.</p>
+              <p><i>SafePaws — не приют и не фонд. Это открытые чертежи: скачай, собери, установи.</i></p>
             </div>
             <div className="max-w-xs mx-auto md:ml-auto md:mr-20 md:mx-0" style={{ transform: "rotate(1.2deg)" }}>
               <div
@@ -125,7 +127,7 @@ export default async function AboutPage() {
                     className="relative shrink-0 overflow-hidden"
                     style={{ width: "56px", height: "72px", borderRadius: "2px", border: "3px solid #fff", transform: "rotate(-1.5deg)", boxShadow: "2px 4px 0 var(--sand-2), 0 6px 14px rgba(44,42,39,.14)" }}
                   >
-                    <Image src="/images/general/author-1.jpg" alt="Паша Круглей" fill className="object-cover object-top" sizes="56px" />
+                    <Image src="/images/general/author-1.avif" alt="Паша Круглей" fill className="object-cover object-top" sizes="56px" />
                   </div>
                   <div style={{ lineHeight: "24px" }}>
                     <strong className="block" style={{ fontFamily: "var(--font-caveat)", fontSize: "1.375rem", fontWeight: 700, color: "var(--charcoal)", lineHeight: "24px" }}>Паша Круглей</strong>
@@ -138,10 +140,10 @@ export default async function AboutPage() {
                 </div>
                 <div style={{ borderTop: "1px dashed var(--sand-2)", marginBottom: "24px" }} />
                 <blockquote style={{ fontFamily: "var(--font-caveat)", fontSize: "1.2rem", fontWeight: 600, color: "var(--charcoal)", lineHeight: "24px", marginBottom: "24px" }}>
-                  «Начал с одного домика на даче — теперь это проект для всех.»
+                  «Хотел помочь котятам на даче. Теперь это чертежи для всех»
                 </blockquote>
                 <div className="flex flex-wrap gap-x-3" style={{ lineHeight: "24px", marginBottom: "24px" }}>
-                  {["Industrial design", "Open source", "DIY / maker"].map((tag) => (
+                  {["open-hardware", "diy-maker", "laser-cut"].map((tag) => (
                     <span key={tag} className="font-mono" style={{ fontSize: "0.75rem", color: "var(--ember)" }}>
                       #{tag.toLowerCase().replace(/[\s/]+/g, "-")}
                     </span>

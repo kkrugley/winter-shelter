@@ -3,18 +3,18 @@ import React from "react";
 import { pageAlternates } from "@/lib/metadata";
 import Image from "next/image";
 import Link from "next/link";
-import { Hammer, Heart, BookOpenText, ArrowLineDown, PencilSimple, HouseLine } from "@phosphor-icons/react/dist/ssr";
+import { HammerIcon, HeartIcon, BookOpenTextIcon, ArrowLineDownIcon, PencilSimpleIcon, HouseLineIcon } from "@phosphor-icons/react/dist/ssr";
 import { products } from "@/data/products";
 import { getProductContent } from "@/data/productContent";
-import { ProductIllustration } from "@/components/ui/ProductIllustration";
+import { ProductCardImage } from "@/components/ui/ProductCardImage";
 import { StoryCard } from "@/components/ui/StoryCard";
 import { getPublishedStories } from "@/lib/stories";
 import { QuizSection } from "@/components/ui/QuizSection";
 import { CtaBlock } from "@/components/ui/CtaBlock";
 
 const PATH_HREFS = ["/solutions", "/help", "/stories"];
-const PATH_ICONS = [Hammer, Heart, BookOpenText];
-const STEP_ICONS = [ArrowLineDown, PencilSimple, HouseLine];
+const PATH_ICONS = [HammerIcon, HeartIcon, BookOpenTextIcon];
+const STEP_ICONS = [ArrowLineDownIcon, PencilSimpleIcon, HouseLineIcon];
 
 const previewProducts = products.slice(0, 4);
 
@@ -86,7 +86,7 @@ export default async function HomePage() {
             }}
           >
             <Image
-              src="/images/general/hero-1.jpg"
+              src="/images/general/hero-1.avif"
               alt="Бездомные кошки зимой"
               width={1376}
               height={768}
@@ -136,6 +136,7 @@ export default async function HomePage() {
                   </div>
                   <Link
                     href={href}
+                    prefetch={href === "/stories" ? false : undefined}
                     className="relative z-10 mt-auto inline-flex items-center gap-1.5 text-sm font-medium hover:underline"
                     style={{ color: "var(--ember-accessible)", paddingTop: 8 }}
                   >
@@ -166,19 +167,28 @@ export default async function HomePage() {
               return (
                 <div
                   key={p.slug}
-                  className={`border rounded-[16px] overflow-hidden flex flex-col transition-all hover:-translate-y-0.5 ${p.status === "coming-soon" ? "opacity-70" : ""}`}
+                  className={`relative border rounded-[16px] overflow-hidden flex flex-col transition-all hover:-translate-y-0.5 ${p.status === "coming-soon" ? "opacity-70" : ""}`}
                   style={{ borderColor: "var(--sand)", background: "var(--cream)", boxShadow: "var(--shadow-pale)" }}
                 >
-                  <ProductIllustration
+                  <Link
+                    href={`/solutions/${p.slug}`}
+                    aria-label={p.name}
+                    className="absolute inset-0 z-[1]"
+                  />
+                  <ProductCardImage
                     slug={p.slug}
+                    image={p.images[0]}
+                    alt={p.name}
                     badge={badge}
                     className="aspect-[5/4] border-b border-dashed"
                     style={{ borderColor: "var(--sand-2)" }}
                   />
                   <div className="p-4 flex flex-col flex-1 gap-2">
-                    <strong className="heading-card text-lg">{p.name}</strong>
-                    <p className="text-xs" style={{ color: "var(--stone)" }}>{pT.subtitle}</p>
-                    <div className="mt-auto pt-2">
+                    <div className="relative z-[2] flex flex-col gap-2">
+                      <strong className="heading-card text-lg">{p.name}</strong>
+                      <p className="text-xs" style={{ color: "var(--stone)" }}>{pT.subtitle}</p>
+                    </div>
+                    <div className="relative z-[2] mt-auto pt-2">
                       <Link
                         href={`/solutions/${p.slug}`}
                         aria-label={`${p.status === "coming-soon" ? "Узнать →" : p.category === "hydration" ? "Как установить →" : "Детали →"} ${p.name}`}
@@ -287,7 +297,7 @@ export default async function HomePage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between mb-8">
             <h2 className="heading-section">Истории</h2>
-            <Link href="/stories" className="link-script hidden sm:block hover:underline">
+            <Link href="/stories" prefetch={false} className="link-script hidden sm:block hover:underline">
               все истории →
             </Link>
           </div>
@@ -297,7 +307,7 @@ export default async function HomePage() {
             ))}
           </div>
           <div className="mt-4 sm:hidden text-center">
-            <Link href="/stories" className="link-script text-xl hover:underline">Все истории →</Link>
+            <Link href="/stories" prefetch={false} className="link-script text-xl hover:underline">Все истории →</Link>
           </div>
         </div>
       </section>

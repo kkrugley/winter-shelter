@@ -44,6 +44,14 @@ export function ProductGallery({ images, productName, slug }: ProductGalleryProp
     api.on("select", () => setCurrent(api.selectedScrollSnap()))
   }, [api])
 
+  if (images.length === 0) {
+    return (
+      <div className="relative rounded-xl overflow-hidden mb-3 aspect-[16/10]">
+        <IllustrationFallback slug={slug} />
+      </div>
+    )
+  }
+
   return (
     <div>
       <div className="relative rounded-xl overflow-hidden mb-3">

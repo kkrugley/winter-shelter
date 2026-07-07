@@ -104,9 +104,9 @@ export const BRANCHES: Record<string, QuizBranch> = {
   money: {
     q: 'Как вам удобнее нас поддержать?',
     opts: [
-      { label: 'Разовый донат, когда есть возможность',       path: 'one-time'     },
-      { label: 'Готов(а) подписаться на ежемесячный донат',   path: 'subscription' },
-      { label: 'Хочу задонатить именно на установку домика',  path: 'buy'          },
+      { label: 'Разовый донат',       path: 'one-time'     },
+      { label: 'Ежемесячная помощь',   path: 'subscription' },
+      { label: 'Оплатить домик',  path: 'buy'          },
       { label: 'Хочу обсудить партнёрство или крупный вклад', path: 'corporative'  },
     ],
     results: {
@@ -120,7 +120,7 @@ export const BRANCHES: Record<string, QuizBranch> = {
       },
       subscription: {
         title: 'Регулярная поддержка',
-        body:  'Станьте нашим постоянным патроном на OpenCollective, Ko-fi, Buy Me a Coffee или Boosty — кнопка ниже откроет окошко со всеми ссылками!',
+        body:  'Станьте нашим постоянным патроном на Ko-fi, Buy Me a Coffee или Boosty — кнопка ниже откроет окошко со всеми ссылками!',
         cta: [
           { label: 'Поддержать',            action: { type: 'link', href: '?donate=open' } },
           { label: 'Все способы поддержать', action: { type: 'link', href: '/help'        } },

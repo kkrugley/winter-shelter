@@ -10,7 +10,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { ArrowLeft, CheckCircle, PaperPlaneTilt, Spinner } from "@phosphor-icons/react";
+import { ArrowLeftIcon, CheckCircleIcon, PaperPlaneTiltIcon, SpinnerIcon } from "@phosphor-icons/react";
 import { submitContactForm } from "@/lib/web3forms";
 import posthog from "posthog-js";
 
@@ -96,7 +96,7 @@ export default function AddWorkshopPage() {
   if (submitted) {
     return (
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-20 text-center">
-        <CheckCircle size={52} weight="duotone" style={{ color: "var(--ember)", margin: "0 auto 16px" }} />
+        <CheckCircleIcon size={52} weight="duotone" style={{ color: "var(--ember)", margin: "0 auto 16px" }} />
         <h1 className="heading-section mb-3">Спасибо!</h1>
         <p className="text-sm mb-8" style={{ color: "var(--stone)" }}>
           Заявка получена — мы проверим мастерскую и добавим её в каталог.
@@ -221,9 +221,9 @@ export default function AddWorkshopPage() {
           style={{ background: "var(--ember)", boxShadow: "var(--shadow-btn)" }}
         >
           {submitting ? (
-            <><Spinner size={16} className="animate-spin" /> Отправляю…</>
+            <><SpinnerIcon size={16} className="animate-spin" /> Отправляю…</>
           ) : (
-            <><PaperPlaneTilt size={16} weight="bold" /> Отправить нам</>
+            <><PaperPlaneTiltIcon size={16} weight="bold" /> Отправить нам</>
           )}
         </button>
 
@@ -234,7 +234,7 @@ export default function AddWorkshopPage() {
 
       <div className="mt-8">
         <Link href="/solutions/find-workshop" className="inline-flex items-center gap-2 text-sm hover:underline transition-colors" style={{ color: "var(--stone)" }}>
-          <ArrowLeft size={14} />
+          <ArrowLeftIcon size={14} />
           Каталог мастерских
         </Link>
       </div>

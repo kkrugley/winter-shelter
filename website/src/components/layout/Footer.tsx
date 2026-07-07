@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { isExternalHref } from "@/lib/utils";
 
 const cols = [
   {
@@ -60,6 +61,8 @@ export function Footer() {
                   <li key={href}>
                     <Link
                       href={href}
+                      target={isExternalHref(href) ? "_blank" : undefined}
+                      rel={isExternalHref(href) ? "noopener noreferrer" : undefined}
                       className="text-sm text-[var(--stone)] hover:text-[var(--ember)] transition-colors"
                     >
                       {label}

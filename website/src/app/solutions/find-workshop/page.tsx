@@ -9,7 +9,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { MapPin, Scissors, Cube, Wrench, Plus } from "@phosphor-icons/react/dist/ssr";
+import { MapPinIcon, ScissorsIcon, CubeIcon, WrenchIcon, PlusIcon } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
   title: "Мастерские рядом",
@@ -17,9 +17,9 @@ export const metadata: Metadata = {
 };
 
 const CAPABILITIES = [
-  { icon: Scissors, label: "Лазерная резка", desc: "Идеально для наших домиков" },
-  { icon: Wrench,   label: "ЧПУ-фрезеровка", desc: "На будущее" },
-  { icon: Cube,     label: "3D-печать",      desc: "Корпуса PurrTap" },
+  { icon: ScissorsIcon, label: "Лазерная резка", desc: "Идеально для наших домиков" },
+  { icon: WrenchIcon,   label: "ЧПУ-фрезеровка", desc: "На будущее" },
+  { icon: CubeIcon,     label: "3D-печать",      desc: "Корпуса PurrTap" },
 ];
 
 const STEPS = [
@@ -71,7 +71,7 @@ export default function FindWorkshopPage() {
         className="rounded-2xl p-8 text-center mb-12"
         style={{ background: "var(--cream-2)", border: "1.5px dashed var(--sand-2)" }}
       >
-        <MapPin size={30} weight="duotone" style={{ color: "var(--stone)", margin: "0 auto 12px" }} />
+        <MapPinIcon size={30} weight="duotone" style={{ color: "var(--stone)", margin: "0 auto 12px" }} />
         <h2 className="heading-card mb-2">Каталог только запускается</h2>
         <p className="text-sm max-w-[440px] mx-auto mb-6" style={{ color: "var(--stone)" }}>
           Мы собираем первые мастерские от волонтёров — список появится здесь. Знаешь подходящее место в своём городе?
@@ -82,7 +82,7 @@ export default function FindWorkshopPage() {
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium text-white transition-opacity hover:opacity-90"
             style={{ background: "var(--ember)", boxShadow: "var(--shadow-btn)" }}
           >
-            <Plus size={16} weight="bold" />
+            <PlusIcon size={16} weight="bold" />
             Добавить мастерскую
           </Link>
         </div>

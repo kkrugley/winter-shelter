@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Copy, Check, PaperPlaneTilt, CheckCircle, Spinner } from "@phosphor-icons/react"
+import { CopyIcon, CheckIcon, PaperPlaneTiltIcon, CheckCircleIcon, SpinnerIcon } from "@phosphor-icons/react"
 import { DialogRoot, DialogContent, DialogClose } from "@/components/ui/dialog"
 import { submitContactForm } from "@/lib/web3forms"
 import posthog from "posthog-js"
@@ -29,7 +29,7 @@ function CopyEmail() {
       className="inline-flex items-center gap-1.5 font-mono transition-colors hover:text-[var(--ember)]"
       style={{ color: "var(--ink)" }}
     >
-      {copied ? <Check size={13} weight="bold" style={{ color: "var(--forest)" }} /> : <Copy size={13} />}
+      {copied ? <CheckIcon size={13} weight="bold" style={{ color: "var(--forest)" }} /> : <CopyIcon size={13} />}
       {copied ? "Скопировано" : CONTACT_EMAIL}
     </button>
   )
@@ -104,7 +104,7 @@ export function MailFormModal({ open, onClose }: MailFormModalProps) {
                 className="text-sm font-medium text-center py-4 rounded-xl flex items-center justify-center gap-2"
                 style={{ background: "var(--forest-pale)", color: "var(--forest)" }}
               >
-                <CheckCircle size={18} weight="fill" />
+                <CheckCircleIcon size={18} weight="fill" />
                 Письмо получено, ответим при первой возможности.
               </p>
               <button
@@ -167,9 +167,9 @@ export function MailFormModal({ open, onClose }: MailFormModalProps) {
                   style={{ background: "var(--ember)", color: "white" }}
                 >
                   {status === "submitting" ? (
-                    <><Spinner size={16} className="animate-spin" /> Отправляю…</>
+                    <><SpinnerIcon size={16} className="animate-spin" /> Отправляю…</>
                   ) : (
-                    <><PaperPlaneTilt size={16} weight="bold" /> Отправить сообщение</>
+                    <><PaperPlaneTiltIcon size={16} weight="bold" /> Отправить сообщение</>
                   )}
                 </button>
               </form>

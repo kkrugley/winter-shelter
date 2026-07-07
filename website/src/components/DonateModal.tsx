@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Copy, Check, CurrencyEth, Coffee } from "@phosphor-icons/react"
+import { CopyIcon, CheckIcon, CurrencyEthIcon, CoffeeIcon } from "@phosphor-icons/react"
 import { DialogRoot, DialogContent, DialogClose } from "@/components/ui/dialog"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import posthog from "posthog-js"
@@ -103,22 +103,23 @@ function CopyAddress({ address }: { address: string }) {
         aria-label="Скопировать адрес"
       >
         {copied ? (
-          <Check size={14} weight="bold" className="text-accent" />
+          <CheckIcon size={14} weight="bold" className="text-accent" />
         ) : (
-          <Copy size={14} />
+          <CopyIcon size={14} />
         )}
       </button>
     </div>
   )
 }
 
-// ── Плейсхолдеры — заменить на реальные данные ────────────────────────────
+// ── Адреса ────────────────────────────
 
 const TON_ADDRESS = "UQA2nzI1ygl7gV3cToWa0uMwSj7T18XUkyvB7gfAzL4Us5Ep"
-const SOLANA_ADDRESS = "BSVbY49dS8jitcPfN8RdJyc2W4Qv9RiebE1ERiFnBL8D"
-const ETH_ADDRESS = "0x073a933b2c5f4955B8EfDa54375d19604D018FC6"
-const TRON_ADDRESS = "TJ4GQzyo51Nr1hrt1wQYXTCyEqy2cedgmU"
-const BASE_ADDRESS = "0x073a933b2c5f4955B8EfDa54375d19604D018FC6"
+const SOLANA_ADDRESS = "GuZjXb6iYLNXsndCW2ZffJvJGiF8YmFqxAawyZoMRFYq"
+const ETH_ADDRESS = "0x94b4D6e8e72d78590164529C8aA2bCbc668500E5"
+const TRON_ADDRESS = "TBLkHSspCZuxe1XPk8GzPm2iyDiQ1SXqt8"
+const BASE_ADDRESS = "0x94b4D6e8e72d78590164529C8aA2bCbc668500E5"
+// ── const BITCOIN_ADDRESS = "bc1qvemeaerpzvd8xh0e6rm6n8y8zc46fyy9kws2fw"
 const TON_TRANSFER_URL = "ton://transfer/UQA2nzI1ygl7gV3cToWa0uMwSj7T18XUkyvB7gfAzL4Us5Ep?text=%D0%9F%D0%BE%D0%B6%D0%B5%D1%80%D1%82%D0%B2%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D1%81%D0%B0%D0%B9%D1%82%20%7C%20Safepaws%20Organization"
 const BUYMEACOFFEE_URL = "https://buymeacoffee.com/safepawsorganization"
 const KOFI_URL = "https://ko-fi.com/safepawsorganization"
@@ -143,7 +144,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
           <DialogClose />
 
           <Tabs
-            defaultValue="ton"
+            defaultValue="bmc"
             orientation="vertical"
             className="h-full"
           >
@@ -162,15 +163,15 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
               <TabsList className="p-0 gap-0.5">
                 <TabsTrigger value="ton" className="w-full justify-start data-[active]:rounded-r-none">
                   <TonIcon size={18} />
-                  TON
+                  GRAM (prev. TON)
                 </TabsTrigger>
                 <TabsTrigger value="crypto" className="w-full justify-start data-[active]:rounded-r-none">
-                  <CurrencyEth size={18} />
+                  <CurrencyEthIcon size={18} />
                   Криптовалюты
                 </TabsTrigger>
                 <TabsTrigger value="bmc" className="w-full justify-start data-[active]:rounded-r-none">
                   <BuyMeCoffeeIcon size={18} />
-                  Buy Me a Coffee
+                  Buy Me a CoffeeIcon
                 </TabsTrigger>
                 <TabsTrigger value="kofi" className="w-full justify-start data-[active]:rounded-r-none">
                   <KofiIcon size={18} />
@@ -185,22 +186,24 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
 
             {/* Правая область — контент */}
             <div className="flex-1 overflow-hidden" style={{ background: "var(--card-bg)" }}>
-              {/* TON */}
+              {/* GRAM (prev. TON) */}
               <TabsContent value="ton" className="h-full flex flex-col items-center justify-center px-8 py-8">
                 <div className="flex flex-col items-center w-full">
                   <div className="w-40 h-40 rounded-xl overflow-hidden border border-border-soft bg-paper flex items-center justify-center shrink-0">
-                    <img src="/images/general/qr/ton-qr-code.png" alt="TON QR" className="w-full h-full object-cover block" onError={(e) => {
+                    <img src="/images/general/qr/ton-qr-code.avif" alt="TON QR" className="w-full h-full object-cover block" onError={(e) => {
                         e.currentTarget.style.display = "none"; e.currentTarget.nextElementSibling?.removeAttribute("style")}} />
                     <span className="font-mono text-[10px] text-ink-muted text-center px-3" style={{ display: "none" }}>QR-код<br />кошелька<br />TON</span>
                   </div>
                   <div className="w-full max-w-[260px] space-y-2 mt-4">
                     <p className="text-xs text-ink-muted text-center">
-                      Toncoin (TON) — быстрый перевод без комиссий
+                      GRAM (prev. TON) — быстрый перевод без комиссий
                     </p>
                     <CopyAddress address={TON_ADDRESS} />
                   </div>
                   <a
                     href={TON_TRANSFER_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={() => posthog.capture("donate_platform_clicked", { platform: "ton" })}
                     className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 mt-3"
                     style={{ background: "#0098EA" }}
@@ -224,7 +227,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <CurrencyEth size={16} className="text-[#627EEA] shrink-0" />
+                      <CurrencyEthIcon size={16} className="text-[#627EEA] shrink-0" />
                       <span className="text-xs font-medium text-ink">Ethereum (ETH)</span>
                     </div>
                     <CopyAddress address={ETH_ADDRESS} />
@@ -246,13 +249,13 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                 </div>
               </TabsContent>
 
-              {/* Buy Me a Coffee */}
+              {/* Buy Me a CoffeeIcon */}
               <TabsContent value="bmc" className="h-full flex flex-col items-center justify-center px-8 py-8">
                 <div className="flex flex-col items-center w-full">
                   <div className="w-40 h-40 rounded-xl overflow-hidden border border-border-soft bg-paper flex items-center justify-center shrink-0">
                     <img
-                      src="/images/general/qr/buymeacoffee-qr-code.png"
-                      alt="Buy Me a Coffee QR"
+                      src="/images/general/qr/buymeacoffee-qr-code.avif"
+                      alt="Buy Me a CoffeeIcon QR"
                       className="w-full h-full object-cover block"
                       onError={(e) => {
                         e.currentTarget.style.display = "none"
@@ -260,11 +263,11 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                       }}
                     />
                     <span className="font-mono text-[10px] text-ink-muted text-center px-3" style={{ display: "none" }}>
-                      QR-код<br />Buy Me<br />a Coffee
+                      QR-код<br />Buy Me<br />a CoffeeIcon
                     </span>
                   </div>
                   <div className="text-center space-y-1 max-w-[260px] mt-4">
-                    <p className="text-sm font-medium text-ink">Buy Me a Coffee</p>
+                    <p className="text-sm font-medium text-ink">Buy Me a CoffeeIcon</p>
                     <p className="text-xs text-ink-muted">
                       Удобный способ поддержать проект картой или через PayPal.<br />Минимальная сумма — 1$.
                     </p>
@@ -277,7 +280,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                     className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 mt-3"
                     style={{ background: "#FF813F" }}
                   >
-                    <Coffee size={16} weight="bold" />
+                    <CoffeeIcon size={16} weight="bold" />
                     Поддержать
                   </a>
                 </div>
@@ -288,7 +291,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                 <div className="flex flex-col items-center w-full">
                   <div className="w-40 h-40 rounded-xl overflow-hidden border border-border-soft bg-paper flex items-center justify-center shrink-0">
                     <img
-                      src="/images/general/qr/kofi-qr-code.png"
+                      src="/images/general/qr/kofi-qr-code.avif"
                       alt="Ko-fi QR"
                       className="w-full h-full object-cover block"
                       onError={(e) => {
@@ -325,7 +328,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                 <div className="flex flex-col items-center w-full">
                   <div className="w-40 h-40 rounded-xl overflow-hidden border border-border-soft bg-paper flex items-center justify-center shrink-0">
                     <img
-                      src="/images/general/qr/boosty-qr-code.png"
+                      src="/images/general/qr/boosty-qr-code.avif"
                       alt="Boosty QR"
                       className="w-full h-full object-cover block"
                       onError={(e) => {
@@ -350,7 +353,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                     className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 mt-3"
                     style={{ background: "#FF813F" }}
                   >
-                    <Coffee size={16} weight="bold" />
+                    <CoffeeIcon size={16} weight="bold" />
                     Поддержать
                   </a>
                 </div>
