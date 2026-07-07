@@ -37,7 +37,7 @@ export default async function AboutPage() {
     { value: stats.downloads > 0 ? `${Math.floor(stats.downloads / 10) * 10}+` : "150+", label: "скачиваний" },
     { value: String(stats.installations || "47"),  label: "установленных" },
     { value: String(stats.countries || "4"),       label: "стран" },
-    { value: String(stats.languages),              label: "языка" },
+    { value: String(stats.languages),              label: "языков" },
   ];
 
   return (

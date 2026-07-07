@@ -112,13 +112,14 @@ function CopyAddress({ address }: { address: string }) {
   )
 }
 
-// ── Плейсхолдеры — заменить на реальные данные ────────────────────────────
+// ── Адреса ────────────────────────────
 
 const TON_ADDRESS = "UQA2nzI1ygl7gV3cToWa0uMwSj7T18XUkyvB7gfAzL4Us5Ep"
-const SOLANA_ADDRESS = "BSVbY49dS8jitcPfN8RdJyc2W4Qv9RiebE1ERiFnBL8D"
-const ETH_ADDRESS = "0x073a933b2c5f4955B8EfDa54375d19604D018FC6"
-const TRON_ADDRESS = "TJ4GQzyo51Nr1hrt1wQYXTCyEqy2cedgmU"
-const BASE_ADDRESS = "0x073a933b2c5f4955B8EfDa54375d19604D018FC6"
+const SOLANA_ADDRESS = "GuZjXb6iYLNXsndCW2ZffJvJGiF8YmFqxAawyZoMRFYq"
+const ETH_ADDRESS = "0x94b4D6e8e72d78590164529C8aA2bCbc668500E5"
+const TRON_ADDRESS = "TBLkHSspCZuxe1XPk8GzPm2iyDiQ1SXqt8"
+const BASE_ADDRESS = "0x94b4D6e8e72d78590164529C8aA2bCbc668500E5"
+// ── const BITCOIN_ADDRESS = "bc1qvemeaerpzvd8xh0e6rm6n8y8zc46fyy9kws2fw"
 const TON_TRANSFER_URL = "ton://transfer/UQA2nzI1ygl7gV3cToWa0uMwSj7T18XUkyvB7gfAzL4Us5Ep?text=%D0%9F%D0%BE%D0%B6%D0%B5%D1%80%D1%82%D0%B2%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D1%81%D0%B0%D0%B9%D1%82%20%7C%20Safepaws%20Organization"
 const BUYMEACOFFEE_URL = "https://buymeacoffee.com/safepawsorganization"
 const KOFI_URL = "https://ko-fi.com/safepawsorganization"
@@ -143,7 +144,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
           <DialogClose />
 
           <Tabs
-            defaultValue="ton"
+            defaultValue="bmc"
             orientation="vertical"
             className="h-full"
           >
@@ -162,7 +163,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
               <TabsList className="p-0 gap-0.5">
                 <TabsTrigger value="ton" className="w-full justify-start data-[active]:rounded-r-none">
                   <TonIcon size={18} />
-                  TON
+                  GRAM (prev. TON)
                 </TabsTrigger>
                 <TabsTrigger value="crypto" className="w-full justify-start data-[active]:rounded-r-none">
                   <CurrencyEth size={18} />
@@ -185,7 +186,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
 
             {/* Правая область — контент */}
             <div className="flex-1 overflow-hidden" style={{ background: "var(--card-bg)" }}>
-              {/* TON */}
+              {/* GRAM (prev. TON) */}
               <TabsContent value="ton" className="h-full flex flex-col items-center justify-center px-8 py-8">
                 <div className="flex flex-col items-center w-full">
                   <div className="w-40 h-40 rounded-xl overflow-hidden border border-border-soft bg-paper flex items-center justify-center shrink-0">
@@ -195,7 +196,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                   </div>
                   <div className="w-full max-w-[260px] space-y-2 mt-4">
                     <p className="text-xs text-ink-muted text-center">
-                      Toncoin (TON) — быстрый перевод без комиссий
+                      GRAM (prev. TON) — быстрый перевод без комиссий
                     </p>
                     <CopyAddress address={TON_ADDRESS} />
                   </div>

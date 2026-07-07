@@ -102,7 +102,6 @@ const organizationSchema = {
   email: "safepaws.help@proton.me",
   sameAs: [
     "https://github.com/kkrugley/safepaws",
-    "https://opencollective.com/safepawsorganization",
     "https://www.instagram.com/safepaws.help",
     "https://t.me/safepaws_help",
   ],
