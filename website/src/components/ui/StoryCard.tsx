@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Info } from "@phosphor-icons/react";
+import { InfoIcon } from "@phosphor-icons/react";
 import { formatInstalledDateLong } from "@/lib/utils";
 
 const PRODUCT_LABELS: Record<string, string> = {
@@ -104,7 +104,7 @@ export function StoryCard({ city, product_slug, quote, author_name, installed_da
               className="p-1.5 rounded-full transition-colors hover:bg-white/70"
               style={{ background: "#FFFDF7CC", color: "var(--stone)", backdropFilter: "blur(4px)" }}
             >
-              <Info size={16} />
+              <InfoIcon size={16} />
             </button>
             {tooltipVisible && (
               <div

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { TelegramLogo, Bell } from "@phosphor-icons/react";
+import { TelegramLogoIcon, BellIcon } from "@phosphor-icons/react";
 import { NotifyModal } from "@/components/ui/NotifyModal";
 
 const TELEGRAM_CHANNEL_URL = "https://t.me/safepaws_help";
@@ -34,7 +34,7 @@ export function ComingSoonActions({ productName, productSlug }: ComingSoonAction
           onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--ember)"; e.currentTarget.style.color = "var(--ember)"; }}
           onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--sand-2)"; e.currentTarget.style.color = "var(--stone)"; }}
         >
-          <TelegramLogo size={16} />
+          <TelegramLogoIcon size={16} />
           Перейти в Telegram канал
         </a>
 
@@ -43,7 +43,7 @@ export function ComingSoonActions({ productName, productSlug }: ComingSoonAction
           className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all hover:opacity-90"
           style={{ background: "var(--ember)", color: "white" }}
         >
-          <Bell size={16} />
+          <BellIcon size={16} />
           Подписаться на обновления
         </button>
       </div>

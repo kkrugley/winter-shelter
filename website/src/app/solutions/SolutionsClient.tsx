@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { SlidersHorizontal, CaretDown, Eraser } from "@phosphor-icons/react";
+import { SlidersHorizontalIcon, CaretDownIcon, EraserIcon } from "@phosphor-icons/react";
 import { products, type ProductMaterial, type ProductCategory, type ProductStatus } from "@/data/products";
 import { getProductContent } from "@/data/productContent";
 import {
@@ -87,14 +87,14 @@ export function SolutionsClient() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border font-mono text-xs text-ink-muted transition-colors hover:border-[var(--stone)]"
             style={{ borderColor: filtersOpen ? "var(--ember)" : "var(--sand-2)", color: filtersOpen ? "#C55C1C" : undefined }}
           >
-            <SlidersHorizontal size={13} />
+            <SlidersHorizontalIcon size={13} />
             Фильтры
             {activeFilterCount > 0 && (
               <span className="flex h-4 w-4 items-center justify-center rounded-full text-[10px] bg-[var(--ember-pale)] text-[#C55C1C]">
                 {activeFilterCount}
               </span>
             )}
-            <CaretDown
+            <CaretDownIcon
               size={13}
               className="transition-transform duration-200"
               style={{ transform: filtersOpen ? "rotate(180deg)" : "rotate(0deg)" }}
@@ -293,7 +293,7 @@ function ClearChip({ onClick, label }: { onClick: () => void; label: string }) {
       className="inline-flex items-center gap-2 px-4 py-2 rounded-full border font-mono text-xs text-ink-muted transition-colors hover:border-[var(--stone)]"
       style={{ borderColor: "var(--sand-2)" }}
     >
-      <Eraser size={13} />
+      <EraserIcon size={13} />
       {label}
     </button>
   );

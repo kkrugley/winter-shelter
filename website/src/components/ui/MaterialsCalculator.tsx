@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, DownloadSimple, Copy, CaretDown } from "@phosphor-icons/react";
+import { CheckIcon, DownloadSimpleIcon, CopyIcon, CaretDownIcon } from "@phosphor-icons/react";
 import type { Product } from "@/data/products";
 import type { LineItem, ProductMaterialsConfig } from "@/data/materials";
 
@@ -135,7 +135,7 @@ function NbCheckbox({ checked, onClick }: { checked: boolean; onClick: () => voi
         transition: "background .12s, border-color .12s",
       }}
     >
-      {checked && <Check size={11} weight="bold" color="var(--ember)" />}
+      {checked && <CheckIcon size={11} weight="bold" color="var(--ember)" />}
     </button>
   );
 }
@@ -287,7 +287,7 @@ export function MaterialsCalculator({ product }: { product: Product }) {
         {/* Expand caret */}
         <div style={{ padding: "0 20px", display: "flex", alignItems: "center", gap: 6, flexShrink: 0, color: "var(--ember)", fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 500 }}>
           Открыть
-          <CaretDown size={14} weight="bold" />
+          <CaretDownIcon size={14} weight="bold" />
         </div>
       </button>
     );
@@ -449,7 +449,7 @@ export function MaterialsCalculator({ product }: { product: Product }) {
               style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--font-sans)", fontSize: 13, color: "var(--charcoal)", cursor: "pointer", userSelect: "none" }}
             >
               <span style={{ width: 16, height: 16, border: `1.5px solid ${state.spareSheet ? "var(--ember)" : "var(--sand-2)"}`, borderRadius: 3, display: "inline-flex", alignItems: "center", justifyContent: "center", background: state.spareSheet ? "var(--ember-pale)" : "rgba(255,255,255,.6)", flexShrink: 0, transition: "all .12s" }}>
-                {state.spareSheet && <Check size={10} weight="bold" color="var(--ember)" />}
+                {state.spareSheet && <CheckIcon size={10} weight="bold" color="var(--ember)" />}
               </span>
               + запасной лист
             </label>
@@ -560,7 +560,7 @@ export function MaterialsCalculator({ product }: { product: Product }) {
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all hover:opacity-90"
             style={{ fontFamily: "var(--font-sans)", background: "var(--ember)", color: "var(--cream)", border: "1.5px solid var(--ember-accessible)", boxShadow: "2px 2px 0 rgba(171,78,26,.25)", cursor: "pointer" }}
           >
-            <DownloadSimple size={15} />
+            <DownloadSimpleIcon size={15} />
             Скачать список
           </button>
           <button
@@ -576,7 +576,7 @@ export function MaterialsCalculator({ product }: { product: Product }) {
               cursor: "pointer",
             }}
           >
-            {copied ? <Check size={15} color="var(--forest)" /> : <Copy size={15} />}
+            {copied ? <CheckIcon size={15} color="var(--forest)" /> : <CopyIcon size={15} />}
             {copied ? "Скопировано!" : "Скопировать"}
           </button>
           <span style={{ fontFamily: "var(--font-sans)", fontSize: 12, color: "var(--stone)", marginLeft: "auto", opacity: 0.75 }}>
@@ -591,7 +591,7 @@ export function MaterialsCalculator({ product }: { product: Product }) {
               opacity: 0.6, padding: "0 2px", marginTop: 10,
             }}
           >
-            <CaretDown size={12} style={{ transform: "rotate(180deg)" }} />
+            <CaretDownIcon size={12} style={{ transform: "rotate(180deg)" }} />
             Свернуть
           </button>
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check } from "@phosphor-icons/react";
+import { CopyIcon, CheckIcon } from "@phosphor-icons/react";
 
 const SITE_URL = "safepaws.ru";
 
@@ -22,7 +22,7 @@ export function CopySiteLink() {
       style={{ color: copied ? "var(--forest)" : "var(--ink)" }}
     >
       {SITE_URL}
-      {copied ? <Check size={13} weight="bold" style={{ color: "var(--forest)" }} /> : <Copy size={13} />}
+      {copied ? <CheckIcon size={13} weight="bold" style={{ color: "var(--forest)" }} /> : <CopyIcon size={13} />}
     </button>
   );
 }

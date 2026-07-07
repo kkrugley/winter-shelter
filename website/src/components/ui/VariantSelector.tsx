@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { DownloadSimple } from "@phosphor-icons/react";
+import { DownloadSimpleIcon } from "@phosphor-icons/react";
 import type { ProductDownload } from "@/data/products";
 
 interface Props {
@@ -53,7 +53,7 @@ export function VariantSelector({
             href={`/download?product=${encodeURIComponent(slug)}&variant=${encodeURIComponent(active.variant)}`}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-accent text-white text-sm font-medium hover:bg-[#c4673d] transition-colors"
           >
-            <DownloadSimple size={16} weight="bold" />
+            <DownloadSimpleIcon size={16} weight="bold" />
             Скачать
           </Link>
         )}

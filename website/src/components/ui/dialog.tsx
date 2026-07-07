@@ -1,7 +1,7 @@
 "use client"
 
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog"
-import { X } from "@phosphor-icons/react"
+import { XIcon } from "@phosphor-icons/react"
 import { cn } from "@/lib/utils"
 
 const DialogRoot = DialogPrimitive.Root
@@ -66,7 +66,7 @@ function DialogClose({
       )}
       {...props}
     >
-      <X size={16} weight="bold" />
+      <XIcon size={16} weight="bold" />
     </DialogPrimitive.Close>
   )
 }

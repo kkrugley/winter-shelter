@@ -12,8 +12,8 @@ import { BASE_URL, siteUrl } from "@/lib/site";
 
 const inter = localFont({
   src: [
-    { path: "../../public/fonts/Inter/Inter-VariableFont_opsz,wght.ttf", style: "normal" },
-    { path: "../../public/fonts/Inter/Inter-Italic-VariableFont_opsz,wght.ttf", style: "italic" },
+    { path: "../../public/fonts/Inter/Inter-VariableFont_opsz,wght.woff2", style: "normal" },
+    { path: "../../public/fonts/Inter/Inter-Italic-VariableFont_opsz,wght.woff2", style: "italic" },
   ],
   variable: "--font-inter",
   display: "swap",
@@ -21,15 +21,15 @@ const inter = localFont({
 
 const lora = localFont({
   src: [
-    { path: "../../public/fonts/Lora/Lora-VariableFont_wght.ttf", style: "normal" },
-    { path: "../../public/fonts/Lora/Lora-Italic-VariableFont_wght.ttf", style: "italic" },
+    { path: "../../public/fonts/Lora/Lora-VariableFont_wght.woff2", style: "normal" },
+    { path: "../../public/fonts/Lora/Lora-Italic-VariableFont_wght.woff2", style: "italic" },
   ],
   variable: "--font-lora",
   display: "swap",
 });
 
 const caveat = localFont({
-  src: "../../public/fonts/Caveat/Caveat-VariableFont_wght.ttf",
+  src: "../../public/fonts/Caveat/Caveat-VariableFont_wght.woff2",
   variable: "--font-caveat",
   display: "swap",
 });

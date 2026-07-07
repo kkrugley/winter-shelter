@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { List, X } from "@phosphor-icons/react";
+import { ListIcon, XIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import { LangSwitcher } from "./LangSwitcher";
 
@@ -40,6 +40,7 @@ export function Header() {
             <Link
               key={href}
               href={href}
+              prefetch={href === "/stories" ? false : undefined}
               className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors hover:bg-[var(--ember-pale)] hover:text-[var(--charcoal)] ${
                 pathname === href
                   ? "text-[var(--charcoal)] bg-[var(--ember-pale)]"
@@ -66,7 +67,7 @@ export function Header() {
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Закрыть меню" : "Открыть меню"}
           >
-            {open ? <X size={20} /> : <List size={20} />}
+            {open ? <XIcon size={20} /> : <ListIcon size={20} />}
           </button>
         </div>
       </div>
@@ -78,6 +79,7 @@ export function Header() {
             <Link
               key={href}
               href={href}
+              prefetch={href === "/stories" ? false : undefined}
               onClick={() => setOpen(false)}
               className={`block py-2.5 text-sm font-medium border-b border-[var(--sand)] last:border-0 ${
                 pathname === href ? "text-[var(--ember)]" : "text-ink"

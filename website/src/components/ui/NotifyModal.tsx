@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { X, TelegramLogo, Info } from "@phosphor-icons/react";
+import { XIcon, TelegramLogoIcon, InfoIcon } from "@phosphor-icons/react";
 import posthog from "posthog-js";
 
 const TELEGRAM_BOT_URL = "https://t.me/safepaws_help_bot";
@@ -125,7 +125,7 @@ export function NotifyModal({ productName, productSlug, onClose }: NotifyModalPr
           className="absolute top-4 right-4 p-1 rounded-full transition-colors hover:bg-[var(--sand)]"
           style={{ color: "var(--stone)" }}
         >
-          <X size={18} />
+          <XIcon size={18} />
         </button>
 
         <div className="flex flex-col gap-1 pr-6">
@@ -197,7 +197,7 @@ export function NotifyModal({ productName, productSlug, onClose }: NotifyModalPr
             className="flex-1 inline-flex items-center justify-center gap-2 py-2 rounded-full border text-sm transition-colors hover:border-[var(--ember)] hover:text-[var(--ember)]"
             style={{ borderColor: "var(--sand-2)", color: "var(--stone)" }}
           >
-            <TelegramLogo size={16} />
+            <TelegramLogoIcon size={16} />
             Хочу уведомление в Telegram
           </a>
 
@@ -212,7 +212,7 @@ export function NotifyModal({ productName, productSlug, onClose }: NotifyModalPr
               className="p-1.5 rounded-full transition-colors hover:bg-[var(--sand)]"
               style={{ color: "var(--stone)" }}
             >
-              <Info size={16} />
+              <InfoIcon size={16} />
             </button>
             {tooltipVisible && (
               <div

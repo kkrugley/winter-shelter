@@ -1,5 +1,5 @@
 import * as React from "react"
-import { ChevronRight, MoreHorizontal } from "lucide-react"
+import { DotsThreeIcon } from "@phosphor-icons/react/dist/ssr"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 
@@ -79,7 +79,7 @@ function BreadcrumbEllipsis({ className, ...props }: React.ComponentProps<"span"
       className={cn("flex h-9 w-9 items-center justify-center", className)}
       {...props}
     >
-      <MoreHorizontal className="h-4 w-4" />
+      <DotsThreeIcon className="h-4 w-4" />
       <span className="sr-only">Ещё</span>
     </span>
   )

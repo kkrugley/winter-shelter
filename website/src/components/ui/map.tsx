@@ -17,7 +17,14 @@ import {
   type ReactNode,
 } from "react";
 import { createPortal } from "react-dom";
-import { X, Minus, Plus, Locate, Maximize, Loader2 } from "lucide-react";
+import {
+  XIcon,
+  MinusIcon,
+  PlusIcon,
+  CrosshairIcon,
+  ArrowsOutIcon,
+  SpinnerIcon,
+} from "@phosphor-icons/react";
 
 import { cn } from "@/lib/utils";
 
@@ -552,7 +559,7 @@ function PopupCloseButton({ onClick }: { onClick: () => void }) {
       aria-label="Close popup"
       className="focus-visible:ring-ring hover:bg-muted text-foreground absolute top-0.5 right-0.5 z-10 inline-flex size-5 cursor-pointer items-center justify-center rounded-sm transition-colors focus:outline-none focus-visible:ring-2"
     >
-      <X className="size-3.5" />
+      <XIcon className="size-3.5" />
     </button>
   );
 }
@@ -873,10 +880,10 @@ function MapControls({
       {showZoom && (
         <ControlGroup>
           <ControlButton onClick={handleZoomIn} label="Zoom in">
-            <Plus className="size-4" />
+            <PlusIcon className="size-4" />
           </ControlButton>
           <ControlButton onClick={handleZoomOut} label="Zoom out">
-            <Minus className="size-4" />
+            <MinusIcon className="size-4" />
           </ControlButton>
         </ControlGroup>
       )}
@@ -893,9 +900,9 @@ function MapControls({
             disabled={waitingForLocation}
           >
             {waitingForLocation ? (
-              <Loader2 className="size-4 animate-spin" />
+              <SpinnerIcon className="size-4 animate-spin" />
             ) : (
-              <Locate className="size-4" />
+              <CrosshairIcon className="size-4" />
             )}
           </ControlButton>
         </ControlGroup>
@@ -903,7 +910,7 @@ function MapControls({
       {showFullscreen && (
         <ControlGroup>
           <ControlButton onClick={handleFullscreen} label="Toggle fullscreen">
-            <Maximize className="size-4" />
+            <ArrowsOutIcon className="size-4" />
           </ControlButton>
         </ControlGroup>
       )}

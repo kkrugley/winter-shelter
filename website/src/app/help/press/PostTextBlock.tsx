@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
-import { CaretDown } from "@phosphor-icons/react";
+import { CaretDownIcon } from "@phosphor-icons/react";
 import { CopyPostButton } from "./CopyPostButton";
 
 // Fixed collapsed height so every card in the grid reads as one row,
@@ -59,7 +59,7 @@ export function PostTextBlock({ label, text }: { label: string; text: string }) 
         aria-hidden={!overflowing}
       >
         {expanded ? "Свернуть" : "Развернуть"}
-        <CaretDown size={12} className={`transition-transform ${expanded ? "rotate-180" : ""}`} />
+        <CaretDownIcon size={12} className={`transition-transform ${expanded ? "rotate-180" : ""}`} />
       </button>
     </div>
   );
