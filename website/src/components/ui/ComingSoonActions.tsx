@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
 import { TelegramLogo, Bell } from "@phosphor-icons/react";
 import { NotifyModal } from "@/components/ui/NotifyModal";
 
@@ -13,7 +12,6 @@ interface ComingSoonActionsProps {
 }
 
 export function ComingSoonActions({ productName, productSlug }: ComingSoonActionsProps) {
-  const t = useTranslations("ProductSlug");
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
@@ -22,8 +20,8 @@ export function ComingSoonActions({ productName, productSlug }: ComingSoonAction
         className="rounded-xl p-5 mb-4 text-center"
         style={{ background: "#F5F1EB", border: "1px solid var(--sand)" }}
       >
-        <p className="heading-card text-xl text-ink-muted mb-1">{t("comingSoon")}</p>
-        <p className="text-sm text-ink-muted">{t("comingSoonDesc")}</p>
+        <p className="heading-card text-xl text-ink-muted mb-1">Скоро в каталоге</p>
+        <p className="text-sm text-ink-muted">Следи за обновлениями в Telegram</p>
       </div>
 
       <div className="flex gap-2">
@@ -37,7 +35,7 @@ export function ComingSoonActions({ productName, productSlug }: ComingSoonAction
           onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--sand-2)"; e.currentTarget.style.color = "var(--stone)"; }}
         >
           <TelegramLogo size={16} />
-          {t("telegramChannel")}
+          Перейти в Telegram канал
         </a>
 
         <button
@@ -46,7 +44,7 @@ export function ComingSoonActions({ productName, productSlug }: ComingSoonAction
           style={{ background: "var(--ember)", color: "white" }}
         >
           <Bell size={16} />
-          {t("subscribeUpdates")}
+          Подписаться на обновления
         </button>
       </div>
 

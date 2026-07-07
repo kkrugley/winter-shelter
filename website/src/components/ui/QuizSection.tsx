@@ -2,16 +2,11 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { useTranslations } from 'next-intl'
-import { STEPS, RESULTS } from '@/data/quiz'
+import { STEP1, BRANCHES } from '@/data/quiz'
 import type { QuizAction } from '@/data/quiz'
+import posthog from 'posthog-js'
 
 type QuizState = 'collapsed' | 'active' | 'result'
-
-interface TranslatedOpt  { label: string; path: string }
-interface TranslatedStep { q: string; opts: TranslatedOpt[] }
-interface TranslatedCta  { label: string }
-interface TranslatedResult { title: string; body: string; cta: [TranslatedCta, TranslatedCta] }
 
 const ghostStyle = { borderColor: 'var(--sand-2)', color: 'var(--stone)', background: 'transparent' }
 const ghostClass = 'px-4 py-2 rounded-full border text-sm font-medium transition-colors hover:border-[var(--stone)]'
@@ -66,11 +61,9 @@ function scrollToId(id: string) {
   window.scrollTo({ top, behavior: 'smooth' })
 }
 
-export function QuizSection() {
-  const t = useTranslations('Quiz')
-  const tSteps = t.raw('steps') as TranslatedStep[]
-  const tResults = t.raw('results') as Record<string, TranslatedResult>
+const FIRST_BRANCH_KEY = Object.keys(BRANCHES)[0]
 
+export function QuizSection() {
   const [state, setState] = useState<QuizState>('collapsed')
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState<string[]>([])
@@ -78,8 +71,10 @@ export function QuizSection() {
   const [copiedHref, setCopiedHref] = useState<string | null>(null)
 
   const isExpanded = state !== 'collapsed'
+  const TOTAL_STEPS = 2
 
   function handleStart() {
+    posthog.capture('quiz_started')
     setState('active')
     setStep(0)
     setAnswers([])
@@ -102,7 +97,7 @@ export function QuizSection() {
     setSelectedPath(path)
     const next = [...answers, path]
     setTimeout(() => {
-      if (step < STEPS.length - 1) {
+      if (step < TOTAL_STEPS - 1) {
         setAnswers(next)
         setStep(step + 1)
         setSelectedPath(null)
@@ -110,6 +105,15 @@ export function QuizSection() {
         setAnswers(next)
         setState('result')
         setSelectedPath(null)
+        const branchK = next[0] ?? FIRST_BRANCH_KEY
+        const br = BRANCHES[branchK] ?? BRANCHES[FIRST_BRANCH_KEY]
+        const resultK = next[1] ?? br.opts[0]?.path
+        const res = br.results[resultK] ?? Object.values(br.results)[0]
+        posthog.capture('quiz_completed', {
+          answer_step1: next[0],
+          answer_step2: next[1],
+          result_title: res?.title,
+        })
       }
     }, 280)
   }
@@ -130,24 +134,21 @@ export function QuizSection() {
     })
   }
 
-  const dotStatus = [0, 1, 2].map((i) => {
+  const dotStatus = Array.from({ length: TOTAL_STEPS }, (_, i) => {
     if (state === 'result') return 'done'
     if (state === 'active' && i === step) return 'active'
     if (state === 'active' && i < step) return 'done'
     return 'idle'
   })
 
-  const resultKey = (answers[0] ?? 'hands') + '_' + (answers[1] ?? 'unknown')
-  const resultActions =
-    RESULTS[resultKey] ??
-    RESULTS[(answers[0] ?? 'hands') + '_unknown'] ??
-    RESULTS['hands_unknown']
-  const resultText =
-    tResults[resultKey] ??
-    tResults[(answers[0] ?? 'hands') + '_unknown'] ??
-    tResults['hands_unknown']
+  const branchKey = answers[0] ?? FIRST_BRANCH_KEY
+  const branch = BRANCHES[branchKey] ?? BRANCHES[FIRST_BRANCH_KEY]
 
-  const currentStepOpts = tSteps[step]?.opts ?? STEPS[step].opts
+  const currentQuestion = step === 0 ? STEP1.q : branch.q
+  const currentStepOpts = step === 0 ? STEP1.opts : branch.opts
+
+  const resultKey = answers[1] ?? branch.opts[0]?.path
+  const result = branch.results[resultKey] ?? Object.values(branch.results)[0]
 
   return (
     <div
@@ -163,10 +164,10 @@ export function QuizSection() {
       <div className="flex items-center gap-7 flex-wrap justify-between">
         <div className="flex-1 min-w-[280px]">
           <h3 className="heading-card" style={{ fontSize: 28, marginTop: 4 }}>
-            {t('heading')}
+            Не уверен, какой путь твой?
           </h3>
           <p className="text-sm mt-1.5" style={{ color: 'var(--stone)' }}>
-            {t('subheading')}
+            2 коротких вопроса — подскажем, какое решение ближе именно тебе.
           </p>
         </div>
         <div className="flex gap-2.5 items-center">
@@ -176,7 +177,7 @@ export function QuizSection() {
             className="inline-flex items-center gap-2 rounded-full bg-[var(--ember)] text-white text-sm font-medium quiz-start-btn"
             style={{ boxShadow: 'var(--shadow-btn)' }}
           >
-            {t('startBtn')}
+            Подобрать за 30 сек
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M1 7h12m0 0L8 2m5 5l-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -186,7 +187,7 @@ export function QuizSection() {
             className={ghostClass}
             style={ghostStyle}
           >
-            {t('laterBtn')}
+            позже
           </button>
         </div>
       </div>
@@ -225,12 +226,12 @@ export function QuizSection() {
                   style={{ fontFamily: 'var(--font-mono)', color: 'var(--stone)' }}
                 >
                   {state === 'result'
-                    ? t('done')
-                    : t('questionOf', { step: step + 1, total: STEPS.length })}
+                    ? 'Готово'
+                    : `Вопрос ${step + 1} из ${TOTAL_STEPS}`}
                 </span>
               </div>
               <button onClick={handleClose} className={ghostClass} style={ghostStyle}>
-                {t('closeBtn')}
+                ← закрыть
               </button>
             </div>
 
@@ -248,28 +249,25 @@ export function QuizSection() {
                     lineHeight: 1.2,
                   }}
                 >
-                  {tSteps[step]?.q ?? STEPS[step].q}
+                  {currentQuestion}
                 </div>
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
-                  {currentStepOpts.map((opt, i) => {
-                    const path = STEPS[step].opts[i]?.path ?? opt.path
-                    return (
-                      <button
-                        key={path}
-                        onClick={() => handleAnswer(path)}
-                        disabled={selectedPath !== null}
-                        className={`quiz-answer-btn${selectedPath === path ? ' selected' : ''}`}
-                      >
-                        {opt.label}
-                      </button>
-                    )
-                  })}
+                  {currentStepOpts.map((opt) => (
+                    <button
+                      key={opt.path}
+                      onClick={() => handleAnswer(opt.path)}
+                      disabled={selectedPath !== null}
+                      className={`quiz-answer-btn${selectedPath === opt.path ? ' selected' : ''}`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
                 </div>
               </div>
             )}
 
             {/* Result */}
-            {state === 'result' && resultText && (
+            {state === 'result' && result && (
               <div key="result" className="quiz-result-in flex gap-6 items-center p-1 flex-wrap sm:flex-nowrap">
                 <div
                   className="w-16 h-16 rounded-[14px] flex items-center justify-center shrink-0"
@@ -285,7 +283,7 @@ export function QuizSection() {
                     className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium mb-2.5"
                     style={{ background: 'var(--ember-pale)', color: 'var(--ember-accessible)' }}
                   >
-                    {t('resultLabel')}
+                    твой путь
                   </span>
                   <div
                     style={{
@@ -298,29 +296,25 @@ export function QuizSection() {
                       marginBottom: 4,
                     }}
                   >
-                    {resultText.title}
+                    {result.title}
                   </div>
                   <p className="text-sm mt-1.5" style={{ color: 'var(--stone)' }}>
-                    {resultText.body}
+                    {result.body}
                   </p>
                   <div className="flex gap-2.5 mt-3.5 flex-wrap">
-                    <CtaButton
-                      label={resultText.cta[0].label}
-                      action={resultActions.cta[0].action}
-                      primary
-                      copiedHref={copiedHref}
-                      copiedLabel={t('copiedLink')}
-                      onCopy={handleCopy}
-                    />
-                    <CtaButton
-                      label={resultText.cta[1].label}
-                      action={resultActions.cta[1].action}
-                      copiedHref={copiedHref}
-                      copiedLabel={t('copiedLink')}
-                      onCopy={handleCopy}
-                    />
+                    {result.cta.map((cta, i) => (
+                      <CtaButton
+                        key={cta.label + i}
+                        label={cta.label}
+                        action={cta.action}
+                        primary={i === 0}
+                        copiedHref={copiedHref}
+                        copiedLabel="Ссылка скопирована ✓"
+                        onCopy={handleCopy}
+                      />
+                    ))}
                     <button onClick={handleRestart} className={ghostClass} style={ghostStyle}>
-                      {t('restartBtn')}
+                      Пройти ещё раз
                     </button>
                   </div>
                 </div>

@@ -51,7 +51,7 @@ export function ProductGallery({ images, productName, slug }: ProductGalleryProp
           <CarouselContent>
             {images.map((src, i) => (
               <CarouselItem key={i}>
-                <div className="relative aspect-[16/10]">
+                <div className="relative aspect-[16/10]" style={{ position: "relative" }}>
                   {failedImages.has(i) ? (
                     <IllustrationFallback slug={slug} />
                   ) : (
@@ -85,6 +85,7 @@ export function ProductGallery({ images, productName, slug }: ProductGalleryProp
                 ? "border-accent opacity-100"
                 : "border-transparent opacity-60 hover:opacity-90"
             )}
+            style={{ position: "relative" }}
           >
             {failedImages.has(i) ? (
               <IllustrationFallback slug={slug} />

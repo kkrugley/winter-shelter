@@ -2,159 +2,93 @@
 [![Static Badge](https://img.shields.io/badge/Latest-Release-brightgreen)](https://github.com/kkrugley/safepaws/releases)
 [![Static Badge](https://img.shields.io/badge/OpenCollective-SafePaws-blue?logo=opencollective&logoColor=white)](https://opencollective.com/safepawsorganization)
 
-## 💛 What is SafePaws?
+## What is SafePaws?
 
-SafePaws Shelters is an open, non-commercial project that gives anyone free plans to build warm, safe outdoor shelters for stray cats.  
-The idea is simple: we share the designs, you build the shelter, and together we make winters less dangerous for animals living on the streets.
-
-You don’t need to be an engineer or a maker. If you can order a laser-cut plywood sheet and follow a step-by-step guide, you can build a SafePaws shelter.
+SafePaws is an open, non-commercial project that provides free blueprints and instructions for building warm outdoor shelters, water stations, and feeding devices for stray cats. The designs are optimised for laser-cut plywood and 3D-printed parts — simple enough for anyone to build with minimal tools and experience.
 
 Project website: **https://safepaws.vercel.app**  
-GitHub repo (files & docs): **https://github.com/kkrugley/safepaws**
+GitHub: **https://github.com/kkrugley/safepaws**  
+Author: Pavel Kruhlei
 
 ---
 
-## 🏠 Shelter Models
+## Product Line
 
-The system currently includes two main DIY models:
+| Product | Category | Status | Description |
+|---------|----------|--------|-------------|
+| **Cozy Shelter** | Shelter | Available | Compact shelter for 1–2 cats. 40×40×30 cm. Double walls with 40 mm insulation gap, L-shaped vestibule, sloped roof, 2 bowl holders. Laser-cut plywood. Build cost ~€30. |
+| **Family Shelter** | Shelter | Available | Large shelter for 3–5 cats. 80×50×45 cm. Insulated walls, second-floor level, L-shaped vestibule, sloped roof, 4 bowl holders. Laser-cut plywood. Build cost ~€50. |
+| **PurrTap** | Hydration | Coming soon | Stationary water dispenser with a 3D-printed base and standard PET bottle. Refill by replacing the bottle. PETG/ABS plastic. Print time ~4 h, assembly ~10 min. Build cost ~€10. |
+| **EDC Feeder** | Feeding | Coming soon | Pocket-sized portion feeder for dry food. 3D-printed on a standard FDM printer. PETG/ABS. Print time ~3 h. Build cost ~€15. |
 
-- **Cozy** – compact shelter for **1–2 cats**  
-- **Family** – larger shelter for **up to 4–5 cats**
-
-All models are designed for cold climates and share the same core principles:
-
-- **Double walls with insulation gap** – a fixed 40 mm cavity for textile-based insulation keeps the inside warm.
-- **L-shaped entrance** – blocks wind and splashes, helps keep snow and rain out.
-- **Raised base** – protects the floor from ground moisture.
-- **Laser-cut plywood construction** – all parts are designed to be cut on common laser machines and slot together with interlocking joints.
-- **Quick assembly** – a shelter can be assembled in about 1–2 hours on the first try; much faster once you know the process.
-
-> In thermal tests with two cats inside and a 40 mm insulation layer, the Cozy model keeps the interior noticeably warmer than the outside winter air when properly insulated and sealed.
+All shelters share the same design principles: double walls with a 40 mm insulation gap, L-shaped wind-blocking entrance, raised base, interlocking laser-cut joints, and assembly in 1–2 hours.
 
 ---
 
-## 🔧 Materials & Tools
+## Repository Contents
 
-SafePaws shelters are optimized for **affordable fabrication** and **simple assembly**:
-
-**Main materials**
-
-- 3 mm birch plywood sheets (for laser cutting)
-- Textile-based insulation (old cotton fabric, clothes, paper, etc. – dry and clean)
-- Wood glue (PVA or similar)
-- Weather-resistant wood finish or sealant (animal-safe)
-- Stainless steel or ceramic bowls (for food and water, optional)
-
-**Basic tools**
-
-- Rubber mallet or hammer with a wooden block
-- Brush for glue and sealant
-- Sandpaper (around P80–P120)
-- Optional: clamps, protective gloves, simple hand tools
+- **`cad-source/`** — CAD source files (`.m3d`, `.a3d`, `.cdw`, `.stp`, `.blend`, `.stl`), DXF and SVG cutting files, nested layouts for various sheet sizes, assembly manuals (PDF), and warning-plate designs.
+- **`website/`** — Next.js 16 web application (multilingual: RU, EN, BE, PL) with product catalog, download centre, user story map, and materials calculator.
+- **`branding/`** — Logos, mascot, OG image, and brand assets.
 
 ---
 
-## 📂 What’s in this repository?
+## Getting Started
 
-This repo contains everything you need to start:
+1. Choose a product from the [catalog](https://safepaws.vercel.app/solutions).
+2. Download the corresponding cutting files (DXF for laser cutting, STL for 3D printing).
+3. Fabricate the parts at a local workshop, makerspace, or fab lab.
+4. Follow the step-by-step assembly manual in this repository (also available on the website).
+5. Install the shelter in a suitable location and share your story.
 
-- **Laser-cutting files** for Cozy and Family shelters (in vector formats suitable for laser cutters)
-- **Assembly instructions** in English and Russian with step-by-step guidance and diagrams
-- **Technical notes & release docs** describing design decisions and updates (for example, the transition to 3 mm plywood while keeping a 40 mm insulation gap)
-- **Project and community links** (website, Open Collective, social media)
-
-For ready-to-use packages, check the **Releases** section:  
-https://github.com/kkrugley/safepaws/releases
+Full assembly manuals are available in PDF format under each product's directory in `cad-source/`.
 
 ---
 
-## 🚀 How to Build a Shelter (Quick Overview)
+## How to Contribute
 
-For full instructions and diagrams, see the assembly manual in this repo and on the website.
+Contributions of all kinds are welcome:
 
-1. **Download the files**
-   - Choose a model (Cozy or Family).
-   - Download the corresponding laser-cutting files from the repo or the Releases page.
+- **Build a shelter** for cats in your neighbourhood and share your experience on Instagram ([@safepaws.help](https://www.instagram.com/safepaws.help/)) or Telegram ([@safepaws_help](https://t.me/safepaws_help)).
+- **Improve documentation** — refine or write clearer instructions, add new languages.
+- **Improve website** — Improve existing translations or add new languages.
+- **Add new layouts** — contribute nesting arrangements for other standard sheet sizes.
+- **Report issues** — open a GitHub issue for bugs, problems, or suggestions.
+- **Provide feedback** — real-world use reports help improve the designs.
+- **Support financially** via [Open Collective](https://opencollective.com/safepawsorganization), [Ko-fi](https://ko-fi.com/safepawsorganization), or [Buy Me a Coffee](https://buymeacoffee.com/safepawsorganization).
 
-2. **Cut the parts**
-   - Send the files to a local laser-cutting workshop, makerspace, or fab lab.
-   - Ask them to cut from 3 mm plywood sheets.
-
-3. **Prepare the parts**
-   - Lightly sand sharp edges and corners.
-   - Treat outer surfaces and edges with a weather-resistant, animal-safe wood finish.
-   - Lay out the parts in numerical order (each piece is numbered in the design).
-
-4. **Assemble the body**
-   - Start from the base and legs.
-   - Add inner and outer walls using the interlocking joints.
-   - Glue all critical joints for strength and airtightness.
-   - Keep one access side or the roof open for now.
-
-5. **Add insulation**
-   - Fill the 40 mm gap between the double walls with dry textile-based insulation (crumpled paper, cotton rags, fabric offcuts).
-   - Do not over-compress the insulation; it should be fluffy to trap air.
-
-6. **Close and finish**
-   - Install the remaining wall or roof panel.
-   - Add feeding bowl holders if your chosen model includes them.
-   - Check all joints, add extra glue where needed.
-   - Let everything dry and cure.
-
-7. **Place the shelter outside**
-   - Choose a quiet, hidden place away from roads and dogs.
-   - Orient the entrance away from the prevailing wind.
-   - If possible, raise the shelter slightly above the ground (bricks, wooden blocks) to avoid standing water.
+Please open an issue or pull request for any proposed changes. For significant modifications, start a discussion first.
 
 ---
 
-## ✅ Placement & Safety Tips
-
-- **Location:** quiet courtyard corners, under sheds, behind garages, near places where cats already sleep or get food.
-- **Respect people and rules:** avoid blocking paths, entrances, or emergency access. If needed, first talk to neighbours or building management.
-- **Maintenance:** check the shelter from time to time, refresh bedding, and repair any damage.
-- **Camouflage:** neutral colours help the shelter blend into the environment and avoid unwanted attention.
-
----
-
-## 🤝 How to Get Involved
-
-You can help even if you never touch a laser cutter:
-
-- **Build a shelter** for cats in your yard, neighbourhood, or near a known feeding spot.
-- **Share your results** – post photos, write about your experience, and tag the project on social media: Instagram [`@safepaws.help`](https://www.instagram.com/safepaws.help/) or Telegram Channel [`@safepaws_help`](https://t.me/safepaws_help).
-- **Contribute to the project**:
-  - Improve documentation or translations
-  - Help with new layouts or formats for other sheet sizes
-  - Provide feedback from real-world use
-- **Support financially** via Open Collective:  
-  https://opencollective.com/safepawsorganization
-
-Every shelter built is a real, practical difference for animals that have nowhere else to go.
-
-### Cloning this repository
-
-Cloning the repo with all its history results in a download of hundreds of megabytes. If you don't need the whole history you can use the `depth` parameter to significantly reduce download size.
+## Cloning
 
 ```sh
 git clone --depth=1 https://github.com/kkrugley/safepaws.git
 ```
 
----
-
-## 📎 License & Usage
-
-This project is licensed under **CC BY-NC-ND 4.0**. See the [`LICENSE`](LICENSE) file for full details.
-
-In simple terms:
-
-- ✅ You **may** download the files, build shelters, and share the project **for non-commercial purposes**.
-- ✅ You **may** use the shelters in volunteer work, educational projects, and community initiatives.
-- ❌ You **may not** sell these designs, sell products based on them, or distribute modified versions **without prior permission from the author**.
-
-If you want to discuss commercial use, derivative designs, or partnerships, please contact the project author via the email listed on the website or in this repo.
+The `--depth=1` flag avoids downloading the full git history (hundreds of MB).
 
 ---
 
-Thank you for helping make winters kinder for stray cats.  
-**Build one shelter – change one small world.**
+## License
+
+This project is licensed under **CC BY-NC-ND 4.0** (Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International).
+
+Copyright © 2025 Pavel Kruhlei
+
+**In short:**
+- ✅ You may download files, build shelters, and share the project for non-commercial purposes.
+- ✅ You may use the shelters in volunteer work, educational projects, and community initiatives.
+- ❌ You may not sell these designs or products based on them.
+- ❌ You may not distribute modified versions without prior permission.
+
+Full license text: [`LICENSE`](LICENSE)
+
+**Attribution:** "SafePaws Shelters" by Pavel Kruhlei (2025) — [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+
+For commercial licensing or partnerships, contact: safepaws.help@proton.me
+
+---
+
+*Build one shelter — change one small world.*

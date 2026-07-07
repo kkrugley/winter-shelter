@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Copy, Check, CurrencyEth, Coffee } from "@phosphor-icons/react"
 import { DialogRoot, DialogContent, DialogClose } from "@/components/ui/dialog"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import posthog from "posthog-js"
 
 // ── Inline SVG иконки платёжных систем ────────────────────────────────────
 
@@ -121,6 +122,7 @@ const BASE_ADDRESS = "0x073a933b2c5f4955B8EfDa54375d19604D018FC6"
 const TON_TRANSFER_URL = "ton://transfer/UQA2nzI1ygl7gV3cToWa0uMwSj7T18XUkyvB7gfAzL4Us5Ep?text=%D0%9F%D0%BE%D0%B6%D0%B5%D1%80%D1%82%D0%B2%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%87%D0%B5%D1%80%D0%B5%D0%B7%20%D1%81%D0%B0%D0%B9%D1%82%20%7C%20Safepaws%20Organization"
 const BUYMEACOFFEE_URL = "https://buymeacoffee.com/safepawsorganization"
 const KOFI_URL = "https://ko-fi.com/safepawsorganization"
+const BOOSTY_URL = "https://boosty.to/safepawsorganization/donate"
 
 // ── DonateModal ───────────────────────────────────────────────────────────
 
@@ -174,6 +176,10 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                   <KofiIcon size={18} />
                   Ko-fi
                 </TabsTrigger>
+                <TabsTrigger value="boosty" className="w-full justify-start data-[active]:rounded-r-none">
+                  <KofiIcon size={18} />
+                  Boosty
+                </TabsTrigger>
               </TabsList>
             </div>
 
@@ -195,6 +201,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                   </div>
                   <a
                     href={TON_TRANSFER_URL}
+                    onClick={() => posthog.capture("donate_platform_clicked", { platform: "ton" })}
                     className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 mt-3"
                     style={{ background: "#0098EA" }}
                   >
@@ -266,6 +273,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                     href={BUYMEACOFFEE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => posthog.capture("donate_platform_clicked", { platform: "buymeacoffee" })}
                     className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 mt-3"
                     style={{ background: "#FF813F" }}
                   >
@@ -302,10 +310,47 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                     href={KOFI_URL}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => posthog.capture("donate_platform_clicked", { platform: "kofi" })}
                     className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 mt-3"
                     style={{ background: "#29ABE0" }}
                   >
                     <KofiIcon size={16} color="white" />
+                    Поддержать
+                  </a>
+                </div>
+              </TabsContent>
+
+              {/* Boosty */}
+              <TabsContent value="boosty" className="h-full flex flex-col items-center justify-center px-8 py-8">
+                <div className="flex flex-col items-center w-full">
+                  <div className="w-40 h-40 rounded-xl overflow-hidden border border-border-soft bg-paper flex items-center justify-center shrink-0">
+                    <img
+                      src="/images/general/qr/boosty-qr-code.png"
+                      alt="Boosty QR"
+                      className="w-full h-full object-cover block"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none"
+                        e.currentTarget.nextElementSibling?.removeAttribute("style")
+                      }}
+                    />
+                    <span className="font-mono text-[10px] text-ink-muted text-center px-3" style={{ display: "none" }}>
+                      QR-код Boosty
+                    </span>
+                  </div>
+                  <div className="text-center space-y-1 max-w-[260px] mt-4">
+                    <p className="text-sm font-medium text-ink">Boosty</p>
+                    <p className="text-xs text-ink-muted">
+                      Удобный способ поддерживать проект на постоянной основе</p>
+                  </div>
+                  <a
+                    href={BOOSTY_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => posthog.capture("donate_platform_clicked", { platform: "boosty" })}
+                    className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 mt-3"
+                    style={{ background: "#FF813F" }}
+                  >
+                    <Coffee size={16} weight="bold" />
                     Поддержать
                   </a>
                 </div>

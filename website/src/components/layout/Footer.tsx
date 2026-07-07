@@ -1,39 +1,37 @@
 import Image from "next/image";
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import Link from "next/link";
+
+const cols = [
+  {
+    title: "Решения",
+    links: [
+      { href: "/solutions/cozy-shelter", label: "Cozy Shelter" },
+      { href: "/solutions/family-shelter", label: "Family Shelter" },
+      { href: "/solutions/purrtap", label: "PurrTap" },
+      { href: "/solutions", label: "Все решения →" },
+    ],
+  },
+  {
+    title: "Участие",
+    links: [
+      { href: "/help?card=build", label: "Собрать домик" },
+      { href: "/help?card=install", label: "Поставить поилку" },
+      { href: "/help?card=share", label: "Рассказать" },
+      { href: "/help", label: "Все способы →" },
+    ],
+  },
+  {
+    title: "Связь",
+    links: [
+      { href: "?mail-form=open", label: "Email" },
+      { href: "https://t.me/safepaws_help", label: "Telegram" },
+      { href: "/about", label: "О проекте" },
+      { href: "https://github.com/kkrugley/safepaws", label: "Проект на GitHub" },
+    ],
+  },
+];
 
 export function Footer() {
-  const t = useTranslations("Footer");
-
-  const cols = [
-    {
-      title: t("colSolutions"),
-      links: [
-        { href: "/solutions/cozy-shelter", label: "Cozy Shelter" },
-        { href: "/solutions/family-shelter", label: "Family Shelter" },
-        { href: "/solutions/purrtap", label: "PurrTap" },
-        { href: "/solutions", label: t("allSolutions") },
-      ],
-    },
-    {
-      title: t("colParticipation"),
-      links: [
-        { href: "/help?card=build", label: t("build") },
-        { href: "/help?card=install", label: t("install") },
-        { href: "/help?card=share", label: t("share") },
-        { href: "/help", label: t("allWays") },
-      ],
-    },
-    {
-      title: t("colContact"),
-      links: [
-        { href: "mailto:safepaws.help@proton.me", label: "Email" },
-        { href: "https://t.me/safepaws_help", label: "Telegram" },
-        { href: "/about", label: t("aboutProject") },
-        { href: "https://github.com/kkrugley/safepaws", label: t("githubProject") },
-      ],
-    },
-  ];
 
   return (
     <footer className="border-t border-[var(--sand)] mt-auto" style={{ background: "#F7F1E5" }}>
@@ -46,7 +44,7 @@ export function Footer() {
               <span className="heading-logo">SafePaws</span>
             </div>
             <p className="text-sm text-[var(--stone)] leading-relaxed">
-              {t("tagline")}
+              Решения для помощи уличным животным
             </p>
             <p className="text-xs text-[var(--stone)] mt-3">CC BY 4.0 · 2025–{new Date().getFullYear()}</p>
           </div>
@@ -76,14 +74,14 @@ export function Footer() {
         {/* Bottom CTA */}
         <div className="mt-10 pt-6 border-t border-[var(--sand)] flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-[var(--stone)]">
-            {t("ctaText")}
+            Каждый домик — это шанс на жизнь.
           </p>
           <Link
             href="/download"
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--ember)] text-white text-sm font-medium hover:opacity-90 transition-all hover:-translate-y-px"
             style={{ boxShadow: "var(--shadow-btn)" }}
           >
-            {t("ctaButton")}
+            Скачать первый чертёж →
           </Link>
         </div>
       </div>

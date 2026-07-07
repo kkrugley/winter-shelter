@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { submitIdea } from "@/lib/ideas";
 import { getClientIp, createRateLimiter } from "@/lib/rate-limit";
+import { verifyTurnstileToken } from "@/lib/turnstile";
+import { getPostHogClient } from "@/lib/posthog-server";
 
 const rateLimiter = createRateLimiter(5, 60_000);
 
@@ -24,6 +26,12 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json();
 
+  const token = body["cf-turnstile-response"] ?? "";
+  const verification = await verifyTurnstileToken(token);
+  if (!verification.success) {
+    return NextResponse.json({ error: "Bot verification failed" }, { status: 403 });
+  }
+
   const required = ["author_name", "title", "description"];
   for (const field of required) {
     if (!body[field]) {
@@ -39,6 +47,15 @@ export async function POST(req: NextRequest) {
 
   try {
     const id = await submitIdea(body);
+    const posthog = getPostHogClient();
+    posthog.capture({
+      distinctId: "anonymous",
+      event: "idea_created",
+      properties: {
+        category: body.category ?? undefined,
+        has_photo: Boolean(body.photo_url),
+      },
+    });
     return NextResponse.json({ id }, { status: 201 });
   } catch (err) {
     console.error("[/api/ideas POST]", err);

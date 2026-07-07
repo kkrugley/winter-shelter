@@ -1,7 +1,4 @@
 import type { NextConfig } from "next";
-import createNextIntlPlugin from "next-intl/plugin";
-
-const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 // 'unsafe-eval' is required in dev mode: Next.js webpack uses eval() for source maps and HMR.
 const isDev = process.env.NODE_ENV === "development";
@@ -10,13 +7,14 @@ const CSP = [
   "default-src 'self'",
   // TODO: tighten to nonce-based CSP once Next.js nonce support is wired up
   isDev
-    ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com"
-    : "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://va.vercel-scripts.com",
+    ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://challenges.cloudflare.com"
+    : "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://va.vercel-scripts.com https://challenges.cloudflare.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
+  "frame-src https://challenges.cloudflare.com",
   "img-src 'self' data: blob: https://i.vgy.me https://*.basemaps.cartocdn.com",
   "worker-src blob:",
-  "connect-src 'self' ws: wss: https://basemaps.cartocdn.com https://*.basemaps.cartocdn.com https://fonts.openmaptiles.org https://va.vercel-scripts.com",
+  "connect-src 'self' ws: wss: https://basemaps.cartocdn.com https://*.basemaps.cartocdn.com https://fonts.openmaptiles.org https://va.vercel-scripts.com https://challenges.cloudflare.com https://turnstile-siteverify-safepaws.pkrugley.workers.dev",
 ].join("; ");
 
 const nextConfig: NextConfig = {
@@ -40,6 +38,23 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/ingest/static/:path*",
+        destination: "https://eu-assets.i.posthog.com/static/:path*",
+      },
+      {
+        source: "/ingest/array/:path*",
+        destination: "https://eu-assets.i.posthog.com/array/:path*",
+      },
+      {
+        source: "/ingest/:path*",
+        destination: "https://eu.i.posthog.com/:path*",
+      },
+    ];
+  },
+  skipTrailingSlashRedirect: true,
 };
 
-export default withNextIntl(nextConfig);
+export default nextConfig;

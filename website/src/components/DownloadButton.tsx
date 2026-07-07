@@ -1,7 +1,6 @@
 "use client";
 
 import { DownloadSimple } from "@phosphor-icons/react";
-import { useTranslations } from "next-intl";
 
 interface Props {
   href: string;
@@ -10,8 +9,7 @@ interface Props {
 }
 
 export function DownloadButton({ href, productSlug, label }: Props) {
-  const t = useTranslations("ProductSlug");
-  const resolvedLabel = label ?? t("downloadBtn");
+  const resolvedLabel = label ?? "Скачать DXF + PDF";
   const handleClick = () => {
     // fire-and-forget — не блокируем скачивание
     fetch("/api/downloads", {
