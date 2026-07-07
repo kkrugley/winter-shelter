@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { Info } from "@phosphor-icons/react";
 import { formatInstalledDateLong } from "@/lib/utils";
 
 const PRODUCT_LABELS: Record<string, string> = {
@@ -40,9 +41,11 @@ export interface StoryCardData {
 
 export function StoryCard({ city, product_slug, quote, author_name, installed_date, photo_url }: StoryCardData) {
   const [imgError, setImgError] = useState(false);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
   const productLabel = PRODUCT_LABELS[product_slug] ?? product_slug;
   const dateLabel = formatInstalledDateLong(installed_date);
   const showPhoto = photo_url && !imgError;
+  const isEtsyAutopost = quote === "Etsy Autopost";
 
   return (
     <div className="flex flex-col gap-3">
@@ -87,6 +90,45 @@ export function StoryCard({ city, product_slug, quote, author_name, installed_da
             {city}
           </span>
         </div>
+
+        {/* Etsy autopost info icon — top-right */}
+        {isEtsyAutopost && (
+          <div className="absolute top-2.5 right-2.5">
+            <button
+              type="button"
+              onMouseEnter={() => setTooltipVisible(true)}
+              onMouseLeave={() => setTooltipVisible(false)}
+              onFocus={() => setTooltipVisible(true)}
+              onBlur={() => setTooltipVisible(false)}
+              aria-label="Тот же чертёж домика SafePaws, что продаётся на Etsy под другим брендом для западного рынка."
+              className="p-1.5 rounded-full transition-colors hover:bg-white/70"
+              style={{ background: "#FFFDF7CC", color: "var(--stone)", backdropFilter: "blur(4px)" }}
+            >
+              <Info size={16} />
+            </button>
+            {tooltipVisible && (
+              <div
+                className="absolute top-full right-0 mt-2 w-56 rounded-xl px-3 py-2 text-xs z-10"
+                style={{
+                  background: "#1e1209",
+                  color: "var(--cream)",
+                  boxShadow: "var(--shadow-lift)",
+                }}
+                role="tooltip"
+              >
+                Тот же чертёж домика SafePaws, что продаётся на Etsy под другим брендом для западного рынка.
+                <div
+                  className="absolute right-3 bottom-full w-0 h-0"
+                  style={{
+                    borderLeft: "5px solid transparent",
+                    borderRight: "5px solid transparent",
+                    borderBottom: "5px solid #1e1209",
+                  }}
+                />
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Text */}
