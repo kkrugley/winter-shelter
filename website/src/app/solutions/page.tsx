@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { pageAlternates } from "@/lib/metadata";
 import { SolutionsClient } from "./SolutionsClient";
 
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function SolutionsPage() {
-  return <SolutionsClient />;
+  return (
+    <Suspense>
+      <SolutionsClient />
+    </Suspense>
+  );
 }

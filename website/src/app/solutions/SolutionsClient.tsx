@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { SlidersHorizontalIcon, CaretDownIcon, EraserIcon } from "@phosphor-icons/react";
 import { products, type ProductMaterial, type ProductCategory, type ProductStatus } from "@/data/products";
@@ -40,12 +41,29 @@ const statusLabel: Record<string, string> = {
   "coming-soon": "Скоро",
 };
 
+const CATEGORY_PARAMS = new Set<ProductCategory>(["shelter", "hydration", "feeding"]);
+
 export function SolutionsClient() {
-  const [types, setTypes] = useState<Set<ProductCategory>>(new Set());
+  const searchParams = useSearchParams();
+  const typeParam = searchParams?.get("type") ?? null;
+  const initialCategory = CATEGORY_PARAMS.has(typeParam as ProductCategory) ? (typeParam as ProductCategory) : null;
+
+  const [types, setTypes] = useState<Set<ProductCategory>>(
+    () => (initialCategory ? new Set([initialCategory]) : new Set()),
+  );
   const [materials, setMaterials] = useState<Set<ProductMaterial>>(new Set());
   const [statuses, setStatuses] = useState<Set<ProductStatus>>(new Set());
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(Boolean(initialCategory));
   const [notifyProduct, setNotifyProduct] = useState<{ slug: string; name: string } | null>(null);
+
+  useEffect(() => {
+    if (initialCategory) {
+      setTypes(new Set([initialCategory]));
+      setFiltersOpen(true);
+    }
+    // Only re-sync when the URL's `type` param itself changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typeParam]);
 
   const activeFilterCount = [types.size > 0, materials.size > 0, statuses.size > 0].filter(Boolean).length;
 

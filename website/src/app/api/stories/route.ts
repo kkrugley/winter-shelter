@@ -71,13 +71,13 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // Offset coordinates by up to 500 m in a random direction so the exact
+  // Offset coordinates by up to 1 km in a random direction so the exact
   // shelter location is never stored (protects animals from bad actors).
   if (body.lat != null && body.lng != null) {
     const buf = new Uint32Array(2);
     crypto.getRandomValues(buf);
     const angle    = (buf[0] / 0xffff_ffff) * 2 * Math.PI;
-    const distance = (buf[1] / 0xffff_ffff) * 500;
+    const distance = (buf[1] / 0xffff_ffff) * 1000;
     const latRad   = (body.lat as number) * (Math.PI / 180);
     const cosLat   = Math.cos(latRad);
     body.lat = (body.lat as number) + (distance / 111_000) * Math.cos(angle);
