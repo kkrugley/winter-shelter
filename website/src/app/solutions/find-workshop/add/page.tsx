@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import {
   Breadcrumb,
@@ -10,18 +10,38 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { ArrowLeftIcon, CheckCircleIcon, PaperPlaneTiltIcon, SpinnerIcon } from "@phosphor-icons/react";
-import { submitContactForm } from "@/lib/web3forms";
+import { ArrowLeftIcon, CheckCircleIcon, MapPinIcon, PaperPlaneTiltIcon, SpinnerIcon } from "@phosphor-icons/react";
 import posthog from "posthog-js";
 
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (c: HTMLElement, o: Record<string, string>) => string;
+      remove: (id: string) => void;
+      getResponse: (id?: string) => string;
+    };
+  }
+}
+
+const SITEKEY = "0x4AAAAAADs9TzE7UAMqNZVI";
 const CONTACT_EMAIL = "safepaws.help@proton.me";
 
-const CAPABILITY_OPTIONS = [
-  "Лазерная резка",
-  "ЧПУ-фрезеровка",
-  "3D-печать",
-  "Другое",
+type ServiceType = "laser" | "milling" | "3d-print";
+
+// UI label → service slug. "Другое" carries no slug (informational only).
+const CAPABILITY_OPTIONS: { label: string; slug: ServiceType | null }[] = [
+  { label: "Лазерная резка", slug: "laser" },
+  { label: "ЧПУ-фрезеровка", slug: "milling" },
+  { label: "3D-печать", slug: "3d-print" },
+  { label: "Другое", slug: null },
 ];
+
+interface GeoResult {
+  display_name: string;
+  lat: string;
+  lon: string;
+  address: { country_code: string; city?: string; town?: string; village?: string; state?: string };
+}
 
 const inputCls = "w-full px-3 py-2.5 border rounded-xl text-sm bg-[var(--cream)] text-ink placeholder:text-[var(--stone)] focus:outline-none transition-colors";
 const inputStyle = { borderColor: "var(--sand-2)" };
@@ -41,29 +61,76 @@ function Field({ label, required, hint, children }: {
   );
 }
 
-function buildMessage(fields: {
-  name: string; city: string; capabilities: string[]; contact: string; comment: string;
-}) {
-  const lines = [
-    `Мастерская: ${fields.name}`,
-    `Город: ${fields.city}`,
-    `Возможности: ${fields.capabilities.length ? fields.capabilities.join(", ") : "не указаны"}`,
-    `Контакт: ${fields.contact}`,
-    "",
-    fields.comment.trim() ? `Комментарий: ${fields.comment.trim()}` : null,
-  ].filter((line): line is string => Boolean(line));
-  return lines.join("\n");
-}
-
 export default function AddWorkshopPage() {
   const [name, setName] = useState("");
-  const [city, setCity] = useState("");
   const [capabilities, setCapabilities] = useState<string[]>([]);
   const [contact, setContact] = useState("");
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  // Geocoded city (reuses the Nominatim proxy for country/lat/lng)
+  const [cityQuery, setCityQuery] = useState("");
+  const [geoResults, setGeoResults] = useState<GeoResult[]>([]);
+  const [geoLoading, setGeoLoading] = useState(false);
+  const [geoSelected, setGeoSelected] = useState(false);
+  const [place, setPlace] = useState<{ city: string; country: string; lat: string; lng: string } | null>(null);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const turnstileRef = useRef<HTMLDivElement>(null);
+  const turnstileId = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (geoSelected || cityQuery.length < 3) {
+      setGeoResults([]);
+      return;
+    }
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(async () => {
+      setGeoLoading(true);
+      try {
+        const res = await fetch(`/api/geocode?q=${encodeURIComponent(cityQuery)}`);
+        setGeoResults(await res.json());
+      } catch {
+        setGeoResults([]);
+      } finally {
+        setGeoLoading(false);
+      }
+    }, 400);
+  }, [cityQuery, geoSelected]);
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    script.async = true;
+    script.defer = true;
+    script.onload = () => {
+      if (turnstileRef.current && window.turnstile && !turnstileId.current) {
+        turnstileId.current = window.turnstile.render(turnstileRef.current, {
+          sitekey: SITEKEY,
+          "data-action": "workshop-add",
+        });
+      }
+    };
+    document.body.appendChild(script);
+    return () => { if (turnstileId.current && window.turnstile) window.turnstile.remove(turnstileId.current); };
+  }, []);
+
+  function selectCity(result: GeoResult) {
+    const cityName =
+      result.address.city || result.address.town || result.address.village ||
+      result.address.state || result.display_name.split(",")[0];
+    setPlace({
+      city: cityName,
+      country: (result.address.country_code ?? "").toUpperCase(),
+      lat: result.lat,
+      lng: result.lon,
+    });
+    setCityQuery(cityName);
+    setGeoResults([]);
+    setGeoSelected(true);
+  }
 
   function toggleCapability(cap: string) {
     setCapabilities((prev) => prev.includes(cap) ? prev.filter((c) => c !== cap) : [...prev, cap]);
@@ -74,16 +141,42 @@ export default function AddWorkshopPage() {
     setError("");
 
     if (!name.trim())    { setError("Заполни поле: название мастерской"); return; }
-    if (!city.trim())    { setError("Заполни поле: город"); return; }
+    if (!place)          { setError("Выбери город из подсказок"); return; }
     if (!contact.trim()) { setError("Заполни поле: контакт для связи"); return; }
 
+    const services = CAPABILITY_OPTIONS
+      .filter((o) => o.slug && capabilities.includes(o.label))
+      .map((o) => o.slug as ServiceType);
+    if (services.length === 0) {
+      setError("Отметь хотя бы одну услугу (лазер, фрезеровка или 3D-печать)");
+      return;
+    }
+
     setSubmitting(true);
+    const token = window.turnstile?.getResponse(turnstileId.current ?? undefined);
+    if (!token) { setError("Подтвердите, что вы не робот"); setSubmitting(false); return; }
+
     try {
-      await submitContactForm({
-        subject: `Новая мастерская: ${name}`,
-        message: buildMessage({ name, city, capabilities, contact, comment }),
+      const res = await fetch("/api/workshops/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          contact,
+          services,
+          comment: comment.trim() || undefined,
+          city: place.city,
+          country: place.country,
+          lat: Number(place.lat),
+          lng: Number(place.lng),
+          "cf-turnstile-response": token,
+        }),
       });
-      posthog.capture("workshop_form_submitted");
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error ?? "request failed");
+      }
+      posthog.capture("workshop_form_submitted", { city: place.city, services });
       setSubmitted(true);
     } catch (err) {
       posthog.captureException(err);
@@ -99,7 +192,7 @@ export default function AddWorkshopPage() {
         <CheckCircleIcon size={52} weight="duotone" style={{ color: "var(--ember)", margin: "0 auto 16px" }} />
         <h1 className="heading-section mb-3">Спасибо!</h1>
         <p className="text-sm mb-8" style={{ color: "var(--stone)" }}>
-          Заявка получена — мы проверим мастерскую и добавим её в каталог.
+          Мастерская добавлена в каталог — она уже видна другим по твоему городу.
         </p>
         <Link
           href="/solutions/find-workshop"
@@ -132,8 +225,8 @@ export default function AddWorkshopPage() {
 
       <h1 className="heading-display mb-2">Добавить мастерскую</h1>
       <p className="text-sm mb-10" style={{ color: "var(--stone)" }}>
-        Каталог пока небольшой, поэтому заявки обрабатываются вручную: форма подготовит письмо со всеми
-        данными — просто отправь его, и мы добавим мастерскую после проверки.
+        Знаешь хакспейс, фаблаб или столярку с нужным оборудованием? Добавь — мастерская сразу
+        появится в каталоге для твоего города.
       </p>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
@@ -148,37 +241,59 @@ export default function AddWorkshopPage() {
           />
         </Field>
 
-        <Field label="Город" required>
-          <input
-            type="text"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            placeholder="Минск"
-            className={`${inputCls} ${inputFocusStyle}`}
-            style={inputStyle}
-          />
+        <Field label="Город" required hint="Начни вводить и выбери из подсказок">
+          <div className="relative">
+            <input
+              type="text"
+              value={cityQuery}
+              onChange={(e) => { setCityQuery(e.target.value); setGeoSelected(false); setPlace(null); }}
+              placeholder="Минск"
+              className={`${inputCls} ${inputFocusStyle}`}
+              style={inputStyle}
+            />
+            {geoLoading && (
+              <SpinnerIcon size={16} className="animate-spin absolute right-3 top-1/2 -translate-y-1/2" style={{ color: "var(--stone)" }} />
+            )}
+            {geoResults.length > 0 && (
+              <ul className="absolute z-10 mt-1 w-full rounded-xl border overflow-hidden" style={{ borderColor: "var(--sand-2)", background: "var(--cream)" }}>
+                {geoResults.slice(0, 5).map((r, i) => (
+                  <li key={i}>
+                    <button
+                      type="button"
+                      onClick={() => selectCity(r)}
+                      className="w-full text-left px-3 py-2 text-sm hover:bg-[var(--ember-pale)] transition-colors flex items-center gap-2"
+                      style={{ color: "var(--ink)" }}
+                    >
+                      <MapPinIcon size={14} style={{ color: "var(--stone)" }} />
+                      <span className="truncate">{r.display_name}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </Field>
 
-        <Field label="Что там есть?" hint="Отметь всё подходящее">
+        <Field label="Что там есть?" required hint="Отметь всё подходящее">
           <div className="grid sm:grid-cols-2 gap-2">
-            {CAPABILITY_OPTIONS.map((cap) => (
+            {CAPABILITY_OPTIONS.map(({ label }) => (
               <button
-                key={cap}
+                key={label}
                 type="button"
-                onClick={() => toggleCapability(cap)}
+                onClick={() => toggleCapability(label)}
                 className="flex items-center gap-2.5 px-4 py-3 rounded-xl border text-sm text-left transition-all"
                 style={{
-                  borderColor: capabilities.includes(cap) ? "var(--ember)" : "var(--sand-2)",
-                  background: capabilities.includes(cap) ? "var(--ember-pale)" : "var(--cream)",
-                  color: capabilities.includes(cap) ? "#93430E" : "var(--stone)",
-                  fontWeight: capabilities.includes(cap) ? 500 : 400,
+                  borderColor: capabilities.includes(label) ? "var(--ember)" : "var(--sand-2)",
+                  background: capabilities.includes(label) ? "var(--ember-pale)" : "var(--cream)",
+                  color: capabilities.includes(label) ? "#93430E" : "var(--stone)",
+                  fontWeight: capabilities.includes(label) ? 500 : 400,
                 }}
               >
                 <span
                   className="w-2 h-2 rounded-full shrink-0"
-                  style={{ background: capabilities.includes(cap) ? "var(--ember)" : "var(--sand-2)" }}
+                  style={{ background: capabilities.includes(label) ? "var(--ember)" : "var(--sand-2)" }}
                 />
-                {cap}
+                {label}
               </button>
             ))}
           </div>
@@ -208,6 +323,8 @@ export default function AddWorkshopPage() {
           />
         </Field>
 
+        <div ref={turnstileRef} />
+
         {error && (
           <p className="text-sm px-4 py-3 rounded-xl" style={{ background: "#FFF0EC", color: "#93430E", border: "1px solid #F5C4AF" }}>
             {error}
@@ -223,12 +340,12 @@ export default function AddWorkshopPage() {
           {submitting ? (
             <><SpinnerIcon size={16} className="animate-spin" /> Отправляю…</>
           ) : (
-            <><PaperPlaneTiltIcon size={16} weight="bold" /> Отправить нам</>
+            <><PaperPlaneTiltIcon size={16} weight="bold" /> Добавить в каталог</>
           )}
         </button>
 
         <p className="text-xs text-center" style={{ color: "var(--stone)", opacity: 0.7 }}>
-          Заявка придёт нам напрямую. Если что-то пойдёт не так — просто напиши на {CONTACT_EMAIL}.
+          Если что-то пойдёт не так — просто напиши на {CONTACT_EMAIL}.
         </p>
       </form>
 

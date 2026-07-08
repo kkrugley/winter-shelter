@@ -24,7 +24,7 @@
     "maplibre-gl": "^5.24.0",
     "next": "16.2.4",
     "posthog-js": "^1.398.0",
-    "posthog-node": "^5.21.2",
+    "posthog-node": "^5.40.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "shadcn": "^4.3.0",

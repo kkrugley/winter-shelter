@@ -7,12 +7,18 @@ const STATIC_PAGES: {
   changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
   priority: number;
 }[] = [
-  { path: "/",          changeFrequency: "weekly",  priority: 1.0 },
-  { path: "/solutions", changeFrequency: "weekly",  priority: 0.9 },
-  { path: "/download",  changeFrequency: "monthly", priority: 0.9 },
-  { path: "/about",     changeFrequency: "monthly", priority: 0.7 },
-  { path: "/help",      changeFrequency: "monthly", priority: 0.7 },
-  { path: "/stories",   changeFrequency: "weekly",  priority: 0.6 },
+  { path: "/",                        changeFrequency: "weekly",  priority: 1.0 },
+  { path: "/solutions",               changeFrequency: "weekly",  priority: 0.9 },
+  { path: "/solutions/find-workshop", changeFrequency: "monthly", priority: 0.6 },
+  { path: "/download",                changeFrequency: "monthly", priority: 0.9 },
+  { path: "/about",                   changeFrequency: "monthly", priority: 0.7 },
+  { path: "/help",                    changeFrequency: "monthly", priority: 0.7 },
+  { path: "/help/press",              changeFrequency: "monthly", priority: 0.5 },
+  { path: "/help/spendings",          changeFrequency: "monthly", priority: 0.4 },
+  { path: "/stories",                 changeFrequency: "weekly",  priority: 0.6 },
+  { path: "/legal/privacy",           changeFrequency: "yearly",  priority: 0.3 },
+  { path: "/legal/terms",             changeFrequency: "yearly",  priority: 0.3 },
+  { path: "/legal/cookies",           changeFrequency: "yearly",  priority: 0.3 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -9,21 +9,16 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { MapPinIcon, ScissorsIcon, CubeIcon, WrenchIcon, PlusIcon } from "@phosphor-icons/react/dist/ssr";
+import { MapPinIcon, PlusIcon } from "@phosphor-icons/react/dist/ssr";
+import WorkshopFinder from "./WorkshopFinder";
 
 export const metadata: Metadata = {
   title: "Мастерские рядом",
   alternates: pageAlternates("/solutions/find-workshop"),
 };
 
-const CAPABILITIES = [
-  { icon: ScissorsIcon, label: "Лазерная резка", desc: "Идеально для наших домиков" },
-  { icon: WrenchIcon,   label: "ЧПУ-фрезеровка", desc: "На будущее" },
-  { icon: CubeIcon,     label: "3D-печать",      desc: "Корпуса PurrTap" },
-];
-
 const STEPS = [
-  { title: "Найди мастерскую", desc: "Мы наполняем наш каталог мастерскими из разных городов." },
+  { title: "Найди мастерскую", desc: "Выбери услугу и город — мы соберём мастерские из открытых источников и покажем их здесь." },
   { title: "Договорись о времени", desc: "Большинство мастерских рады разовым проектам для доброго дела — просто напиши им." },
   { title: "Приходи с чертежом", desc: "Скачай DXF нужного решения из каталога SafePaws и принеси свой материал." },
 ];
@@ -53,19 +48,7 @@ export default function FindWorkshopPage() {
         Приходишь со своим чертежом и материалом, оплачиваешь — уходишь с готовыми деталями.
       </p>
 
-      <div className="grid sm:grid-cols-3 gap-4 mb-12">
-        {CAPABILITIES.map(({ icon: Icon, label, desc }) => (
-          <div
-            key={label}
-            className="rounded-xl p-5 border flex flex-col gap-2"
-            style={{ borderColor: "var(--sand-2)", background: "var(--card-bg)" }}
-          >
-            <Icon size={26} weight="duotone" style={{ color: "var(--ember)" }} />
-            <p className="text-sm font-medium" style={{ color: "var(--ink)" }}>{label}</p>
-            <p className="text-xs" style={{ color: "var(--stone)" }}>{desc}</p>
-          </div>
-        ))}
-      </div>
+      <WorkshopFinder />
 
       <div
         className="rounded-2xl p-8 text-center mb-12"
@@ -74,7 +57,7 @@ export default function FindWorkshopPage() {
         <MapPinIcon size={30} weight="duotone" style={{ color: "var(--stone)", margin: "0 auto 12px" }} />
         <h2 className="heading-card mb-2">Каталог только запускается</h2>
         <p className="text-sm max-w-[440px] mx-auto mb-6" style={{ color: "var(--stone)" }}>
-          Мы собираем первые мастерские от волонтёров — список появится здесь. Знаешь подходящее место в своём городе?
+          Чем больше мастерских добавит сообщество, тем полнее становится база. Знаешь подходящее место в своём городе?
         </p>
         <div className="flex flex-wrap gap-3 justify-center">
           <Link

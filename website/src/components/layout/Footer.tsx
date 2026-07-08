@@ -6,18 +6,18 @@ const cols = [
   {
     title: "Решения",
     links: [
-      { href: "/solutions/cozy-shelter", label: "Cozy Shelter" },
-      { href: "/solutions/family-shelter", label: "Family Shelter" },
-      { href: "/solutions/purrtap", label: "PurrTap" },
+      { href: "/solutions?type=shelter", label: "Укрытия" },
+      { href: "/solutions?type=hydration", label: "Поилки" },
+      { href: "/solutions?type=feeding", label: "Кормушки" },
       { href: "/solutions", label: "Все решения →" },
     ],
   },
   {
     title: "Участие",
     links: [
+      { href: "/help?card=share", label: "Рассказать" },
       { href: "/help?card=build", label: "Собрать домик" },
       { href: "/help?card=install", label: "Поставить поилку" },
-      { href: "/help?card=share", label: "Рассказать" },
       { href: "/help", label: "Все способы →" },
     ],
   },
@@ -27,7 +27,7 @@ const cols = [
       { href: "?mail-form=open", label: "Email" },
       { href: "https://t.me/safepaws_help", label: "Telegram" },
       { href: "/about", label: "О проекте" },
-      { href: "https://github.com/kkrugley/safepaws", label: "Проект на GitHub" },
+      { href: "/legal", label: "Правовая информация" },
     ],
   },
 ];
