@@ -83,12 +83,19 @@ export interface RawWorkshop {
 export interface ManualWorkshopSubmission {
   name: string;
   contact: string; // free-form: website / social / phone
+  website?: string; // optional explicit link to the workshop's site
   services: ServiceType[];
   comment?: string;
   city: string;
   country?: string;
   lat?: number;
   lng?: number;
+}
+
+/** Adds "https://" if the string is missing a protocol. */
+function normalizeUrl(url: string): string {
+  const trimmed = url.trim();
+  return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
 }
 
 // ── Normalizers (cache & dedup keys) ─────────────────────────
@@ -317,11 +324,13 @@ export function reduceServiceState(s: ServiceVoteState, vote: VoteValue): Servic
 
 /** Manual submission from the /find-workshop/add form — services go in confirmed. */
 export async function submitManualWorkshop(data: ManualWorkshopSubmission): Promise<number> {
+  const explicitUrl = data.website?.trim() ? normalizeUrl(data.website) : null;
   const looksLikeUrl = /^https?:\/\//i.test(data.contact.trim());
+  const sourceUrl = explicitUrl ?? (looksLikeUrl ? data.contact.trim() : null);
   const id = await upsertWorkshop({
     source: "manual",
-    source_url: looksLikeUrl ? data.contact.trim() : null,
-    website: looksLikeUrl ? data.contact.trim() : null,
+    source_url: sourceUrl,
+    website: sourceUrl,
     phone: looksLikeUrl ? null : data.contact,
     name: data.name,
     description: data.comment ?? null,

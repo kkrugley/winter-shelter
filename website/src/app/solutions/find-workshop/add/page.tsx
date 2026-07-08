@@ -65,6 +65,7 @@ export default function AddWorkshopPage() {
   const [name, setName] = useState("");
   const [capabilities, setCapabilities] = useState<string[]>([]);
   const [contact, setContact] = useState("");
+  const [website, setWebsite] = useState("");
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -164,6 +165,7 @@ export default function AddWorkshopPage() {
           name,
           contact,
           services,
+          website: website.trim() || undefined,
           comment: comment.trim() || undefined,
           city: place.city,
           country: place.country,
@@ -307,6 +309,17 @@ export default function AddWorkshopPage() {
             value={contact}
             onChange={(e) => setContact(e.target.value)}
             placeholder="t.me/workshop_neuron или +375…"
+            className={`${inputCls} ${inputFocusStyle}`}
+            style={inputStyle}
+          />
+        </Field>
+
+        <Field label="Сайт мастерской (необязательно)" hint="Ссылка, по которой можно перейти и проверить мастерскую">
+          <input
+            type="text"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+            placeholder="workshop-neuron.by"
             className={`${inputCls} ${inputFocusStyle}`}
             style={inputStyle}
           />

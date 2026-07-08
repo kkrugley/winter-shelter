@@ -13,6 +13,7 @@ const rateLimiter = createRateLimiter(5, 60_000);
 const FIELD_LIMITS: Record<string, number> = {
   name: 120,
   contact: 300,
+  website: 300,
   comment: 1000,
   city: 100,
   country: 2,
@@ -59,6 +60,7 @@ export async function POST(req: NextRequest) {
     const id = await submitManualWorkshop({
       name: body.name,
       contact: body.contact,
+      website: typeof body.website === "string" ? body.website : undefined,
       services,
       comment: typeof body.comment === "string" ? body.comment : undefined,
       city: body.city,
