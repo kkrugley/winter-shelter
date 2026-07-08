@@ -12,6 +12,21 @@ Sentry.init({
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
   enableLogs: true,
+  beforeSend(event, hint) {
+    // Next.js dev-mode Fast Refresh can momentarily hand React a stale RSC
+    // client-reference while a webpack chunk is mid-swap, producing this
+    // exact message. It's an HMR artifact, not a real bug — never happens
+    // outside `next dev`, so only filter it in development.
+    const error = hint.originalException;
+    const message = error instanceof Error ? error.message : String(error ?? "");
+    if (
+      process.env.NODE_ENV === "development" &&
+      message.includes("Lazy element type must resolve to a class or function")
+    ) {
+      return null;
+    }
+    return event;
+  },
 });
 
 export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
