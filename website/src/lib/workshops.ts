@@ -2,7 +2,7 @@ import { sql } from "./db";
 
 // ── Domain vocabularies ──────────────────────────────────────
 export type ServiceType = "laser" | "milling" | "3d-print";
-export type WorkshopSource = "vk" | "avito" | "kufar" | "osm" | "manual";
+export type WorkshopSource = "vk" | "avito" | "kufar" | "osm" | "web" | "manual";
 export type ServiceStatus = "pending" | "confirmed" | "hidden";
 export type VoteValue = "relevant" | "irrelevant";
 
@@ -12,7 +12,7 @@ export const SERVICE_TYPES: ServiceType[] = ["laser", "milling", "3d-print"];
 export const CACHE_TTL_DAYS = 30; // how long a live search stays "fresh"
 export const MIN_CACHED_RESULTS = 4; // fewer than this → re-run live search
 export const HIDE_STREAK = 3; // consecutive "irrelevant" votes that hide a card
-export const GRID_LIMIT = 8; // 4×2 card grid
+export const GRID_LIMIT = 300; // 3-per-row grid, unlimited rows — cap only guards against a runaway table
 
 // ── Row shapes ───────────────────────────────────────────────
 export interface Workshop {

@@ -1,7 +1,12 @@
 import type { RawWorkshop } from "../workshops";
 import { fetchWithTimeout, SERVICE_KEYWORDS, type SourceAdapter } from "./index";
 
-const OVERPASS_URL = "https://overpass-api.de/api/interpreter";
+// The main overpass-api.de instance 406s every request from Node's fetch
+// client (curl works fine — looks like a WAF fingerprinting the TLS client,
+// not a rate limit). This mirror works and asks for an honest User-Agent.
+const OVERPASS_URL = "https://overpass.kumi.systems/api/interpreter";
+const OVERPASS_USER_AGENT = "SafePawsWorkshopFinder/1.0 (https://safepaws.by)";
+const OVERPASS_TIMEOUT_MS = 20_000; // the shared mirror can be slow under load
 const SEARCH_RADIUS_M = 25_000;
 const MAX_RESULTS = 40;
 
@@ -36,7 +41,7 @@ export const fromOsm: SourceAdapter = async (q) => {
     .join("|");
 
   const around = `around:${SEARCH_RADIUS_M},${q.lat},${q.lng}`;
-  const ql = `[out:json][timeout:8];
+  const ql = `[out:json][timeout:15];
 (
   nwr(${around})[name~"${keywordRe}",i];
   nwr(${around})[leisure=hackerspace];
@@ -44,11 +49,18 @@ export const fromOsm: SourceAdapter = async (q) => {
 );
 out center ${MAX_RESULTS};`;
 
-  const res = await fetchWithTimeout(OVERPASS_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: `data=${encodeURIComponent(ql)}`,
-  });
+  const res = await fetchWithTimeout(
+    OVERPASS_URL,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "User-Agent": OVERPASS_USER_AGENT,
+      },
+      body: `data=${encodeURIComponent(ql)}`,
+    },
+    OVERPASS_TIMEOUT_MS,
+  );
   if (!res.ok) return [];
 
   const data = (await res.json()) as { elements?: OverpassElement[] };

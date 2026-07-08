@@ -1,8 +1,6 @@
 import type { RawWorkshop, ServiceType } from "../workshops";
 import { fromOsm } from "./osm";
-import { fromVk } from "./vk";
-import { fromAvito } from "./avito";
-import { fromKufar } from "./kufar";
+import { fromWebSearch } from "./websearch";
 
 export interface SourceQuery {
   service: ServiceType;
@@ -17,8 +15,8 @@ export type SourceAdapter = (q: SourceQuery) => Promise<RawWorkshop[]>;
 
 /** RU search keywords per service — used to build external queries. */
 export const SERVICE_KEYWORDS: Record<ServiceType, string[]> = {
-  laser: ["лазерная резка", "лазерная гравировка"],
-  milling: ["фрезеровка ЧПУ", "фрезеровка", "ЧПУ станок"],
+  laser: ["лазерная резка фанеры", "лазерная резка", "лазерная гравировка"],
+  milling: ["фрезеровка ЧПУ фанеры", "фрезеровка ЧПУ", "фрезеровка", "ЧПУ станок"],
   "3d-print": ["3D печать", "3D-печать"],
 };
 
@@ -45,10 +43,7 @@ export async function fetchWithTimeout(
  * overall search degrades gracefully (OSM always works, needs no key).
  */
 export async function collectFromSources(q: SourceQuery): Promise<RawWorkshop[]> {
-  const country = (q.country ?? "").toUpperCase();
-  const adapters: SourceAdapter[] = [fromOsm, fromVk];
-  if (country === "RU") adapters.push(fromAvito);
-  if (country === "BY") adapters.push(fromKufar);
+  const adapters: SourceAdapter[] = [fromOsm, fromWebSearch];
 
   const settled = await Promise.allSettled(adapters.map((a) => a(q)));
   const results: RawWorkshop[] = [];

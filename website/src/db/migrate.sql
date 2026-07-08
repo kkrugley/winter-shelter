@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS workshops (
   last_seen_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),  -- bumped when a source returns it again
 
   source        TEXT        NOT NULL
-                            CHECK (source IN ('vk', 'avito', 'kufar', 'osm', 'manual')),
+                            CHECK (source IN ('vk', 'avito', 'kufar', 'osm', 'web', 'manual')),
   source_url    TEXT,                          -- link the user opens to verify (page/listing/site)
   source_ref    TEXT,                          -- external id at the source (vk group id, avito item id, osm node id)
 

@@ -23,7 +23,7 @@ const SERVICES: { slug: ServiceType; icon: typeof ScissorsIcon; label: string; d
 ];
 
 const SOURCE_LABELS: Record<string, string> = {
-  vk: "VK", avito: "Avito", kufar: "Kufar", osm: "OSM", manual: "От волонтёра",
+  vk: "VK", avito: "Avito", kufar: "Kufar", osm: "OSM", web: "Веб-поиск", manual: "От волонтёра",
 };
 
 interface GeoResult {
@@ -231,7 +231,7 @@ export default function WorkshopFinder() {
       )}
 
       {cards.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
           {cards.map((card) => {
             const didVote = voted[card.workshop_service_id];
             return (
