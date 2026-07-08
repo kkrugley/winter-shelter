@@ -1,6 +1,5 @@
 [![Static Badge](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-blue)](https://github.com/kkrugley/safepaws/blob/main/LICENSE)
 [![Static Badge](https://img.shields.io/badge/Latest-Release-brightgreen)](https://github.com/kkrugley/safepaws/releases)
-[![Static Badge](https://img.shields.io/badge/OpenCollective-SafePaws-blue?logo=opencollective&logoColor=white)](https://opencollective.com/safepawsorganization)
 
 ## What is SafePaws?
 
@@ -55,7 +54,7 @@ Contributions of all kinds are welcome:
 - **Add new layouts** — contribute nesting arrangements for other standard sheet sizes.
 - **Report issues** — open a GitHub issue for bugs, problems, or suggestions.
 - **Provide feedback** — real-world use reports help improve the designs.
-- **Support financially** via [Open Collective](https://opencollective.com/safepawsorganization), [Ko-fi](https://ko-fi.com/safepawsorganization), or [Buy Me a Coffee](https://buymeacoffee.com/safepawsorganization).
+- **Support financially** via [Boosty](https://boosty.to/safepawsorganization/donate), [Ko-fi](https://ko-fi.com/safepawsorganization), or [Buy Me a Coffee](https://buymeacoffee.com/safepawsorganization).
 
 Please open an issue or pull request for any proposed changes. For significant modifications, start a discussion first.
 
