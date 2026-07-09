@@ -18,6 +18,7 @@ function CtaButton({
   copiedHref,
   copiedLabel,
   onCopy,
+  onCtaClick,
 }: {
   label: string
   action: QuizAction
@@ -25,6 +26,7 @@ function CtaButton({
   copiedHref: string | null
   copiedLabel: string
   onCopy: (href: string) => void
+  onCtaClick: (label: string, action: QuizAction) => void
 }) {
   const isCopied = action.type === 'copy' && copiedHref === action.href
 
@@ -36,19 +38,37 @@ function CtaButton({
     : { borderColor: 'var(--sand-2)', color: 'var(--stone)', background: 'var(--cream)' }
 
   if (action.type === 'link') {
-    return <Link href={action.href} className={cls} style={style}>{label}</Link>
+    return (
+      <Link href={action.href} className={cls} style={style} onClick={() => onCtaClick(label, action)}>
+        {label}
+      </Link>
+    )
   }
 
   if (action.type === 'external') {
     return (
-      <a href={action.href} target="_blank" rel="noopener noreferrer" className={cls} style={style}>
+      <a
+        href={action.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cls}
+        style={style}
+        onClick={() => onCtaClick(label, action)}
+      >
         {label}
       </a>
     )
   }
 
   return (
-    <button onClick={() => onCopy(action.href)} className={cls} style={style}>
+    <button
+      onClick={() => {
+        onCtaClick(label, action)
+        onCopy(action.href)
+      }}
+      className={cls}
+      style={style}
+    >
       {isCopied ? copiedLabel : label}
     </button>
   )
@@ -83,6 +103,9 @@ export function QuizSection() {
   }
 
   function handleClose() {
+    if (state === 'active') {
+      posthog.capture('quiz_closed', { step, answer_step1: answers[0] })
+    }
     setState('collapsed')
     setTimeout(() => {
       setStep(0)
@@ -96,6 +119,11 @@ export function QuizSection() {
     if (selectedPath !== null) return
     setSelectedPath(path)
     const next = [...answers, path]
+    posthog.capture('quiz_answer_selected', {
+      step,
+      answer: path,
+      answer_step1: answers[0],
+    })
     setTimeout(() => {
       if (step < TOTAL_STEPS - 1) {
         setAnswers(next)
@@ -119,6 +147,7 @@ export function QuizSection() {
   }
 
   function handleRestart() {
+    posthog.capture('quiz_restarted', { previous_result: result?.title })
     setState('active')
     setStep(0)
     setAnswers([])
@@ -131,6 +160,17 @@ export function QuizSection() {
     navigator.clipboard.writeText(url).then(() => {
       setCopiedHref(href)
       setTimeout(() => setCopiedHref(null), 2000)
+    })
+  }
+
+  function handleCtaClick(label: string, action: QuizAction) {
+    posthog.capture('quiz_cta_clicked', {
+      result_title: result?.title,
+      answer_step1: answers[0],
+      answer_step2: answers[1],
+      cta_label: label,
+      cta_type: action.type,
+      cta_href: action.href,
     })
   }
 
@@ -311,6 +351,7 @@ export function QuizSection() {
                         copiedHref={copiedHref}
                         copiedLabel="Ссылка скопирована ✓"
                         onCopy={handleCopy}
+                        onCtaClick={handleCtaClick}
                       />
                     ))}
                     <button onClick={handleRestart} className={ghostClass} style={ghostStyle}>
