@@ -64,13 +64,12 @@ function MapWarmTheme() {
   return null;
 }
 
-export function StoriesClient() {
+export function StoriesClient({ initialStories }: { initialStories: Story[] }) {
   const [viewMode, setViewMode] = useState<ViewMode>("map");
   const [productF, setProductF] = useState<ProductFilter>("all");
-  const [stories, setStories] = useState<Story[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [allStories, setAllStories] = useState<Story[]>([]);
-  const [allStoriesLoading, setAllStoriesLoading] = useState(true);
+  const [stories, setStories] = useState<Story[]>(initialStories);
+  const [loading, setLoading] = useState(false);
+  const [allStories] = useState<Story[]>(initialStories);
   const [showAllStories, setShowAllStories] = useState(false);
   const [popup, setPopup] = useState<{
     lng: number; lat: number;
@@ -103,23 +102,18 @@ export function StoriesClient() {
   }), [stories]);
 
   useEffect(() => {
+    if (productF === "all") {
+      setStories(initialStories);
+      return;
+    }
     setLoading(true);
-    const params = new URLSearchParams();
-    if (productF !== "all") params.set("product_slug", productF);
+    const params = new URLSearchParams({ product_slug: productF });
     fetch(`/api/stories?${params}`)
       .then((r) => r.json())
       .then((data) => setStories(Array.isArray(data) ? data : []))
       .catch(() => setStories([]))
       .finally(() => setLoading(false));
-  }, [productF]);
-
-  useEffect(() => {
-    fetch("/api/stories")
-      .then((r) => r.json())
-      .then((data) => setAllStories(Array.isArray(data) ? data : []))
-      .catch(() => setAllStories([]))
-      .finally(() => setAllStoriesLoading(false));
-  }, []);
+  }, [productF, initialStories]);
 
   const visibleAllStories = showAllStories ? allStories : allStories.slice(0, 6);
 
@@ -262,13 +256,7 @@ export function StoriesClient() {
 
         <div>
           <h2 className="heading-section mb-6">Все истории</h2>
-          {allStoriesLoading ? (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="rounded-[14px] animate-pulse" style={{ aspectRatio: "4/3", background: "var(--sand)" }} />
-              ))}
-            </div>
-          ) : allStories.length === 0 ? (
+          {allStories.length === 0 ? (
             <p className="heading-card text-xl text-ink-muted text-center py-10">Историй пока нет</p>
           ) : (
             <>

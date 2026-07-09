@@ -8,6 +8,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbPage,
+  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { DeleteDataButton } from "./DeleteDataButton";
 
@@ -45,6 +46,7 @@ export default function LegalPage() {
           <BreadcrumbItem>
             <BreadcrumbLink href="/">Главная</BreadcrumbLink>
           </BreadcrumbItem>
+          <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbPage>Правовая информация</BreadcrumbPage>
           </BreadcrumbItem>
