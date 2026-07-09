@@ -314,7 +314,7 @@ export default async function HomePage() {
 
       {/* BOTTOM CTA */}
       <CtaBlock
-        heading="Готов начать?"
+        heading="Готовы начать?"
         body="Все файлы бесплатные и открытые."
         links={[
           { label: "Открыть каталог", href: "/solutions", primary: true },

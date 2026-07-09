@@ -21,6 +21,7 @@ import {
   GlobeIcon,
   HandshakeIcon,
   UsersThreeIcon,
+  MapPinIcon,
 } from "@phosphor-icons/react";
 
 type Cap = "all" | "hands" | "time" | "money" | "voice";
@@ -32,6 +33,7 @@ const WAY_STRUCTURE: { slug: string; icon: React.ElementType; caps: Cap[]; href:
   { slug: "donate",    icon: HeartIcon,          caps: ["money"],          href: null,                                   dashed: false, title: "Поддержать", desc: "Деньги пойдут на материалы для прототипов новых решений и изготовление существующих.", chips: ["Развитие", "Поддержка проекта"], cta: "Поддержать →" },
   { slug: "community", icon: UsersThreeIcon,     caps: ["time", "voice"],  href: "https://t.me/safepaws_help",          dashed: false, title: "Сообщество в Telegram", desc: "Канал в Telegram, где обсуждаем установки и помогаем новичкам.", chips: ["Telegram", "Чат"], cta: "Вступить →" },
   { slug: "partner",   icon: HandshakeIcon,      caps: ["money", "voice"], href: "?mail-form=open",                     dashed: false, title: "Партнёрство", desc: "Хакспейсы, приюты, частная компания — готовы сотрудничать со всеми.", chips: ["Взаимопомощь", "Сотрудничество"], cta: "Написать →" },
+  { slug: "workshop",  icon: MapPinIcon,         caps: ["time", "voice"],  href: "/solutions/find-workshop/add",        dashed: false, title: "Добавить мастерскую", desc: "Знаете хорошую компанию, которая занимается лазерной резкой и/или 3D-печатью в своём городе? Добавьте её в наш каталог и помогите другим волонтёрам!", chips: ["Каталог", "Мастерские"], cta: "Добавить →" },
   { slug: "translate", icon: GlobeIcon,          caps: ["time"],           href: "https://github.com/kkrugley/safepaws", dashed: false, title: "Перевести сайт", desc: "Помогите перевести сайт на другие языки! Если вы опытный разработчик или инженер — помогите улучшить сайт или продукты. Все исходники хранятся на GitHub.", chips: ["Перевод", "Развитие", "Разработка"], cta: "Открыть GitHub →" },
 ];
 
