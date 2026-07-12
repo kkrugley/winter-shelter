@@ -53,7 +53,17 @@ export function HelpContent() {
 
   const [cap, setCap] = useState<Cap>("all");
   const [highlighted, setHighlighted] = useState<string | null>(cardParam);
+  const [winterTemp, setWinterTemp] = useState<number | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    fetch("/api/winter-temp")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (typeof data?.tempC === "number") setWinterTemp(data.tempC);
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -160,7 +170,11 @@ export function HelpContent() {
       </div>
 
       <CtaBlock
-        heading="Пока ты читаешь это, на улице –5°C."
+        heading={
+          winterTemp !== null
+            ? `Пока ты читаешь это, зимой у тебя бывает ${winterTemp}°C.`
+            : "Пока ты читаешь это, на улице –5°C."
+        }
         body="Любое действие с этой страницы — шаг в правильную сторону."
         links={[
           { label: "Самое простое: поделиться", href: "/", primary: true, action: "copy" as const },
