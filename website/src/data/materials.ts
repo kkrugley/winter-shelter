@@ -18,6 +18,7 @@ export interface LineItem {
 export interface ProductMaterialsConfig {
   qtyMax: number;
   supportsThickness: boolean;
+  thicknessOptions?: ('3' | '6')[];
   defaultThickness?: '3' | '6';
   timePerUnit: number;      // hours per unit built
   items: LineItem[];

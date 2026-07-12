@@ -86,7 +86,6 @@ export const products: Product[] = [
       { label: "Стоимость изготовления", value: "~150 BYN" },
     ],
     downloads: [
-      { variant: "3mm", label: "Фанера 3 мм", file: "#", size: "??? MB" },
       { variant: "6mm", label: "Фанера 6 мм", file: "/files/SafePawsFamilyShelter_6mm.zip", size: "6.8 MB", recommended: true },
     ],
     tags: ["укрытие", "фанера", "лазерная резка"],
@@ -97,6 +96,7 @@ export const products: Product[] = [
     materialsConfig: {
       qtyMax: 8,
       supportsThickness: true,
+      thicknessOptions: ['6'],
       defaultThickness: '6',
       timePerUnit: 2,
       items: [

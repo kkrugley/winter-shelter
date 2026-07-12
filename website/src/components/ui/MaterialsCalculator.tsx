@@ -422,7 +422,7 @@ export function MaterialsCalculator({ product }: { product: Product }) {
             <span style={{ fontFamily: "var(--font-sans)", fontSize: 14, color: "var(--charcoal)", display: "inline-flex", alignItems: "center", gap: 8 }}>
               фанера:
               <span style={{ display: "inline-flex", gap: 4 }}>
-                {(["3", "6"] as const).map((t) => (
+                {(config.thicknessOptions ?? ["3", "6"]).map((t) => (
                   <button
                     key={t}
                     onClick={() => setState((s) => ({ ...s, thickness: t }))}
