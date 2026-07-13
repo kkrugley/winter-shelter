@@ -76,8 +76,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "No winter data" }, { status: 404 });
   }
 
-  const average = winterMins.reduce((sum, v) => sum + v, 0) / winterMins.length;
-  const tempC = Math.round(average);
+  const minimum = Math.min(...winterMins);
+  const tempC = Math.round(minimum);
 
   cache.set(key, { value: tempC, expires: Date.now() + CACHE_TTL_MS });
 
